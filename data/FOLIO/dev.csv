@@ -1,0 +1,1625 @@
+goal,target,final_target
+"Premise:
+All kids are young.
+All toddlers are kids.
+If someone is young, then they are not elderly.
+All pirates are seafarers.
+If Nancy is not a pirate, then Nancy is young.
+If Nancy is not a toddler, then Nancy is a seafarer.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Nancy is not either a pirate or a toddler, then she is young and is a kid.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Lana Wilson directed After Tiller, The Departure, and Miss Americana.
+If a film is directed by a person, the person is a filmmaker.
+After Tiller is a documentary.
+The documentary is a type of film.
+Lana Wilson is from Kirkland.
+Kirkland is a US city.
+If a person is from a city in a country, the person is from the country.
+After Tiller is nominated for the Independent Spirit Award for Best Documentary.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Lana Wilson is a US filmmaker.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Lana Wilson directed After Tiller, The Departure, and Miss Americana.
+If a film is directed by a person, the person is a filmmaker.
+After Tiller is a documentary.
+The documentary is a type of film.
+Lana Wilson is from Kirkland.
+Kirkland is a US city.
+If a person is from a city in a country, the person is from the country.
+After Tiller is nominated for the Independent Spirit Award for Best Documentary.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Miss Americana is not directed by a filmmaker from Kirkland.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Lana Wilson directed After Tiller, The Departure, and Miss Americana.
+If a film is directed by a person, the person is a filmmaker.
+After Tiller is a documentary.
+The documentary is a type of film.
+Lana Wilson is from Kirkland.
+Kirkland is a US city.
+If a person is from a city in a country, the person is from the country.
+After Tiller is nominated for the Independent Spirit Award for Best Documentary.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Lana Wilson has won the Independent Spirit Award.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All bears in zoos are not wild. 
+Some bears are in zoos. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Not all bears are wild.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If a person is the leader of a country for life, that person has power.
+Leaders of a country for life are either a king or a queen.
+Queens are female.
+Kings are male. 
+Elizabeth is a queen.
+Elizabeth is a leader of a country for life.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Elizabeth is a king.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If a person is the leader of a country for life, that person has power.
+Leaders of a country for life are either a king or a queen.
+Queens are female.
+Kings are male. 
+Elizabeth is a queen.
+Elizabeth is a leader of a country for life.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Elizabeth has power.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If a person is the leader of a country for life, that person has power.
+Leaders of a country for life are either a king or a queen.
+Queens are female.
+Kings are male. 
+Elizabeth is a queen.
+Elizabeth is a leader of a country for life.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Elizabeth is a leader of a country for life.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All people who went to Clay's school and who make their own matcha teas every morning with ceremonial-grade matcha powder do not wake up late and start their schedules past noon regularly.
+All people who went to Clay's school, who live in California, and attend yoga classes regularly, make their own matcha teas every morning with ceremonial-grade matcha powder.
+All people who went to Clay's school, and work in the entertainment industry as high-profile celebrities, wake up late and start their schedules past noon regularly.
+All people who went to Clay's school that do not have regular 9-5 jobs, work in the entertainment industry as high-profile celebrities.
+All people who went to Clay's school and prefer working at home over going to the office daily do not have regular 9-5 jobs.
+Bunny went to Clay's school, and she either prefers to work at home over going to the office and makes her own matcha teas every morning with ceremonial-grade matcha powder, or does not prefer to work at home over going to the office every day and does not make her own matcha teas every morning with ceremonial-grade matcha powder.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Bunny does not have a regular 9-5 job.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All people who went to Clay's school and who make their own matcha teas every morning with ceremonial-grade matcha powder do not wake up late and start their schedules past noon regularly.
+All people who went to Clay's school, who live in California, and attend yoga classes regularly, make their own matcha teas every morning with ceremonial-grade matcha powder.
+All people who went to Clay's school, and work in the entertainment industry as high-profile celebrities, wake up late and start their schedules past noon regularly.
+All people who went to Clay's school that do not have regular 9-5 jobs, work in the entertainment industry as high-profile celebrities.
+All people who went to Clay's school and prefer working at home over going to the office daily do not have regular 9-5 jobs.
+Bunny went to Clay's school, and she either prefers to work at home over going to the office and makes her own matcha teas every morning with ceremonial-grade matcha powder, or does not prefer to work at home over going to the office every day and does not make her own matcha teas every morning with ceremonial-grade matcha powder.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Bunny went to Clay's school and she lives in California and attends yoga classes regularly.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All people who went to Clay's school and who make their own matcha teas every morning with ceremonial-grade matcha powder do not wake up late and start their schedules past noon regularly.
+All people who went to Clay's school, who live in California, and attend yoga classes regularly, make their own matcha teas every morning with ceremonial-grade matcha powder.
+All people who went to Clay's school, and work in the entertainment industry as high-profile celebrities, wake up late and start their schedules past noon regularly.
+All people who went to Clay's school that do not have regular 9-5 jobs, work in the entertainment industry as high-profile celebrities.
+All people who went to Clay's school and prefer working at home over going to the office daily do not have regular 9-5 jobs.
+Bunny went to Clay's school, and she either prefers to work at home over going to the office and makes her own matcha teas every morning with ceremonial-grade matcha powder, or does not prefer to work at home over going to the office every day and does not make her own matcha teas every morning with ceremonial-grade matcha powder.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Bunny went to Clay's school and she neither prefers working at home over going to the office nor lives in California and attends yoga classes regularly.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Thomas Barber was an English professional footballer.
+Thomas Barber played in the Football League for Aston Villa.
+Thomas Barber played as a halfback and inside left.
+Thomas Barber scored the winning goal in the 1913 FA Cup Final.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Thomas Barber played in the Football League for Bolton Wanderers
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Thomas Barber was an English professional footballer.
+Thomas Barber played in the Football League for Aston Villa.
+Thomas Barber played as a halfback and inside left.
+Thomas Barber scored the winning goal in the 1913 FA Cup Final.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Thomas Barber played as an inside left.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Thomas Barber was an English professional footballer.
+Thomas Barber played in the Football League for Aston Villa.
+Thomas Barber played as a halfback and inside left.
+Thomas Barber scored the winning goal in the 1913 FA Cup Final.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: An English professional footballer scored the winning goal in the 1913 FA Cup Final.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If a person plays an instrument in a concert, they are good at playing this kind of instrument.
+Peter plays piano, violin, and saxophone.
+Peter plays piano in a concert.
+Oliver and Peter both play instruments in a concert.
+Oliver plays a different musical instrument from Peter in the concert.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Oliver plays piano in the concert.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If a person plays an instrument in a concert, they are good at playing this kind of instrument.
+Peter plays piano, violin, and saxophone.
+Peter plays piano in a concert.
+Oliver and Peter both play instruments in a concert.
+Oliver plays a different musical instrument from Peter in the concert.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Oliver plays violin in the concert.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+If a person plays an instrument in a concert, they are good at playing this kind of instrument.
+Peter plays piano, violin, and saxophone.
+Peter plays piano in a concert.
+Oliver and Peter both play instruments in a concert.
+Oliver plays a different musical instrument from Peter in the concert.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Peter is good at playing piano.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Functional brainstems are necessary for breath control.
+All humans that can swim can control their breath. 
+Humans can swim or walk. 
+Humans who can walk can stand on the ground by themselves. 
+Humans whose brainstems are functional can control their balance.
+Every human who can stand on the ground by themselves has functional leg muscles. 
+George and Archie are humans.
+George can control his balance and can swim.
+Archie can walk if and only if he has functional brainstems.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: George has functional leg muscles.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Functional brainstems are necessary for breath control.
+All humans that can swim can control their breath. 
+Humans can swim or walk. 
+Humans who can walk can stand on the ground by themselves. 
+Humans whose brainstems are functional can control their balance.
+Every human who can stand on the ground by themselves has functional leg muscles. 
+George and Archie are humans.
+George can control his balance and can swim.
+Archie can walk if and only if he has functional brainstems.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Archie has functional leg muscles and can control his balance.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Functional brainstems are necessary for breath control.
+All humans that can swim can control their breath. 
+Humans can swim or walk. 
+Humans who can walk can stand on the ground by themselves. 
+Humans whose brainstems are functional can control their balance.
+Every human who can stand on the ground by themselves has functional leg muscles. 
+George and Archie are humans.
+George can control his balance and can swim.
+Archie can walk if and only if he has functional brainstems.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Archie cannot control his balance and doesn't have functional leg muscles.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Cancer biology is finding genetic alterations that confer a selective advantage to cancer cells. 
+Cancer researchers have frequently ranked the importance of substitutions to cancer growth by the P value.
+P values are thresholds for belief, not metrics of effect. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Cancer researchers tend to use the cancer effect size to determine the relative importance of the genetic alterations that confer selective advantage to cancer cells.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Cancer biology is finding genetic alterations that confer a selective advantage to cancer cells. 
+Cancer researchers have frequently ranked the importance of substitutions to cancer growth by the P value.
+P values are thresholds for belief, not metrics of effect. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: P value represents the selection intensity for somatic variants in cancer cell lineages.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Cancer biology is finding genetic alterations that confer a selective advantage to cancer cells. 
+Cancer researchers have frequently ranked the importance of substitutions to cancer growth by the P value.
+P values are thresholds for belief, not metrics of effect. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Cancer effect size is preferred by cancer researchers.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Cancer biology is finding genetic alterations that confer a selective advantage to cancer cells. 
+Cancer researchers have frequently ranked the importance of substitutions to cancer growth by the P value.
+P values are thresholds for belief, not metrics of effect. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: P values don't represent metrics of effect.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All biodegradable things are environment-friendly. 
+All woodware is biodegradable.
+All paper is woodware. 
+Nothing is a good thing and also a bad thing.
+All environment-friendly things are good.
+A worksheet is either paper or environment-friendly.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A worksheet is biodegradable.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All biodegradable things are environment-friendly. 
+All woodware is biodegradable.
+All paper is woodware. 
+Nothing is a good thing and also a bad thing.
+All environment-friendly things are good.
+A worksheet is either paper or environment-friendly.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A worksheet is not biodegradable.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All biodegradable things are environment-friendly. 
+All woodware is biodegradable.
+All paper is woodware. 
+Nothing is a good thing and also a bad thing.
+All environment-friendly things are good.
+A worksheet is either paper or environment-friendly.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A worksheet is bad.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All biodegradable things are environment-friendly. 
+All woodware is biodegradable.
+All paper is woodware. 
+Nothing is a good thing and also a bad thing.
+All environment-friendly things are good.
+A worksheet is either paper or environment-friendly.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A worksheet is not bad.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No reptile has fur.
+All snakes are reptiles.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some snake has fur.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All buildings in New Haven are not high.
+All buildings managed by Yale Housing are located in New Haven. 
+All buildings in Manhattans are high. 
+All buildings owned by Bloomberg are located in Manhattans. 
+All buildings with the Bloomberg logo are owned by Bloomberg. 
+Tower A is managed by Yale Housing.
+Tower B is with the Bloomberg logo.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tower A is low.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All buildings in New Haven are not high.
+All buildings managed by Yale Housing are located in New Haven. 
+All buildings in Manhattans are high. 
+All buildings owned by Bloomberg are located in Manhattans. 
+All buildings with the Bloomberg logo are owned by Bloomberg. 
+Tower A is managed by Yale Housing.
+Tower B is with the Bloomberg logo.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tower B is not located in Manhattans.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All buildings in New Haven are not high.
+All buildings managed by Yale Housing are located in New Haven. 
+All buildings in Manhattans are high. 
+All buildings owned by Bloomberg are located in Manhattans. 
+All buildings with the Bloomberg logo are owned by Bloomberg. 
+Tower A is managed by Yale Housing.
+Tower B is with the Bloomberg logo.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tower B is located in New Haven.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No birds are ectothermic.
+All penguins are birds.
+An animal is ectothermic or endothermic.
+All endothermic animals produce heat within the body.
+Ron and Henry are both animals.
+Ron is not a bird and does not produce heat with the body. 
+Henry is not a cat and does not produce heat with the body. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ron is a cat.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No birds are ectothermic.
+All penguins are birds.
+An animal is ectothermic or endothermic.
+All endothermic animals produce heat within the body.
+Ron and Henry are both animals.
+Ron is not a bird and does not produce heat with the body. 
+Henry is not a cat and does not produce heat with the body. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Either Henry is a penguin or Henry is endothermic.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No birds are ectothermic.
+All penguins are birds.
+An animal is ectothermic or endothermic.
+All endothermic animals produce heat within the body.
+Ron and Henry are both animals.
+Ron is not a bird and does not produce heat with the body. 
+Henry is not a cat and does not produce heat with the body. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ron is either both a penguin and endothermic, or he is nether.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Ambiortus is a prehistoric bird genus.
+Ambiortus Dementjevi is the only known species of Ambiortus.
+Mongolia was where Ambiortus Dementjevi lived.
+Yevgeny Kurochkin was the discoverer of Ambiortus.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Yevgeny Kurochkin discovered a new bird genus.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Ambiortus is a prehistoric bird genus.
+Ambiortus Dementjevi is the only known species of Ambiortus.
+Mongolia was where Ambiortus Dementjevi lived.
+Yevgeny Kurochkin was the discoverer of Ambiortus.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: There is a species of Ambiortus that doesn't live in Mongolia.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Ambiortus is a prehistoric bird genus.
+Ambiortus Dementjevi is the only known species of Ambiortus.
+Mongolia was where Ambiortus Dementjevi lived.
+Yevgeny Kurochkin was the discoverer of Ambiortus.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Yevgeny Kurochkin lived in Mongolia.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Ambiortus is a prehistoric bird genus.
+Ambiortus Dementjevi is the only known species of Ambiortus.
+Mongolia was where Ambiortus Dementjevi lived.
+Yevgeny Kurochkin was the discoverer of Ambiortus.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: All species of Ambiortus live in Mongolia.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Everyone that knows about breath-first-search knows how to use a queue. 
+If someone is a seasoned software engineer interviewer at Google, then they know what breath-first-search is. 
+Someone is either a seasoned software engineer interviewer at Google, has human rights, or both. 
+Every person who has human rights is entitled to the right to life and liberty. 
+Everyone that knows how to use a queue knows about the first-in-first-out data structure. 
+Everyone that is entitled to the right to life and liberty cannot be deprived of their rights without due process of law. 
+Jack is entitled to the right to life and liberty, has human rights, or knows about the first-in-first-out data structure. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jack is a seasoned software engineer interviewer.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Everyone that knows about breath-first-search knows how to use a queue. 
+If someone is a seasoned software engineer interviewer at Google, then they know what breath-first-search is. 
+Someone is either a seasoned software engineer interviewer at Google, has human rights, or both. 
+Every person who has human rights is entitled to the right to life and liberty. 
+Everyone that knows how to use a queue knows about the first-in-first-out data structure. 
+Everyone that is entitled to the right to life and liberty cannot be deprived of their rights without due process of law. 
+Jack is entitled to the right to life and liberty, has human rights, or knows about the first-in-first-out data structure. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jack cannot be deprived of their rights without due process of law.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Everyone that knows about breath-first-search knows how to use a queue. 
+If someone is a seasoned software engineer interviewer at Google, then they know what breath-first-search is. 
+Someone is either a seasoned software engineer interviewer at Google, has human rights, or both. 
+Every person who has human rights is entitled to the right to life and liberty. 
+Everyone that knows how to use a queue knows about the first-in-first-out data structure. 
+Everyone that is entitled to the right to life and liberty cannot be deprived of their rights without due process of law. 
+Jack is entitled to the right to life and liberty, has human rights, or knows about the first-in-first-out data structure. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jack can be deprived of their rights without due process of law.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Fort Ticonderoga is the current name for Fort Carillon.
+Pierre de Rigaud de Vaudreuil built Fort Carillon.
+Fort Carillon was located in New France.
+New France is not in Europe.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Pierre de Rigaud de Vaudreuil built a fort in New France.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Fort Ticonderoga is the current name for Fort Carillon.
+Pierre de Rigaud de Vaudreuil built Fort Carillon.
+Fort Carillon was located in New France.
+New France is not in Europe.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Pierre de Rigaud de Vaudreuil built a fort in New England.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Fort Ticonderoga is the current name for Fort Carillon.
+Pierre de Rigaud de Vaudreuil built Fort Carillon.
+Fort Carillon was located in New France.
+New France is not in Europe.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Fort Carillon was located in Europe.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No soccer players are professional basketball players.
+All NBA players are professional basketball players.
+All soccer defenders are soccer players.
+All centerback players are soccer defenders.
+If Stephen Curry is an NBA player or a soccer player, then he is a professional basketball player.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Stephen Curry is an NBA player.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No soccer players are professional basketball players.
+All NBA players are professional basketball players.
+All soccer defenders are soccer players.
+All centerback players are soccer defenders.
+If Stephen Curry is an NBA player or a soccer player, then he is a professional basketball player.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Stephen Curry is a centerback player.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No soccer players are professional basketball players.
+All NBA players are professional basketball players.
+All soccer defenders are soccer players.
+All centerback players are soccer defenders.
+If Stephen Curry is an NBA player or a soccer player, then he is a professional basketball player.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Stephen Curry is not a centerback player.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No songs are visuals. 
+All folk songs are songs. 
+All videos are visuals. 
+All movies are videos.
+All sci-fi movies are movies.
+Inception is a sci-fi movie.
+Mac is neither a folk song nor a sci-fi movie.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Inception is a folk song.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No songs are visuals. 
+All folk songs are songs. 
+All videos are visuals. 
+All movies are videos.
+All sci-fi movies are movies.
+Inception is a sci-fi movie.
+Mac is neither a folk song nor a sci-fi movie.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Inception is not a folk song.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No songs are visuals. 
+All folk songs are songs. 
+All videos are visuals. 
+All movies are videos.
+All sci-fi movies are movies.
+Inception is a sci-fi movie.
+Mac is neither a folk song nor a sci-fi movie.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Inception is either a video or a folk song.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No songs are visuals. 
+All folk songs are songs. 
+All videos are visuals. 
+All movies are videos.
+All sci-fi movies are movies.
+Inception is a sci-fi movie.
+Mac is neither a folk song nor a sci-fi movie.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Mac is a video.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All inductive reasoning processes derive general principles from a body of observations.
+Two major types of reasoning rules are inductive reasoning and deductive reasoning. 
+All deductive reasoning processes are only based on facts and rules. 
+Nothing only based on facts and rules is used for statistical generalization. 
+Modus Ponens is not both used in inductive reasoning and used for statistical generalization. 
+Modus Ponens is a component of a major part of reasoning rule. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Reasoning with Modus Ponens is based on facts and rules.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All inductive reasoning processes derive general principles from a body of observations.
+Two major types of reasoning rules are inductive reasoning and deductive reasoning. 
+All deductive reasoning processes are only based on facts and rules. 
+Nothing only based on facts and rules is used for statistical generalization. 
+Modus Ponens is not both used in inductive reasoning and used for statistical generalization. 
+Modus Ponens is a component of a major part of reasoning rule. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Modus Ponens derives general principles from a body of observations and is used for statistical generalization.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All inductive reasoning processes derive general principles from a body of observations.
+Two major types of reasoning rules are inductive reasoning and deductive reasoning. 
+All deductive reasoning processes are only based on facts and rules. 
+Nothing only based on facts and rules is used for statistical generalization. 
+Modus Ponens is not both used in inductive reasoning and used for statistical generalization. 
+Modus Ponens is a component of a major part of reasoning rule. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Modus Ponens either derives general principles from a body of observations and is used for statistical generalization, or neither, then Modus Ponens is is neither used in inductive reasoning  nor used for statistical generalization.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No trick-shot artist in Yale's varsity team struggles with half court shots.
+Everyone on Yale's varsity team is someone who struggles with half court shots or who successfully shoots a high percentage of 3-pointers.  
+Everyone on Yale's varsity team who successfully shoots a high percentage of 3-pointers is solid at shooting 2-pointers.  
+No one on Yale's varsity team who is solid at shooting 2-pointers is bad at mid-range shots.  
+Jack is on Yale's varsity team, and he is either a trick-shot artist or he successfully shoots a high percentage of 3-pointers.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jack struggles at half court shots.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No trick-shot artist in Yale's varsity team struggles with half court shots.
+Everyone on Yale's varsity team is someone who struggles with half court shots or who successfully shoots a high percentage of 3-pointers.  
+Everyone on Yale's varsity team who successfully shoots a high percentage of 3-pointers is solid at shooting 2-pointers.  
+No one on Yale's varsity team who is solid at shooting 2-pointers is bad at mid-range shots.  
+Jack is on Yale's varsity team, and he is either a trick-shot artist or he successfully shoots a high percentage of 3-pointers.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jack is bad at mid-range shots.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No trick-shot artist in Yale's varsity team struggles with half court shots.
+Everyone on Yale's varsity team is someone who struggles with half court shots or who successfully shoots a high percentage of 3-pointers.  
+Everyone on Yale's varsity team who successfully shoots a high percentage of 3-pointers is solid at shooting 2-pointers.  
+No one on Yale's varsity team who is solid at shooting 2-pointers is bad at mid-range shots.  
+Jack is on Yale's varsity team, and he is either a trick-shot artist or he successfully shoots a high percentage of 3-pointers.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jack is solid at shooting 2-pointers or bad at mid-range shots.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No trick-shot artist in Yale's varsity team struggles with half court shots.
+Everyone on Yale's varsity team is someone who struggles with half court shots or who successfully shoots a high percentage of 3-pointers.  
+Everyone on Yale's varsity team who successfully shoots a high percentage of 3-pointers is solid at shooting 2-pointers.  
+No one on Yale's varsity team who is solid at shooting 2-pointers is bad at mid-range shots.  
+Jack is on Yale's varsity team, and he is either a trick-shot artist or he successfully shoots a high percentage of 3-pointers.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jack is either solid at shooting 2-pointers or bad at mid-range shots.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No trick-shot artist in Yale's varsity team struggles with half court shots.
+Everyone on Yale's varsity team is someone who struggles with half court shots or who successfully shoots a high percentage of 3-pointers.  
+Everyone on Yale's varsity team who successfully shoots a high percentage of 3-pointers is solid at shooting 2-pointers.  
+No one on Yale's varsity team who is solid at shooting 2-pointers is bad at mid-range shots.  
+Jack is on Yale's varsity team, and he is either a trick-shot artist or he successfully shoots a high percentage of 3-pointers.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jack is a trick-shot artist or bad at mid-range shots.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No trick-shot artist in Yale's varsity team struggles with half court shots.
+Everyone on Yale's varsity team is someone who struggles with half court shots or who successfully shoots a high percentage of 3-pointers.  
+Everyone on Yale's varsity team who successfully shoots a high percentage of 3-pointers is solid at shooting 2-pointers.  
+No one on Yale's varsity team who is solid at shooting 2-pointers is bad at mid-range shots.  
+Jack is on Yale's varsity team, and he is either a trick-shot artist or he successfully shoots a high percentage of 3-pointers.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jack is either a trick-shot artist or bad at mid-range shots.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No trick-shot artist in Yale's varsity team struggles with half court shots.
+Everyone on Yale's varsity team is someone who struggles with half court shots or who successfully shoots a high percentage of 3-pointers.  
+Everyone on Yale's varsity team who successfully shoots a high percentage of 3-pointers is solid at shooting 2-pointers.  
+No one on Yale's varsity team who is solid at shooting 2-pointers is bad at mid-range shots.  
+Jack is on Yale's varsity team, and he is either a trick-shot artist or he successfully shoots a high percentage of 3-pointers.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jack is either a player who successfully shoots a high percentage of 3-pointers or is bad at mid-range shots.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No trick-shot artist in Yale's varsity team struggles with half court shots.
+Everyone on Yale's varsity team is someone who struggles with half court shots or who successfully shoots a high percentage of 3-pointers.  
+Everyone on Yale's varsity team who successfully shoots a high percentage of 3-pointers is solid at shooting 2-pointers.  
+No one on Yale's varsity team who is solid at shooting 2-pointers is bad at mid-range shots.  
+Jack is on Yale's varsity team, and he is either a trick-shot artist or he successfully shoots a high percentage of 3-pointers.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Jack is not solid at shooting 2-pointers and bad at mid-range shots, then Jack is not solid at shooting 2-pointers and is a player who successfully shoots a high percentage of 3-pointers.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No trick-shot artist in Yale's varsity team struggles with half court shots.
+Everyone on Yale's varsity team is someone who struggles with half court shots or who successfully shoots a high percentage of 3-pointers.  
+Everyone on Yale's varsity team who successfully shoots a high percentage of 3-pointers is solid at shooting 2-pointers.  
+No one on Yale's varsity team who is solid at shooting 2-pointers is bad at mid-range shots.  
+Jack is on Yale's varsity team, and he is either a trick-shot artist or he successfully shoots a high percentage of 3-pointers.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Jack is solid at shooting 2-pointers or successfully shoots a high percentage of 3-pointers, then Jack struggles at half court shots and is bad at mid-range shots.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No plants are fungi.
+Mushrooms are fungi.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: No plants are mushrooms.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No road is dustless.
+Some streets are roads.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some streets are dustless.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+New York City is located on the East Coast. 
+Seattle is located on the West Coast. 
+If a person is somewhere located on the East coast and is traveling to somewhere located on the west coast, they will be on a long flight.
+People in business class from New York City to Seattle are not in first class.
+People on long flights are uncomfortable unless they're in first class.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: People traveling in business class from New York City to Seattle will be uncomfortable.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Musicians have very busy lives.
+Singh Kaur is a musician and famous.
+If a musician is not famous, that musician will not make a lot of money.
+A musician can be a singer or a writer.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Singh Kaur makes a lot of money.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Musicians have very busy lives.
+Singh Kaur is a musician and famous.
+If a musician is not famous, that musician will not make a lot of money.
+A musician can be a singer or a writer.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Singh Kaur is a writer.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Musicians have very busy lives.
+Singh Kaur is a musician and famous.
+If a musician is not famous, that musician will not make a lot of money.
+A musician can be a singer or a writer.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Singh Kaur has a very busy life.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Each building is tall. 
+Everything tall has height.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: All buildings are magnificent.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+A cat named Garfield, the main character of the film Garfield, is orange and fat and likes having lasagna. 
+Garfield shares a home with Odie, another pet of Jon's. 
+Garfield hates Odie.
+A pet who hates the pet with whom he shares the same owner is childish and possessive.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The main character of the film Garfield is childish and possessive.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All humans are capable of abstract thoughts.
+Plants are not capable of abstract thoughts.
+All multicellular creatures that are autotrophic or digest food internally are plants and animals.
+All goats are animals.
+Dirt is not an animal.
+Hulu is a goat or a human.
+Hulu is a multicellular creature that is autotrophic or digests food internally. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Hulu is capable of abstract thoughts.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All humans are capable of abstract thoughts.
+Plants are not capable of abstract thoughts.
+All multicellular creatures that are autotrophic or digest food internally are plants and animals.
+All goats are animals.
+Dirt is not an animal.
+Hulu is a goat or a human.
+Hulu is a multicellular creature that is autotrophic or digests food internally. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Hulu is not capable of abstract thoughts.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All humans are capable of abstract thoughts.
+Plants are not capable of abstract thoughts.
+All multicellular creatures that are autotrophic or digest food internally are plants and animals.
+All goats are animals.
+Dirt is not an animal.
+Hulu is a goat or a human.
+Hulu is a multicellular creature that is autotrophic or digests food internally. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Hulu is dirt.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All humans are capable of abstract thoughts.
+Plants are not capable of abstract thoughts.
+All multicellular creatures that are autotrophic or digest food internally are plants and animals.
+All goats are animals.
+Dirt is not an animal.
+Hulu is a goat or a human.
+Hulu is a multicellular creature that is autotrophic or digests food internally. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Hulu is an animal or dirt.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All humans are capable of abstract thoughts.
+Plants are not capable of abstract thoughts.
+All multicellular creatures that are autotrophic or digest food internally are plants and animals.
+All goats are animals.
+Dirt is not an animal.
+Hulu is a goat or a human.
+Hulu is a multicellular creature that is autotrophic or digests food internally. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Hulu is either an animal or dirt, but not both.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All humans are capable of abstract thoughts.
+Plants are not capable of abstract thoughts.
+All multicellular creatures that are autotrophic or digest food internally are plants and animals.
+All goats are animals.
+Dirt is not an animal.
+Hulu is a goat or a human.
+Hulu is a multicellular creature that is autotrophic or digests food internally. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Hulu is either an animal or dirt, then Hulu is capable of abstract thoughts and is dirt.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+A controlled substance is a drug.
+There exist both harmful and beneficial controlled substances.
+If a child is exposed to a controlled substance, they are in chemical endangerment.
+Chemical Endangerment is harmful. 
+The Controlled Substances Act was an act passed in 1971.
+Some Acts prevent harmful things.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The Controlled Substances Act prevents harmful things.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+A controlled substance is a drug.
+There exist both harmful and beneficial controlled substances.
+If a child is exposed to a controlled substance, they are in chemical endangerment.
+Chemical Endangerment is harmful. 
+The Controlled Substances Act was an act passed in 1971.
+Some Acts prevent harmful things.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some drugs are beneficial.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+A controlled substance is a drug.
+There exist both harmful and beneficial controlled substances.
+If a child is exposed to a controlled substance, they are in chemical endangerment.
+Chemical Endangerment is harmful. 
+The Controlled Substances Act was an act passed in 1971.
+Some Acts prevent harmful things.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A child in chemical endangerment is in harm.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No people who have corporate jobs are taking more than normal financial risks.
+All entrepreneurs are taking more than normal financial risks.
+All risk-averse working people are people who have corporate jobs.
+All working people who hate working for others want to be entrepreneurs.
+If Mark Zuckerberg is neither an entrepreneur nor a person who hates working for others, then Mark Zuckerberg is not a risk-averse working person.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Mark Zuckerberg is an entrepreneur.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No people who have corporate jobs are taking more than normal financial risks.
+All entrepreneurs are taking more than normal financial risks.
+All risk-averse working people are people who have corporate jobs.
+All working people who hate working for others want to be entrepreneurs.
+If Mark Zuckerberg is neither an entrepreneur nor a person who hates working for others, then Mark Zuckerberg is not a risk-averse working person.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Mark Zuckerberg is a risk-averse person.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No people who have corporate jobs are taking more than normal financial risks.
+All entrepreneurs are taking more than normal financial risks.
+All risk-averse working people are people who have corporate jobs.
+All working people who hate working for others want to be entrepreneurs.
+If Mark Zuckerberg is neither an entrepreneur nor a person who hates working for others, then Mark Zuckerberg is not a risk-averse working person.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Mark Zuckerberg is not a risk-averse person.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Wildfeed exists as an unannounced program.
+Wildfeed can be sporting events, news, or syndicated shows.
+Pre-recorded content is a copyright violation.
+Programs are pre-recorded.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some wildfeed is violating copyright laws.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Wildfeed exists as an unannounced program.
+Wildfeed can be sporting events, news, or syndicated shows.
+Pre-recorded content is a copyright violation.
+Programs are pre-recorded.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Wildfeed can be prerecorded.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Wildfeed exists as an unannounced program.
+Wildfeed can be sporting events, news, or syndicated shows.
+Pre-recorded content is a copyright violation.
+Programs are pre-recorded.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Syndicated shows are copyright violations.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+New York City is Located in the United States of America.
+The United States of America is part of North America.
+North America is in the western hemisphere of the earth.
+New York City is a highly developed city.
+If place A is located in place B and place B is located in place C, then place A is located in place C.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A highly developed city is located in the western hemisphere of the earth.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+New York City is Located in the United States of America.
+The United States of America is part of North America.
+North America is in the western hemisphere of the earth.
+New York City is a highly developed city.
+If place A is located in place B and place B is located in place C, then place A is located in place C.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The United States of America is not located in the western hemisphere of the earth.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+New York City is Located in the United States of America.
+The United States of America is part of North America.
+North America is in the western hemisphere of the earth.
+New York City is a highly developed city.
+If place A is located in place B and place B is located in place C, then place A is located in place C.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: New York City is located in New York State.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Catullus 4 is a poem written by the ancient Roman writer Catullus.
+Catullus 4 is a story about the retirement of a well-traveled ship.
+There is a strong analogy of human aging in the poem Catullus 4.
+Catullus 4 is written in an unusual iambic trimeter to convey a sense of speed over the waves.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: There is a poem written by an ancient Roman writer with a strong analogy of human aging.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Catullus 4 is a poem written by the ancient Roman writer Catullus.
+Catullus 4 is a story about the retirement of a well-traveled ship.
+There is a strong analogy of human aging in the poem Catullus 4.
+Catullus 4 is written in an unusual iambic trimeter to convey a sense of speed over the waves.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: There is a poem written by an ancient Roman writer in iambic trimeter.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Catullus 4 is a poem written by the ancient Roman writer Catullus.
+Catullus 4 is a story about the retirement of a well-traveled ship.
+There is a strong analogy of human aging in the poem Catullus 4.
+Catullus 4 is written in an unusual iambic trimeter to convey a sense of speed over the waves.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Callus 4 is written in an unusual iambic trimeter to convey a strong analogy of human aging.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Westworld is an American science fiction-thriller TV series.
+In 2016, a television series named Westworld debuted on HBO.
+The TV series Westworld is adapted from the original film in 1973, which was written and directed by Michael Crichton.
+The 1973 film Westworld is about robots that malfunction and begin killing human visitors.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Michael Crichton has directed a film about malfunctioning robots.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Westworld is an American science fiction-thriller TV series.
+In 2016, a television series named Westworld debuted on HBO.
+The TV series Westworld is adapted from the original film in 1973, which was written and directed by Michael Crichton.
+The 1973 film Westworld is about robots that malfunction and begin killing human visitors.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: An American TV series debuted in 2016.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+The 2008 Summer Olympics were held in Beijing, China.
+The 2008 Summer Olympics was the second Summer Olympic Games held in a communist state.
+China won the most gold medals (48) in the 2008 Summer Olympics.
+The United States placed second in the gold medal tally but won the highest number of medals overall (112) in the 2008 Summer Olympics.
+The third place in the gold medal tally was achieved by Russia in the 2008 Summer Olympics.
+If a country placed third in gold medals, then it had fewer gold medals than the team that won the most gold medals.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Russia did not win fewer gold medals than China.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+The 2008 Summer Olympics were held in Beijing, China.
+The 2008 Summer Olympics was the second Summer Olympic Games held in a communist state.
+China won the most gold medals (48) in the 2008 Summer Olympics.
+The United States placed second in the gold medal tally but won the highest number of medals overall (112) in the 2008 Summer Olympics.
+The third place in the gold medal tally was achieved by Russia in the 2008 Summer Olympics.
+If a country placed third in gold medals, then it had fewer gold medals than the team that won the most gold medals.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Russia won fewer gold medals than China.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Xiufeng, Xiangshan, Diecai, Qixing are districts in the city of Guilin.
+Yangshuo is not a district in Guilin. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Xiangshan and Diecai are districts in the same city.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Xiufeng, Xiangshan, Diecai, Qixing are districts in the city of Guilin.
+Yangshuo is not a district in Guilin. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Xiufeng is a district in Guilin.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Xiufeng, Xiangshan, Diecai, Qixing are districts in the city of Guilin.
+Yangshuo is not a district in Guilin. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Kowloon District is in Hong Kong.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)

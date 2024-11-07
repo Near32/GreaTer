@@ -1,0 +1,159 @@
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: proper logical reasoning and think step by step. Finally give the actual
+  correct answer.
+control_weight: 0.2
+conversation_templates:
+- gemma-2
+- gemma-2
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ A'' or ''$ B''
+  or ''$ C'' or ''$ D'' or ''$ E'') is $'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_gemma2_penguins_in_a_table_formal_fallacies.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/penguins_in_a_table.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  use_fast: false
+- add_bos_token: false
+  use_fast: false
+tokenizer_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+topk: 40
+train_data: ../data/BBH/penguins_in_a_table.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.69it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.77it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.92it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.79it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.84it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.90it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.86it/s]Initialized Workers...
+
+Started worker 2149694 for model google/gemma-2-9b-it
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+../llm_opt/base/attack_manager.py:939: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+../llm_opt/base/attack_manager.py:1141: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+Started worker 2158534 for model google/gemma-2-9b-it
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  43.35938835144043
+Intersection set size: 4
+Candidate tokens:  only the a your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this the only a your
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  this the only Python a your
+Time taken to get recomputed solution logits:  42.54898118972778
+>Prompt Choice:  a logical reasoning and think step by step. Finally give the actual correct answer. Loss: 9.345325469970703, Mistakes: 0.19999998807907104, Control Loss: 4.313021659851074, Total Loss: 0.2862604260444641
+Time taken to get recomputed solution logits:  40.73143553733826
+>Prompt Choice:  this logical reasoning and think step by step. Finally give the actual correct answer. Loss: 7.484385013580322, Mistakes: 0.1599999964237213, Control Loss: 4.555442810058594, Total Loss: 0.251108855009079
+Time taken to get recomputed solution logits:  35.16813111305237
+>Prompt Choice:  your logical reasoning and think step by step. Finally give the actual correct answer. Loss: 7.318758964538574, Mistakes: 0.1599999964237213, Control Loss: 4.258220672607422, Total Loss: 0.2451644092798233
+No improvement in the current position. Moving to the next position.
+New Control:  your logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.2451644092798233
+Current length: 15
+ your logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.2451644092798233 Best Loss: 0.2451644092798233 Best Control:  your logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.2451644092798233, ' your logical reasoning and think step by step. Finally give the actual correct answer.')]
+Loss below loss_threshold. Moving to next objective.
+Time taken to update solutions:  66.38662981987
+Intersection set size: 4
+Candidate tokens:  the only a your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  this the python only Python a your
+Time taken to get recomputed solution logits:  160.29086208343506
+>Prompt Choice:  Python logical reasoning and think step by step. Finally give the actual correct answer. Loss: 6.71211051940918, Mistakes: 0.1599999964237213, Control Loss: 4.812345504760742, Total Loss: 0.2562468945980072
+Time taken to get recomputed solution logits:  70.75808811187744
+>Prompt Choice:  only logical reasoning and think step by step. Finally give the actual correct answer. Loss: 9.280563354492188, Mistakes: 0.19999998807907104, Control Loss: 4.3225531578063965, Total Loss: 0.2864510416984558
+Time taken to get recomputed solution logits:  66.24586248397827
+>Prompt Choice:  your logical reasoning and think step by step. Finally give the actual correct answer. Loss: 8.299237251281738, Mistakes: 0.17999999225139618, Control Loss: 3.9257116317749023, Total Loss: 0.2585142254829407
+No improvement in the current position. Moving to the next position.
+New Control:  Python logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.2562468945980072
+Current length: 15
+ Python logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.2562468945980072 Best Loss: 0.2562468945980072 Best Control:  Python logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.2562468945980072, ' Python logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  163.4087131023407
+Intersection set size: 5
+Candidate tokens:  to and  code or
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  to and list  code or programming
+Time taken to get recomputed solution logits:  190.3989384174347
+>Prompt Choice:  Python code reasoning and think step by step. Finally give the actual correct answer. Loss: 12.714200973510742, Mistakes: 0.3199999928474426, Control Loss: 5.7041826248168945, Total Loss: 0.43408364057540894
+Traceback (most recent call last):
+  File "main.py", line 103, in <module>
+    app.run(main)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 308, in run
+    _run_main(main, args)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 254, in _run_main
+    sys.exit(main(argv))
+  File "main.py", line 83, in main
+    attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1933, in run
+    control, loss, inner_steps = attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1574, in run
+    control, loss = self.step(
+  File "../llm_opt/gcg/gcg_attack.py", line 509, in step
+    _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=5, accumulate=True)
+  File "../llm_opt/gcg/gcg_attack.py", line 378, in morph_control
+    logits, target_slice_starts, targets_ids_list = self.prompts[0].logits_batched_gen(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "../llm_opt/base/attack_manager.py", line 1197, in logits_batched_gen
+    outputs_final = model(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/models/gemma2/modeling_gemma2.py", line 1089, in forward
+    logits = logits / self.config.final_logit_softcapping
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.68 GiB. GPU  has a total capacity of 79.14 GiB of which 1.34 GiB is free. Including non-PyTorch memory, this process has 77.38 GiB memory in use. Process 2158534 has 414.00 MiB memory in use. Of the allocated memory 73.21 GiB is allocated by PyTorch, and 3.67 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

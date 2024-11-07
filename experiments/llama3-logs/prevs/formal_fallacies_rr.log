@@ -1,0 +1,801 @@
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: ' proper logical reasoning and think step by step. Finally give the
+  actual correct answer.'
+control_weight: 0.2
+conversation_templates:
+- llama-3
+- llama-3
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ valid'' or ''$
+  invalid'') is $ '
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_llama3_formal_fallacies_ffr.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/formal_fallacies.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+tokenizer_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+topk: 40
+train_data: ../data/BBH/formal_fallacies.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.79it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.69it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.52it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.18it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.87it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.70it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.50it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.18it/s]Initialized Workers...
+
+Started worker 2768154 for model meta-llama/Meta-Llama-3-8B-Instruct
+Started worker 2768503 for model meta-llama/Meta-Llama-3-8B-Instruct
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  103.91960215568542
+Intersection set size: 17
+Candidate tokens:  one a an evidence logic reasoning rules the T formal diagram inference proof logical diagrams of your
+Time taken to get recomputed solution logits:  66.5833945274353
+Time taken to get recomputed solution logits:  67.41062903404236
+>Prompt Choice:  diagram logical reasoning and think step by step. Finally give the actual correct answer. Loss: 13.777209281921387, Mistakes: 0.5199999809265137, Control Loss: 4.922767639160156, Total Loss: 0.6184553503990173
+Time taken to get recomputed solution logits:  66.61059713363647
+Time taken to get recomputed solution logits:  64.5576012134552
+>Prompt Choice:  diagrams logical reasoning and think step by step. Finally give the actual correct answer. Loss: 15.943267822265625, Mistakes: 0.5600000023841858, Control Loss: 5.10589075088501, Total Loss: 0.6621178388595581
+Time taken to get recomputed solution logits:  44.272324562072754
+Time taken to get recomputed solution logits:  61.168020725250244
+>Prompt Choice:  inference logical reasoning and think step by step. Finally give the actual correct answer. Loss: 16.421308517456055, Mistakes: 0.5199999809265137, Control Loss: 4.666159629821777, Total Loss: 0.6133231520652771
+No improvement in the current position. Moving to the next position.
+New Control:  inference logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.6133231520652771
+Current length: 16
+ inference logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.6133231520652771 Best Loss: 0.6133231520652771 Best Control:  inference logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.6133231520652771, ' inference logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  97.97963380813599
+Intersection set size: 19
+Candidate tokens:  and chains, steps logic trees markers rule rules techniques diagrams or tree diagram patterns principles to forms chain
+Time taken to get recomputed solution logits:  51.27238750457764
+Time taken to get recomputed solution logits:  62.88882303237915
+>Prompt Choice:  inference, reasoning and think step by step. Finally give the actual correct answer. Loss: 12.999306678771973, Mistakes: 0.47999998927116394, Control Loss: 4.526573657989502, Total Loss: 0.5705314874649048
+Time taken to get recomputed solution logits:  54.6778519153595
+Time taken to get recomputed solution logits:  59.82527780532837
+>Prompt Choice:  inference or reasoning and think step by step. Finally give the actual correct answer. Loss: 15.143588066101074, Mistakes: 0.5399999618530273, Control Loss: 4.785398483276367, Total Loss: 0.6357079148292542
+Time taken to get recomputed solution logits:  44.3620080947876
+Time taken to get recomputed solution logits:  61.30449032783508
+>Prompt Choice:  inference logical reasoning and think step by step. Finally give the actual correct answer. Loss: 15.636889457702637, Mistakes: 0.5199999809265137, Control Loss: 4.567360877990723, Total Loss: 0.6113471984863281
+No improvement in the current position. Moving to the next position.
+New Control:  inference, reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.5705314874649048
+Current length: 16
+ inference, reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.5705314874649048 Best Loss: 0.5705314874649048 Best Control:  inference, reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  104.05318427085876
+Intersection set size: 15
+Candidate tokens:  and deduction analogy logic reasoning rules diagrams explanation analysis or diagram if proof logical to
+Time taken to get recomputed solution logits:  45.9270396232605
+Time taken to get recomputed solution logits:  59.74675273895264
+>Prompt Choice:  inference, deduction and think step by step. Finally give the actual correct answer. Loss: 15.966771125793457, Mistakes: 0.5600000023841858, Control Loss: 4.308840751647949, Total Loss: 0.646176815032959
+Time taken to get recomputed solution logits:  50.03896760940552
+Time taken to get recomputed solution logits:  57.36641335487366
+>Prompt Choice:  inference, logic and think step by step. Finally give the actual correct answer. Loss: 11.531232833862305, Mistakes: 0.41999998688697815, Control Loss: 4.24039888381958, Total Loss: 0.5048079490661621
+Time taken to get recomputed solution logits:  47.271679162979126
+Time taken to get recomputed solution logits:  66.1859712600708
+>Prompt Choice:  inference, logical and think step by step. Finally give the actual correct answer. Loss: 17.96893310546875, Mistakes: 0.5999999642372131, Control Loss: 4.598215579986572, Total Loss: 0.6919642686843872
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic and think step by step. Finally give the actual correct answer., New Loss: 0.5048079490661621
+Current length: 16
+ inference, logic and think step by step. Finally give the actual correct answer.
+Current Loss: 0.5048079490661621 Best Loss: 0.5048079490661621 Best Control:  inference, logic and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  101.27631497383118
+Intersection set size: 19
+Candidate tokens:  flow and deduction chains,. steps trees reasoning rules diagrams analysis or symbols tools etc principles to chain
+Time taken to get recomputed solution logits:  56.535035133361816
+Time taken to get recomputed solution logits:  62.538780212402344
+>Prompt Choice:  inference, logic diagrams think step by step. Finally give the actual correct answer. Loss: 16.79811668395996, Mistakes: 0.5999999642372131, Control Loss: 5.139726638793945, Total Loss: 0.7027944922447205
+Time taken to get recomputed solution logits:  52.844210147857666
+Time taken to get recomputed solution logits:  55.50055241584778
+>Prompt Choice:  inference, logic reasoning think step by step. Finally give the actual correct answer. Loss: 17.32936668395996, Mistakes: 0.5999999642372131, Control Loss: 4.673845291137695, Total Loss: 0.6934768557548523
+Time taken to get recomputed solution logits:  52.9084038734436
+Time taken to get recomputed solution logits:  56.1203076839447
+>Prompt Choice:  inference, logic etc think step by step. Finally give the actual correct answer. Loss: 14.600844383239746, Mistakes: 0.47999998927116394, Control Loss: 4.774568557739258, Total Loss: 0.5754913687705994
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc think step by step. Finally give the actual correct answer., New Loss: 0.5754913687705994
+Current length: 16
+ inference, logic etc think step by step. Finally give the actual correct answer.
+Current Loss: 0.5754913687705994 Best Loss: 0.5048079490661621 Best Control:  inference, logic and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  106.96873474121094
+Intersection set size: 18
+Candidate tokens:  and,. conceptseter., rules techniques to whatever if tools in for help as based
+Time taken to get recomputed solution logits:  59.50953722000122
+Time taken to get recomputed solution logits:  60.177125692367554
+>Prompt Choice:  inference, logic etc whatever step by step. Finally give the actual correct answer. Loss: 14.135683059692383, Mistakes: 0.5, Control Loss: 5.800687789916992, Total Loss: 0.616013765335083
+Time taken to get recomputed solution logits:  60.10178780555725
+Time taken to get recomputed solution logits:  62.42915439605713
+>Prompt Choice:  inference, logic etc, step by step. Finally give the actual correct answer. Loss: 11.298593521118164, Mistakes: 0.3999999761581421, Control Loss: 5.399600028991699, Total Loss: 0.5079919695854187
+Time taken to get recomputed solution logits:  56.031530141830444
+Time taken to get recomputed solution logits:  58.52592754364014
+>Prompt Choice:  inference, logic etc techniques step by step. Finally give the actual correct answer. Loss: 13.016117095947266, Mistakes: 0.4399999976158142, Control Loss: 6.00693941116333, Total Loss: 0.5601387619972229
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, step by step. Finally give the actual correct answer., New Loss: 0.5079919695854187
+Current length: 16
+ inference, logic etc, step by step. Finally give the actual correct answer.
+Current Loss: 0.5079919695854187 Best Loss: 0.5048079490661621 Best Control:  inference, logic and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  108.98366689682007
+Intersection set size: 14
+Candidate tokens:  and butetc to form using if apply etc see in for as based
+Time taken to get recomputed solution logits:  52.93759489059448
+Time taken to get recomputed solution logits:  61.152307748794556
+>Prompt Choice:  inference, logic etc, and by step. Finally give the actual correct answer. Loss: 12.865018844604492, Mistakes: 0.4599999785423279, Control Loss: 6.003009796142578, Total Loss: 0.5800601840019226
+Time taken to get recomputed solution logits:  65.44026780128479
+Time taken to get recomputed solution logits:  63.595149517059326
+>Prompt Choice:  inference, logic etc, but by step. Finally give the actual correct answer. Loss: 11.648228645324707, Mistakes: 0.4399999976158142, Control Loss: 6.085719108581543, Total Loss: 0.5617143511772156
+Time taken to get recomputed solution logits:  53.16835141181946
+Time taken to get recomputed solution logits:  57.43376874923706
+>Prompt Choice:  inference, logic etc, step by step. Finally give the actual correct answer. Loss: 15.213105201721191, Mistakes: 0.5399999618530273, Control Loss: 5.281224250793457, Total Loss: 0.6456244587898254
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but by step. Finally give the actual correct answer., New Loss: 0.5617143511772156
+Current length: 16
+ inference, logic etc, but by step. Finally give the actual correct answer.
+Current Loss: 0.5617143511772156 Best Loss: 0.5048079490661621 Best Control:  inference, logic and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  117.87655758857727
+Intersection set size: 19
+Candidate tokens:  be don avoid keep do no dont make not DO provide only try explain also show I please you
+Time taken to get recomputed solution logits:  46.893129110336304
+Time taken to get recomputed solution logits:  48.907320976257324
+>Prompt Choice:  inference, logic etc, but only step. Finally give the actual correct answer. Loss: 11.782843589782715, Mistakes: 0.4399999976158142, Control Loss: 6.259359359741211, Total Loss: 0.5651872158050537
+Time taken to get recomputed solution logits:  43.31635880470276
+Time taken to get recomputed solution logits:  65.19796323776245
+>Prompt Choice:  inference, logic etc, but keep step. Finally give the actual correct answer. Loss: 12.066221237182617, Mistakes: 0.4399999976158142, Control Loss: 6.37788200378418, Total Loss: 0.5675576329231262
+Time taken to get recomputed solution logits:  46.78097462654114
+Time taken to get recomputed solution logits:  55.413655042648315
+>Prompt Choice:  inference, logic etc, but also step. Finally give the actual correct answer. Loss: 14.274293899536133, Mistakes: 0.5, Control Loss: 6.101641654968262, Total Loss: 0.6220328211784363
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but only step. Finally give the actual correct answer., New Loss: 0.5651872158050537
+Current length: 16
+ inference, logic etc, but only step. Finally give the actual correct answer.
+Current Loss: 0.5651872158050537 Best Loss: 0.5048079490661621 Best Control:  inference, logic and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  90.47618961334229
+Intersection set size: 18
+Candidate tokens:  with on considering within referring refer base reference the rely draw consider using use focus to from based
+Time taken to get recomputed solution logits:  46.880001068115234
+Time taken to get recomputed solution logits:  49.129605531692505
+>Prompt Choice:  inference, logic etc, but only step. Finally give the actual correct answer. Loss: 11.920771598815918, Mistakes: 0.4399999976158142, Control Loss: 5.964672088623047, Total Loss: 0.5592934489250183
+Time taken to get recomputed solution logits:  48.66921257972717
+Time taken to get recomputed solution logits:  52.354673624038696
+>Prompt Choice:  inference, logic etc, but only draw. Finally give the actual correct answer. Loss: 10.822497367858887, Mistakes: 0.4399999976158142, Control Loss: 6.160792350769043, Total Loss: 0.5632158517837524
+Time taken to get recomputed solution logits:  45.94596767425537
+Time taken to get recomputed solution logits:  51.24398732185364
+>Prompt Choice:  inference, logic etc, but only the. Finally give the actual correct answer. Loss: 9.346243858337402, Mistakes: 0.3799999952316284, Control Loss: 6.132614612579346, Total Loss: 0.5026522874832153
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but only the. Finally give the actual correct answer., New Loss: 0.5026522874832153
+Current length: 16
+ inference, logic etc, but only the. Finally give the actual correct answer.
+Current Loss: 0.5026522874832153 Best Loss: 0.5026522874832153 Best Control:  inference, logic etc, but only the. Finally give the actual correct answer.
+Time taken to update solutions:  95.54279088973999
+Intersection set size: 16
+Candidate tokens:  explicit premises provided original explicitly premise text stated arguments statements given info argument facts information data
+Time taken to get recomputed solution logits:  48.80261969566345
+Time taken to get recomputed solution logits:  51.512701749801636
+>Prompt Choice:  inference, logic etc, but only the. Finally give the actual correct answer. Loss: 10.372934341430664, Mistakes: 0.3799999952316284, Control Loss: 5.594006538391113, Total Loss: 0.4918801188468933
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but only the. Finally give the actual correct answer., New Loss: 0.4918801188468933
+Current length: 16
+ inference, logic etc, but only the. Finally give the actual correct answer.
+Current Loss: 0.4918801188468933 Best Loss: 0.4918801188468933 Best Control:  inference, logic etc, but only the. Finally give the actual correct answer.
+Time taken to update solutions:  95.07237458229065
+Intersection set size: 20
+Candidate tokens:  The Given explicit mentionedexplicit premises provided explicitly premise the stated arguments statements Specifically given Explicit Information informationExplicit Prem
+Time taken to get recomputed solution logits:  46.42847275733948
+Time taken to get recomputed solution logits:  50.51537561416626
+>Prompt Choice:  inference, logic etc, but only the. Finally give the actual correct answer. Loss: 10.372934341430664, Mistakes: 0.3799999952316284, Control Loss: 5.594006538391113, Total Loss: 0.4918801188468933
+Time taken to get recomputed solution logits:  40.55142664909363
+Time taken to get recomputed solution logits:  55.03291845321655
+>Prompt Choice:  inference, logic etc, but only the. The give the actual correct answer. Loss: 14.11961555480957, Mistakes: 0.5199999809265137, Control Loss: 6.127708435058594, Total Loss: 0.6425541639328003
+Time taken to get recomputed solution logits:  45.166686058044434
+Time taken to get recomputed solution logits:  51.49898600578308
+>Prompt Choice:  inference, logic etc, but only the. the give the actual correct answer. Loss: 13.749882698059082, Mistakes: 0.5199999809265137, Control Loss: 6.300829887390137, Total Loss: 0.6460165977478027
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but only the. Finally give the actual correct answer., New Loss: 0.4918801188468933
+Current length: 16
+ inference, logic etc, but only the. Finally give the actual correct answer.
+Current Loss: 0.4918801188468933 Best Loss: 0.4918801188468933 Best Control:  inference, logic etc, but only the. Finally give the actual correct answer.
+Time taken to update solutions:  94.3715717792511
+Intersection set size: 17
+Candidate tokens:  conclude,. state write the make answer give draw say determine provide tell use you explain
+Time taken to get recomputed solution logits:  43.91496562957764
+Time taken to get recomputed solution logits:  47.43307614326477
+>Prompt Choice:  inference, logic etc, but only the. Finally say the actual correct answer. Loss: 8.484638214111328, Mistakes: 0.3199999928474426, Control Loss: 5.582223892211914, Total Loss: 0.431644469499588
+Time taken to get recomputed solution logits:  46.77310490608215
+Time taken to get recomputed solution logits:  50.71370768547058
+>Prompt Choice:  inference, logic etc, but only the. Finally give the actual correct answer. Loss: 10.372934341430664, Mistakes: 0.3799999952316284, Control Loss: 5.594006538391113, Total Loss: 0.4918801188468933
+Time taken to get recomputed solution logits:  48.6310932636261
+Time taken to get recomputed solution logits:  47.56019115447998
+>Prompt Choice:  inference, logic etc, but only the. Finally. the actual correct answer. Loss: 11.835800170898438, Mistakes: 0.41999998688697815, Control Loss: 5.7089948654174805, Total Loss: 0.5341798663139343
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but only the. Finally. the actual correct answer., New Loss: 0.5341798663139343
+Current length: 16
+ inference, logic etc, but only the. Finally. the actual correct answer.
+Current Loss: 0.5341798663139343 Best Loss: 0.4918801188468933 Best Control:  inference, logic etc, but only the. Finally give the actual correct answer.
+Time taken to update solutions:  86.25306510925293
+Intersection set size: 13
+Candidate tokens:  The conclude Given explicit premises provided explicitly premise the stated given use Explicit
+Time taken to get recomputed solution logits:  50.560383796691895
+Time taken to get recomputed solution logits:  49.307257652282715
+>Prompt Choice:  inference, logic etc, but only the. Finally. Explicit actual correct answer. Loss: 13.153364181518555, Mistakes: 0.47999998927116394, Control Loss: 6.569355010986328, Total Loss: 0.6113870739936829
+Time taken to get recomputed solution logits:  50.046388387680054
+Time taken to get recomputed solution logits:  51.055190086364746
+>Prompt Choice:  inference, logic etc, but only the. Finally. premise actual correct answer. Loss: 12.712190628051758, Mistakes: 0.47999998927116394, Control Loss: 6.543801784515381, Total Loss: 0.6108760237693787
+Time taken to get recomputed solution logits:  49.958199977874756
+Time taken to get recomputed solution logits:  55.57810974121094
+>Prompt Choice:  inference, logic etc, but only the. Finally. conclude actual correct answer. Loss: 11.821535110473633, Mistakes: 0.41999998688697815, Control Loss: 6.03626823425293, Total Loss: 0.5407253503799438
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but only the. Finally. conclude actual correct answer., New Loss: 0.5407253503799438
+Current length: 16
+ inference, logic etc, but only the. Finally. conclude actual correct answer.
+Current Loss: 0.5407253503799438 Best Loss: 0.4918801188468933 Best Control:  inference, logic etc, but only the. Finally give the actual correct answer.
+Time taken to update solutions:  97.6044282913208
+Intersection set size: 19
+Candidate tokens:  with and on which,. what accordingly the about if by that in it whether as based your
+Time taken to get recomputed solution logits:  48.26606893539429
+Time taken to get recomputed solution logits:  49.95839762687683
+>Prompt Choice:  inference, logic etc, but only the. Finally. conclude your correct answer. Loss: 13.492743492126465, Mistakes: 0.4399999976158142, Control Loss: 6.253338813781738, Total Loss: 0.5650667548179626
+Time taken to get recomputed solution logits:  50.627413511276245
+Time taken to get recomputed solution logits:  49.4889600276947
+>Prompt Choice:  inference, logic etc, but only the. Finally. conclude. correct answer. Loss: 12.310168266296387, Mistakes: 0.41999998688697815, Control Loss: 6.568243026733398, Total Loss: 0.5513648390769958
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but only the. Finally. conclude. correct answer., New Loss: 0.5513648390769958
+Current length: 16
+ inference, logic etc, but only the. Finally. conclude. correct answer.
+Current Loss: 0.5513648390769958 Best Loss: 0.4918801188468933 Best Control:  inference, logic etc, but only the. Finally give the actual correct answer.
+Time taken to update solutions:  94.96436190605164
+Intersection set size: 14
+Candidate tokens:  Whether The After It Based Therefore the This If I Valid What No In
+Time taken to get recomputed solution logits:  50.65054154396057
+Time taken to get recomputed solution logits:  49.412862062454224
+>Prompt Choice:  inference, logic etc, but only the. Finally. conclude. correct answer. Loss: 11.96178150177002, Mistakes: 0.41999998688697815, Control Loss: 5.879127025604248, Total Loss: 0.537582516670227
+Time taken to get recomputed solution logits:  46.13701629638672
+Time taken to get recomputed solution logits:  54.568432092666626
+>Prompt Choice:  inference, logic etc, but only the. Finally. conclude. Valid answer. Loss: 13.497206687927246, Mistakes: 0.47999998927116394, Control Loss: 6.375429630279541, Total Loss: 0.6075085997581482
+Time taken to get recomputed solution logits:  43.299431562423706
+Time taken to get recomputed solution logits:  55.24245524406433
+>Prompt Choice:  inference, logic etc, but only the. Finally. conclude. Based answer. Loss: 13.50709342956543, Mistakes: 0.4599999785423279, Control Loss: 6.736124038696289, Total Loss: 0.5947224497795105
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but only the. Finally. conclude. correct answer., New Loss: 0.537582516670227
+Current length: 16
+ inference, logic etc, but only the. Finally. conclude. correct answer.
+Current Loss: 0.537582516670227 Best Loss: 0.4918801188468933 Best Control:  inference, logic etc, but only the. Finally give the actual correct answer.
+Time taken to update solutions:  94.98442196846008
+Intersection set size: 17
+Candidate tokens:  option one reason and,. conclusion the or answer result statement options answers choice me your
+Time taken to get recomputed solution logits:  48.322025775909424
+Time taken to get recomputed solution logits:  47.9281542301178
+>Prompt Choice:  inference, logic etc, but only the. Finally. conclude. correct reason. Loss: 14.478503227233887, Mistakes: 0.5, Control Loss: 5.9000678062438965, Total Loss: 0.6180013418197632
+Time taken to get recomputed solution logits:  45.62324643135071
+Time taken to get recomputed solution logits:  52.74878716468811
+>Prompt Choice:  inference, logic etc, but only the. Finally. conclude. correct statement. Loss: 13.470518112182617, Mistakes: 0.4599999785423279, Control Loss: 5.889733791351318, Total Loss: 0.5777946710586548
+Time taken to get recomputed solution logits:  50.28931713104248
+Time taken to get recomputed solution logits:  55.48019003868103
+>Prompt Choice:  inference, logic etc, but only the. Finally. conclude. correct conclusion. Loss: 10.477008819580078, Mistakes: 0.3400000035762787, Control Loss: 5.886030197143555, Total Loss: 0.4577206075191498
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but only the. Finally. conclude. correct conclusion., New Loss: 0.4577206075191498
+Current length: 16
+ inference, logic etc, but only the. Finally. conclude. correct conclusion.
+Current Loss: 0.4577206075191498 Best Loss: 0.4577206075191498 Best Control:  inference, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  105.11394500732422
+Intersection set size: 17
+Candidate tokens: ! with and,. accordingly about regarding that in for will is as from of based
+Time taken to get recomputed solution logits:  50.856807231903076
+Time taken to get recomputed solution logits:  56.77428865432739
+>Prompt Choice:  inference, logic etc, but only the. Finally. conclude. correct conclusion. Loss: 10.337076187133789, Mistakes: 0.3400000035762787, Control Loss: 6.07046365737915, Total Loss: 0.4614092707633972
+No improvement in the current position. Moving to the next position.
+New Control:  inference, logic etc, but only the. Finally. conclude. correct conclusion., New Loss: 0.4614092707633972
+Current length: 16
+ inference, logic etc, but only the. Finally. conclude. correct conclusion.
+Current Loss: 0.4614092707633972 Best Loss: 0.4577206075191498 Best Control:  inference, logic etc, but only the. Finally. conclude. correct conclusion.
+Step:  15 Candidates:  [(0.4577206075191498, ' inference, logic etc, but only the. Finally. conclude. correct conclusion.'), (0.4614092707633972, ' inference, logic etc, but only the. Finally. conclude. correct conclusion.'), (0.4918801188468933, ' inference, logic etc, but only the. Finally give the actual correct answer.'), (0.4918801188468933, ' inference, logic etc, but only the. Finally give the actual correct answer.'), (0.5026522874832153, ' inference, logic etc, but only the. Finally give the actual correct answer.'), (0.5048079490661621, ' inference, logic and think step by step. Finally give the actual correct answer.'), (0.5079919695854187, ' inference, logic etc, step by step. Finally give the actual correct answer.'), (0.5341798663139343, ' inference, logic etc, but only the. Finally. the actual correct answer.'), (0.537582516670227, ' inference, logic etc, but only the. Finally. conclude. correct answer.'), (0.5407253503799438, ' inference, logic etc, but only the. Finally. conclude actual correct answer.')]
+Time taken to update solutions:  106.01511764526367
+Intersection set size: 17
+Candidate tokens:  one a an evidence premises logic reasoning rules the T formal diagram proof logical diagrams of your
+Time taken to get recomputed solution logits:  49.599958658218384
+Time taken to get recomputed solution logits:  53.567087173461914
+>Prompt Choice:  premises, logic etc, but only the. Finally. conclude. correct conclusion. Loss: 8.548469543457031, Mistakes: 0.3199999928474426, Control Loss: 6.246949195861816, Total Loss: 0.4449389576911926
+Time taken to get recomputed solution logits:  36.46449947357178
+Time taken to get recomputed solution logits:  35.95625591278076
+>Prompt Choice:  one, logic etc, but only the. Finally. conclude. correct conclusion. Loss: 10.632955551147461, Mistakes: 0.3999999761581421, Control Loss: 7.156578540802002, Total Loss: 0.5431315302848816
+Time taken to get recomputed solution logits:  51.18149995803833
+Time taken to get recomputed solution logits:  61.25064015388489
+>Prompt Choice:  formal, logic etc, but only the. Finally. conclude. correct conclusion. Loss: 11.641938209533691, Mistakes: 0.5, Control Loss: 6.540030479431152, Total Loss: 0.6308006048202515
+No improvement in the current position. Moving to the next position.
+New Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion., New Loss: 0.4449389576911926
+Current length: 16
+ premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Current Loss: 0.4449389576911926 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  99.22627425193787
+Intersection set size: 17
+Candidate tokens:  with and P, provided explicitly  or to given only A that in for as from
+Time taken to get recomputed solution logits:  51.7881019115448
+Time taken to get recomputed solution logits:  59.44496488571167
+>Prompt Choice:  premises given logic etc, but only the. Finally. conclude. correct conclusion. Loss: 14.874399185180664, Mistakes: 0.5600000023841858, Control Loss: 6.389174461364746, Total Loss: 0.6877834796905518
+Time taken to get recomputed solution logits:  56.770567417144775
+Time taken to get recomputed solution logits:  55.46233558654785
+>Prompt Choice:  premises A logic etc, but only the. Finally. conclude. correct conclusion. Loss: 12.487631797790527, Mistakes: 0.5399999618530273, Control Loss: 6.584809303283691, Total Loss: 0.671696126461029
+Time taken to get recomputed solution logits:  44.256314754486084
+Time taken to get recomputed solution logits:  58.43536448478699
+>Prompt Choice:  premises or logic etc, but only the. Finally. conclude. correct conclusion. Loss: 13.48861312866211, Mistakes: 0.47999998927116394, Control Loss: 6.0862908363342285, Total Loss: 0.6017258167266846
+No improvement in the current position. Moving to the next position.
+New Control:  premises or logic etc, but only the. Finally. conclude. correct conclusion., New Loss: 0.6017258167266846
+Current length: 16
+ premises or logic etc, but only the. Finally. conclude. correct conclusion.
+Current Loss: 0.6017258167266846 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  96.20528078079224
+Intersection set size: 16
+Candidate tokens:  a examples conclusion logic rules the arguments diagram statements inference conclusions in assumptions logical diagrams other
+Time taken to get recomputed solution logits:  45.66765022277832
+Time taken to get recomputed solution logits:  47.551958322525024
+>Prompt Choice:  premises or arguments etc, but only the. Finally. conclude. correct conclusion. Loss: 13.13787841796875, Mistakes: 0.5199999809265137, Control Loss: 6.026418685913086, Total Loss: 0.6405283212661743
+Time taken to get recomputed solution logits:  50.781527519226074
+Time taken to get recomputed solution logits:  52.53575277328491
+>Prompt Choice:  premises or statements etc, but only the. Finally. conclude. correct conclusion. Loss: 11.303632736206055, Mistakes: 0.4599999785423279, Control Loss: 6.1012983322143555, Total Loss: 0.582025945186615
+Time taken to get recomputed solution logits:  44.07773518562317
+Time taken to get recomputed solution logits:  44.73066711425781
+>Prompt Choice:  premises or examples etc, but only the. Finally. conclude. correct conclusion. Loss: 11.834607124328613, Mistakes: 0.3999999761581421, Control Loss: 6.359607219696045, Total Loss: 0.5271921157836914
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples etc, but only the. Finally. conclude. correct conclusion., New Loss: 0.5271921157836914
+Current length: 16
+ premises or examples etc, but only the. Finally. conclude. correct conclusion.
+Current Loss: 0.5271921157836914 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  83.04779386520386
+Intersection set size: 18
+Candidate tokens:  with and can,. to or counter against if that in for as from of based where
+Time taken to get recomputed solution logits:  50.788578510284424
+Time taken to get recomputed solution logits:  42.96121668815613
+>Prompt Choice:  premises or examples from, but only the. Finally. conclude. correct conclusion. Loss: 9.167835235595703, Mistakes: 0.3199999928474426, Control Loss: 6.318231582641602, Total Loss: 0.4463646411895752
+Time taken to get recomputed solution logits:  44.027175426483154
+Time taken to get recomputed solution logits:  44.589998722076416
+>Prompt Choice:  premises or examples etc, but only the. Finally. conclude. correct conclusion. Loss: 12.256325721740723, Mistakes: 0.3999999761581421, Control Loss: 6.343738079071045, Total Loss: 0.5268747210502625
+Time taken to get recomputed solution logits:  52.316914319992065
+Time taken to get recomputed solution logits:  45.1890823841095
+>Prompt Choice:  premises or examples., but only the. Finally. conclude. correct conclusion. Loss: 13.370549201965332, Mistakes: 0.41999998688697815, Control Loss: 6.943238258361816, Total Loss: 0.5588647127151489
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from, but only the. Finally. conclude. correct conclusion., New Loss: 0.4463646411895752
+Current length: 16
+ premises or examples from, but only the. Finally. conclude. correct conclusion.
+Current Loss: 0.4463646411895752 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  87.34015822410583
+Intersection set size: 15
+Candidate tokens:  outside another a an everyday the text above our this given these real your other
+Time taken to get recomputed solution logits:  34.80508828163147
+Time taken to get recomputed solution logits:  43.83788180351257
+>Prompt Choice:  premises or examples from above but only the. Finally. conclude. correct conclusion. Loss: 12.415130615234375, Mistakes: 0.41999998688697815, Control Loss: 6.6280341148376465, Total Loss: 0.5525606870651245
+Time taken to get recomputed solution logits:  34.837958574295044
+Time taken to get recomputed solution logits:  46.225714921951294
+>Prompt Choice:  premises or examples from given but only the. Finally. conclude. correct conclusion. Loss: 13.35290241241455, Mistakes: 0.4399999976158142, Control Loss: 6.955053329467773, Total Loss: 0.5791010856628418
+Time taken to get recomputed solution logits:  43.21627902984619
+Time taken to get recomputed solution logits:  54.45498037338257
+>Prompt Choice:  premises or examples from outside but only the. Finally. conclude. correct conclusion. Loss: 11.227473258972168, Mistakes: 0.35999998450279236, Control Loss: 6.378098011016846, Total Loss: 0.4875619411468506
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside but only the. Finally. conclude. correct conclusion., New Loss: 0.4875619411468506
+Current length: 16
+ premises or examples from outside but only the. Finally. conclude. correct conclusion.
+Current Loss: 0.4875619411468506 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  88.35039258003235
+Intersection set size: 17
+Candidate tokens: , sources knowledge the our this that to of your text arguments those or these literature information
+Time taken to get recomputed solution logits:  36.447153091430664
+Time taken to get recomputed solution logits:  51.66038680076599
+>Prompt Choice:  premises or examples from outside that only the. Finally. conclude. correct conclusion. Loss: 11.214578628540039, Mistakes: 0.3400000035762787, Control Loss: 6.134122848510742, Total Loss: 0.46268245577812195
+Time taken to get recomputed solution logits:  36.08691430091858
+Time taken to get recomputed solution logits:  55.97567892074585
+>Prompt Choice:  premises or examples from outside, only the. Finally. conclude. correct conclusion. Loss: 11.892321586608887, Mistakes: 0.35999998450279236, Control Loss: 6.093960285186768, Total Loss: 0.48187917470932007
+Time taken to get recomputed solution logits:  38.813764810562134
+Time taken to get recomputed solution logits:  49.66992497444153
+>Prompt Choice:  premises or examples from outside this only the. Finally. conclude. correct conclusion. Loss: 12.556791305541992, Mistakes: 0.3799999952316284, Control Loss: 6.7594757080078125, Total Loss: 0.515189528465271
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that only the. Finally. conclude. correct conclusion., New Loss: 0.46268245577812195
+Current length: 16
+ premises or examples from outside that only the. Finally. conclude. correct conclusion.
+Current Loss: 0.46268245577812195 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  78.79178357124329
+Intersection set size: 17
+Candidate tokens:  one which we can, context are do would show set statement have help will argument you
+Time taken to get recomputed solution logits:  41.729323625564575
+Time taken to get recomputed solution logits:  59.86373043060303
+>Prompt Choice:  premises or examples from outside that help the. Finally. conclude. correct conclusion. Loss: 11.722370147705078, Mistakes: 0.35999998450279236, Control Loss: 6.159894943237305, Total Loss: 0.4831978678703308
+Time taken to get recomputed solution logits:  37.93716883659363
+Time taken to get recomputed solution logits:  46.2164785861969
+>Prompt Choice:  premises or examples from outside that have the. Finally. conclude. correct conclusion. Loss: 12.847138404846191, Mistakes: 0.3799999952316284, Control Loss: 6.21816873550415, Total Loss: 0.5043633580207825
+Time taken to get recomputed solution logits:  40.51160526275635
+Time taken to get recomputed solution logits:  58.28306865692139
+>Prompt Choice:  premises or examples from outside that set the. Finally. conclude. correct conclusion. Loss: 11.756662368774414, Mistakes: 0.3400000035762787, Control Loss: 6.224194526672363, Total Loss: 0.4644838869571686
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that set the. Finally. conclude. correct conclusion., New Loss: 0.4644838869571686
+Current length: 16
+ premises or examples from outside that set the. Finally. conclude. correct conclusion.
+Current Loss: 0.4644838869571686 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  85.26087665557861
+Intersection set size: 19
+Candidate tokens:  and up can,. are but provided explicitly the or to if given that in for as of
+Time taken to get recomputed solution logits:  41.884480237960815
+Time taken to get recomputed solution logits:  56.05561542510986
+>Prompt Choice:  premises or examples from outside that set provided. Finally. conclude. correct conclusion. Loss: 8.86174201965332, Mistakes: 0.3199999928474426, Control Loss: 6.496137619018555, Total Loss: 0.44992274045944214
+Time taken to get recomputed solution logits:  44.06419038772583
+Time taken to get recomputed solution logits:  57.90226864814758
+>Prompt Choice:  premises or examples from outside that set given. Finally. conclude. correct conclusion. Loss: 10.214754104614258, Mistakes: 0.35999998450279236, Control Loss: 6.374324798583984, Total Loss: 0.48748648166656494
+Time taken to get recomputed solution logits:  39.7271568775177
+Time taken to get recomputed solution logits:  49.13623523712158
+>Prompt Choice:  premises or examples from outside that set explicitly. Finally. conclude. correct conclusion. Loss: 10.647981643676758, Mistakes: 0.3799999952316284, Control Loss: 6.641238212585449, Total Loss: 0.5128247737884521
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that set provided. Finally. conclude. correct conclusion., New Loss: 0.44992274045944214
+Current length: 16
+ premises or examples from outside that set provided. Finally. conclude. correct conclusion.
+Current Loss: 0.44992274045944214 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  80.45508861541748
+Intersection set size: 17
+Candidate tokens: ,. above if by that in as to and premises but here premise or for information
+Time taken to get recomputed solution logits:  36.51886701583862
+Time taken to get recomputed solution logits:  50.55450129508972
+>Prompt Choice:  premises or examples from outside that set provided. Finally. conclude. correct conclusion. Loss: 8.976631164550781, Mistakes: 0.3199999928474426, Control Loss: 6.508520126342773, Total Loss: 0.4501703977584839
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that set provided. Finally. conclude. correct conclusion., New Loss: 0.4501703977584839
+Current length: 16
+ premises or examples from outside that set provided. Finally. conclude. correct conclusion.
+Current Loss: 0.4501703977584839 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  90.30384612083435
+Intersection set size: 19
+Candidate tokens:  Let To Additional If Additionally Here to You Assume The Consider We It This However I A In For
+Time taken to get recomputed solution logits:  45.17703056335449
+Time taken to get recomputed solution logits:  51.07948112487793
+>Prompt Choice:  premises or examples from outside that set provided. For. conclude. correct conclusion. Loss: 12.686180114746094, Mistakes: 0.3799999952316284, Control Loss: 6.92793083190918, Total Loss: 0.5185586214065552
+Time taken to get recomputed solution logits:  43.5481071472168
+Time taken to get recomputed solution logits:  47.437432527542114
+>Prompt Choice:  premises or examples from outside that set provided. Assume. conclude. correct conclusion. Loss: 12.46928882598877, Mistakes: 0.3799999952316284, Control Loss: 6.912601470947266, Total Loss: 0.5182520151138306
+Time taken to get recomputed solution logits:  45.628976583480835
+Time taken to get recomputed solution logits:  41.82043528556824
+>Prompt Choice:  premises or examples from outside that set provided. Here. conclude. correct conclusion. Loss: 13.532647132873535, Mistakes: 0.4399999976158142, Control Loss: 6.986116409301758, Total Loss: 0.5797223448753357
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that set provided. Assume. conclude. correct conclusion., New Loss: 0.5182520151138306
+Current length: 16
+ premises or examples from outside that set provided. Assume. conclude. correct conclusion.
+Current Loss: 0.5182520151138306 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  80.70640516281128
+Intersection set size: 17
+Candidate tokens:  we any a, an no the additional all everything that there nothing it these you other
+Time taken to get recomputed solution logits:  37.27448558807373
+Time taken to get recomputed solution logits:  46.8564977645874
+>Prompt Choice:  premises or examples from outside that set provided. Assume any conclude. correct conclusion. Loss: 13.305190086364746, Mistakes: 0.3999999761581421, Control Loss: 6.5941619873046875, Total Loss: 0.5318832397460938
+Time taken to get recomputed solution logits:  36.999852657318115
+Time taken to get recomputed solution logits:  42.04391646385193
+>Prompt Choice:  premises or examples from outside that set provided. Assume additional conclude. correct conclusion. Loss: 13.516167640686035, Mistakes: 0.3999999761581421, Control Loss: 6.7604193687438965, Total Loss: 0.5352083444595337
+Time taken to get recomputed solution logits:  42.03268885612488
+Time taken to get recomputed solution logits:  40.295830965042114
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing conclude. correct conclusion. Loss: 13.270561218261719, Mistakes: 0.3799999952316284, Control Loss: 7.132235527038574, Total Loss: 0.5226446986198425
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that set provided. Assume nothing conclude. correct conclusion., New Loss: 0.5226446986198425
+Current length: 16
+ premises or examples from outside that set provided. Assume nothing conclude. correct conclusion.
+Current Loss: 0.5226446986198425 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  76.38771724700928
+Intersection set size: 20
+Candidate tokens:  outside else can,. beyond except about not more that extra but external additional is further new from other
+Time taken to get recomputed solution logits:  34.555869340896606
+Time taken to get recomputed solution logits:  42.29838681221008
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but. correct conclusion. Loss: 12.859370231628418, Mistakes: 0.35999998450279236, Control Loss: 7.199135780334473, Total Loss: 0.503982663154602
+Time taken to get recomputed solution logits:  41.59639310836792
+Time taken to get recomputed solution logits:  40.12602257728577
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing conclude. correct conclusion. Loss: 13.351529121398926, Mistakes: 0.3799999952316284, Control Loss: 6.689208030700684, Total Loss: 0.5137841701507568
+Time taken to get recomputed solution logits:  34.39097881317139
+Time taken to get recomputed solution logits:  45.172160148620605
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing from. correct conclusion. Loss: 13.160161018371582, Mistakes: 0.35999998450279236, Control Loss: 7.324316501617432, Total Loss: 0.5064862966537476
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that set provided. Assume nothing but. correct conclusion., New Loss: 0.503982663154602
+Current length: 16
+ premises or examples from outside that set provided. Assume nothing but. correct conclusion.
+Current Loss: 0.503982663154602 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  69.71180081367493
+Intersection set size: 18
+Candidate tokens:  a can provided explicitly the not this given that explicit premises stated those these is information from what
+Time taken to get recomputed solution logits:  31.758105039596558
+Time taken to get recomputed solution logits:  41.868693590164185
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but these correct conclusion. Loss: 13.94510555267334, Mistakes: 0.3999999761581421, Control Loss: 6.62725830078125, Total Loss: 0.5325451493263245
+Time taken to get recomputed solution logits:  41.361112117767334
+Time taken to get recomputed solution logits:  41.494669675827026
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that correct conclusion. Loss: 11.913759231567383, Mistakes: 0.3400000035762787, Control Loss: 6.241458415985107, Total Loss: 0.4648291766643524
+Time taken to get recomputed solution logits:  35.70685863494873
+Time taken to get recomputed solution logits:  45.574116468429565
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but those correct conclusion. Loss: 12.784208297729492, Mistakes: 0.35999998450279236, Control Loss: 6.688614845275879, Total Loss: 0.4937722682952881
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that set provided. Assume nothing but that correct conclusion., New Loss: 0.4648291766643524
+Current length: 16
+ premises or examples from outside that set provided. Assume nothing but that correct conclusion.
+Current Loss: 0.4648291766643524 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  76.21112251281738
+Intersection set size: 18
+Candidate tokens:  and which premises provided premise the stated statements set given statement all there these information is of what
+Time taken to get recomputed solution logits:  37.901190996170044
+Time taken to get recomputed solution logits:  46.07134962081909
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that premise conclusion. Loss: 13.772905349731445, Mistakes: 0.3999999761581421, Control Loss: 6.115009307861328, Total Loss: 0.5223001837730408
+Time taken to get recomputed solution logits:  37.95507049560547
+Time taken to get recomputed solution logits:  44.80311155319214
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that of conclusion. Loss: 12.322155952453613, Mistakes: 0.3400000035762787, Control Loss: 6.1651458740234375, Total Loss: 0.4633029103279114
+Time taken to get recomputed solution logits:  37.64605784416199
+Time taken to get recomputed solution logits:  41.58876943588257
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that premises conclusion. Loss: 12.059513092041016, Mistakes: 0.3400000035762787, Control Loss: 6.3870344161987305, Total Loss: 0.4677406847476959
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that set provided. Assume nothing but that of conclusion., New Loss: 0.4633029103279114
+Current length: 16
+ premises or examples from outside that set provided. Assume nothing but that of conclusion.
+Current Loss: 0.4633029103279114 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  71.58824586868286
+Intersection set size: 16
+Candidate tokens:  which a premises provided explicitly premise the stated those this set given that these information what
+Time taken to get recomputed solution logits:  36.20723581314087
+Time taken to get recomputed solution logits:  47.46898579597473
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that of those. Loss: 13.503165245056152, Mistakes: 0.3799999952316284, Control Loss: 6.0927228927612305, Total Loss: 0.501854419708252
+Time taken to get recomputed solution logits:  35.896162033081055
+Time taken to get recomputed solution logits:  41.30364155769348
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that of what. Loss: 11.272770881652832, Mistakes: 0.3400000035762787, Control Loss: 6.478942394256592, Total Loss: 0.4695788621902466
+Time taken to get recomputed solution logits:  36.812952518463135
+Time taken to get recomputed solution logits:  53.235700845718384
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that of set. Loss: 11.64833927154541, Mistakes: 0.3400000035762787, Control Loss: 5.750866889953613, Total Loss: 0.4550173282623291
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that set provided. Assume nothing but that of set., New Loss: 0.4550173282623291
+Current length: 16
+ premises or examples from outside that set provided. Assume nothing but that of set.
+Current Loss: 0.4550173282623291 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Step:  30 Candidates:  [(0.4449389576911926, ' premises, logic etc, but only the. Finally. conclude. correct conclusion.'), (0.4463646411895752, ' premises or examples from, but only the. Finally. conclude. correct conclusion.'), (0.44992274045944214, ' premises or examples from outside that set provided. Finally. conclude. correct conclusion.'), (0.4501703977584839, ' premises or examples from outside that set provided. Finally. conclude. correct conclusion.'), (0.4550173282623291, ' premises or examples from outside that set provided. Assume nothing but that of set.'), (0.4577206075191498, ' inference, logic etc, but only the. Finally. conclude. correct conclusion.'), (0.4614092707633972, ' inference, logic etc, but only the. Finally. conclude. correct conclusion.'), (0.46268245577812195, ' premises or examples from outside that only the. Finally. conclude. correct conclusion.'), (0.4633029103279114, ' premises or examples from outside that set provided. Assume nothing but that of conclusion.'), (0.4644838869571686, ' premises or examples from outside that set the. Finally. conclude. correct conclusion.')]
+Time taken to update solutions:  72.29896450042725
+Intersection set size: 16
+Candidate tokens:  provides and, itself. premises provided explicitly premise stated above given A that is of
+Time taken to get recomputed solution logits:  38.69091248512268
+Time taken to get recomputed solution logits:  43.296733140945435
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that of set premise Loss: 13.310216903686523, Mistakes: 0.4399999976158142, Control Loss: 5.4735517501831055, Total Loss: 0.5494710206985474
+Time taken to get recomputed solution logits:  33.96750783920288
+Time taken to get recomputed solution logits:  40.866023540496826
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that of set provides Loss: 10.044535636901855, Mistakes: 0.3199999928474426, Control Loss: 5.4735612869262695, Total Loss: 0.4294712245464325
+Time taken to get recomputed solution logits:  36.47041606903076
+Time taken to get recomputed solution logits:  52.99099779129028
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that of set. Loss: 11.99285888671875, Mistakes: 0.3400000035762787, Control Loss: 5.469118595123291, Total Loss: 0.44938236474990845
+No improvement in the current position. Moving to the next position.
+New Control:  premises or examples from outside that set provided. Assume nothing but that of set., New Loss: 0.44938236474990845
+Current length: 16
+ premises or examples from outside that set provided. Assume nothing but that of set.
+Current Loss: 0.44938236474990845 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  72.3465964794159
+Intersection set size: 16
+Candidate tokens:  one a an evidence logic reasoning rules the T formal diagram inference proof logical of your
+Time taken to get recomputed solution logits:  36.63643670082092
+Time taken to get recomputed solution logits:  38.679949045181274
+>Prompt Choice:  of or examples from outside that set provided. Assume nothing but that of set. Loss: 13.315529823303223, Mistakes: 0.4399999976158142, Control Loss: 5.594332218170166, Total Loss: 0.5518866181373596
+Time taken to get recomputed solution logits:  37.84475898742676
+Time taken to get recomputed solution logits:  53.38943386077881
+>Prompt Choice:  premises or examples from outside that set provided. Assume nothing but that of set. Loss: 11.99285888671875, Mistakes: 0.3400000035762787, Control Loss: 5.469118595123291, Total Loss: 0.44938236474990845
+Time taken to get recomputed solution logits:  34.29784297943115
+Time taken to get recomputed solution logits:  42.673975229263306
+>Prompt Choice:  T or examples from outside that set provided. Assume nothing but that of set. Loss: 11.080936431884766, Mistakes: 0.3199999928474426, Control Loss: 6.409979820251465, Total Loss: 0.4481995701789856
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples from outside that set provided. Assume nothing but that of set., New Loss: 0.4481995701789856
+Current length: 16
+ T or examples from outside that set provided. Assume nothing but that of set.
+Current Loss: 0.4481995701789856 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  70.65314960479736
+Intersection set size: 11
+Candidate tokens:  andoulTE, chartPT orautFLars to
+Time taken to get recomputed solution logits:  36.00169396400452
+Time taken to get recomputed solution logits:  44.38332962989807
+>Prompt Choice:  Toul examples from outside that set provided. Assume nothing but that of set. Loss: 13.987607955932617, Mistakes: 0.3999999761581421, Control Loss: 6.607205390930176, Total Loss: 0.5321440696716309
+Time taken to get recomputed solution logits:  35.41233777999878
+Time taken to get recomputed solution logits:  52.44484519958496
+>Prompt Choice:  TTE examples from outside that set provided. Assume nothing but that of set. Loss: 12.966497421264648, Mistakes: 0.3999999761581421, Control Loss: 5.830072402954102, Total Loss: 0.5166014432907104
+Time taken to get recomputed solution logits:  34.54706287384033
+Time taken to get recomputed solution logits:  42.53654146194458
+>Prompt Choice:  T or examples from outside that set provided. Assume nothing but that of set. Loss: 10.967103958129883, Mistakes: 0.3199999928474426, Control Loss: 6.374667644500732, Total Loss: 0.4474933445453644
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples from outside that set provided. Assume nothing but that of set., New Loss: 0.4474933445453644
+Current length: 16
+ T or examples from outside that set provided. Assume nothing but that of set.
+Current Loss: 0.4474933445453644 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  70.31454539299011
+Intersection set size: 15
+Candidate tokens:  M t FL V NT E X T C I D A R F O
+Time taken to get recomputed solution logits:  28.387736082077026
+Time taken to get recomputed solution logits:  37.267205476760864
+>Prompt Choice:  T or A from outside that set provided. Assume nothing but that of set. Loss: 11.635153770446777, Mistakes: 0.47999998927116394, Control Loss: 6.554285049438477, Total Loss: 0.6110856533050537
+Time taken to get recomputed solution logits:  34.343586444854736
+Time taken to get recomputed solution logits:  42.46267342567444
+>Prompt Choice:  T or examples from outside that set provided. Assume nothing but that of set. Loss: 10.967103958129883, Mistakes: 0.3199999928474426, Control Loss: 6.374667644500732, Total Loss: 0.4474933445453644
+Time taken to get recomputed solution logits:  35.4300320148468
+Time taken to get recomputed solution logits:  33.678630352020264
+>Prompt Choice:  T or O from outside that set provided. Assume nothing but that of set. Loss: 10.86767578125, Mistakes: 0.4399999976158142, Control Loss: 6.580750942230225, Total Loss: 0.5716149806976318
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples from outside that set provided. Assume nothing but that of set., New Loss: 0.4474933445453644
+Current length: 16
+ T or examples from outside that set provided. Assume nothing but that of set.
+Current Loss: 0.4474933445453644 Best Loss: 0.4449389576911926 Best Control:  premises, logic etc, but only the. Finally. conclude. correct conclusion.
+Time taken to update solutions:  69.91452527046204
+Intersection set size: 19
+Candidate tokens:  with and like,. accordingly to or against if that in for as from below of based where
+Time taken to get recomputed solution logits:  37.36780762672424
+Time taken to get recomputed solution logits:  37.90697264671326
+>Prompt Choice:  T or examples based outside that set provided. Assume nothing but that of set. Loss: 9.325715065002441, Mistakes: 0.29999998211860657, Control Loss: 6.667522430419922, Total Loss: 0.43335044384002686
+Time taken to get recomputed solution logits:  34.66936659812927
+Time taken to get recomputed solution logits:  42.23495626449585
+>Prompt Choice:  T or examples from outside that set provided. Assume nothing but that of set. Loss: 10.967103958129883, Mistakes: 0.3199999928474426, Control Loss: 6.374667644500732, Total Loss: 0.4474933445453644
+Time taken to get recomputed solution logits:  48.16192269325256
+Time taken to get recomputed solution logits:  45.40154409408569
+>Prompt Choice:  T or examples or outside that set provided. Assume nothing but that of set. Loss: 13.861504554748535, Mistakes: 0.3999999761581421, Control Loss: 6.594146728515625, Total Loss: 0.5318828821182251
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples based outside that set provided. Assume nothing but that of set., New Loss: 0.43335044384002686
+Current length: 16
+ T or examples based outside that set provided. Assume nothing but that of set.
+Current Loss: 0.43335044384002686 Best Loss: 0.43335044384002686 Best Control:  T or examples based outside that set provided. Assume nothing but that of set.
+Time taken to update solutions:  68.69810962677002
+Intersection set size: 19
+Candidate tokens:  on evidence reasoning the only proof in argument logical upon of your logic rules arguments analysis T solely off
+Time taken to get recomputed solution logits:  37.25827407836914
+Time taken to get recomputed solution logits:  37.17315864562988
+>Prompt Choice:  T or examples based outside that set provided. Assume nothing but that of set. Loss: 10.065592765808105, Mistakes: 0.29999998211860657, Control Loss: 6.668020248413086, Total Loss: 0.43336039781570435
+Time taken to get recomputed solution logits:  40.36851906776428
+Time taken to get recomputed solution logits:  45.02854776382446
+>Prompt Choice:  T or examples based solely that set provided. Assume nothing but that of set. Loss: 12.92294692993164, Mistakes: 0.41999998688697815, Control Loss: 6.855234622955322, Total Loss: 0.5571047067642212
+Time taken to get recomputed solution logits:  41.394736528396606
+Time taken to get recomputed solution logits:  41.17538237571716
+>Prompt Choice:  T or examples based on that set provided. Assume nothing but that of set. Loss: 10.992746353149414, Mistakes: 0.3199999928474426, Control Loss: 6.620495796203613, Total Loss: 0.45240992307662964
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples based outside that set provided. Assume nothing but that of set., New Loss: 0.43336039781570435
+Current length: 16
+ T or examples based outside that set provided. Assume nothing but that of set.
+Current Loss: 0.43336039781570435 Best Loss: 0.43335044384002686 Best Control:  T or examples based outside that set provided. Assume nothing but that of set.
+Time taken to update solutions:  67.51138520240784
+Intersection set size: 13
+Candidate tokens:  any context logic the those or our this these real logical of your
+Time taken to get recomputed solution logits:  37.72236967086792
+Time taken to get recomputed solution logits:  41.69815683364868
+>Prompt Choice:  T or examples based outside those set provided. Assume nothing but that of set. Loss: 10.42192268371582, Mistakes: 0.29999998211860657, Control Loss: 6.878830432891846, Total Loss: 0.4375765919685364
+Time taken to get recomputed solution logits:  37.16562867164612
+Time taken to get recomputed solution logits:  44.63760805130005
+>Prompt Choice:  T or examples based outside real set provided. Assume nothing but that of set. Loss: 10.431200981140137, Mistakes: 0.3199999928474426, Control Loss: 7.5069475173950195, Total Loss: 0.47013893723487854
+Time taken to get recomputed solution logits:  36.6232647895813
+Time taken to get recomputed solution logits:  39.69208073616028
+>Prompt Choice:  T or examples based outside any set provided. Assume nothing but that of set. Loss: 13.289813995361328, Mistakes: 0.35999998450279236, Control Loss: 6.798202037811279, Total Loss: 0.49596402049064636
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples based outside those set provided. Assume nothing but that of set., New Loss: 0.4375765919685364
+Current length: 16
+ T or examples based outside those set provided. Assume nothing but that of set.
+Current Loss: 0.4375765919685364 Best Loss: 0.43335044384002686 Best Control:  T or examples based outside that set provided. Assume nothing but that of set.
+Time taken to update solutions:  71.05251932144165
+Intersection set size: 17
+Candidate tokens:  available mentioned premises provided explicitly stated  listed given presented that options in already of offered two
+Time taken to get recomputed solution logits:  38.04688262939453
+Time taken to get recomputed solution logits:  38.89656043052673
+>Prompt Choice:  T or examples based outside those explicitly provided. Assume nothing but that of set. Loss: 9.896764755249023, Mistakes: 0.29999998211860657, Control Loss: 7.115169048309326, Total Loss: 0.4423033595085144
+Time taken to get recomputed solution logits:  32.750564098358154
+Time taken to get recomputed solution logits:  41.91469597816467
+>Prompt Choice:  T or examples based outside those already provided. Assume nothing but that of set. Loss: 11.628000259399414, Mistakes: 0.35999998450279236, Control Loss: 6.991211891174316, Total Loss: 0.4998242259025574
+Time taken to get recomputed solution logits:  32.89158892631531
+Time taken to get recomputed solution logits:  37.19344687461853
+>Prompt Choice:  T or examples based outside those  provided. Assume nothing but that of set. Loss: 11.453045845031738, Mistakes: 0.35999998450279236, Control Loss: 7.387670040130615, Total Loss: 0.5077533721923828
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples based outside those explicitly provided. Assume nothing but that of set., New Loss: 0.4423033595085144
+Current length: 16
+ T or examples based outside those explicitly provided. Assume nothing but that of set.
+Current Loss: 0.4423033595085144 Best Loss: 0.43335044384002686 Best Control:  T or examples based outside that set provided. Assume nothing but that of set.
+Time taken to update solutions:  71.51191234588623
+Intersection set size: 17
+Candidate tokens:  defined mentioned provided described stated listed cited st states given presented named in specified offered stip written
+Time taken to get recomputed solution logits:  38.56090712547302
+Time taken to get recomputed solution logits:  44.74708938598633
+>Prompt Choice:  T or examples based outside those explicitly offered. Assume nothing but that of set. Loss: 10.536783218383789, Mistakes: 0.3199999928474426, Control Loss: 6.700484275817871, Total Loss: 0.45400968194007874
+Time taken to get recomputed solution logits:  34.23545026779175
+Time taken to get recomputed solution logits:  38.186774492263794
+>Prompt Choice:  T or examples based outside those explicitly mentioned. Assume nothing but that of set. Loss: 11.236602783203125, Mistakes: 0.35999998450279236, Control Loss: 6.779837608337402, Total Loss: 0.4955967366695404
+Time taken to get recomputed solution logits:  37.56013321876526
+Time taken to get recomputed solution logits:  44.126506090164185
+>Prompt Choice:  T or examples based outside those explicitly in. Assume nothing but that of set. Loss: 11.413765907287598, Mistakes: 0.35999998450279236, Control Loss: 7.108640670776367, Total Loss: 0.5021728277206421
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples based outside those explicitly offered. Assume nothing but that of set., New Loss: 0.45400968194007874
+Current length: 16
+ T or examples based outside those explicitly offered. Assume nothing but that of set.
+Current Loss: 0.45400968194007874 Best Loss: 0.43335044384002686 Best Control:  T or examples based outside that set provided. Assume nothing but that of set.
+Time taken to update solutions:  76.89420318603516
+Intersection set size: 19
+Candidate tokens:  and within,. premises but here premise arguments to or above if by that options in for as
+Time taken to get recomputed solution logits:  38.478787422180176
+Time taken to get recomputed solution logits:  44.77701258659363
+>Prompt Choice:  T or examples based outside those explicitly offered. Assume nothing but that of set. Loss: 10.263275146484375, Mistakes: 0.3199999928474426, Control Loss: 7.017066478729248, Total Loss: 0.46034133434295654
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples based outside those explicitly offered. Assume nothing but that of set., New Loss: 0.46034133434295654
+Current length: 16
+ T or examples based outside those explicitly offered. Assume nothing but that of set.
+Current Loss: 0.46034133434295654 Best Loss: 0.43335044384002686 Best Control:  T or examples based outside that set provided. Assume nothing but that of set.
+Time taken to update solutions:  75.85951781272888
+Intersection set size: 13
+Candidate tokens:  Assume IfTREE The inorder<|start_header_id|> Henceassistant Trees to Bair  or
+Time taken to get recomputed solution logits:  36.27432990074158
+Time taken to get recomputed solution logits:  35.12575602531433
+>Prompt Choice:  T or examples based outside those explicitly offered. or nothing but that of set. Loss: 14.413674354553223, Mistakes: 0.4399999976158142, Control Loss: 7.245260238647461, Total Loss: 0.584905207157135
+Time taken to get recomputed solution logits:  33.95498466491699
+Time taken to get recomputed solution logits:  38.36663365364075
+>Prompt Choice:  T or examples based outside those explicitly offered. inorder nothing but that of set. Loss: 10.802019119262695, Mistakes: 0.35999998450279236, Control Loss: 7.793065071105957, Total Loss: 0.5158612728118896
+Time taken to get recomputed solution logits:  40.40524458885193
+Time taken to get recomputed solution logits:  39.846176862716675
+>Prompt Choice:  T or examples based outside those explicitly offered.assistant nothing but that of set. Loss: 10.296356201171875, Mistakes: 0.3999999761581421, Control Loss: 10.20439338684082, Total Loss: 0.6040878295898438
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples based outside those explicitly offered. inorder nothing but that of set., New Loss: 0.5158612728118896
+Current length: 16
+ T or examples based outside those explicitly offered. inorder nothing but that of set.
+Current Loss: 0.5158612728118896 Best Loss: 0.43335044384002686 Best Control:  T or examples based outside that set provided. Assume nothing but that of set.
+Time taken to update solutions:  68.85175728797913
+Intersection set size: 18
+Candidate tokens:  td TO assist,. ot the not  answer o too for words to explain of
+Time taken to get recomputed solution logits:  42.5436372756958
+Time taken to get recomputed solution logits:  42.98235034942627
+>Prompt Choice:  T or examples based outside those explicitly offered. inorder  but that of set. Loss: 10.734065055847168, Mistakes: 0.3799999952316284, Control Loss: 8.432299613952637, Total Loss: 0.5486459732055664
+Time taken to get recomputed solution logits:  40.675371170043945
+Time taken to get recomputed solution logits:  42.21576285362244
+>Prompt Choice:  T or examples based outside those explicitly offered. inorder t but that of set. Loss: 9.801053047180176, Mistakes: 0.35999998450279236, Control Loss: 8.326135635375977, Total Loss: 0.526522696018219
+Time taken to get recomputed solution logits:  38.68810677528381
+Time taken to get recomputed solution logits:  47.92592406272888
+>Prompt Choice:  T or examples based outside those explicitly offered. inorder not but that of set. Loss: 9.600014686584473, Mistakes: 0.29999998211860657, Control Loss: 8.342820167541504, Total Loss: 0.46685636043548584
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples based outside those explicitly offered. inorder not but that of set., New Loss: 0.46685636043548584
+Current length: 16
+ T or examples based outside those explicitly offered. inorder not but that of set.
+Current Loss: 0.46685636043548584 Best Loss: 0.43335044384002686 Best Control:  T or examples based outside that set provided. Assume nothing but that of set.
+Time taken to update solutions:  82.7648777961731
+Intersection set size: 15
+Candidate tokens:  be t ot confuse fall the make rely give using create have only use to
+Time taken to get recomputed solution logits:  40.28800821304321
+Time taken to get recomputed solution logits:  47.46804928779602
+>Prompt Choice:  T or examples based outside those explicitly offered. inorder not but that of set. Loss: 9.86695384979248, Mistakes: 0.29999998211860657, Control Loss: 7.680665016174316, Total Loss: 0.45361328125
+Time taken to get recomputed solution logits:  29.364434957504272
+Time taken to get recomputed solution logits:  39.033838748931885
+>Prompt Choice:  T or examples based outside those explicitly offered. inorder not create that of set. Loss: 12.47780990600586, Mistakes: 0.35999998450279236, Control Loss: 8.102209091186523, Total Loss: 0.5220441818237305
+Time taken to get recomputed solution logits:  36.67880725860596
+Time taken to get recomputed solution logits:  37.31012749671936
+>Prompt Choice:  T or examples based outside those explicitly offered. inorder not confuse that of set. Loss: 12.287970542907715, Mistakes: 0.35999998450279236, Control Loss: 8.04973030090332, Total Loss: 0.5209946036338806
+No improvement in the current position. Moving to the next position.
+New Control:  T or examples based outside those explicitly offered. inorder not but that of set., New Loss: 0.45361328125
+Current length: 16
+ T or examples based outside those explicitly offered. inorder not but that of set.
+Current Loss: 0.45361328125 Best Loss: 0.43335044384002686 Best Control:  T or examples based outside that set provided. Assume nothing but that of set.
+Time taken to update solutions:  80.6255247592926
+Intersection set size: 17
+Candidate tokens:  with outside a also the not T this I only use in it you to rather based
+Time taken to get recomputed solution logits:  43.51488995552063
+Time taken to get recomputed solution logits:  42.26892638206482
+>Prompt Choice:  T or examples based outside those explicitly offered. inorder not but this of set. Loss: 14.140341758728027, Mistakes: 0.41999998688697815, Control Loss: 7.7454304695129395, Total Loss: 0.5749086141586304
+Time taken to get recomputed solution logits:  45.05215263366699
+Time taken to get recomputed solution logits:  46.357465505599976
+>Prompt Choice:  T or examples based outside those explicitly offered. inorder not but in of set. Loss: 10.330676078796387, Mistakes: 0.3199999928474426, Control Loss: 7.693378925323486, Total Loss: 0.4738675653934479/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 33 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

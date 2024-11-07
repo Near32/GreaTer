@@ -1,0 +1,118 @@
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: ' proper logical reasoning and think step by step. Finally give the
+  actual correct answer.'
+control_weight: 0.2
+conversation_templates:
+- llama-3
+- llama-3
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ True'' or ''$
+  False'') is $ '
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_llama3_boolean_expressions_ffrf.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/boolean_expressions.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+tokenizer_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+topk: 40
+train_data: ../data/BBH/boolean_expressions.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.40it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.44it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.52it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  2.07it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.80it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.51it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.58it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.72it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.36it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.02it/s]Initialized Workers...
+
+Started worker 3476441 for model meta-llama/Meta-Llama-3-8B-Instruct
+../llm_opt/base/attack_manager.py:942: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:540: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:545: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+../llm_opt/base/attack_manager.py:1168: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+Started worker 3476782 for model meta-llama/Meta-Llama-3-8B-Instruct
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  50.4864764213562
+Intersection set size: 3
+Candidate tokens:  theless of
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  theless offull
+>>>> Topk increased to 9 <<<<
+Intersection set size: 3
+Candidate tokens:  theless of
+>>>> Topk increased to 11 <<<<
+Intersection set size: 6
+Candidate tokens:  a Caseless of thefull
+Time taken to get recomputed solution logits:  27.48943066596985
+Traceback (most recent call last):
+  File "main.py", line 103, in <module>
+    app.run(main)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 308, in run
+    _run_main(main, args)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 254, in _run_main
+    sys.exit(main(argv))
+  File "main.py", line 83, in main
+    attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1964, in run
+    control, loss, inner_steps = attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1604, in run
+    control, loss = self.step(
+  File "../llm_opt/gcg/gcg_attack.py", line 537, in step
+    _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=5, accumulate=True)
+  File "../llm_opt/gcg/gcg_attack.py", line 396, in morph_control
+    loss_new, mist_perc, control_loss = self.prompts[k].selection_loss(logits[0], target_slice_starts[0],
+  File "../llm_opt/base/attack_manager.py", line 1340, in selection_loss
+    l1, l2, l3 = prompt.selection_loss(_logits[i], target_slice_start, target_id)
+  File "../llm_opt/base/attack_manager.py", line 714, in selection_loss
+    focused_loss = nn.CrossEntropyLoss(reduction='none')(logits[focused_loss_slice, :], target_ids[self._focused_target_slice.start-self._target_slice.start: self._focused_target_slice.start-self._target_slice.start+window_size])
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/loss.py", line 1185, in forward
+    return F.cross_entropy(input, target, weight=self.weight,
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/functional.py", line 3086, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+ValueError: Expected input batch_size (1) to match target batch_size (0).

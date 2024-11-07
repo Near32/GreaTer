@@ -1,0 +1,766 @@
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: ' proper logical reasoning and think step by step. Finally give the
+  actual correct answer.'
+control_weight: 0.2
+conversation_templates:
+- llama-3
+- llama-3
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ A'' or ''$ B''
+  or ''$ C'' or ''$ D'' or ''$ E'' or ''$ F'' or ''$ G'' or ''$ H'' or ''$ I'' or
+  ''$ J'') is $ '
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_llama3_geometric_shapes_ffr.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/geometric_shapes.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+tokenizer_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+topk: 40
+train_data: ../data/BBH/geometric_shapes.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.77it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.68it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.73it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.35it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.07it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.72it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.64it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.39it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.08it/s]Initialized Workers...
+
+Started worker 2786303 for model meta-llama/Meta-Llama-3-8B-Instruct
+Started worker 2786704 for model meta-llama/Meta-Llama-3-8B-Instruct
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  113.37687087059021
+Intersection set size: 19
+Candidate tokens:  option one SVG a any an the  answer Ctrl Ge this diagram only options online diagrams of your
+Time taken to get recomputed solution logits:  58.579415798187256
+Time taken to get recomputed solution logits:  53.210529804229736
+>Prompt Choice:  your logical reasoning and think step by step. Finally give the actual correct answer. Loss: 33.14569854736328, Mistakes: 0.8399999737739563, Control Loss: 3.8133583068847656, Total Loss: 0.9162671566009521
+Time taken to get recomputed solution logits:  59.67429161071777
+Time taken to get recomputed solution logits:  54.433685064315796
+>Prompt Choice:  a logical reasoning and think step by step. Finally give the actual correct answer. Loss: 35.319828033447266, Mistakes: 0.8399999737739563, Control Loss: 4.056802749633789, Total Loss: 0.9211360216140747
+Time taken to get recomputed solution logits:  62.858935832977295
+Time taken to get recomputed solution logits:  53.54175806045532
+>Prompt Choice:  proper logical reasoning and think step by step. Finally give the actual correct answer. Loss: 34.89914321899414, Mistakes: 0.8399999737739563, Control Loss: 3.6561100482940674, Total Loss: 0.9131221771240234
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.9131221771240234
+Current length: 16
+ proper logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.9131221771240234 Best Loss: 0.9131221771240234 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.9131221771240234, ' proper logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  113.02607703208923
+Intersection set size: 16
+Candidate tokens:  SVG LaTeX case geometry syntax grammar mathematical geometric reasoning explanation formatting English diagram justification notation math
+Time taken to get recomputed solution logits:  55.65220761299133
+Time taken to get recomputed solution logits:  54.21280908584595
+>Prompt Choice:  proper justification reasoning and think step by step. Finally give the actual correct answer. Loss: 33.3349609375, Mistakes: 0.8199999928474426, Control Loss: 4.956014156341553, Total Loss: 0.9191202521324158
+Time taken to get recomputed solution logits:  54.593207359313965
+Time taken to get recomputed solution logits:  50.532346963882446
+>Prompt Choice:  proper formatting reasoning and think step by step. Finally give the actual correct answer. Loss: 37.7619514465332, Mistakes: 0.8999999761581421, Control Loss: 5.020139694213867, Total Loss: 1.000402808189392
+Time taken to get recomputed solution logits:  64.42596936225891
+Time taken to get recomputed solution logits:  56.3880717754364
+>Prompt Choice:  proper LaTeX reasoning and think step by step. Finally give the actual correct answer. Loss: 35.98630142211914, Mistakes: 0.9399999976158142, Control Loss: 4.931497097015381, Total Loss: 1.0386298894882202
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.9191202521324158
+Current length: 16
+ proper justification reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.9191202521324158 Best Loss: 0.9131221771240234 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  106.18739891052246
+Intersection set size: 19
+Candidate tokens:  while,. wherever along if in to as of with and or when please for from based where
+Time taken to get recomputed solution logits:  59.76928663253784
+Time taken to get recomputed solution logits:  54.373077392578125
+>Prompt Choice:  proper justification, and think step by step. Finally give the actual correct answer. Loss: 34.59318542480469, Mistakes: 0.8199999928474426, Control Loss: 4.797015190124512, Total Loss: 0.9159402847290039
+Time taken to get recomputed solution logits:  65.21942639350891
+Time taken to get recomputed solution logits:  54.5020854473114
+>Prompt Choice:  proper justification and and think step by step. Finally give the actual correct answer. Loss: 34.75376510620117, Mistakes: 0.8399999737739563, Control Loss: 5.138254642486572, Total Loss: 0.9427650570869446
+Time taken to get recomputed solution logits:  55.52283477783203
+Time taken to get recomputed solution logits:  54.36437940597534
+>Prompt Choice:  proper justification reasoning and think step by step. Finally give the actual correct answer. Loss: 32.072269439697266, Mistakes: 0.7799999713897705, Control Loss: 4.768582820892334, Total Loss: 0.8753716349601746
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.8753716349601746
+Current length: 16
+ proper justification reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.8753716349601746 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  109.0965940952301
+Intersection set size: 19
+Candidate tokens: ,. if in why to as behind below of your with and here when please for based where
+Time taken to get recomputed solution logits:  54.86735963821411
+Time taken to get recomputed solution logits:  52.01755976676941
+>Prompt Choice:  proper justification reasoning if think step by step. Finally give the actual correct answer. Loss: 35.92401885986328, Mistakes: 0.85999995470047, Control Loss: 5.501975059509277, Total Loss: 0.9700394868850708
+Time taken to get recomputed solution logits:  57.86019825935364
+Time taken to get recomputed solution logits:  52.38233041763306
+>Prompt Choice:  proper justification reasoning for think step by step. Finally give the actual correct answer. Loss: 32.89967346191406, Mistakes: 0.8799999952316284, Control Loss: 5.587909698486328, Total Loss: 0.9917581677436829
+Time taken to get recomputed solution logits:  61.02549338340759
+Time taken to get recomputed solution logits:  51.56991624832153
+>Prompt Choice:  proper justification reasoning in think step by step. Finally give the actual correct answer. Loss: 33.829891204833984, Mistakes: 0.8199999928474426, Control Loss: 5.433169841766357, Total Loss: 0.9286633729934692
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in think step by step. Finally give the actual correct answer., New Loss: 0.9286633729934692
+Current length: 16
+ proper justification reasoning in think step by step. Finally give the actual correct answer.
+Current Loss: 0.9286633729934692 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  110.79881596565247
+Intersection set size: 20
+Candidate tokens:  answering selecting a case the explanation response brief this your each favor support explaining order answer supporting choosing you writing
+Time taken to get recomputed solution logits:  56.422990798950195
+Time taken to get recomputed solution logits:  57.31624698638916
+>Prompt Choice:  proper justification reasoning in answer step by step. Finally give the actual correct answer. Loss: 32.41987609863281, Mistakes: 0.7999999523162842, Control Loss: 6.153432846069336, Total Loss: 0.9230685830116272
+Time taken to get recomputed solution logits:  57.32030439376831
+Time taken to get recomputed solution logits:  56.73047685623169
+>Prompt Choice:  proper justification reasoning in order step by step. Finally give the actual correct answer. Loss: 30.459835052490234, Mistakes: 0.8399999737739563, Control Loss: 6.111186981201172, Total Loss: 0.9622237086296082
+Time taken to get recomputed solution logits:  59.95726537704468
+Time taken to get recomputed solution logits:  50.87635326385498
+>Prompt Choice:  proper justification reasoning in this step by step. Finally give the actual correct answer. Loss: 36.987613677978516, Mistakes: 0.8999999761581421, Control Loss: 6.134824752807617, Total Loss: 1.0226964950561523
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer step by step. Finally give the actual correct answer., New Loss: 0.9230685830116272
+Current length: 16
+ proper justification reasoning in answer step by step. Finally give the actual correct answer.
+Current Loss: 0.9230685830116272 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  110.18079614639282
+Intersection set size: 18
+Candidate tokens:  option with and selection,. the explanation to choices this if please choice as key below your
+Time taken to get recomputed solution logits:  61.916160106658936
+Time taken to get recomputed solution logits:  53.543798208236694
+>Prompt Choice:  proper justification reasoning in answer choice by step. Finally give the actual correct answer. Loss: 35.929866790771484, Mistakes: 0.7999999523162842, Control Loss: 6.337085723876953, Total Loss: 0.9267416596412659
+Time taken to get recomputed solution logits:  61.89981508255005
+Time taken to get recomputed solution logits:  54.613415479660034
+>Prompt Choice:  proper justification reasoning in answer option by step. Finally give the actual correct answer. Loss: 31.554481506347656, Mistakes: 0.7599999904632568, Control Loss: 6.267958641052246, Total Loss: 0.8853591680526733
+Time taken to get recomputed solution logits:  58.33128261566162
+Time taken to get recomputed solution logits:  52.77094316482544
+>Prompt Choice:  proper justification reasoning in answer selection by step. Finally give the actual correct answer. Loss: 31.466909408569336, Mistakes: 0.7799999713897705, Control Loss: 6.566064834594727, Total Loss: 0.9113212823867798
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option by step. Finally give the actual correct answer., New Loss: 0.8853591680526733
+Current length: 16
+ proper justification reasoning in answer option by step. Finally give the actual correct answer.
+Current Loss: 0.8853591680526733 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  114.88429927825928
+Intersection set size: 19
+Candidate tokens:  and selection,. E selected explanation G C D B A please choice for F you to below
+Time taken to get recomputed solution logits:  69.0412826538086
+Time taken to get recomputed solution logits:  54.310630798339844
+>Prompt Choice:  proper justification reasoning in answer option C step. Finally give the actual correct answer. Loss: 33.9368782043457, Mistakes: 0.8999999761581421, Control Loss: 6.2314043045043945, Total Loss: 1.0246280431747437
+Time taken to get recomputed solution logits:  56.74324059486389
+Time taken to get recomputed solution logits:  52.13453245162964
+>Prompt Choice:  proper justification reasoning in answer option D step. Finally give the actual correct answer. Loss: 34.911495208740234, Mistakes: 0.8799999952316284, Control Loss: 6.245491981506348, Total Loss: 1.004909873008728
+Time taken to get recomputed solution logits:  53.920621156692505
+Time taken to get recomputed solution logits:  48.730217695236206
+>Prompt Choice:  proper justification reasoning in answer option G step. Finally give the actual correct answer. Loss: 34.8858642578125, Mistakes: 0.8399999737739563, Control Loss: 6.216128349304199, Total Loss: 0.964322566986084
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G step. Finally give the actual correct answer., New Loss: 0.964322566986084
+Current length: 16
+ proper justification reasoning in answer option G step. Finally give the actual correct answer.
+Current Loss: 0.964322566986084 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  99.04922723770142
+Intersection set size: 19
+Candidate tokens: ,.pent the only that there Pentagon to as of pent and because none or since for is
+Time taken to get recomputed solution logits:  42.18549561500549
+Time taken to get recomputed solution logits:  37.425756216049194
+>Prompt Choice:  proper justification reasoning in answer option G only. Finally give the actual correct answer. Loss: 27.795867919921875, Mistakes: 0.85999995470047, Control Loss: 6.183712005615234, Total Loss: 0.983674168586731
+Time taken to get recomputed solution logits:  51.7151882648468
+Time taken to get recomputed solution logits:  47.30964756011963
+>Prompt Choice:  proper justification reasoning in answer option G because. Finally give the actual correct answer. Loss: 33.35942459106445, Mistakes: 0.7599999904632568, Control Loss: 6.565984725952148, Total Loss: 0.8913196921348572
+Time taken to get recomputed solution logits:  46.81588816642761
+Time taken to get recomputed solution logits:  44.00548195838928
+>Prompt Choice:  proper justification reasoning in answer option G that. Finally give the actual correct answer. Loss: 35.23890686035156, Mistakes: 0.8199999928474426, Control Loss: 6.671932220458984, Total Loss: 0.9534386396408081
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because. Finally give the actual correct answer., New Loss: 0.8913196921348572
+Current length: 16
+ proper justification reasoning in answer option G because. Finally give the actual correct answer.
+Current Loss: 0.8913196921348572 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  93.67488622665405
+Intersection set size: 19
+Candidate tokens:  option a, no the this there in it oct he of pent we an none answer I you
+Time taken to get recomputed solution logits:  51.58619451522827
+Time taken to get recomputed solution logits:  44.423585653305054
+>Prompt Choice:  proper justification reasoning in answer option G because no Finally give the actual correct answer. Loss: 34.09349060058594, Mistakes: 0.9199999570846558, Control Loss: 6.262935161590576, Total Loss: 1.045258641242981
+Time taken to get recomputed solution logits:  49.115941762924194
+Time taken to get recomputed solution logits:  43.3331983089447
+>Prompt Choice:  proper justification reasoning in answer option G because oct Finally give the actual correct answer. Loss: 27.938812255859375, Mistakes: 0.8199999928474426, Control Loss: 6.557069778442383, Total Loss: 0.951141357421875
+Time taken to get recomputed solution logits:  53.424225091934204
+Time taken to get recomputed solution logits:  47.91713547706604
+>Prompt Choice:  proper justification reasoning in answer option G because none Finally give the actual correct answer. Loss: 30.205848693847656, Mistakes: 0.8199999928474426, Control Loss: 6.271418571472168, Total Loss: 0.9454283714294434
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because none Finally give the actual correct answer., New Loss: 0.9454283714294434
+Current length: 16
+ proper justification reasoning in answer option G because none Finally give the actual correct answer.
+Current Loss: 0.9454283714294434 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  98.82869553565979
+Intersection set size: 19
+Candidate tokens:  option exist has can. are the among matches if have fits options will is match of fit other
+Time taken to get recomputed solution logits:  37.55828785896301
+Time taken to get recomputed solution logits:  37.228965044021606
+>Prompt Choice:  proper justification reasoning in answer option G because none. give the actual correct answer. Loss: 40.78176498413086, Mistakes: 0.8999999761581421, Control Loss: 6.5690598487854, Total Loss: 1.0313811302185059
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because none. give the actual correct answer., New Loss: 1.0313811302185059
+Current length: 16
+ proper justification reasoning in answer option G because none. give the actual correct answer.
+Current Loss: 1.0313811302185059 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  71.39289665222168
+Intersection set size: 18
+Candidate tokens:  The As Please It An the This If However I A Since None Of No of There In
+Time taken to get recomputed solution logits:  42.99898409843445
+Time taken to get recomputed solution logits:  37.055906772613525
+>Prompt Choice:  proper justification reasoning in answer option G because none. of the actual correct answer. Loss: 28.145736694335938, Mistakes: 0.8199999928474426, Control Loss: 6.203878402709961, Total Loss: 0.9440775513648987
+Time taken to get recomputed solution logits:  38.32449722290039
+Time taken to get recomputed solution logits:  43.695956230163574
+>Prompt Choice:  proper justification reasoning in answer option G because none. the the actual correct answer. Loss: 30.27237319946289, Mistakes: 0.85999995470047, Control Loss: 6.683679580688477, Total Loss: 0.99367356300354
+Time taken to get recomputed solution logits:  31.57871389389038
+Time taken to get recomputed solution logits:  34.28961801528931
+>Prompt Choice:  proper justification reasoning in answer option G because none. None the actual correct answer. Loss: 31.791688919067383, Mistakes: 0.9399999976158142, Control Loss: 6.504368305206299, Total Loss: 1.0700873136520386
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because none. of the actual correct answer., New Loss: 0.9440775513648987
+Current length: 16
+ proper justification reasoning in answer option G because none. of the actual correct answer.
+Current Loss: 0.9440775513648987 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  78.7615270614624
+Intersection set size: 18
+Candidate tokens:  option mentioned. the  those above answer them this given options answers these its it choices other
+Time taken to get recomputed solution logits:  35.76709485054016
+Time taken to get recomputed solution logits:  38.66825318336487
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option actual correct answer. Loss: 33.81702423095703, Mistakes: 0.8799999952316284, Control Loss: 5.823812484741211, Total Loss: 0.9964762330055237
+Time taken to get recomputed solution logits:  48.13757538795471
+Time taken to get recomputed solution logits:  36.426058769226074
+>Prompt Choice:  proper justification reasoning in answer option G because none. of other actual correct answer. Loss: 41.16609191894531, Mistakes: 0.9399999976158142, Control Loss: 5.986237525939941, Total Loss: 1.0597248077392578
+Time taken to get recomputed solution logits:  36.3952260017395
+Time taken to get recomputed solution logits:  34.98816227912903
+>Prompt Choice:  proper justification reasoning in answer option G because none. of options actual correct answer. Loss: 31.672636032104492, Mistakes: 0.8999999761581421, Control Loss: 5.8443379402160645, Total Loss: 1.0168867111206055
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because none. of option actual correct answer., New Loss: 0.9964762330055237
+Current length: 16
+ proper justification reasoning in answer option G because none. of option actual correct answer.
+Current Loss: 0.9964762330055237 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  72.43680691719055
+Intersection set size: 19
+Candidate tokens:  available mentioned are provided seems matches G answer give provide given fits A match gives is seem fit choices
+Time taken to get recomputed solution logits:  32.95722436904907
+Time taken to get recomputed solution logits:  34.56548023223877
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option are correct answer. Loss: 27.70328140258789, Mistakes: 0.9399999976158142, Control Loss: 6.103533744812012, Total Loss: 1.062070608139038
+Time taken to get recomputed solution logits:  30.377445459365845
+Time taken to get recomputed solution logits:  34.26144075393677
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option is correct answer. Loss: 25.412553787231445, Mistakes: 0.9399999976158142, Control Loss: 6.099133491516113, Total Loss: 1.0619826316833496
+Time taken to get recomputed solution logits:  43.38889288902283
+Time taken to get recomputed solution logits:  39.015058517456055
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits correct answer. Loss: 29.312318801879883, Mistakes: 0.8399999737739563, Control Loss: 6.306891441345215, Total Loss: 0.9661377668380737
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because none. of option fits correct answer., New Loss: 0.9661377668380737
+Current length: 16
+ proper justification reasoning in answer option G because none. of option fits correct answer.
+Current Loss: 0.9661377668380737 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  79.2956612110138
+Intersection set size: 20
+Candidate tokens:  well exactly,. accurately except the this in correctly to as perfectly with completely here perfect best for properly
+Time taken to get recomputed solution logits:  35.88769340515137
+Time taken to get recomputed solution logits:  34.38260102272034
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits here answer. Loss: 33.47068786621094, Mistakes: 0.9199999570846558, Control Loss: 6.301288604736328, Total Loss: 1.0460257530212402
+Time taken to get recomputed solution logits:  44.28281760215759
+Time taken to get recomputed solution logits:  37.348628282547
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits for answer. Loss: 31.551410675048828, Mistakes: 0.9199999570846558, Control Loss: 6.047445297241211, Total Loss: 1.0409488677978516
+Time taken to get recomputed solution logits:  43.21977472305298
+Time taken to get recomputed solution logits:  37.17195677757263
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in answer. Loss: 30.260643005371094, Mistakes: 0.9199999570846558, Control Loss: 6.023531913757324, Total Loss: 1.0404706001281738
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because none. of option fits in answer., New Loss: 1.0404706001281738
+Current length: 16
+ proper justification reasoning in answer option G because none. of option fits in answer.
+Current Loss: 1.0404706001281738 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  82.29074048995972
+Intersection set size: 19
+Candidate tokens:  description well any. correct the above actual this given all svg it perfectly path SVG here my answer
+Time taken to get recomputed solution logits:  36.93702173233032
+Time taken to get recomputed solution logits:  33.556273460388184
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in actual. Loss: 28.971200942993164, Mistakes: 0.8999999761581421, Control Loss: 6.192377090454102, Total Loss: 1.0238474607467651
+Time taken to get recomputed solution logits:  29.68514633178711
+Time taken to get recomputed solution logits:  35.00360989570618
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in SVG. Loss: 30.43709945678711, Mistakes: 0.8799999952316284, Control Loss: 6.099123477935791, Total Loss: 1.0019824504852295
+Time taken to get recomputed solution logits:  36.314512729644775
+Time taken to get recomputed solution logits:  32.16419577598572
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in path. Loss: 26.383148193359375, Mistakes: 0.9199999570846558, Control Loss: 5.946914196014404, Total Loss: 1.038938283920288
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because none. of option fits in SVG., New Loss: 1.0019824504852295
+Current length: 16
+ proper justification reasoning in answer option G because none. of option fits in SVG.
+Current Loss: 1.0019824504852295 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.515148401260376
+Intersection set size: 17
+Candidate tokens:  description drawing shape specification. paths syntax element file Path draw code elements diagram given as path
+Time taken to get recomputed solution logits:  37.23301315307617
+Time taken to get recomputed solution logits:  37.55195736885071
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in SVG drawing Loss: 35.20542907714844, Mistakes: 0.9399999976158142, Control Loss: 6.066083908081055, Total Loss: 1.06132173538208
+Time taken to get recomputed solution logits:  34.662057399749756
+Time taken to get recomputed solution logits:  34.928542375564575
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in SVG paths Loss: 31.30978012084961, Mistakes: 0.9199999570846558, Control Loss: 6.069276809692383, Total Loss: 1.041385531425476
+Time taken to get recomputed solution logits:  40.200326919555664
+Time taken to get recomputed solution logits:  34.62596321105957
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in SVG draw Loss: 32.82162857055664, Mistakes: 0.9199999570846558, Control Loss: 6.068818092346191, Total Loss: 1.0413763523101807
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because none. of option fits in SVG draw_, New Loss: 1.0413763523101807
+Current length: 17
+ proper justification reasoning in answer option G because none. of option fits in SVG draw_
+Current Loss: 1.0413763523101807 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Step:  15 Candidates:  [(0.8753716349601746, ' proper justification reasoning and think step by step. Finally give the actual correct answer.'), (0.8853591680526733, ' proper justification reasoning in answer option by step. Finally give the actual correct answer.'), (0.8913196921348572, ' proper justification reasoning in answer option G because. Finally give the actual correct answer.'), (0.9131221771240234, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.9191202521324158, ' proper justification reasoning and think step by step. Finally give the actual correct answer.'), (0.9230685830116272, ' proper justification reasoning in answer step by step. Finally give the actual correct answer.'), (0.9286633729934692, ' proper justification reasoning in think step by step. Finally give the actual correct answer.'), (0.9440775513648987, ' proper justification reasoning in answer option G because none. of the actual correct answer.'), (0.9454283714294434, ' proper justification reasoning in answer option G because none Finally give the actual correct answer.'), (0.964322566986084, ' proper justification reasoning in answer option G step. Finally give the actual correct answer.')]
+Time taken to update solutions:  63.95483636856079
+Intersection set size: 18
+Candidate tokens: in shape a,. elementng the commandling resultedning this elements as of path
+Time taken to get recomputed solution logits:  30.885063409805298
+Time taken to get recomputed solution logits:  35.810290575027466
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in SVG draw_ Loss: 32.62434005737305, Mistakes: 0.8999999761581421, Control Loss: 6.7151594161987305, Total Loss: 1.0343031883239746
+Time taken to get recomputed solution logits:  41.709721326828
+Time taken to get recomputed solution logits:  33.20526742935181
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in SVG drawed Loss: 33.72061538696289, Mistakes: 0.9199999570846558, Control Loss: 6.702140808105469, Total Loss: 1.0540428161621094
+Time taken to get recomputed solution logits:  28.86746644973755
+Time taken to get recomputed solution logits:  25.81658911705017
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in SVG draw command Loss: 31.597597122192383, Mistakes: 0.9199999570846558, Control Loss: 6.704203128814697, Total Loss: 1.054084062576294
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because none. of option fits in SVG draw__, New Loss: 1.0343031883239746
+Current length: 17
+ proper justification reasoning in answer option G because none. of option fits in SVG draw__
+Current Loss: 1.0343031883239746 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.939592599868774
+Intersection set size: 18
+Candidate tokens: in shape a,. elementng the commandling resultninged elements this as of path
+Time taken to get recomputed solution logits:  31.27728772163391
+Time taken to get recomputed solution logits:  33.41767072677612
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in SVG draw__ Loss: 33.15044021606445, Mistakes: 0.8999999761581421, Control Loss: 6.863329887390137, Total Loss: 1.0372666120529175
+Time taken to get recomputed solution logits:  42.12761044502258
+Time taken to get recomputed solution logits:  35.5457763671875
+>Prompt Choice:  proper justification reasoning in answer option G because none. of option fits in SVG draw. Loss: 26.16566276550293, Mistakes: 0.9399999976158142, Control Loss: 6.8432769775390625, Total Loss: 1.076865553855896
+No improvement in the current position. Moving to the next position.
+New Control:  proper justification reasoning in answer option G because none. of option fits in SVG draw., New Loss: 1.076865553855896
+Current length: 17
+ proper justification reasoning in answer option G because none. of option fits in SVG draw.
+Current Loss: 1.076865553855896 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.09635853767395
+Intersection set size: 19
+Candidate tokens:  option one SVG a any an the  answer Ctrl Ge this diagram only options online diagrams of your
+Time taken to get recomputed solution logits:  33.374717473983765
+Time taken to get recomputed solution logits:  28.329245567321777
+>Prompt Choice:  SVG justification reasoning in answer option G because none. of option fits in SVG draw. Loss: 22.951961517333984, Mistakes: 0.85999995470047, Control Loss: 6.51856803894043, Total Loss: 0.9903713464736938
+Time taken to get recomputed solution logits:  28.072274684906006
+Time taken to get recomputed solution logits:  33.732521295547485
+>Prompt Choice:  diagram justification reasoning in answer option G because none. of option fits in SVG draw. Loss: 23.2757568359375, Mistakes: 0.9399999976158142, Control Loss: 6.2602458000183105, Total Loss: 1.0652048587799072
+Time taken to get recomputed solution logits:  25.800416469573975
+Time taken to get recomputed solution logits:  28.316558361053467
+>Prompt Choice:  Ctrl justification reasoning in answer option G because none. of option fits in SVG draw. Loss: 23.69754409790039, Mistakes: 0.8399999737739563, Control Loss: 6.487905025482178, Total Loss: 0.9697580933570862
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl justification reasoning in answer option G because none. of option fits in SVG draw., New Loss: 0.9697580933570862
+Current length: 17
+ Ctrl justification reasoning in answer option G because none. of option fits in SVG draw.
+Current Loss: 0.9697580933570862 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  49.6696400642395
+Intersection set size: 19
+Candidate tokens:  while, shift button ClickShiftF Key F to with and click Shift  or K for key
+Time taken to get recomputed solution logits:  31.586211681365967
+Time taken to get recomputed solution logits:  24.130610466003418
+>Prompt Choice:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw. Loss: 24.552719116210938, Mistakes: 0.7799999713897705, Control Loss: 6.73824405670166, Total Loss: 0.9147648811340332
+Time taken to get recomputed solution logits:  27.89008378982544
+Time taken to get recomputed solution logits:  31.022894859313965
+>Prompt Choice:  Ctrl justification reasoning in answer option G because none. of option fits in SVG draw. Loss: 25.23712158203125, Mistakes: 0.8399999737739563, Control Loss: 6.321935176849365, Total Loss: 0.9664386510848999
+Time taken to get recomputed solution logits:  29.467633724212646
+Time taken to get recomputed solution logits:  28.787869930267334
+>Prompt Choice:  Ctrl or reasoning in answer option G because none. of option fits in SVG draw. Loss: 29.90329933166504, Mistakes: 0.8799999952316284, Control Loss: 6.863698482513428, Total Loss: 1.0172739028930664
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw., New Loss: 0.9147648811340332
+Current length: 17
+ Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Current Loss: 0.9147648811340332 Best Loss: 0.8753716349601746 Best Control:  proper justification reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  55.775856018066406
+Intersection set size: 19
+Candidate tokens:  a any V shift Mouse scroll the Click F your each click Shift Left arrow mouse left number key
+Time taken to get recomputed solution logits:  31.508560180664062
+Time taken to get recomputed solution logits:  24.03258776664734
+>Prompt Choice:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw. Loss: 23.344303131103516, Mistakes: 0.6200000047683716, Control Loss: 6.212133884429932, Total Loss: 0.7442426681518555
+Time taken to get recomputed solution logits:  27.43060827255249
+Time taken to get recomputed solution logits:  24.618158102035522
+>Prompt Choice:  Ctrl with any in answer option G because none. of option fits in SVG draw. Loss: 39.368980407714844, Mistakes: 0.85999995470047, Control Loss: 6.758808135986328, Total Loss: 0.9951761364936829
+Time taken to get recomputed solution logits:  19.26461386680603
+Time taken to get recomputed solution logits:  24.711835384368896
+>Prompt Choice:  Ctrl with a in answer option G because none. of option fits in SVG draw. Loss: 33.36407470703125, Mistakes: 0.7799999713897705, Control Loss: 6.637813568115234, Total Loss: 0.9127562046051025
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw., New Loss: 0.7442426681518555
+Current length: 17
+ Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Current Loss: 0.7442426681518555 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  50.38768267631531
+Intersection set size: 18
+Candidate tokens: ! and on,. provided explanation to or if given in for as behind below of based
+Time taken to get recomputed solution logits:  24.596693515777588
+Time taken to get recomputed solution logits:  18.741161346435547
+>Prompt Choice:  Ctrl with reasoning! answer option G because none. of option fits in SVG draw. Loss: 22.697816848754883, Mistakes: 0.8799999952316284, Control Loss: 6.987244129180908, Total Loss: 1.019744873046875
+Time taken to get recomputed solution logits:  28.870686531066895
+Time taken to get recomputed solution logits:  36.765690326690674
+>Prompt Choice:  Ctrl with reasoning on answer option G because none. of option fits in SVG draw. Loss: 22.22934341430664, Mistakes: 0.8999999761581421, Control Loss: 6.1927032470703125, Total Loss: 1.0238540172576904
+Time taken to get recomputed solution logits:  19.62335228919983
+Time taken to get recomputed solution logits:  24.252529859542847
+>Prompt Choice:  Ctrl with reasoning explanation answer option G because none. of option fits in SVG draw. Loss: 24.83152198791504, Mistakes: 0.8199999928474426, Control Loss: 6.495872974395752, Total Loss: 0.9499174356460571
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation answer option G because none. of option fits in SVG draw., New Loss: 0.9499174356460571
+Current length: 17
+ Ctrl with reasoning explanation answer option G because none. of option fits in SVG draw.
+Current Loss: 0.9499174356460571 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  42.00224041938782
+Intersection set size: 20
+Candidate tokens: ! on,. provided if given in why to as behind below of and here or please for is
+Time taken to get recomputed solution logits:  38.944403886795044
+Time taken to get recomputed solution logits:  39.9274001121521
+>Prompt Choice:  Ctrl with reasoning explanation in option G because none. of option fits in SVG draw. Loss: 32.900917053222656, Mistakes: 0.9199999570846558, Control Loss: 6.608221530914307, Total Loss: 1.0521644353866577
+Time taken to get recomputed solution logits:  40.802982568740845
+Time taken to get recomputed solution logits:  38.21164679527283
+>Prompt Choice:  Ctrl with reasoning explanation on option G because none. of option fits in SVG draw. Loss: 31.698612213134766, Mistakes: 0.9199999570846558, Control Loss: 6.5724945068359375, Total Loss: 1.0514498949050903
+Time taken to get recomputed solution logits:  39.39166212081909
+Time taken to get recomputed solution logits:  40.614346504211426
+>Prompt Choice:  Ctrl with reasoning explanation is option G because none. of option fits in SVG draw. Loss: 32.19302749633789, Mistakes: 0.9199999570846558, Control Loss: 6.314627647399902, Total Loss: 1.0462925434112549
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is option G because none. of option fits in SVG draw., New Loss: 1.0462925434112549
+Current length: 17
+ Ctrl with reasoning explanation is option G because none. of option fits in SVG draw.
+Current Loss: 1.0462925434112549 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  77.01750135421753
+Intersection set size: 18
+Candidate tokens:  preferred optional required a appreciated also provided requested recommended highly the must not mandatory given more necessary needed
+Time taken to get recomputed solution logits:  49.051257371902466
+Time taken to get recomputed solution logits:  44.5459988117218
+>Prompt Choice:  Ctrl with reasoning explanation is not G because none. of option fits in SVG draw. Loss: 39.49872589111328, Mistakes: 0.8199999928474426, Control Loss: 6.705313682556152, Total Loss: 0.9541062712669373
+Time taken to get recomputed solution logits:  44.904184103012085
+Time taken to get recomputed solution logits:  44.563873052597046
+>Prompt Choice:  Ctrl with reasoning explanation is preferred G because none. of option fits in SVG draw. Loss: 26.787382125854492, Mistakes: 0.8799999952316284, Control Loss: 7.271571636199951, Total Loss: 1.0254313945770264
+Time taken to get recomputed solution logits:  38.26335883140564
+Time taken to get recomputed solution logits:  37.986215353012085
+>Prompt Choice:  Ctrl with reasoning explanation is provided G because none. of option fits in SVG draw. Loss: 30.51097297668457, Mistakes: 0.7999999523162842, Control Loss: 7.075766086578369, Total Loss: 0.9415152668952942
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided G because none. of option fits in SVG draw., New Loss: 0.9415152668952942
+Current length: 17
+ Ctrl with reasoning explanation is provided G because none. of option fits in SVG draw.
+Current Loss: 0.9415152668952942 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  74.58817267417908
+Intersection set size: 19
+Candidate tokens:  with later and on at,. here then to above along if by please in for as below
+Time taken to get recomputed solution logits:  54.94456338882446
+Time taken to get recomputed solution logits:  41.771305561065674
+>Prompt Choice:  Ctrl with reasoning explanation is provided for because none. of option fits in SVG draw. Loss: 28.935773849487305, Mistakes: 0.9199999570846558, Control Loss: 7.095465183258057, Total Loss: 1.0619091987609863
+Time taken to get recomputed solution logits:  40.946271896362305
+Time taken to get recomputed solution logits:  37.68663001060486
+>Prompt Choice:  Ctrl with reasoning explanation is provided, because none. of option fits in SVG draw. Loss: 28.849864959716797, Mistakes: 0.8999999761581421, Control Loss: 6.853118896484375, Total Loss: 1.037062406539917
+Time taken to get recomputed solution logits:  35.79229140281677
+Time taken to get recomputed solution logits:  41.728129625320435
+>Prompt Choice:  Ctrl with reasoning explanation is provided with because none. of option fits in SVG draw. Loss: 26.87269401550293, Mistakes: 0.8999999761581421, Control Loss: 7.201277732849121, Total Loss: 1.0440255403518677
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, because none. of option fits in SVG draw., New Loss: 1.037062406539917
+Current length: 17
+ Ctrl with reasoning explanation is provided, because none. of option fits in SVG draw.
+Current Loss: 1.037062406539917 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  72.77651858329773
+Intersection set size: 18
+Candidate tokens:  and however so but no the hence not then to I if please for it you as your
+Time taken to get recomputed solution logits:  41.55048394203186
+Time taken to get recomputed solution logits:  38.125898599624634
+>Prompt Choice:  Ctrl with reasoning explanation is provided, because none. of option fits in SVG draw. Loss: 27.477157592773438, Mistakes: 0.8999999761581421, Control Loss: 6.242860794067383, Total Loss: 1.0248571634292603
+Time taken to get recomputed solution logits:  21.482192039489746
+Time taken to get recomputed solution logits:  37.963061809539795
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the none. of option fits in SVG draw. Loss: 22.1434268951416, Mistakes: 0.7999999523162842, Control Loss: 6.329955101013184, Total Loss: 0.9265990257263184
+Time taken to get recomputed solution logits:  38.009607553482056
+Time taken to get recomputed solution logits:  33.94278335571289
+>Prompt Choice:  Ctrl with reasoning explanation is provided, as none. of option fits in SVG draw. Loss: 29.051971435546875, Mistakes: 0.8999999761581421, Control Loss: 6.5041399002075195, Total Loss: 1.0300828218460083
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, the none. of option fits in SVG draw., New Loss: 0.9265990257263184
+Current length: 17
+ Ctrl with reasoning explanation is provided, the none. of option fits in SVG draw.
+Current Loss: 0.9265990257263184 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  58.78887963294983
+Intersection set size: 18
+Candidate tokens:  option reason user correct following reasoning selected solution explanation answer best Ctrl code question options answers choice path
+Time taken to get recomputed solution logits:  45.668888092041016
+Time taken to get recomputed solution logits:  44.61001014709473
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the explanation. of option fits in SVG draw. Loss: 40.7791633605957, Mistakes: 0.8999999761581421, Control Loss: 6.705172061920166, Total Loss: 1.0341033935546875
+Time taken to get recomputed solution logits:  49.12315011024475
+Time taken to get recomputed solution logits:  40.27477431297302
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the choice. of option fits in SVG draw. Loss: 41.77296447753906, Mistakes: 0.8999999761581421, Control Loss: 6.758476734161377, Total Loss: 1.0351694822311401
+Time taken to get recomputed solution logits:  45.872899293899536
+Time taken to get recomputed solution logits:  47.52997446060181
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl. of option fits in SVG draw. Loss: 40.55059051513672, Mistakes: 0.85999995470047, Control Loss: 6.432247638702393, Total Loss: 0.9886448979377747
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, the Ctrl. of option fits in SVG draw., New Loss: 0.9886448979377747
+Current length: 17
+ Ctrl with reasoning explanation is provided, the Ctrl. of option fits in SVG draw.
+Current Loss: 0.9886448979377747 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  85.70065474510193
+Intersection set size: 20
+Candidate tokens:  option should can. button explanation indicates will to of and symbol stands answer represents refers for means is key
+Time taken to get recomputed solution logits:  45.22570562362671
+Time taken to get recomputed solution logits:  47.75082850456238
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button of option fits in SVG draw. Loss: 38.93082809448242, Mistakes: 0.8399999737739563, Control Loss: 5.854887008666992, Total Loss: 0.9570977091789246
+Time taken to get recomputed solution logits:  41.97149920463562
+Time taken to get recomputed solution logits:  42.112005949020386
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl represents of option fits in SVG draw. Loss: 37.63444900512695, Mistakes: 0.85999995470047, Control Loss: 6.378550052642822, Total Loss: 0.9875709414482117
+Time taken to get recomputed solution logits:  56.90173888206482
+Time taken to get recomputed solution logits:  43.994659423828125
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl symbol of option fits in SVG draw. Loss: 38.92522430419922, Mistakes: 0.85999995470047, Control Loss: 5.90398645401001, Total Loss: 0.9780796766281128
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, the Ctrl button of option fits in SVG draw., New Loss: 0.9570977091789246
+Current length: 17
+ Ctrl with reasoning explanation is provided, the Ctrl button of option fits in SVG draw.
+Current Loss: 0.9570977091789246 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  88.91674900054932
+Intersection set size: 17
+Candidate tokens:  has allows on should can,. must next indicates in for will does is to below
+Time taken to get recomputed solution logits:  40.802424907684326
+Time taken to get recomputed solution logits:  42.64543128013611
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button below option fits in SVG draw. Loss: 39.1053466796875, Mistakes: 0.85999995470047, Control Loss: 5.8678412437438965, Total Loss: 0.9773567914962769
+Time taken to get recomputed solution logits:  49.04058051109314
+Time taken to get recomputed solution logits:  41.252936124801636
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in option fits in SVG draw. Loss: 38.64373779296875, Mistakes: 0.85999995470047, Control Loss: 5.760200023651123, Total Loss: 0.9752039313316345
+Time taken to get recomputed solution logits:  44.84064221382141
+Time taken to get recomputed solution logits:  52.788238525390625
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button on option fits in SVG draw. Loss: 38.49964141845703, Mistakes: 0.85999995470047, Control Loss: 5.96971321105957, Total Loss: 0.9793941974639893
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, the Ctrl button in option fits in SVG draw., New Loss: 0.9752039313316345
+Current length: 17
+ Ctrl with reasoning explanation is provided, the Ctrl button in option fits in SVG draw.
+Current Loss: 0.9752039313316345 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  87.06518697738647
+Intersection set size: 20
+Candidate tokens:  parentheses addition a combination any case red the my not brackets order green this blue all bold front your each
+Time taken to get recomputed solution logits:  44.90564942359924
+Time taken to get recomputed solution logits:  41.02617383003235
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in combination fits in SVG draw. Loss: 38.79944610595703, Mistakes: 0.8399999737739563, Control Loss: 6.111403465270996, Total Loss: 0.9622280597686768
+Time taken to get recomputed solution logits:  42.446266412734985
+Time taken to get recomputed solution logits:  39.94712829589844
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in not fits in SVG draw. Loss: 38.925804138183594, Mistakes: 0.8399999737739563, Control Loss: 6.072332382202148, Total Loss: 0.9614466428756714
+Time taken to get recomputed solution logits:  39.34519577026367
+Time taken to get recomputed solution logits:  42.67153477668762
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses fits in SVG draw. Loss: 36.95729064941406, Mistakes: 0.8199999928474426, Control Loss: 5.986456871032715, Total Loss: 0.9397290945053101
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses fits in SVG draw., New Loss: 0.9397290945053101
+Current length: 17
+ Ctrl with reasoning explanation is provided, the Ctrl button in parentheses fits in SVG draw.
+Current Loss: 0.9397290945053101 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  79.46842098236084
+Intersection set size: 19
+Candidate tokens:  like at can,. beside after to represents next refers if indicates for will means is as below
+Time taken to get recomputed solution logits:  41.029988288879395
+Time taken to get recomputed solution logits:  40.72266125679016
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses can in SVG draw. Loss: 39.46297836303711, Mistakes: 0.8399999737739563, Control Loss: 6.558714866638184, Total Loss: 0.9711742401123047
+Time taken to get recomputed solution logits:  39.37283635139465
+Time taken to get recomputed solution logits:  43.27116012573242
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below in SVG draw. Loss: 37.13021469116211, Mistakes: 0.8199999928474426, Control Loss: 6.515538215637207, Total Loss: 0.9503107666969299
+Time taken to get recomputed solution logits:  41.72976517677307
+Time taken to get recomputed solution logits:  42.65535831451416
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses after in SVG draw. Loss: 38.630279541015625, Mistakes: 0.8399999737739563, Control Loss: 6.817895889282227, Total Loss: 0.9763578772544861
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below in SVG draw., New Loss: 0.9503107666969299
+Current length: 17
+ Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below in SVG draw.
+Current Loss: 0.9503107666969299 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Step:  30 Candidates:  [(0.7442426681518555, ' Ctrl with reasoning in answer option G because none. of option fits in SVG draw.'), (0.8753716349601746, ' proper justification reasoning and think step by step. Finally give the actual correct answer.'), (0.8853591680526733, ' proper justification reasoning in answer option by step. Finally give the actual correct answer.'), (0.8913196921348572, ' proper justification reasoning in answer option G because. Finally give the actual correct answer.'), (0.9131221771240234, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.9147648811340332, ' Ctrl with reasoning in answer option G because none. of option fits in SVG draw.'), (0.9191202521324158, ' proper justification reasoning and think step by step. Finally give the actual correct answer.'), (0.9230685830116272, ' proper justification reasoning in answer step by step. Finally give the actual correct answer.'), (0.9265990257263184, ' Ctrl with reasoning explanation is provided, the none. of option fits in SVG draw.'), (0.9286633729934692, ' proper justification reasoning in think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  80.19025206565857
+Intersection set size: 20
+Candidate tokens:  option corresponds can,. denotes the if indicates will as to each represents refers may options for means is
+Time taken to get recomputed solution logits:  44.54757022857666
+Time taken to get recomputed solution logits:  40.10672569274902
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below can SVG draw. Loss: 37.86750793457031, Mistakes: 0.8799999952316284, Control Loss: 6.551909446716309, Total Loss: 1.0110381841659546
+Time taken to get recomputed solution logits:  49.066548109054565
+Time taken to get recomputed solution logits:  40.52853536605835
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the SVG draw. Loss: 38.77172088623047, Mistakes: 0.8799999952316284, Control Loss: 6.306468486785889, Total Loss: 1.0061293840408325
+Time taken to get recomputed solution logits:  48.93595790863037
+Time taken to get recomputed solution logits:  41.02146935462952
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below is SVG draw. Loss: 37.84611892700195, Mistakes: 0.8799999952316284, Control Loss: 6.467701435089111, Total Loss: 1.0093539953231812
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the SVG draw., New Loss: 1.0061293840408325
+Current length: 17
+ Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the SVG draw.
+Current Loss: 1.0061293840408325 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  90.29040360450745
+Intersection set size: 19
+Candidate tokens:  option reason letter selection correct corresponding final selected solution explanation answer question options answers choice chosen problem Options choices
+Time taken to get recomputed solution logits:  41.66923141479492
+Time taken to get recomputed solution logits:  30.758187770843506
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen draw. Loss: 41.88444900512695, Mistakes: 0.8799999952316284, Control Loss: 6.277356147766113, Total Loss: 1.0055471658706665
+Time taken to get recomputed solution logits:  41.10794639587402
+Time taken to get recomputed solution logits:  35.69846987724304
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the selection draw. Loss: 41.5488166809082, Mistakes: 0.8799999952316284, Control Loss: 6.364206314086914, Total Loss: 1.007284164428711
+Time taken to get recomputed solution logits:  38.80643653869629
+Time taken to get recomputed solution logits:  33.241968870162964
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the final draw. Loss: 42.972328186035156, Mistakes: 0.8799999952316284, Control Loss: 6.327286720275879, Total Loss: 1.0065457820892334
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen draw., New Loss: 1.0055471658706665
+Current length: 17
+ Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen draw.
+Current Loss: 1.0055471658706665 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  69.18576788902283
+Intersection set size: 17
+Candidate tokens:  option Option item letter. correct solution explanation response Answer answer best letters options answers choice Options
+Time taken to get recomputed solution logits:  38.29376244544983
+Time taken to get recomputed solution logits:  31.29073452949524
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen best. Loss: 43.12343978881836, Mistakes: 0.8999999761581421, Control Loss: 6.024794578552246, Total Loss: 1.020495891571045
+Time taken to get recomputed solution logits:  39.88164782524109
+Time taken to get recomputed solution logits:  33.101619482040405
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen letter. Loss: 42.75366973876953, Mistakes: 0.8999999761581421, Control Loss: 5.759705543518066, Total Loss: 1.015194058418274
+Time taken to get recomputed solution logits:  34.03997540473938
+Time taken to get recomputed solution logits:  38.05389046669006
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution. Loss: 41.549072265625, Mistakes: 0.8999999761581421, Control Loss: 5.758218288421631, Total Loss: 1.0151643753051758
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution., New Loss: 1.0151643753051758
+Current length: 17
+ Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution.
+Current Loss: 1.0151643753051758 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  67.48459219932556
+Intersection set size: 19
+Candidate tokens:  option and corresponds should can,. to would if indicates in for will choice options means is as
+Time taken to get recomputed solution logits:  37.771310329437256
+Time taken to get recomputed solution logits:  36.73515701293945
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution can Loss: 42.512996673583984, Mistakes: 0.8799999952316284, Control Loss: 5.330028057098389, Total Loss: 0.9866005778312683
+Time taken to get recomputed solution logits:  33.81260561943054
+Time taken to get recomputed solution logits:  37.80947971343994
+>Prompt Choice:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution. Loss: 42.59678649902344, Mistakes: 0.8999999761581421, Control Loss: 5.324026584625244, Total Loss: 1.0064804553985596
+No improvement in the current position. Moving to the next position.
+New Control:  Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution., New Loss: 1.0064804553985596
+Current length: 17
+ Ctrl with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution.
+Current Loss: 1.0064804553985596 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  66.78263568878174
+Intersection set size: 19
+Candidate tokens:  option one SVG a any an the  answer Ctrl Ge this diagram only options online diagrams of your
+Time taken to get recomputed solution logits:  41.525498390197754
+Time taken to get recomputed solution logits:  31.243135690689087
+>Prompt Choice:  any with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution. Loss: 41.61982727050781, Mistakes: 0.8999999761581421, Control Loss: 6.274884223937988, Total Loss: 1.0254976749420166
+Time taken to get recomputed solution logits:  41.948240995407104
+Time taken to get recomputed solution logits:  34.734015703201294
+>Prompt Choice:   with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution. Loss: 43.14548110961914, Mistakes: 0.8799999952316284, Control Loss: 6.047458648681641, Total Loss: 1.0009491443634033
+Time taken to get recomputed solution logits:  46.94025230407715
+Time taken to get recomputed solution logits:  40.36246943473816
+>Prompt Choice:  the with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution. Loss: 42.378623962402344, Mistakes: 0.8999999761581421, Control Loss: 6.284566402435303, Total Loss: 1.025691270828247
+No improvement in the current position. Moving to the next position.
+New Control:   with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution., New Loss: 1.0009491443634033
+Current length: 17
+  with reasoning explanation is provided, the Ctrl button in parentheses below the chosen solution.
+Current Loss: 1.0009491443634033 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  73.45257019996643
+Intersection set size: 19
+Candidate tokens:  option caution SVG a case an care respect reference the  answer code this diagram permission answers precision your
+Time taken to get recomputed solution logits:  44.57301092147827
+Time taken to get recomputed solution logits:  32.81141686439514
+>Prompt Choice:  with caution explanation is provided, the Ctrl button in parentheses below the chosen solution. Loss: 37.993961334228516, Mistakes: 0.85999995470047, Control Loss: 6.041971206665039, Total Loss: 0.9808393716812134
+Time taken to get recomputed solution logits:  41.61934447288513
+Time taken to get recomputed solution logits:  38.67967391014099
+>Prompt Choice:  with permission explanation is provided, the Ctrl button in parentheses below the chosen solution. Loss: 39.68391418457031, Mistakes: 0.85999995470047, Control Loss: 5.997217178344727, Total Loss: 0.9799442887306213
+Time taken to get recomputed solution logits:  49.57420325279236
+Time taken to get recomputed solution logits:  43.69911289215088
+>Prompt Choice:  with respect explanation is provided, the Ctrl button in parentheses below the chosen solution. Loss: 38.53786849975586, Mistakes: 0.8799999952316284, Control Loss: 6.440354347229004, Total Loss: 1.0088070631027222
+No improvement in the current position. Moving to the next position.
+New Control:  with permission explanation is provided, the Ctrl button in parentheses below the chosen solution., New Loss: 0.9799442887306213
+Current length: 16
+ with permission explanation is provided, the Ctrl button in parentheses below the chosen solution.
+Current Loss: 0.9799442887306213 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  77.41917300224304
+Intersection set size: 20
+Candidate tokens: ,. granted if only by to as of with and under or form courtesy for is from based licensed
+Time taken to get recomputed solution logits:  41.83022427558899
+Time taken to get recomputed solution logits:  35.3921685218811
+>Prompt Choice:  with permission to is provided, the Ctrl button in parentheses below the chosen solution. Loss: 40.013084411621094, Mistakes: 0.8999999761581421, Control Loss: 6.193488121032715, Total Loss: 1.0238697528839111
+Time taken to get recomputed solution logits:  39.257060527801514
+Time taken to get recomputed solution logits:  32.839552879333496
+>Prompt Choice:  with permission. is provided, the Ctrl button in parentheses below the chosen solution. Loss: 38.58142852783203, Mistakes: 0.8399999737739563, Control Loss: 6.812017440795898, Total Loss: 0.976240336894989
+Time taken to get recomputed solution logits:  39.36640501022339
+Time taken to get recomputed solution logits:  34.0328950881958
+>Prompt Choice:  with permission, is provided, the Ctrl button in parentheses below the chosen solution. Loss: 39.38069152832031, Mistakes: 0.8799999952316284, Control Loss: 5.931044578552246, Total Loss: 0.998620867729187
+No improvement in the current position. Moving to the next position.
+New Control:  with permission. is provided, the Ctrl button in parentheses below the chosen solution., New Loss: 0.976240336894989
+Current length: 16
+ with permission. is provided, the Ctrl button in parentheses below the chosen solution.
+Current Loss: 0.976240336894989 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  70.20168852806091
+Intersection set size: 17
+Candidate tokens:  The Licensed Please Thank CC Copyright credit Credit This From Answer By Ilicensed from License licensed
+Time taken to get recomputed solution logits:  40.24742555618286
+Time taken to get recomputed solution logits:  28.445567846298218
+>Prompt Choice:  with permission.licensed provided, the Ctrl button in parentheses below the chosen solution. Loss: 42.66403579711914, Mistakes: 0.8399999737739563, Control Loss: 6.1325531005859375, Total Loss: 0.9626510143280029
+Time taken to get recomputed solution logits:  39.29441690444946
+Time taken to get recomputed solution logits:  27.420156955718994
+>Prompt Choice:  with permission. Copyright provided, the Ctrl button in parentheses below the chosen solution. Loss: 41.39158248901367, Mistakes: 0.8399999737739563, Control Loss: 6.291904926300049, Total Loss: 0.9658380746841431
+Time taken to get recomputed solution logits:  35.437742948532104
+Time taken to get recomputed solution logits:  18.812647581100464
+>Prompt Choice:  with permission. Please provided, the Ctrl button in parentheses below the chosen solution. Loss: 43.185218811035156, Mistakes: 0.8799999952316284, Control Loss: 6.3838934898376465, Total Loss: 1.0076779127120972
+No improvement in the current position. Moving to the next position.
+New Control:  with permission.licensed provided, the Ctrl button in parentheses below the chosen solution., New Loss: 0.9626510143280029
+Current length: 16
+ with permission.licensed provided, the Ctrl button in parentheses below the chosen solution.
+Current Loss: 0.9626510143280029 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  69.3448314666748
+Intersection set size: 20
+Candidate tokens:  cc,. through CC free Creative code by to as material with and under unter content MIT for from
+Time taken to get recomputed solution logits:  33.30605459213257
+Time taken to get recomputed solution logits:  25.222766876220703
+>Prompt Choice:  with permission.licensed MIT, the Ctrl button in parentheses below the chosen solution. Loss: 40.86195373535156, Mistakes: 0.8199999928474426, Control Loss: 6.160056114196777, Total Loss: 0.9432011246681213
+Time taken to get recomputed solution logits:  38.92734956741333
+Time taken to get recomputed solution logits:  29.331520557403564
+>Prompt Choice:  with permission.licensed content, the Ctrl button in parentheses below the chosen solution. Loss: 41.116878509521484, Mistakes: 0.8399999737739563, Control Loss: 6.004195213317871, Total Loss: 0.9600838422775269
+Time taken to get recomputed solution logits:  40.163140058517456
+Time taken to get recomputed solution logits:  28.731833696365356
+>Prompt Choice:  with permission.licensed provided, the Ctrl button in parentheses below the chosen solution. Loss: 40.93466567993164, Mistakes: 0.8399999737739563, Control Loss: 5.936429977416992, Total Loss: 0.958728551864624
+No improvement in the current position. Moving to the next position.
+New Control:  with permission.licensed MIT, the Ctrl button in parentheses below the chosen solution., New Loss: 0.9432011246681213
+Current length: 16
+ with permission.licensed MIT, the Ctrl button in parentheses below the chosen solution.
+Current Loss: 0.9432011246681213 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  59.39803910255432
+Intersection set size: 19
+Candidate tokens:  with Open and Licensed,. style license under  or licence BSD Licence by for from License licensed
+Time taken to get recomputed solution logits:  38.24033546447754
+Time taken to get recomputed solution logits:  29.747271060943604
+>Prompt Choice:  with permission.licensed MIT Open the Ctrl button in parentheses below the chosen solution. Loss: 41.11241912841797, Mistakes: 0.8399999737739563, Control Loss: 5.844648361206055, Total Loss: 0.9568929672241211
+Time taken to get recomputed solution logits:  33.44236969947815
+Time taken to get recomputed solution logits:  31.746188163757324
+>Prompt Choice:  with permission.licensed MIT License the Ctrl button in parentheses below the chosen solution. Loss: 42.5074348449707, Mistakes: 0.8399999737739563, Control Loss: 6.141278266906738, Total Loss: 0.9628255367279053
+Time taken to get recomputed solution logits:  36.633206367492676
+Time taken to get recomputed solution logits:  24.948385000228882
+>Prompt Choice:  with permission.licensed MIT style the Ctrl button in parentheses below the chosen solution. Loss: 42.89613723754883, Mistakes: 0.8399999737739563, Control Loss: 6.015641212463379, Total Loss: 0.9603127837181091
+No improvement in the current position. Moving to the next position.
+New Control:  with permission.licensed MIT Open the Ctrl button in parentheses below the chosen solution., New Loss: 0.9568929672241211
+Current length: 16
+ with permission.licensed MIT Open the Ctrl button in parentheses below the chosen solution.
+Current Loss: 0.9568929672241211 Best Loss: 0.7442426681518555 Best Control:  Ctrl with reasoning in answer option G because none. of option fits in SVG draw.
+Time taken to update solutions:  65.15025877952576
+Intersection set size: 19
+Candidate tokens:  Course Lic Data AccessBSD Font Circuit sourceCourse Text Graphics SVG licenseSVG Source ContentSource licenses License
+Time taken to get recomputed solution logits:  40.23775625228882
+Time taken to get recomputed solution logits:  33.38681197166443
+>Prompt Choice:  with permission.licensed MIT OpenCourse Ctrl button in parentheses below the chosen solution. Loss: 39.793739318847656, Mistakes: 0.8199999928474426, Control Loss: 6.808330059051514, Total Loss: 0.9561666250228882
+Time taken to get recomputed solution logits:  40.47754955291748
+Time taken to get recomputed solution logits:  32.951821088790894
+>Prompt Choice:  with permission.licensed MIT OpenBSD Ctrl button in parentheses below the chosen solution. Loss: 41.38031005859375, Mistakes: 0.8199999928474426, Control Loss: 6.410905838012695, Total Loss: 0.9482181072235107/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 33 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

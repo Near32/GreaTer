@@ -1,0 +1,2017 @@
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: ' proper logical reasoning and think step by step. Finally give the
+  actual correct answer.'
+control_weight: 0.2
+conversation_templates:
+- llama-3
+- llama-3
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$A'' or ''$B'' or
+  ''$C'' or ''$D'') is $'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_llama3_temporal_sequences_ffrf.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/temporal_sequences.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+tokenizer_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+topk: 40
+train_data: ../data/BBH/temporal_sequences.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.63it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.64it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.73it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.35it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.05it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.67it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.65it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.72it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.36it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.06it/s]Initialized Workers...
+
+Started worker 1227345 for model meta-llama/Meta-Llama-3-8B-Instruct
+Started worker 1227821 for model meta-llama/Meta-Llama-3-8B-Instruct
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  79.95281434059143
+Intersection set size: 4
+Candidate tokens:  process Process the your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  process elimination option Process logic the your
+Time taken to get recomputed solution logits:  52.619579792022705
+Time taken to get recomputed solution logits:  51.4741632938385
+>Prompt Choice:  the logical reasoning and think step by step. Finally give the actual correct answer. Loss: 3.0271029472351074, Mistakes: 0.11999999731779099, Control Loss: 4.0909576416015625, Total Loss: 0.20181915163993835
+Time taken to get recomputed solution logits:  52.0203275680542
+Time taken to get recomputed solution logits:  50.72228646278381
+>Prompt Choice:  proper logical reasoning and think step by step. Finally give the actual correct answer. Loss: 3.9340267181396484, Mistakes: 0.14000000059604645, Control Loss: 3.7845444679260254, Total Loss: 0.21569088101387024
+Time taken to get recomputed solution logits:  52.247381925582886
+Time taken to get recomputed solution logits:  46.491814613342285
+>Prompt Choice:  your logical reasoning and think step by step. Finally give the actual correct answer. Loss: 4.882674217224121, Mistakes: 0.19999998807907104, Control Loss: 3.7605643272399902, Total Loss: 0.27521127462387085
+No improvement in the current position. Moving to the next position.
+New Control:  the logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.20181915163993835
+Current length: 16
+ the logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.20181915163993835 Best Loss: 0.20181915163993835 Best Control:  the logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.20181915163993835, ' the logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  78.95498275756836
+Intersection set size: 4
+Candidate tokens:  process given options information
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  process given options following information
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  process Process given correct following options timeline information
+Time taken to get recomputed solution logits:  52.516637325286865
+Time taken to get recomputed solution logits:  47.694369077682495
+>Prompt Choice:  the Process reasoning and think step by step. Finally give the actual correct answer. Loss: 6.184935092926025, Mistakes: 0.2199999988079071, Control Loss: 4.800625324249268, Total Loss: 0.31601250171661377
+Time taken to get recomputed solution logits:  47.36216068267822
+Time taken to get recomputed solution logits:  47.050702810287476
+>Prompt Choice:  the timeline reasoning and think step by step. Finally give the actual correct answer. Loss: 4.575003623962402, Mistakes: 0.11999999731779099, Control Loss: 4.1889448165893555, Total Loss: 0.20377889275550842
+Time taken to get recomputed solution logits:  50.216468811035156
+Time taken to get recomputed solution logits:  45.775389671325684
+>Prompt Choice:  the process reasoning and think step by step. Finally give the actual correct answer. Loss: 5.996340751647949, Mistakes: 0.2199999988079071, Control Loss: 4.520046234130859, Total Loss: 0.31040090322494507
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.20377889275550842
+Current length: 16
+ the timeline reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.20377889275550842 Best Loss: 0.20181915163993835 Best Control:  the logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  71.81821465492249
+Intersection set size: 5
+Candidate tokens:  provided information to below of
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  and given provided information to below of
+Time taken to get recomputed solution logits:  45.39152407646179
+Time taken to get recomputed solution logits:  41.13613510131836
+>Prompt Choice:  the timeline given and think step by step. Finally give the actual correct answer. Loss: 2.9273529052734375, Mistakes: 0.07999999821186066, Control Loss: 4.123625755310059, Total Loss: 0.16247251629829407
+Time taken to get recomputed solution logits:  43.85294246673584
+Time taken to get recomputed solution logits:  43.50436091423035
+>Prompt Choice:  the timeline provided and think step by step. Finally give the actual correct answer. Loss: 3.354687452316284, Mistakes: 0.07999999821186066, Control Loss: 4.123099327087402, Total Loss: 0.16246198117733002
+Time taken to get recomputed solution logits:  40.714221715927124
+Time taken to get recomputed solution logits:  41.81580090522766
+>Prompt Choice:  the timeline below and think step by step. Finally give the actual correct answer. Loss: 4.0703125, Mistakes: 0.14000000059604645, Control Loss: 4.123751163482666, Total Loss: 0.22247502207756042
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and think step by step. Finally give the actual correct answer., New Loss: 0.16246198117733002
+Current length: 16
+ the timeline provided and think step by step. Finally give the actual correct answer.
+Current Loss: 0.16246198117733002 Best Loss: 0.16246198117733002 Best Control:  the timeline provided and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  61.72650337219238
+Intersection set size: 5
+Candidate tokens:  and, by in to
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  and, by. in to above
+Time taken to get recomputed solution logits:  45.74453902244568
+Time taken to get recomputed solution logits:  39.64122009277344
+>Prompt Choice:  the timeline provided by think step by step. Finally give the actual correct answer. Loss: 5.661001682281494, Mistakes: 0.17999999225139618, Control Loss: 4.759424209594727, Total Loss: 0.27518847584724426
+Time taken to get recomputed solution logits:  39.36160707473755
+Time taken to get recomputed solution logits:  40.80056095123291
+>Prompt Choice:  the timeline provided in think step by step. Finally give the actual correct answer. Loss: 4.65084171295166, Mistakes: 0.1599999964237213, Control Loss: 4.671376705169678, Total Loss: 0.25342753529548645
+Time taken to get recomputed solution logits:  42.74809694290161
+Time taken to get recomputed solution logits:  41.49464964866638
+>Prompt Choice:  the timeline provided and think step by step. Finally give the actual correct answer. Loss: 3.3414065837860107, Mistakes: 0.07999999821186066, Control Loss: 3.712225914001465, Total Loss: 0.15424451231956482
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and think step by step. Finally give the actual correct answer., New Loss: 0.15424451231956482
+Current length: 16
+ the timeline provided and think step by step. Finally give the actual correct answer.
+Current Loss: 0.15424451231956482 Best Loss: 0.15424451231956482 Best Control:  the timeline provided and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.16672444343567
+Intersection set size: 4
+Candidate tokens:  find the eliminate identify
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  answer find determine eliminate identify analyze the
+Time taken to get recomputed solution logits:  45.92103552818298
+Time taken to get recomputed solution logits:  47.08579206466675
+>Prompt Choice:  the timeline provided and analyze step by step. Finally give the actual correct answer. Loss: 3.376729726791382, Mistakes: 0.11999999731779099, Control Loss: 3.9897193908691406, Total Loss: 0.19979438185691833
+Time taken to get recomputed solution logits:  35.79436659812927
+Time taken to get recomputed solution logits:  38.097474336624146
+>Prompt Choice:  the timeline provided and the step by step. Finally give the actual correct answer. Loss: 5.775479793548584, Mistakes: 0.1599999964237213, Control Loss: 4.5157318115234375, Total Loss: 0.2503146231174469
+Time taken to get recomputed solution logits:  47.25949048995972
+Time taken to get recomputed solution logits:  41.766111612319946
+>Prompt Choice:  the timeline provided and answer step by step. Finally give the actual correct answer. Loss: 1.7507811784744263, Mistakes: 0.03999999910593033, Control Loss: 4.061417579650879, Total Loss: 0.12122835218906403
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer step by step. Finally give the actual correct answer., New Loss: 0.12122835218906403
+Current length: 16
+ the timeline provided and answer step by step. Finally give the actual correct answer.
+Current Loss: 0.12122835218906403 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.45004844665527
+Intersection set size: 5
+Candidate tokens:  this. accordingly the based
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  this. accordingly the based your
+Time taken to get recomputed solution logits:  48.92953443527222
+Time taken to get recomputed solution logits:  42.376538038253784
+>Prompt Choice:  the timeline provided and answer accordingly by step. Finally give the actual correct answer. Loss: 2.6265623569488525, Mistakes: 0.05999999865889549, Control Loss: 5.096960067749023, Total Loss: 0.16193920373916626
+Time taken to get recomputed solution logits:  45.927769899368286
+Time taken to get recomputed solution logits:  46.427170515060425
+>Prompt Choice:  the timeline provided and answer this by step. Finally give the actual correct answer. Loss: 2.7462944984436035, Mistakes: 0.09999999403953552, Control Loss: 4.997302055358887, Total Loss: 0.19994603097438812
+Time taken to get recomputed solution logits:  47.1346001625061
+Time taken to get recomputed solution logits:  46.654396533966064
+>Prompt Choice:  the timeline provided and answer. by step. Finally give the actual correct answer. Loss: 3.7807188034057617, Mistakes: 0.14000000059604645, Control Loss: 5.375168800354004, Total Loss: 0.2475033700466156
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by step. Finally give the actual correct answer., New Loss: 0.16193920373916626
+Current length: 16
+ the timeline provided and answer accordingly by step. Finally give the actual correct answer.
+Current Loss: 0.16193920373916626 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  71.90486526489258
+Intersection set size: 5
+Candidate tokens: !,. to based
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! as and,. to based
+Time taken to get recomputed solution logits:  42.13993716239929
+Time taken to get recomputed solution logits:  43.812180280685425
+>Prompt Choice:  the timeline provided and answer accordingly to step. Finally give the actual correct answer. Loss: 3.098609447479248, Mistakes: 0.11999999731779099, Control Loss: 4.58917760848999, Total Loss: 0.21178355813026428
+Time taken to get recomputed solution logits:  44.393537521362305
+Time taken to get recomputed solution logits:  40.75427603721619
+>Prompt Choice:  the timeline provided and answer accordingly, step. Finally give the actual correct answer. Loss: 2.161719560623169, Mistakes: 0.05999999865889549, Control Loss: 5.201972961425781, Total Loss: 0.1640394628047943
+Time taken to get recomputed solution logits:  48.623836040496826
+Time taken to get recomputed solution logits:  43.05919027328491
+>Prompt Choice:  the timeline provided and answer accordingly by step. Finally give the actual correct answer. Loss: 2.039064884185791, Mistakes: 0.05999999865889549, Control Loss: 4.6043620109558105, Total Loss: 0.1520872414112091
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by step. Finally give the actual correct answer., New Loss: 0.1520872414112091
+Current length: 16
+ the timeline provided and answer accordingly by step. Finally give the actual correct answer.
+Current Loss: 0.1520872414112091 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  71.50387620925903
+Intersection set size: 3
+Candidate tokens:  using considering analyzing
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  using considering analyzing selecting identifying eliminating explaining
+Time taken to get recomputed solution logits:  37.756150007247925
+Time taken to get recomputed solution logits:  36.13753533363342
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer. Loss: 1.8500001430511475, Mistakes: 0.05999999865889549, Control Loss: 4.7761549949646, Total Loss: 0.15552309155464172
+Time taken to get recomputed solution logits:  42.93498349189758
+Time taken to get recomputed solution logits:  48.46337175369263
+>Prompt Choice:  the timeline provided and answer accordingly by eliminating. Finally give the actual correct answer. Loss: 12.045231819152832, Mistakes: 0.41999998688697815, Control Loss: 4.991664886474609, Total Loss: 0.5198332667350769
+Time taken to get recomputed solution logits:  36.29081726074219
+Time taken to get recomputed solution logits:  40.69314742088318
+>Prompt Choice:  the timeline provided and answer accordingly by identifying. Finally give the actual correct answer. Loss: 2.0007896423339844, Mistakes: 0.07999999821186066, Control Loss: 4.940735340118408, Total Loss: 0.17881470918655396
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer., New Loss: 0.15552309155464172
+Current length: 16
+ the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer.
+Current Loss: 0.15552309155464172 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  55.845916986465454
+Intersection set size: 3
+Candidate tokens:  the all each
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  when and all it the each
+Time taken to get recomputed solution logits:  41.115556478500366
+Time taken to get recomputed solution logits:  44.81090831756592
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer. Loss: 1.7304688692092896, Mistakes: 0.05999999865889549, Control Loss: 4.359846591949463, Total Loss: 0.1471969336271286
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer., New Loss: 0.1471969336271286
+Current length: 16
+ the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer.
+Current Loss: 0.1471969336271286 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  58.329920530319214
+Intersection set size: 3
+Candidate tokens:  The Let We
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  The Let Here What We
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  Let The We Since Here From Analy
+Time taken to get recomputed solution logits:  41.885719776153564
+Time taken to get recomputed solution logits:  38.273534297943115
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer. Loss: 1.7304688692092896, Mistakes: 0.05999999865889549, Control Loss: 4.359846591949463, Total Loss: 0.1471969336271286
+Time taken to get recomputed solution logits:  40.26287388801575
+Time taken to get recomputed solution logits:  44.100194215774536
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer. Loss: 1.912302851676941, Mistakes: 0.03999999910593033, Control Loss: 5.346090793609619, Total Loss: 0.1469218134880066
+Time taken to get recomputed solution logits:  38.59913396835327
+Time taken to get recomputed solution logits:  38.57271862030029
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Here give the actual correct answer. Loss: 2.921875, Mistakes: 0.05999999865889549, Control Loss: 4.969294548034668, Total Loss: 0.15938588976860046
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer., New Loss: 0.1469218134880066
+Current length: 16
+ the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.
+Current Loss: 0.1469218134880066 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  58.17946410179138
+Intersection set size: 5
+Candidate tokens: zingseticaltze
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: zingseizeticaltzezed
+Time taken to get recomputed solution logits:  38.243645906448364
+Time taken to get recomputed solution logits:  39.41629242897034
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analyize the actual correct answer. Loss: 3.971874952316284, Mistakes: 0.09999999403953552, Control Loss: 5.46659517288208, Total Loss: 0.20933189988136292
+Time taken to get recomputed solution logits:  41.23940563201904
+Time taken to get recomputed solution logits:  40.62885761260986
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analyzing the actual correct answer. Loss: 5.56484842300415, Mistakes: 0.14000000059604645, Control Loss: 5.5542378425598145, Total Loss: 0.25108474493026733
+Time taken to get recomputed solution logits:  40.88991355895996
+Time taken to get recomputed solution logits:  41.7118935585022
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer. Loss: 1.7505841255187988, Mistakes: 0.03999999910593033, Control Loss: 5.021725654602051, Total Loss: 0.14043450355529785
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer., New Loss: 0.14043450355529785
+Current length: 16
+ the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.
+Current Loss: 0.14043450355529785 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  60.176185131073
+Intersection set size: 4
+Candidate tokens:  a an the your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  answer a an reasons me the your
+Time taken to get recomputed solution logits:  41.17374539375305
+Time taken to get recomputed solution logits:  38.84474325180054
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer. Loss: 1.7505841255187988, Mistakes: 0.03999999910593033, Control Loss: 5.021725654602051, Total Loss: 0.14043450355529785
+Time taken to get recomputed solution logits:  38.25077939033508
+Time taken to get recomputed solution logits:  41.31060600280762
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give your actual correct answer. Loss: 3.7965080738067627, Mistakes: 0.09999999403953552, Control Loss: 5.196831703186035, Total Loss: 0.2039366364479065
+Time taken to get recomputed solution logits:  35.64916443824768
+Time taken to get recomputed solution logits:  42.85497808456421
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give an actual correct answer. Loss: 3.6468749046325684, Mistakes: 0.07999999821186066, Control Loss: 5.009119033813477, Total Loss: 0.18018236756324768
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer., New Loss: 0.14043450355529785
+Current length: 16
+ the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.
+Current Loss: 0.14043450355529785 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  60.12458944320679
+Intersection set size: 4
+Candidate tokens:  answer timeline reasons evidence
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  answer reason evidence timeline explanation reasons
+Time taken to get recomputed solution logits:  35.215656995773315
+Time taken to get recomputed solution logits:  40.672144651412964
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer correct answer. Loss: 1.252376675605774, Mistakes: 0.03999999910593033, Control Loss: 5.265352249145508, Total Loss: 0.1453070342540741
+Time taken to get recomputed solution logits:  40.42220067977905
+Time taken to get recomputed solution logits:  40.92250108718872
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the explanation correct answer. Loss: 3.472660779953003, Mistakes: 0.09999999403953552, Control Loss: 5.4258527755737305, Total Loss: 0.20851704478263855
+Time taken to get recomputed solution logits:  43.16901779174805
+Time taken to get recomputed solution logits:  36.857919692993164
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the reason correct answer. Loss: 2.8999998569488525, Mistakes: 0.05999999865889549, Control Loss: 5.5705108642578125, Total Loss: 0.1714102178812027
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Analy give the answer correct answer., New Loss: 0.1453070342540741
+Current length: 16
+ the timeline provided and answer accordingly by analyzing. Analy give the answer correct answer.
+Current Loss: 0.1453070342540741 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  58.735684871673584
+Intersection set size: 5
+Candidate tokens:  with and. in as
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  with and along. in as based
+Time taken to get recomputed solution logits:  37.72667050361633
+Time taken to get recomputed solution logits:  39.279091119766235
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. answer. Loss: 2.9030838012695312, Mistakes: 0.09999999403953552, Control Loss: 5.554084777832031, Total Loss: 0.21108168363571167
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Analy give the answer. answer., New Loss: 0.21108168363571167
+Current length: 16
+ the timeline provided and answer accordingly by analyzing. Analy give the answer. answer.
+Current Loss: 0.21108168363571167 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  52.85467267036438
+Intersection set size: 5
+Candidate tokens:  Ans The Analy Anal Answer
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  Ans The ANAL Analy Anal Answer
+Time taken to get recomputed solution logits:  38.129887342453
+Time taken to get recomputed solution logits:  38.056270360946655
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Ans. Loss: 2.9277641773223877, Mistakes: 0.07999999821186066, Control Loss: 5.185224533081055, Total Loss: 0.18370449542999268
+Time taken to get recomputed solution logits:  40.89427924156189
+Time taken to get recomputed solution logits:  39.8323335647583
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. ANAL. Loss: 3.4773435592651367, Mistakes: 0.07999999821186066, Control Loss: 5.505254745483398, Total Loss: 0.19010508060455322
+Time taken to get recomputed solution logits:  36.95917320251465
+Time taken to get recomputed solution logits:  37.469470500946045
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Analy. Loss: 2.9168202877044678, Mistakes: 0.09999999403953552, Control Loss: 5.406229019165039, Total Loss: 0.208124577999115
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Ans., New Loss: 0.18370449542999268
+Current length: 16
+ the timeline provided and answer accordingly by analyzing. Analy give the answer. Ans.
+Current Loss: 0.18370449542999268 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  54.44676613807678
+Intersection set size: 5
+Candidate tokens: warewe. isww
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: warewe.wn isww
+Time taken to get recomputed solution logits:  37.89236044883728
+Time taken to get recomputed solution logits:  39.198429346084595
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answn Loss: 2.9028258323669434, Mistakes: 0.07999999821186066, Control Loss: 5.001827239990234, Total Loss: 0.1800365447998047
+Time taken to get recomputed solution logits:  37.599584341049194
+Time taken to get recomputed solution logits:  36.51015639305115
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answe Loss: 2.1677772998809814, Mistakes: 0.07999999821186066, Control Loss: 4.994454383850098, Total Loss: 0.17988908290863037
+Time taken to get recomputed solution logits:  39.57314205169678
+Time taken to get recomputed solution logits:  33.150678634643555
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answw Loss: 2.9456655979156494, Mistakes: 0.07999999821186066, Control Loss: 5.001046180725098, Total Loss: 0.18002092838287354
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answe_, New Loss: 0.17988908290863037
+Current length: 17
+ the timeline provided and answer accordingly by analyzing. Analy give the answer. Answe_
+Current Loss: 0.17988908290863037 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Step:  15 Candidates:  [(0.12122835218906403, ' the timeline provided and answer step by step. Finally give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1453070342540741, ' the timeline provided and answer accordingly by analyzing. Analy give the answer correct answer.'), (0.1469218134880066, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1471969336271286, ' the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer.'), (0.1520872414112091, ' the timeline provided and answer accordingly by step. Finally give the actual correct answer.'), (0.15424451231956482, ' the timeline provided and think step by step. Finally give the actual correct answer.'), (0.15552309155464172, ' the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer.'), (0.16193920373916626, ' the timeline provided and answer accordingly by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  53.762054681777954
+Intersection set size: 5
+Candidate tokens: er. is theing
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: er. is the toing
+Time taken to get recomputed solution logits:  34.65453100204468
+Time taken to get recomputed solution logits:  32.88055896759033
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answe_ Loss: 3.5624911785125732, Mistakes: 0.09999999403953552, Control Loss: 5.4707350730896, Total Loss: 0.20941469073295593
+Time taken to get recomputed solution logits:  37.31495237350464
+Time taken to get recomputed solution logits:  30.104379177093506
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer Loss: 3.7300374507904053, Mistakes: 0.09999999403953552, Control Loss: 5.460081100463867, Total Loss: 0.2092016041278839
+Time taken to get recomputed solution logits:  37.471519231796265
+Time taken to get recomputed solution logits:  29.411677837371826
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeing Loss: 3.6940786838531494, Mistakes: 0.09999999403953552, Control Loss: 5.463564872741699, Total Loss: 0.20927128195762634
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer_, New Loss: 0.2092016041278839
+Current length: 18
+ the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer_
+Current Loss: 0.2092016041278839 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  52.96921181678772
+Intersection set size: 4
+Candidate tokens:  A. accordingly is
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  C A B. accordingly is as
+Time taken to get recomputed solution logits:  28.995316982269287
+Time taken to get recomputed solution logits:  35.214394330978394
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer C Loss: 13.993358612060547, Mistakes: 0.3999999761581421, Control Loss: 5.367486000061035, Total Loss: 0.5073496699333191
+Time taken to get recomputed solution logits:  34.3703396320343
+Time taken to get recomputed solution logits:  31.007587671279907
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer is Loss: 2.656419515609741, Mistakes: 0.07999999821186066, Control Loss: 5.363290309906006, Total Loss: 0.1872657984495163
+Time taken to get recomputed solution logits:  38.32815098762512
+Time taken to get recomputed solution logits:  30.458852291107178
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly Loss: 1.0229800939559937, Mistakes: 0.03999999910593033, Control Loss: 5.366993427276611, Total Loss: 0.1473398655653
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly_, New Loss: 0.1473398655653
+Current length: 19
+ the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly_
+Current Loss: 0.1473398655653 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  52.3671293258667
+Intersection set size: 5
+Candidate tokens:  and by,. based
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! and by,. to based
+Time taken to get recomputed solution logits:  37.58800792694092
+Time taken to get recomputed solution logits:  37.99456453323364
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly to Loss: 1.941725730895996, Mistakes: 0.05999999865889549, Control Loss: 5.4921064376831055, Total Loss: 0.16984212398529053
+Time taken to get recomputed solution logits:  36.880354166030884
+Time taken to get recomputed solution logits:  28.760589122772217
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly and Loss: 1.7539063692092896, Mistakes: 0.03999999910593033, Control Loss: 5.492156028747559, Total Loss: 0.14984312653541565
+Time taken to get recomputed solution logits:  38.37372660636902
+Time taken to get recomputed solution logits:  32.62119770050049
+>Prompt Choice:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 1.129205346107483, Mistakes: 0.03999999910593033, Control Loss: 5.488515377044678, Total Loss: 0.14977030456066132
+No improvement in the current position. Moving to the next position.
+New Control:  the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly., New Loss: 0.14977030456066132
+Current length: 19
+ the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.
+Current Loss: 0.14977030456066132 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  54.404229402542114
+Intersection set size: 4
+Candidate tokens:  process Process the your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  process elimination Process the your
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  process elimination option Process logic logical the your
+Time taken to get recomputed solution logits:  38.302834033966064
+Time taken to get recomputed solution logits:  41.83196997642517
+>Prompt Choice:  elimination timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 13.928537368774414, Mistakes: 0.3400000035762787, Control Loss: 5.6444993019104, Total Loss: 0.45288997888565063
+Time taken to get recomputed solution logits:  34.81159687042236
+Time taken to get recomputed solution logits:  34.665517807006836
+>Prompt Choice:  your timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 5.221367835998535, Mistakes: 0.11999999731779099, Control Loss: 5.418519973754883, Total Loss: 0.22837039828300476
+Time taken to get recomputed solution logits:  33.66004514694214
+Time taken to get recomputed solution logits:  35.19899940490723
+>Prompt Choice:  logic timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 2.3531248569488525, Mistakes: 0.05999999865889549, Control Loss: 5.547810077667236, Total Loss: 0.17095619440078735
+No improvement in the current position. Moving to the next position.
+New Control:  logic timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly., New Loss: 0.17095619440078735
+Current length: 19
+ logic timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.
+Current Loss: 0.17095619440078735 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  57.53223204612732
+Intersection set size: 5
+Candidate tokens: ! and,. to
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: ! and,. here to
+Time taken to get recomputed solution logits:  36.585302114486694
+Time taken to get recomputed solution logits:  38.16887283325195
+>Prompt Choice:  logic to provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 3.311177968978882, Mistakes: 0.11999999731779099, Control Loss: 6.761498928070068, Total Loss: 0.25522997975349426
+Time taken to get recomputed solution logits:  35.224273920059204
+Time taken to get recomputed solution logits:  41.47866106033325
+>Prompt Choice:  logic! provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 3.1370327472686768, Mistakes: 0.09999999403953552, Control Loss: 6.436258316040039, Total Loss: 0.2287251502275467
+Time taken to get recomputed solution logits:  41.43258261680603
+Time taken to get recomputed solution logits:  37.599260091781616
+>Prompt Choice:  logic, provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 3.240647554397583, Mistakes: 0.07999999821186066, Control Loss: 6.046574592590332, Total Loss: 0.20093148946762085
+No improvement in the current position. Moving to the next position.
+New Control:  logic, provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly., New Loss: 0.20093148946762085
+Current length: 19
+ logic, provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.
+Current Loss: 0.20093148946762085 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  60.979071617126465
+Intersection set size: 4
+Candidate tokens:  and don no not
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  and don deduction no do not
+Time taken to get recomputed solution logits:  40.76967406272888
+Time taken to get recomputed solution logits:  40.440446853637695
+>Prompt Choice:  logic, no and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 3.671137571334839, Mistakes: 0.11999999731779099, Control Loss: 6.360129356384277, Total Loss: 0.2472025752067566
+Time taken to get recomputed solution logits:  40.34993076324463
+Time taken to get recomputed solution logits:  37.4948251247406
+>Prompt Choice:  logic, deduction and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 2.5270731449127197, Mistakes: 0.09999999403953552, Control Loss: 5.745357990264893, Total Loss: 0.21490715444087982
+Time taken to get recomputed solution logits:  40.31068396568298
+Time taken to get recomputed solution logits:  34.53150177001953
+>Prompt Choice:  logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 0.910995602607727, Mistakes: 0.03999999910593033, Control Loss: 6.042140007019043, Total Loss: 0.16084280610084534
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly., New Loss: 0.16084280610084534
+Current length: 19
+ logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.
+Current Loss: 0.16084280610084534 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  60.14322066307068
+Intersection set size: 5
+Candidate tokens:  just guess a brute guessing
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  just guess intuition a brute the guessing
+Time taken to get recomputed solution logits:  37.92373037338257
+Time taken to get recomputed solution logits:  37.854817152023315
+>Prompt Choice:  logic, not the answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 2.1203126907348633, Mistakes: 0.07999999821186066, Control Loss: 5.983119964599609, Total Loss: 0.19966238737106323
+Time taken to get recomputed solution logits:  33.796802282333374
+Time taken to get recomputed solution logits:  39.71653866767883
+>Prompt Choice:  logic, not a answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 3.431255340576172, Mistakes: 0.11999999731779099, Control Loss: 6.1286797523498535, Total Loss: 0.2425735890865326
+Time taken to get recomputed solution logits:  43.58431434631348
+Time taken to get recomputed solution logits:  38.16047668457031
+>Prompt Choice:  logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 0.7734958529472351, Mistakes: 0.03999999910593033, Control Loss: 5.641325950622559, Total Loss: 0.15282651782035828
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly., New Loss: 0.15282651782035828
+Current length: 19
+ logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.
+Current Loss: 0.15282651782035828 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  59.99371123313904
+Intersection set size: 2
+Candidate tokens:  not guess
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  don guess try not
+>>>> Topk increased to 9 <<<<
+Intersection set size: 9
+Candidate tokens:  exhaustive guess don brute try assumption guessing not assume
+Time taken to get recomputed solution logits:  35.05694842338562
+Time taken to get recomputed solution logits:  40.904258251190186
+>Prompt Choice:  logic, not and guess accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 2.906981945037842, Mistakes: 0.07999999821186066, Control Loss: 5.9437079429626465, Total Loss: 0.19887414574623108
+Time taken to get recomputed solution logits:  31.98918056488037
+Time taken to get recomputed solution logits:  33.959062814712524
+>Prompt Choice:  logic, not and not accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 2.5515694618225098, Mistakes: 0.07999999821186066, Control Loss: 5.955016136169434, Total Loss: 0.1991003155708313
+Time taken to get recomputed solution logits:  42.790072441101074
+Time taken to get recomputed solution logits:  35.505841970443726
+>Prompt Choice:  logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 0.7734958529472351, Mistakes: 0.03999999910593033, Control Loss: 5.641325950622559, Total Loss: 0.15282651782035828
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly., New Loss: 0.15282651782035828
+Current length: 19
+ logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.
+Current Loss: 0.15282651782035828 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  60.520747900009155
+Intersection set size: 5
+Candidate tokens:  choice the from based choices
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  options choice the from based choices sheet
+Time taken to get recomputed solution logits:  37.169798851013184
+Time taken to get recomputed solution logits:  37.143553256988525
+>Prompt Choice:  logic, not and answer based by analyzing. Analy give the answer. Answeer accordingly. Loss: 1.8298157453536987, Mistakes: 0.07999999821186066, Control Loss: 6.109241962432861, Total Loss: 0.20218482613563538
+Time taken to get recomputed solution logits:  37.73097515106201
+Time taken to get recomputed solution logits:  36.462568044662476
+>Prompt Choice:  logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 0.7734958529472351, Mistakes: 0.03999999910593033, Control Loss: 5.641325950622559, Total Loss: 0.15282651782035828
+Time taken to get recomputed solution logits:  39.4206109046936
+Time taken to get recomputed solution logits:  37.333319425582886
+>Prompt Choice:  logic, not and answer choice by analyzing. Analy give the answer. Answeer accordingly. Loss: 3.124256134033203, Mistakes: 0.09999999403953552, Control Loss: 5.952638149261475, Total Loss: 0.2190527617931366
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly., New Loss: 0.15282651782035828
+Current length: 19
+ logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.
+Current Loss: 0.15282651782035828 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  60.037044286727905
+Intersection set size: 5
+Candidate tokens: !,. to based
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! with and,. to based
+Time taken to get recomputed solution logits:  43.39096403121948
+Time taken to get recomputed solution logits:  37.50020408630371
+>Prompt Choice:  logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly. Loss: 0.7734958529472351, Mistakes: 0.03999999910593033, Control Loss: 5.641325950622559, Total Loss: 0.15282651782035828
+Time taken to get recomputed solution logits:  41.20837211608887
+Time taken to get recomputed solution logits:  35.278931856155396
+>Prompt Choice:  logic, not and answer accordingly, analyzing. Analy give the answer. Answeer accordingly. Loss: 1.7628852128982544, Mistakes: 0.09999999403953552, Control Loss: 6.017488956451416, Total Loss: 0.2203497737646103
+Time taken to get recomputed solution logits:  40.65341091156006
+Time taken to get recomputed solution logits:  37.26373219490051
+>Prompt Choice:  logic, not and answer accordingly. analyzing. Analy give the answer. Answeer accordingly. Loss: 2.554339647293091, Mistakes: 0.11999999731779099, Control Loss: 5.929954528808594, Total Loss: 0.23859909176826477
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly., New Loss: 0.15282651782035828
+Current length: 19
+ logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.
+Current Loss: 0.15282651782035828 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  60.152621269226074
+Intersection set size: 5
+Candidate tokens:  using selecting providing explaining writing
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  selecting using providing the explaining writing
+Time taken to get recomputed solution logits:  37.27082657814026
+Time taken to get recomputed solution logits:  34.89514112472534
+>Prompt Choice:  logic, not and answer accordingly by selecting. Analy give the answer. Answeer accordingly. Loss: 2.741490364074707, Mistakes: 0.11999999731779099, Control Loss: 6.314390182495117, Total Loss: 0.24628779292106628
+Time taken to get recomputed solution logits:  40.48908591270447
+Time taken to get recomputed solution logits:  34.811710596084595
+>Prompt Choice:  logic, not and answer accordingly by providing. Analy give the answer. Answeer accordingly. Loss: 2.8455095291137695, Mistakes: 0.11999999731779099, Control Loss: 6.093414306640625, Total Loss: 0.2418682873249054
+Time taken to get recomputed solution logits:  43.40653967857361
+Time taken to get recomputed solution logits:  39.794543504714966
+>Prompt Choice:  logic, not and answer accordingly by explaining. Analy give the answer. Answeer accordingly. Loss: 1.5167536735534668, Mistakes: 0.07999999821186066, Control Loss: 5.85540771484375, Total Loss: 0.19710814952850342
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. Analy give the answer. Answeer accordingly., New Loss: 0.19710814952850342
+Current length: 19
+ logic, not and answer accordingly by explaining. Analy give the answer. Answeer accordingly.
+Current Loss: 0.19710814952850342 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.46610641479492
+Intersection set size: 5
+Candidate tokens: . it why the your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: . it why how the what your
+Time taken to get recomputed solution logits:  45.796810150146484
+Time taken to get recomputed solution logits:  38.24341416358948
+>Prompt Choice:  logic, not and answer accordingly by explaining the Analy give the answer. Answeer accordingly. Loss: 3.743220090866089, Mistakes: 0.14000000059604645, Control Loss: 5.997714996337891, Total Loss: 0.2599543035030365
+Time taken to get recomputed solution logits:  37.94671583175659
+Time taken to get recomputed solution logits:  44.91262459754944
+>Prompt Choice:  logic, not and answer accordingly by explaining what Analy give the answer. Answeer accordingly. Loss: 4.786916255950928, Mistakes: 0.17999999225139618, Control Loss: 6.11344575881958, Total Loss: 0.302268922328949
+Time taken to get recomputed solution logits:  40.3958203792572
+Time taken to get recomputed solution logits:  37.54147243499756
+>Prompt Choice:  logic, not and answer accordingly by explaining. Analy give the answer. Answeer accordingly. Loss: 1.675714373588562, Mistakes: 0.09999999403953552, Control Loss: 5.785621166229248, Total Loss: 0.21571241319179535
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. Analy give the answer. Answeer accordingly., New Loss: 0.21571241319179535
+Current length: 19
+ logic, not and answer accordingly by explaining. Analy give the answer. Answeer accordingly.
+Current Loss: 0.21571241319179535 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.309053897857666
+Intersection set size: 3
+Candidate tokens:  Let The Since
+>>>> Topk increased to 7 <<<<
+Intersection set size: 3
+Candidate tokens:  The Let Since
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  Let The<|start_header_id|> Explain We Since
+Time taken to get recomputed solution logits:  50.41923189163208
+Time taken to get recomputed solution logits:  41.52327084541321
+>Prompt Choice:  logic, not and answer accordingly by explaining. Explain give the answer. Answeer accordingly. Loss: 2.8796887397766113, Mistakes: 0.07999999821186066, Control Loss: 5.615828037261963, Total Loss: 0.19231656193733215
+Time taken to get recomputed solution logits:  40.6152777671814
+Time taken to get recomputed solution logits:  39.818345069885254
+>Prompt Choice:  logic, not and answer accordingly by explaining. The give the answer. Answeer accordingly. Loss: 2.5117907524108887, Mistakes: 0.07999999821186066, Control Loss: 5.274935245513916, Total Loss: 0.1854986995458603
+Time taken to get recomputed solution logits:  38.79560041427612
+Time taken to get recomputed solution logits:  37.362961530685425
+>Prompt Choice:  logic, not and answer accordingly by explaining. Since give the answer. Answeer accordingly. Loss: 2.192011594772339, Mistakes: 0.07999999821186066, Control Loss: 5.8176398277282715, Total Loss: 0.1963527947664261
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The give the answer. Answeer accordingly., New Loss: 0.1854986995458603
+Current length: 19
+ logic, not and answer accordingly by explaining. The give the answer. Answeer accordingly.
+Current Loss: 0.1854986995458603 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  59.489898681640625
+Intersection set size: 3
+Candidate tokens:  answer options correct
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  answer question options correct
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  answer question correct options key time
+Time taken to get recomputed solution logits:  37.65856647491455
+Time taken to get recomputed solution logits:  41.84381651878357
+>Prompt Choice:  logic, not and answer accordingly by explaining. The time the answer. Answeer accordingly. Loss: 4.751776695251465, Mistakes: 0.14000000059604645, Control Loss: 5.742260456085205, Total Loss: 0.25484520196914673
+Time taken to get recomputed solution logits:  40.41655445098877
+Time taken to get recomputed solution logits:  39.91746520996094
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the answer. Answeer accordingly. Loss: 4.269803047180176, Mistakes: 0.11999999731779099, Control Loss: 6.05203104019165, Total Loss: 0.24104061722755432
+Time taken to get recomputed solution logits:  38.2943389415741
+Time taken to get recomputed solution logits:  37.19912528991699
+>Prompt Choice:  logic, not and answer accordingly by explaining. The correct the answer. Answeer accordingly. Loss: 4.492476940155029, Mistakes: 0.14000000059604645, Control Loss: 6.005759239196777, Total Loss: 0.2601151764392853
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The answer the answer. Answeer accordingly., New Loss: 0.24104061722755432
+Current length: 19
+ logic, not and answer accordingly by explaining. The answer the answer. Answeer accordingly.
+Current Loss: 0.24104061722755432 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  57.55322003364563
+Intersection set size: 5
+Candidate tokens:  should can choice will is
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  should can choice will is cannot would
+Time taken to get recomputed solution logits:  36.89519548416138
+Time taken to get recomputed solution logits:  36.88243007659912
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the answer. Answeer accordingly. Loss: 4.200350761413574, Mistakes: 0.11999999731779099, Control Loss: 5.481804847717285, Total Loss: 0.22963610291481018
+Time taken to get recomputed solution logits:  40.689701795578
+Time taken to get recomputed solution logits:  38.09706139564514
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer choice answer. Answeer accordingly. Loss: 3.322435140609741, Mistakes: 0.11999999731779099, Control Loss: 5.682958126068115, Total Loss: 0.23365914821624756
+Time taken to get recomputed solution logits:  44.26460814476013
+Time taken to get recomputed solution logits:  40.683104276657104
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer can answer. Answeer accordingly. Loss: 5.713227272033691, Mistakes: 0.17999999225139618, Control Loss: 5.856480598449707, Total Loss: 0.2971296012401581
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The answer the answer. Answeer accordingly., New Loss: 0.22963610291481018
+Current length: 19
+ logic, not and answer accordingly by explaining. The answer the answer. Answeer accordingly.
+Current Loss: 0.22963610291481018 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Step:  30 Candidates:  [(0.12122835218906403, ' the timeline provided and answer step by step. Finally give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1453070342540741, ' the timeline provided and answer accordingly by analyzing. Analy give the answer correct answer.'), (0.1469218134880066, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1471969336271286, ' the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer.'), (0.1473398655653, ' the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly_'), (0.14977030456066132, ' the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.'), (0.1520872414112091, ' the timeline provided and answer accordingly by step. Finally give the actual correct answer.'), (0.15282651782035828, ' logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.')]
+Time taken to update solutions:  57.73636841773987
+Intersection set size: 5
+Candidate tokens:  option best question correct most
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  option best question correct most choice explanation
+Time taken to get recomputed solution logits:  43.751874685287476
+Time taken to get recomputed solution logits:  44.973464250564575
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the most. Answeer accordingly. Loss: 4.747710227966309, Mistakes: 0.1599999964237213, Control Loss: 5.861974239349365, Total Loss: 0.27723947167396545
+Time taken to get recomputed solution logits:  38.164376735687256
+Time taken to get recomputed solution logits:  34.611260175704956
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the question. Answeer accordingly. Loss: 5.501914978027344, Mistakes: 0.1599999964237213, Control Loss: 5.286387920379639, Total Loss: 0.2657277584075928
+Time taken to get recomputed solution logits:  40.16500687599182
+Time taken to get recomputed solution logits:  37.10809803009033
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best. Answeer accordingly. Loss: 4.244481563568115, Mistakes: 0.11999999731779099, Control Loss: 5.600846290588379, Total Loss: 0.232016921043396
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The answer the best. Answeer accordingly., New Loss: 0.232016921043396
+Current length: 19
+ logic, not and answer accordingly by explaining. The answer the best. Answeer accordingly.
+Current Loss: 0.232016921043396 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.58760666847229
+Intersection set size: 5
+Candidate tokens:  option choice explanation fits fit
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  option answer choice explanation fits fit
+Time taken to get recomputed solution logits:  45.78505253791809
+Time taken to get recomputed solution logits:  38.43480157852173
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best answer Answeer accordingly. Loss: 5.330061912536621, Mistakes: 0.1599999964237213, Control Loss: 5.6457200050354, Total Loss: 0.27291440963745117
+Time taken to get recomputed solution logits:  40.08114433288574
+Time taken to get recomputed solution logits:  37.105581760406494
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best option Answeer accordingly. Loss: 6.536153793334961, Mistakes: 0.19999998807907104, Control Loss: 5.575796127319336, Total Loss: 0.3115158975124359
+Time taken to get recomputed solution logits:  43.41950225830078
+Time taken to get recomputed solution logits:  38.387298345565796
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice Answeer accordingly. Loss: 5.274479866027832, Mistakes: 0.1599999964237213, Control Loss: 5.623411178588867, Total Loss: 0.2724682092666626
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The answer the best choice Answeer accordingly., New Loss: 0.2724682092666626
+Current length: 19
+ logic, not and answer accordingly by explaining. The answer the best choice Answeer accordingly.
+Current Loss: 0.2724682092666626 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.69270730018616
+Intersection set size: 5
+Candidate tokens: . will is based would
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: . for will is from based would
+Time taken to get recomputed solution logits:  40.80754995346069
+Time taken to get recomputed solution logits:  45.029175996780396
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice wouldweer accordingly. Loss: 3.5648608207702637, Mistakes: 0.11999999731779099, Control Loss: 6.716500282287598, Total Loss: 0.25433000922203064
+Time taken to get recomputed solution logits:  44.358155488967896
+Time taken to get recomputed solution logits:  40.79311943054199
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice.weer accordingly. Loss: 2.422640085220337, Mistakes: 0.09999999403953552, Control Loss: 6.852344989776611, Total Loss: 0.23704689741134644
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The answer the best choice.weer accordingly., New Loss: 0.23704689741134644
+Current length: 18
+ logic, not and answer accordingly by explaining. The answer the best choice.weer accordingly.
+Current Loss: 0.23704689741134644 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  59.43913745880127
+Intersection set size: 5
+Candidate tokens:  know have can are will
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  know have can are will choose
+Time taken to get recomputed solution logits:  43.54902410507202
+Time taken to get recomputed solution logits:  45.36817407608032
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice.we know accordingly. Loss: 3.728363275527954, Mistakes: 0.11999999731779099, Control Loss: 6.300238132476807, Total Loss: 0.24600476026535034
+Time taken to get recomputed solution logits:  40.48632884025574
+Time taken to get recomputed solution logits:  40.18129372596741
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice.we will accordingly. Loss: 2.5070509910583496, Mistakes: 0.07999999821186066, Control Loss: 6.088846683502197, Total Loss: 0.201776921749115
+Time taken to get recomputed solution logits:  39.99699664115906
+Time taken to get recomputed solution logits:  41.029881954193115
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice.we can accordingly. Loss: 3.5945558547973633, Mistakes: 0.11999999731779099, Control Loss: 6.193703651428223, Total Loss: 0.24387407302856445
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The answer the best choice.we will accordingly., New Loss: 0.201776921749115
+Current length: 18
+ logic, not and answer accordingly by explaining. The answer the best choice.we will accordingly.
+Current Loss: 0.201776921749115 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  61.433879137039185
+Intersection set size: 4
+Candidate tokens:  be discuss see choose
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  be discuss see choose get go
+Time taken to get recomputed solution logits:  39.95937204360962
+Time taken to get recomputed solution logits:  44.78945183753967
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice.we will get. Loss: 2.1586363315582275, Mistakes: 0.07999999821186066, Control Loss: 5.880287170410156, Total Loss: 0.19760572910308838
+Time taken to get recomputed solution logits:  43.40200209617615
+Time taken to get recomputed solution logits:  40.59615182876587
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice.we will see. Loss: 4.203932285308838, Mistakes: 0.14000000059604645, Control Loss: 5.903382778167725, Total Loss: 0.25806766748428345
+Time taken to get recomputed solution logits:  44.04625368118286
+Time taken to get recomputed solution logits:  44.15270018577576
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice.we will be. Loss: 2.792281150817871, Mistakes: 0.09999999403953552, Control Loss: 5.90629243850708, Total Loss: 0.2181258499622345
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The answer the best choice.we will get., New Loss: 0.19760572910308838
+Current length: 18
+ logic, not and answer accordingly by explaining. The answer the best choice.we will get.
+Current Loss: 0.19760572910308838 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  65.72828888893127
+Intersection set size: 5
+Candidate tokens: . is the from after
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  by. is the from after based
+Time taken to get recomputed solution logits:  40.657779932022095
+Time taken to get recomputed solution logits:  45.21218395233154
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice.we will get. Loss: 2.1586363315582275, Mistakes: 0.07999999821186066, Control Loss: 5.624974727630615, Total Loss: 0.19249948859214783
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The answer the best choice.we will get., New Loss: 0.19249948859214783
+Current length: 18
+ logic, not and answer accordingly by explaining. The answer the best choice.we will get.
+Current Loss: 0.19249948859214783 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  65.98849725723267
+Intersection set size: 4
+Candidate tokens:  process Process the your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  process elimination Process logic the your
+Time taken to get recomputed solution logits:  41.20165491104126
+Time taken to get recomputed solution logits:  44.87017059326172
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice.we will get. Loss: 2.1586363315582275, Mistakes: 0.07999999821186066, Control Loss: 5.624974727630615, Total Loss: 0.19249948859214783
+Time taken to get recomputed solution logits:  31.264342546463013
+Time taken to get recomputed solution logits:  30.71847701072693
+>Prompt Choice:  elimination, not and answer accordingly by explaining. The answer the best choice.we will get. Loss: 9.515509605407715, Mistakes: 0.41999998688697815, Control Loss: 6.094136714935303, Total Loss: 0.5418826937675476
+Time taken to get recomputed solution logits:  43.55425262451172
+Time taken to get recomputed solution logits:  40.994786739349365
+>Prompt Choice:  Process, not and answer accordingly by explaining. The answer the best choice.we will get. Loss: 7.280480861663818, Mistakes: 0.19999998807907104, Control Loss: 6.361136436462402, Total Loss: 0.32722270488739014
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The answer the best choice.we will get., New Loss: 0.19249948859214783
+Current length: 18
+ logic, not and answer accordingly by explaining. The answer the best choice.we will get.
+Current Loss: 0.19249948859214783 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.96014595031738
+Intersection set size: 5
+Candidate tokens: ! and,. to
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! and,. here to based
+Time taken to get recomputed solution logits:  39.742586612701416
+Time taken to get recomputed solution logits:  44.13450813293457
+>Prompt Choice:  logic, not and answer accordingly by explaining. The answer the best choice.we will get. Loss: 2.1586363315582275, Mistakes: 0.07999999821186066, Control Loss: 5.624974727630615, Total Loss: 0.19249948859214783
+Time taken to get recomputed solution logits:  43.85919904708862
+Time taken to get recomputed solution logits:  37.73366975784302
+>Prompt Choice:  logic to not and answer accordingly by explaining. The answer the best choice.we will get. Loss: 5.5133795738220215, Mistakes: 0.17999999225139618, Control Loss: 6.112442970275879, Total Loss: 0.30224883556365967
+Time taken to get recomputed solution logits:  40.76239013671875
+Time taken to get recomputed solution logits:  37.93536019325256
+>Prompt Choice:  logic. not and answer accordingly by explaining. The answer the best choice.we will get. Loss: 3.6422460079193115, Mistakes: 0.09999999403953552, Control Loss: 6.298369407653809, Total Loss: 0.2259673774242401
+No improvement in the current position. Moving to the next position.
+New Control:  logic, not and answer accordingly by explaining. The answer the best choice.we will get., New Loss: 0.19249948859214783
+Current length: 18
+ logic, not and answer accordingly by explaining. The answer the best choice.we will get.
+Current Loss: 0.19249948859214783 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  65.92811632156372
+Intersection set size: 4
+Candidate tokens:  and don no not
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  and don deduction no do not
+Time taken to get recomputed solution logits:  44.09364914894104
+Time taken to get recomputed solution logits:  41.73647975921631
+>Prompt Choice:  logic, deduction and answer accordingly by explaining. The answer the best choice.we will get. Loss: 3.625009298324585, Mistakes: 0.09999999403953552, Control Loss: 5.019834041595459, Total Loss: 0.20039667189121246
+Time taken to get recomputed solution logits:  43.23455286026001
+Time taken to get recomputed solution logits:  44.13483238220215
+>Prompt Choice:  logic, no and answer accordingly by explaining. The answer the best choice.we will get. Loss: 3.657855749130249, Mistakes: 0.09999999403953552, Control Loss: 5.658274173736572, Total Loss: 0.21316547691822052
+Time taken to get recomputed solution logits:  43.40972661972046
+Time taken to get recomputed solution logits:  40.25187683105469
+>Prompt Choice:  logic, don and answer accordingly by explaining. The answer the best choice.we will get. Loss: 4.702622413635254, Mistakes: 0.1599999964237213, Control Loss: 5.470116138458252, Total Loss: 0.26940232515335083
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction and answer accordingly by explaining. The answer the best choice.we will get., New Loss: 0.20039667189121246
+Current length: 18
+ logic, deduction and answer accordingly by explaining. The answer the best choice.we will get.
+Current Loss: 0.20039667189121246 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.93994736671448
+Intersection set size: 5
+Candidate tokens:  and,. to skills
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! and,. to skills or
+Time taken to get recomputed solution logits:  50.05195140838623
+Time taken to get recomputed solution logits:  38.98244643211365
+>Prompt Choice:  logic, deduction to answer accordingly by explaining. The answer the best choice.we will get. Loss: 2.689321517944336, Mistakes: 0.09999999403953552, Control Loss: 5.255523681640625, Total Loss: 0.20511046051979065
+Time taken to get recomputed solution logits:  44.05326247215271
+Time taken to get recomputed solution logits:  44.11836767196655
+>Prompt Choice:  logic, deduction. answer accordingly by explaining. The answer the best choice.we will get. Loss: 4.55898380279541, Mistakes: 0.14000000059604645, Control Loss: 5.332605361938477, Total Loss: 0.24665209650993347
+Time taken to get recomputed solution logits:  44.55037021636963
+Time taken to get recomputed solution logits:  34.36612939834595
+>Prompt Choice:  logic, deduction, answer accordingly by explaining. The answer the best choice.we will get. Loss: 3.8745827674865723, Mistakes: 0.14000000059604645, Control Loss: 5.448344707489014, Total Loss: 0.24896690249443054
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer accordingly by explaining. The answer the best choice.we will get., New Loss: 0.20511046051979065
+Current length: 18
+ logic, deduction to answer accordingly by explaining. The answer the best choice.we will get.
+Current Loss: 0.20511046051979065 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  66.4333107471466
+Intersection set size: 4
+Candidate tokens:  answer find solve arrive
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  answer find determine eliminate solve figure arrive
+Time taken to get recomputed solution logits:  43.876686573028564
+Time taken to get recomputed solution logits:  47.49529433250427
+>Prompt Choice:  logic, deduction to figure accordingly by explaining. The answer the best choice.we will get. Loss: 3.814497709274292, Mistakes: 0.11999999731779099, Control Loss: 6.005455017089844, Total Loss: 0.24010908603668213
+Time taken to get recomputed solution logits:  46.22766137123108
+Time taken to get recomputed solution logits:  37.720736265182495
+>Prompt Choice:  logic, deduction to answer accordingly by explaining. The answer the best choice.we will get. Loss: 3.0002691745758057, Mistakes: 0.09999999403953552, Control Loss: 5.392693519592285, Total Loss: 0.20785385370254517
+Time taken to get recomputed solution logits:  50.760977029800415
+Time taken to get recomputed solution logits:  53.98595905303955
+>Prompt Choice:  logic, deduction to eliminate accordingly by explaining. The answer the best choice.we will get. Loss: 7.650205612182617, Mistakes: 0.29999998211860657, Control Loss: 5.683083534240723, Total Loss: 0.4136616587638855
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer accordingly by explaining. The answer the best choice.we will get., New Loss: 0.20785385370254517
+Current length: 18
+ logic, deduction to answer accordingly by explaining. The answer the best choice.we will get.
+Current Loss: 0.20785385370254517 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  68.41215085983276
+Intersection set size: 5
+Candidate tokens: ! this. the your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! this. these it the your
+Time taken to get recomputed solution logits:  42.7780385017395
+Time taken to get recomputed solution logits:  44.89814043045044
+>Prompt Choice:  logic, deduction to answer this by explaining. The answer the best choice.we will get. Loss: 2.5815374851226807, Mistakes: 0.09999999403953552, Control Loss: 5.719514846801758, Total Loss: 0.21439027786254883
+Time taken to get recomputed solution logits:  44.04139256477356
+Time taken to get recomputed solution logits:  45.250428199768066
+>Prompt Choice:  logic, deduction to answer! by explaining. The answer the best choice.we will get. Loss: 5.661022663116455, Mistakes: 0.1599999964237213, Control Loss: 5.908428192138672, Total Loss: 0.27816855907440186
+Time taken to get recomputed solution logits:  43.99351954460144
+Time taken to get recomputed solution logits:  43.287999868392944
+>Prompt Choice:  logic, deduction to answer the by explaining. The answer the best choice.we will get. Loss: 3.2666616439819336, Mistakes: 0.09999999403953552, Control Loss: 6.018195629119873, Total Loss: 0.22036391496658325
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this by explaining. The answer the best choice.we will get., New Loss: 0.21439027786254883
+Current length: 18
+ logic, deduction to answer this by explaining. The answer the best choice.we will get.
+Current Loss: 0.21439027786254883 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  65.65427446365356
+Intersection set size: 5
+Candidate tokens:  question!. problem questions
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  question!. puzzle problem questions
+Time taken to get recomputed solution logits:  44.31715226173401
+Time taken to get recomputed solution logits:  45.53443455696106
+>Prompt Choice:  logic, deduction to answer this problem explaining. The answer the best choice.we will get. Loss: 4.166412353515625, Mistakes: 0.11999999731779099, Control Loss: 5.849553108215332, Total Loss: 0.2369910478591919
+Time taken to get recomputed solution logits:  49.343271255493164
+Time taken to get recomputed solution logits:  43.28606295585632
+>Prompt Choice:  logic, deduction to answer this puzzle explaining. The answer the best choice.we will get. Loss: 4.894123554229736, Mistakes: 0.17999999225139618, Control Loss: 5.891937255859375, Total Loss: 0.2978387475013733
+Time taken to get recomputed solution logits:  46.92296504974365
+Time taken to get recomputed solution logits:  44.154157876968384
+>Prompt Choice:  logic, deduction to answer this question explaining. The answer the best choice.we will get. Loss: 1.4539061784744263, Mistakes: 0.03999999910593033, Control Loss: 5.781907558441162, Total Loss: 0.15563815832138062
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question explaining. The answer the best choice.we will get., New Loss: 0.15563815832138062
+Current length: 18
+ logic, deduction to answer this question explaining. The answer the best choice.we will get.
+Current Loss: 0.15563815832138062 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  69.3673882484436
+Intersection set size: 5
+Candidate tokens: ! and,. correctly
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! and, carefully. correctly based
+Time taken to get recomputed solution logits:  37.86435532569885
+Time taken to get recomputed solution logits:  38.00795269012451
+>Prompt Choice:  logic, deduction to answer this question based. The answer the best choice.we will get. Loss: 3.50390625, Mistakes: 0.09999999403953552, Control Loss: 5.25714635848999, Total Loss: 0.20514291524887085
+Time taken to get recomputed solution logits:  40.93657565116882
+Time taken to get recomputed solution logits:  40.93708109855652
+>Prompt Choice:  logic, deduction to answer this question!. The answer the best choice.we will get. Loss: 2.2166693210601807, Mistakes: 0.07999999821186066, Control Loss: 5.880985736846924, Total Loss: 0.1976197063922882
+Time taken to get recomputed solution logits:  39.88898944854736
+Time taken to get recomputed solution logits:  37.4496693611145
+>Prompt Choice:  logic, deduction to answer this question.. The answer the best choice.we will get. Loss: 3.1968836784362793, Mistakes: 0.07999999821186066, Control Loss: 5.8906426429748535, Total Loss: 0.19781285524368286
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. The answer the best choice.we will get., New Loss: 0.1976197063922882
+Current length: 17
+ logic, deduction to answer this question!. The answer the best choice.we will get.
+Current Loss: 0.1976197063922882 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.085399866104126
+Intersection set size: 4
+Candidate tokens:  Let The I Think
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  Let The I Please We Think What
+Time taken to get recomputed solution logits:  40.492233991622925
+Time taken to get recomputed solution logits:  38.53369140625
+>Prompt Choice:  logic, deduction to answer this question!. We answer the best choice.we will get. Loss: 3.8477468490600586, Mistakes: 0.1599999964237213, Control Loss: 5.214532375335693, Total Loss: 0.26429063081741333
+Time taken to get recomputed solution logits:  37.91122388839722
+Time taken to get recomputed solution logits:  34.75002074241638
+>Prompt Choice:  logic, deduction to answer this question!. I answer the best choice.we will get. Loss: 2.3734374046325684, Mistakes: 0.05999999865889549, Control Loss: 5.262457370758057, Total Loss: 0.16524913907051086
+Time taken to get recomputed solution logits:  34.82994246482849
+Time taken to get recomputed solution logits:  44.424147844314575
+>Prompt Choice:  logic, deduction to answer this question!. Please answer the best choice.we will get. Loss: 3.1844396591186523, Mistakes: 0.09999999403953552, Control Loss: 4.991706848144531, Total Loss: 0.19983413815498352
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I answer the best choice.we will get., New Loss: 0.16524913907051086
+Current length: 17
+ logic, deduction to answer this question!. I answer the best choice.we will get.
+Current Loss: 0.16524913907051086 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Step:  45 Candidates:  [(0.12122835218906403, ' the timeline provided and answer step by step. Finally give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1453070342540741, ' the timeline provided and answer accordingly by analyzing. Analy give the answer correct answer.'), (0.1469218134880066, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1471969336271286, ' the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer.'), (0.1473398655653, ' the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly_'), (0.14977030456066132, ' the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.'), (0.1520872414112091, ' the timeline provided and answer accordingly by step. Finally give the actual correct answer.'), (0.15282651782035828, ' logic, not and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.')]
+Time taken to update solutions:  55.82716965675354
+Intersection set size: 5
+Candidate tokens:  am will hope think would
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  have can am will hope think would
+Time taken to get recomputed solution logits:  36.50913333892822
+Time taken to get recomputed solution logits:  38.0572726726532
+>Prompt Choice:  logic, deduction to answer this question!. I think the best choice.we will get. Loss: 4.010188579559326, Mistakes: 0.14000000059604645, Control Loss: 5.374805927276611, Total Loss: 0.2474961131811142
+Time taken to get recomputed solution logits:  41.86768651008606
+Time taken to get recomputed solution logits:  40.39422106742859
+>Prompt Choice:  logic, deduction to answer this question!. I have the best choice.we will get. Loss: 1.857031226158142, Mistakes: 0.03999999910593033, Control Loss: 5.340982913970947, Total Loss: 0.14681965112686157
+Time taken to get recomputed solution logits:  37.05301070213318
+Time taken to get recomputed solution logits:  41.019320249557495
+>Prompt Choice:  logic, deduction to answer this question!. I am the best choice.we will get. Loss: 2.1488678455352783, Mistakes: 0.05999999865889549, Control Loss: 5.433659076690674, Total Loss: 0.16867317259311676
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the best choice.we will get., New Loss: 0.14681965112686157
+Current length: 17
+ logic, deduction to answer this question!. I have the best choice.we will get.
+Current Loss: 0.14681965112686157 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.58311724662781
+Intersection set size: 4
+Candidate tokens:  already tried to a
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  tried a no already to the
+Time taken to get recomputed solution logits:  37.06748676300049
+Time taken to get recomputed solution logits:  41.41545867919922
+>Prompt Choice:  logic, deduction to answer this question!. I have already best choice.we will get. Loss: 2.827507257461548, Mistakes: 0.07999999821186066, Control Loss: 5.5478434562683105, Total Loss: 0.19095686078071594
+Time taken to get recomputed solution logits:  40.881346464157104
+Time taken to get recomputed solution logits:  40.533013105392456
+>Prompt Choice:  logic, deduction to answer this question!. I have the best choice.we will get. Loss: 1.857031226158142, Mistakes: 0.03999999910593033, Control Loss: 5.088832378387451, Total Loss: 0.1417766511440277
+Time taken to get recomputed solution logits:  37.660627603530884
+Time taken to get recomputed solution logits:  38.47887897491455
+>Prompt Choice:  logic, deduction to answer this question!. I have to best choice.we will get. Loss: 1.3409172296524048, Mistakes: 0.03999999910593033, Control Loss: 5.31294059753418, Total Loss: 0.14625880122184753
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the best choice.we will get., New Loss: 0.1417766511440277
+Current length: 17
+ logic, deduction to answer this question!. I have the best choice.we will get.
+Current Loss: 0.1417766511440277 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.37098407745361
+Intersection set size: 4
+Candidate tokens:  answer option correct options
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  answer option right correct options answers
+Time taken to get recomputed solution logits:  43.63010263442993
+Time taken to get recomputed solution logits:  45.448946952819824
+>Prompt Choice:  logic, deduction to answer this question!. I have the answers choice.we will get. Loss: 3.3952159881591797, Mistakes: 0.11999999731779099, Control Loss: 5.228230953216553, Total Loss: 0.22456461191177368
+Time taken to get recomputed solution logits:  41.64634585380554
+Time taken to get recomputed solution logits:  34.4728479385376
+>Prompt Choice:  logic, deduction to answer this question!. I have the option choice.we will get. Loss: 3.6453139781951904, Mistakes: 0.09999999403953552, Control Loss: 5.308407783508301, Total Loss: 0.20616814494132996
+Time taken to get recomputed solution logits:  39.00695013999939
+Time taken to get recomputed solution logits:  37.55783939361572
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct choice.we will get. Loss: 2.8340976238250732, Mistakes: 0.07999999821186066, Control Loss: 5.335063457489014, Total Loss: 0.18670126795768738
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct choice.we will get., New Loss: 0.18670126795768738
+Current length: 17
+ logic, deduction to answer this question!. I have the correct choice.we will get.
+Current Loss: 0.18670126795768738 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.65762233734131
+Intersection set size: 4
+Candidate tokens:  answer option answers solution
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  answer option ans an options answers solution
+Time taken to get recomputed solution logits:  39.8614981174469
+Time taken to get recomputed solution logits:  44.5010826587677
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we will get. Loss: 2.348437547683716, Mistakes: 0.05999999865889549, Control Loss: 5.044153690338135, Total Loss: 0.1608830690383911
+Time taken to get recomputed solution logits:  38.376266956329346
+Time taken to get recomputed solution logits:  38.40486478805542
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct ans.we will get. Loss: 2.2851366996765137, Mistakes: 0.07999999821186066, Control Loss: 4.752781391143799, Total Loss: 0.1750556230545044
+Time taken to get recomputed solution logits:  37.99475932121277
+Time taken to get recomputed solution logits:  38.22650861740112
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct an.we will get. Loss: 2.4898793697357178, Mistakes: 0.05999999865889549, Control Loss: 5.17357063293457, Total Loss: 0.16347141563892365
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we will get., New Loss: 0.1608830690383911
+Current length: 17
+ logic, deduction to answer this question!. I have the correct option.we will get.
+Current Loss: 0.1608830690383911 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.45004940032959
+Intersection set size: 4
+Candidate tokens: ,. but as
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  answer and which,. but as
+Time taken to get recomputed solution logits:  40.98099708557129
+Time taken to get recomputed solution logits:  40.96717643737793
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option answer will get. Loss: 2.4759902954101562, Mistakes: 0.07999999821186066, Control Loss: 5.4850287437438965, Total Loss: 0.18970057368278503
+Time taken to get recomputed solution logits:  40.205517053604126
+Time taken to get recomputed solution logits:  44.328431129455566
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we will get. Loss: 2.348437547683716, Mistakes: 0.05999999865889549, Control Loss: 4.857131004333496, Total Loss: 0.15714260935783386
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we will get., New Loss: 0.15714260935783386
+Current length: 17
+ logic, deduction to answer this question!. I have the correct option.we will get.
+Current Loss: 0.15714260935783386 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.005483627319336
+Intersection set size: 5
+Candidate tokens:  just can want are will
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  just know can want are will need
+Time taken to get recomputed solution logits:  40.913103342056274
+Time taken to get recomputed solution logits:  41.402780055999756
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we just get. Loss: 3.1929733753204346, Mistakes: 0.09999999403953552, Control Loss: 5.293503761291504, Total Loss: 0.20587006211280823
+Time taken to get recomputed solution logits:  40.70535850524902
+Time taken to get recomputed solution logits:  40.90099740028381
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are get. Loss: 2.878124952316284, Mistakes: 0.07999999821186066, Control Loss: 5.496881008148193, Total Loss: 0.18993762135505676
+Time taken to get recomputed solution logits:  41.03689408302307
+Time taken to get recomputed solution logits:  33.723188161849976
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we want get. Loss: 2.6578149795532227, Mistakes: 0.09999999403953552, Control Loss: 5.291226387023926, Total Loss: 0.20582452416419983
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are get., New Loss: 0.18993762135505676
+Current length: 17
+ logic, deduction to answer this question!. I have the correct option.we are get.
+Current Loss: 0.18993762135505676 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.70756149291992
+Intersection set size: 5
+Candidate tokens:  just trying looking going not
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  just waiting trying here looking going not
+Time taken to get recomputed solution logits:  40.425981521606445
+Time taken to get recomputed solution logits:  41.9032781124115
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are get. Loss: 2.7710936069488525, Mistakes: 0.07999999821186066, Control Loss: 5.511293411254883, Total Loss: 0.19022586941719055
+Time taken to get recomputed solution logits:  36.936968088150024
+Time taken to get recomputed solution logits:  39.92238092422485
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are just. Loss: 2.9726622104644775, Mistakes: 0.09999999403953552, Control Loss: 5.592750549316406, Total Loss: 0.2118549942970276
+Time taken to get recomputed solution logits:  45.220597982406616
+Time taken to get recomputed solution logits:  45.51660919189453
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are trying. Loss: 5.12812614440918, Mistakes: 0.1599999964237213, Control Loss: 5.64051628112793, Total Loss: 0.27281031012535095
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are get., New Loss: 0.19022586941719055
+Current length: 17
+ logic, deduction to answer this question!. I have the correct option.we are get.
+Current Loss: 0.19022586941719055 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.07662749290466
+Intersection set size: 4
+Candidate tokens: ttintiing
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: tintit thetiing
+Time taken to get recomputed solution logits:  47.594958543777466
+Time taken to get recomputed solution logits:  49.54119253158569
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are geting Loss: 3.6477177143096924, Mistakes: 0.14000000059604645, Control Loss: 5.503945827484131, Total Loss: 0.2500789165496826
+Time taken to get recomputed solution logits:  45.967166900634766
+Time taken to get recomputed solution logits:  45.57317328453064
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are gett Loss: 4.982812404632568, Mistakes: 0.1599999964237213, Control Loss: 5.505304336547852, Total Loss: 0.27010607719421387
+Time taken to get recomputed solution logits:  45.9804425239563
+Time taken to get recomputed solution logits:  45.89460015296936
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getit Loss: 1.760156512260437, Mistakes: 0.05999999865889549, Control Loss: 5.50739049911499, Total Loss: 0.17014780640602112
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getit_, New Loss: 0.17014780640602112
+Current length: 18
+ logic, deduction to answer this question!. I have the correct option.we are getit_
+Current Loss: 0.17014780640602112 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  61.1250684261322
+Intersection set size: 5
+Candidate tokens: ninggnngig
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: ninggnignngig
+Time taken to get recomputed solution logits:  45.64045524597168
+Time taken to get recomputed solution logits:  43.323354721069336
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitign Loss: 3.0234575271606445, Mistakes: 0.09999999403953552, Control Loss: 5.986386775970459, Total Loss: 0.21972772479057312
+Time taken to get recomputed solution logits:  49.066072940826416
+Time taken to get recomputed solution logits:  46.11341094970703
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitng Loss: 4.032813549041748, Mistakes: 0.11999999731779099, Control Loss: 5.979499816894531, Total Loss: 0.23958998918533325
+Time taken to get recomputed solution logits:  51.0716495513916
+Time taken to get recomputed solution logits:  45.89812660217285
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning Loss: 3.0601561069488525, Mistakes: 0.07999999821186066, Control Loss: 5.985395908355713, Total Loss: 0.19970791041851044
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning_, New Loss: 0.19970791041851044
+Current length: 19
+ logic, deduction to answer this question!. I have the correct option.we are getitning_
+Current Loss: 0.19970791041851044 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  68.22574591636658
+Intersection set size: 5
+Candidate tokens:  this there it to the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  this there it closer to the
+Time taken to get recomputed solution logits:  51.27839016914368
+Time taken to get recomputed solution logits:  44.91283845901489
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning there Loss: 5.116554260253906, Mistakes: 0.17999999225139618, Control Loss: 5.7952094078063965, Total Loss: 0.29590415954589844
+Time taken to get recomputed solution logits:  40.152063608169556
+Time taken to get recomputed solution logits:  44.88396167755127
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning closer Loss: 3.8063573837280273, Mistakes: 0.11999999731779099, Control Loss: 5.797327995300293, Total Loss: 0.23594655096530914
+Time taken to get recomputed solution logits:  44.86758017539978
+Time taken to get recomputed solution logits:  45.07375955581665
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to Loss: 1.9010905027389526, Mistakes: 0.05999999865889549, Control Loss: 5.79575252532959, Total Loss: 0.17591504752635956
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to_, New Loss: 0.17591504752635956
+Current length: 20
+ logic, deduction to answer this question!. I have the correct option.we are getitning to_
+Current Loss: 0.17591504752635956 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.22673439979553
+Intersection set size: 5
+Candidate tokens:  know this that it the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  know find this see that it the
+Time taken to get recomputed solution logits:  40.35481142997742
+Time taken to get recomputed solution logits:  44.46713709831238
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to_ Loss: 3.9078924655914307, Mistakes: 0.11999999731779099, Control Loss: 5.738626003265381, Total Loss: 0.23477251827716827
+Time taken to get recomputed solution logits:  55.031925678253174
+Time taken to get recomputed solution logits:  49.26819396018982
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to that Loss: 8.69921875, Mistakes: 0.2199999988079071, Control Loss: 5.722769737243652, Total Loss: 0.3344554007053375
+Time taken to get recomputed solution logits:  45.71194672584534
+Time taken to get recomputed solution logits:  45.64118576049805
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to this Loss: 5.220324516296387, Mistakes: 0.1599999964237213, Control Loss: 5.723378658294678, Total Loss: 0.2744675576686859
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to__, New Loss: 0.23477251827716827
+Current length: 20
+ logic, deduction to answer this question!. I have the correct option.we are getitning to__
+Current Loss: 0.23477251827716827 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  66.89288640022278
+Intersection set size: 5
+Candidate tokens:  know this that it the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  know find this see that it the
+Time taken to get recomputed solution logits:  43.68558716773987
+Time taken to get recomputed solution logits:  52.692463636398315
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to it Loss: 5.790810585021973, Mistakes: 0.19999998807907104, Control Loss: 5.783191204071045, Total Loss: 0.31566381454467773
+Time taken to get recomputed solution logits:  52.567710638046265
+Time taken to get recomputed solution logits:  48.71690845489502
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to that Loss: 8.782812118530273, Mistakes: 0.2199999988079071, Control Loss: 5.783761024475098, Total Loss: 0.3356752097606659
+Time taken to get recomputed solution logits:  51.03169560432434
+Time taken to get recomputed solution logits:  44.87350845336914
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find Loss: 0.8040821552276611, Mistakes: 0.03999999910593033, Control Loss: 5.785393714904785, Total Loss: 0.15570786595344543
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find_, New Loss: 0.15570786595344543
+Current length: 21
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find_
+Current Loss: 0.15570786595344543 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  75.06421732902527
+Intersection set size: 5
+Candidate tokens:  out a it the what
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  out when a an it the what
+Time taken to get recomputed solution logits:  45.0467894077301
+Time taken to get recomputed solution logits:  48.273679971694946
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find it Loss: 3.66015625, Mistakes: 0.11999999731779099, Control Loss: 5.544384479522705, Total Loss: 0.23088768124580383
+Time taken to get recomputed solution logits:  44.98464059829712
+Time taken to get recomputed solution logits:  42.053091287612915
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find when Loss: 4.144537925720215, Mistakes: 0.14000000059604645, Control Loss: 5.544679164886475, Total Loss: 0.25089359283447266
+Time taken to get recomputed solution logits:  45.19564437866211
+Time taken to get recomputed solution logits:  44.66031265258789
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the Loss: 2.5493037700653076, Mistakes: 0.11999999731779099, Control Loss: 5.541469097137451, Total Loss: 0.2308293879032135
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the_, New Loss: 0.2308293879032135
+Current length: 22
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the_
+Current Loss: 0.2308293879032135 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  61.13398861885071
+Intersection set size: 4
+Candidate tokens:  answer only window time
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  answer available only correct window time
+Time taken to get recomputed solution logits:  39.202295541763306
+Time taken to get recomputed solution logits:  45.89793634414673
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the correct Loss: 3.0492773056030273, Mistakes: 0.09999999403953552, Control Loss: 5.337993144989014, Total Loss: 0.20675985515117645
+Time taken to get recomputed solution logits:  39.57215356826782
+Time taken to get recomputed solution logits:  39.2773973941803
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the only Loss: 3.7312498092651367, Mistakes: 0.09999999403953552, Control Loss: 5.337584018707275, Total Loss: 0.20675167441368103
+Time taken to get recomputed solution logits:  42.90524125099182
+Time taken to get recomputed solution logits:  46.501816511154175
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer Loss: 2.617187976837158, Mistakes: 0.07999999821186066, Control Loss: 5.336477756500244, Total Loss: 0.1867295503616333
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer_, New Loss: 0.1867295503616333
+Current length: 23
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer_
+Current Loss: 0.1867295503616333 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.16175174713135
+Intersection set size: 5
+Candidate tokens: ! by,. together
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! using by,. through together
+Time taken to get recomputed solution logits:  40.841951847076416
+Time taken to get recomputed solution logits:  46.181294202804565
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using Loss: 3.8626255989074707, Mistakes: 0.14000000059604645, Control Loss: 5.068977355957031, Total Loss: 0.2413795441389084
+Time taken to get recomputed solution logits:  45.9496808052063
+Time taken to get recomputed solution logits:  51.7851722240448
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer together Loss: 5.82943058013916, Mistakes: 0.1599999964237213, Control Loss: 5.068216323852539, Total Loss: 0.26136431097984314
+Time taken to get recomputed solution logits:  40.24602556228638
+Time taken to get recomputed solution logits:  45.9832923412323
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer through Loss: 4.822745323181152, Mistakes: 0.1599999964237213, Control Loss: 5.06899356842041, Total Loss: 0.2613798677921295
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using_, New Loss: 0.2413795441389084
+Current length: 24
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using_
+Current Loss: 0.2413795441389084 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Step:  60 Candidates:  [(0.12122835218906403, ' the timeline provided and answer step by step. Finally give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1417766511440277, ' logic, deduction to answer this question!. I have the best choice.we will get.'), (0.1453070342540741, ' the timeline provided and answer accordingly by analyzing. Analy give the answer correct answer.'), (0.14681965112686157, ' logic, deduction to answer this question!. I have the best choice.we will get.'), (0.1469218134880066, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1471969336271286, ' the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer.'), (0.1473398655653, ' the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly_'), (0.14977030456066132, ' the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly.')]
+Time taken to update solutions:  74.8825933933258
+Intersection set size: 5
+Candidate tokens:  process deduction logic logical the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  process elimination this deduction logic logical the
+Time taken to get recomputed solution logits:  48.68035340309143
+Time taken to get recomputed solution logits:  47.106441020965576
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using process Loss: 7.306009292602539, Mistakes: 0.19999998807907104, Control Loss: 5.0571608543396, Total Loss: 0.30114319920539856
+Time taken to get recomputed solution logits:  45.61788368225098
+Time taken to get recomputed solution logits:  41.76271677017212
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the Loss: 3.2189526557922363, Mistakes: 0.11999999731779099, Control Loss: 5.055460453033447, Total Loss: 0.22110921144485474
+Time taken to get recomputed solution logits:  46.40174746513367
+Time taken to get recomputed solution logits:  46.881726026535034
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using this Loss: 4.660228252410889, Mistakes: 0.1599999964237213, Control Loss: 5.057718753814697, Total Loss: 0.2611543536186218
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the_, New Loss: 0.22110921144485474
+Current length: 25
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the_
+Current Loss: 0.22110921144485474 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.47110652923584
+Intersection set size: 4
+Candidate tokens:  information given above options
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  given options timeline information above
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  available given options timeline information time above
+Time taken to get recomputed solution logits:  52.04246473312378
+Time taken to get recomputed solution logits:  55.34781861305237
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the given Loss: 4.674393653869629, Mistakes: 0.1599999964237213, Control Loss: 4.980705261230469, Total Loss: 0.25961410999298096
+Time taken to get recomputed solution logits:  46.251718282699585
+Time taken to get recomputed solution logits:  41.90618944168091
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline Loss: 5.357450008392334, Mistakes: 0.14000000059604645, Control Loss: 4.981163024902344, Total Loss: 0.23962324857711792
+Time taken to get recomputed solution logits:  45.187742710113525
+Time taken to get recomputed solution logits:  46.548797845840454
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the above Loss: 6.031250953674316, Mistakes: 0.17999999225139618, Control Loss: 4.9820380210876465, Total Loss: 0.27964073419570923
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline_, New Loss: 0.23962324857711792
+Current length: 26
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline_
+Current Loss: 0.23962324857711792 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.86261415481567
+Intersection set size: 5
+Candidate tokens:  and given. provided of
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  and given. provided information of
+Time taken to get recomputed solution logits:  44.7483184337616
+Time taken to get recomputed solution logits:  46.050697803497314
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given Loss: 4.928915500640869, Mistakes: 0.1599999964237213, Control Loss: 4.802097797393799, Total Loss: 0.256041944026947
+Time taken to get recomputed solution logits:  45.03945541381836
+Time taken to get recomputed solution logits:  41.99294376373291
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline of Loss: 5.348452091217041, Mistakes: 0.17999999225139618, Control Loss: 4.801286220550537, Total Loss: 0.2760257124900818
+Time taken to get recomputed solution logits:  46.36894488334656
+Time taken to get recomputed solution logits:  42.78779435157776
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline_ Loss: 5.696102142333984, Mistakes: 0.1599999964237213, Control Loss: 4.810414791107178, Total Loss: 0.25620830059051514
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given_, New Loss: 0.256041944026947
+Current length: 27
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given_
+Current Loss: 0.256041944026947 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.801623821258545
+Intersection set size: 4
+Candidate tokens: . in to above
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  and, by. in to above
+Time taken to get recomputed solution logits:  51.10111427307129
+Time taken to get recomputed solution logits:  46.186256647109985
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given above Loss: 3.5291576385498047, Mistakes: 0.1599999964237213, Control Loss: 4.735757827758789, Total Loss: 0.2547151446342468
+Time taken to get recomputed solution logits:  42.22431540489197
+Time taken to get recomputed solution logits:  45.23909950256348
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given by Loss: 2.3954808712005615, Mistakes: 0.07999999821186066, Control Loss: 4.736475467681885, Total Loss: 0.17472949624061584
+Time taken to get recomputed solution logits:  46.24012780189514
+Time taken to get recomputed solution logits:  45.84302520751953
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to Loss: 1.4380558729171753, Mistakes: 0.07999999821186066, Control Loss: 4.735555648803711, Total Loss: 0.17471110820770264
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to_, New Loss: 0.17471110820770264
+Current length: 28
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to_
+Current Loss: 0.17471110820770264 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  66.62448835372925
+Intersection set size: 5
+Candidate tokens:  find u use you us
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  u find determine use you the us
+Time taken to get recomputed solution logits:  47.57164263725281
+Time taken to get recomputed solution logits:  42.433584213256836
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to_ Loss: 3.33054518699646, Mistakes: 0.14000000059604645, Control Loss: 4.795534610748291, Total Loss: 0.23591068387031555
+Time taken to get recomputed solution logits:  48.05870199203491
+Time taken to get recomputed solution logits:  39.44950580596924
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find Loss: 1.354777455329895, Mistakes: 0.07999999821186066, Control Loss: 4.787841796875, Total Loss: 0.17575684189796448
+Time taken to get recomputed solution logits:  48.63811659812927
+Time taken to get recomputed solution logits:  39.7180814743042
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to the Loss: 2.1950414180755615, Mistakes: 0.07999999821186066, Control Loss: 4.787959575653076, Total Loss: 0.1757591962814331
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find_, New Loss: 0.17575684189796448
+Current length: 29
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find_
+Current Loss: 0.17575684189796448 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.75084781646729
+Intersection set size: 5
+Candidate tokens:  out when a the what
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  out when a the what
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  out when which a an the what where
+Time taken to get recomputed solution logits:  47.71876645088196
+Time taken to get recomputed solution logits:  38.79878807067871
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find_ Loss: 1.4547877311706543, Mistakes: 0.09999999403953552, Control Loss: 4.799623489379883, Total Loss: 0.19599246978759766
+Time taken to get recomputed solution logits:  48.74761605262756
+Time taken to get recomputed solution logits:  39.587987184524536
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find when Loss: 2.766831398010254, Mistakes: 0.09999999403953552, Control Loss: 4.790923595428467, Total Loss: 0.1958184540271759
+Time taken to get recomputed solution logits:  45.8152072429657
+Time taken to get recomputed solution logits:  39.89526295661926
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the Loss: 1.9953320026397705, Mistakes: 0.07999999821186066, Control Loss: 4.788926124572754, Total Loss: 0.17577850818634033
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the_, New Loss: 0.17577850818634033
+Current length: 30
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the_
+Current Loss: 0.17577850818634033 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.719679832458496
+Intersection set size: 3
+Candidate tokens:  available window time
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  available window gap time
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  answer available gap times window time
+Time taken to get recomputed solution logits:  45.74130916595459
+Time taken to get recomputed solution logits:  43.403937101364136
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the_ Loss: 2.22293758392334, Mistakes: 0.09999999403953552, Control Loss: 4.646113395690918, Total Loss: 0.19292226433753967
+Time taken to get recomputed solution logits:  45.24930429458618
+Time taken to get recomputed solution logits:  42.885822772979736
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer Loss: 1.7304829359054565, Mistakes: 0.07999999821186066, Control Loss: 4.637757301330566, Total Loss: 0.1727551519870758
+Time taken to get recomputed solution logits:  46.25054597854614
+Time taken to get recomputed solution logits:  49.080878496170044
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the gap Loss: 4.814843654632568, Mistakes: 0.14000000059604645, Control Loss: 4.637310981750488, Total Loss: 0.2327462136745453
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer_, New Loss: 0.1727551519870758
+Current length: 31
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer_
+Current Loss: 0.1727551519870758 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.418089151382446
+Intersection set size: 4
+Candidate tokens: ! using,.
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: ! using between,..
+Time taken to get recomputed solution logits:  46.32683038711548
+Time taken to get recomputed solution logits:  40.822932958602905
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer between Loss: 4.037503719329834, Mistakes: 0.11999999731779099, Control Loss: 4.530584335327148, Total Loss: 0.21061167120933533
+Time taken to get recomputed solution logits:  49.79861330986023
+Time taken to get recomputed solution logits:  35.329652547836304
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using Loss: 3.8085997104644775, Mistakes: 0.09999999403953552, Control Loss: 4.530236721038818, Total Loss: 0.19060471653938293
+Time taken to get recomputed solution logits:  48.51210117340088
+Time taken to get recomputed solution logits:  32.60921835899353
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer_ Loss: 3.9046950340270996, Mistakes: 0.09999999403953552, Control Loss: 4.535506725311279, Total Loss: 0.1907101273536682
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using_, New Loss: 0.19060471653938293
+Current length: 32
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using_
+Current Loss: 0.19060471653938293 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  59.56763696670532
+Intersection set size: 5
+Candidate tokens:  deduction logic timeline logical the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  deduction logic timeline logical the time
+Time taken to get recomputed solution logits:  42.229875326156616
+Time taken to get recomputed solution logits:  40.189131021499634
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using timeline Loss: 3.7887654304504395, Mistakes: 0.14000000059604645, Control Loss: 4.587908744812012, Total Loss: 0.23175817728042603
+Time taken to get recomputed solution logits:  43.012184143066406
+Time taken to get recomputed solution logits:  37.8807418346405
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using time Loss: 3.381253480911255, Mistakes: 0.09999999403953552, Control Loss: 4.588458061218262, Total Loss: 0.19176915287971497
+Time taken to get recomputed solution logits:  41.02406430244446
+Time taken to get recomputed solution logits:  43.12816095352173
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction Loss: 2.8962175846099854, Mistakes: 0.09999999403953552, Control Loss: 4.587658405303955, Total Loss: 0.19175314903259277
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction_, New Loss: 0.19175314903259277
+Current length: 33
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction_
+Current Loss: 0.19175314903259277 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.731996297836304
+Intersection set size: 5
+Candidate tokens: ! and,. logic
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! and,. logic. logical
+Time taken to get recomputed solution logits:  47.626519441604614
+Time taken to get recomputed solution logits:  39.66182994842529
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logical Loss: 2.711754322052002, Mistakes: 0.07999999821186066, Control Loss: 4.57401180267334, Total Loss: 0.1714802384376526
+Time taken to get recomputed solution logits:  41.066224575042725
+Time taken to get recomputed solution logits:  40.36636686325073
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction and Loss: 3.206350088119507, Mistakes: 0.11999999731779099, Control Loss: 4.571552753448486, Total Loss: 0.21143105626106262
+Time taken to get recomputed solution logits:  46.943434715270996
+Time taken to get recomputed solution logits:  48.82932639122009
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic Loss: 1.9771673679351807, Mistakes: 0.07999999821186066, Control Loss: 4.573064804077148, Total Loss: 0.171461284160614
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic_, New Loss: 0.171461284160614
+Current length: 34
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic_
+Current Loss: 0.171461284160614 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  71.23280334472656
+Intersection set size: 5
+Candidate tokens: ! and,. to
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: ! and,.. to
+Time taken to get recomputed solution logits:  48.25093126296997
+Time taken to get recomputed solution logits:  40.64613723754883
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic to Loss: 3.194718599319458, Mistakes: 0.14000000059604645, Control Loss: 4.551147937774658, Total Loss: 0.23102295398712158
+Time taken to get recomputed solution logits:  44.23711347579956
+Time taken to get recomputed solution logits:  44.161030292510986
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic and Loss: 5.660250186920166, Mistakes: 0.17999999225139618, Control Loss: 4.550562858581543, Total Loss: 0.27101123332977295
+Time taken to get recomputed solution logits:  48.78185820579529
+Time taken to get recomputed solution logits:  44.164389848709106
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic_ Loss: 2.872366189956665, Mistakes: 0.11999999731779099, Control Loss: 4.555938243865967, Total Loss: 0.21111875772476196
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic__, New Loss: 0.21111875772476196
+Current length: 34
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic__
+Current Loss: 0.21111875772476196 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.75421476364136
+Intersection set size: 5
+Candidate tokens: ! and,. to
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: ! and,.. to
+Time taken to get recomputed solution logits:  49.36100172996521
+Time taken to get recomputed solution logits:  50.05241823196411
+>Prompt Choice:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.40714168548584, Mistakes: 0.09999999403953552, Control Loss: 4.662268161773682, Total Loss: 0.19324535131454468
+No improvement in the current position. Moving to the next position.
+New Control:  logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.19324535131454468
+Current length: 34
+ logic, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.19324535131454468 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.86562609672546
+Intersection set size: 4
+Candidate tokens:  process Process the your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  process elimination Process the your
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  process option elimination Process logic logical the your
+Time taken to get recomputed solution logits:  44.194140672683716
+Time taken to get recomputed solution logits:  36.22839093208313
+>Prompt Choice:  elimination, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 10.554884910583496, Mistakes: 0.3999999761581421, Control Loss: 4.257547855377197, Total Loss: 0.48515093326568604
+Time taken to get recomputed solution logits:  39.50286269187927
+Time taken to get recomputed solution logits:  41.0658540725708
+>Prompt Choice:  option, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 4.1033148765563965, Mistakes: 0.14000000059604645, Control Loss: 4.474762916564941, Total Loss: 0.22949525713920593
+Time taken to get recomputed solution logits:  46.08091950416565
+Time taken to get recomputed solution logits:  50.43915629386902
+>Prompt Choice:  your, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.3235039710998535, Mistakes: 0.07999999821186066, Control Loss: 4.481903076171875, Total Loss: 0.16963806748390198
+No improvement in the current position. Moving to the next position.
+New Control:  your, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.16963806748390198
+Current length: 34
+ your, deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.16963806748390198 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  68.59832954406738
+Intersection set size: 5
+Candidate tokens:  own brain logic reasoning logical
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  own brain logic reasoning knowledge logical common
+Time taken to get recomputed solution logits:  48.988606452941895
+Time taken to get recomputed solution logits:  41.05960941314697
+>Prompt Choice:  your reasoning deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.7610557079315186, Mistakes: 0.1599999964237213, Control Loss: 4.581519603729248, Total Loss: 0.25163039565086365
+Time taken to get recomputed solution logits:  48.13654828071594
+Time taken to get recomputed solution logits:  41.59616661071777
+>Prompt Choice:  your logic deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.7711613178253174, Mistakes: 0.11999999731779099, Control Loss: 4.509271144866943, Total Loss: 0.21018540859222412
+Time taken to get recomputed solution logits:  45.411373138427734
+Time taken to get recomputed solution logits:  47.39659237861633
+>Prompt Choice:  your logical deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.433655261993408, Mistakes: 0.09999999403953552, Control Loss: 4.416812896728516, Total Loss: 0.18833625316619873
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.18833625316619873
+Current length: 34
+ your logical deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.18833625316619873 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  69.62027025222778
+Intersection set size: 5
+Candidate tokens:  deduction reasoning skills deductions thinking
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  and deduction reasoning skills deductions mind thinking
+Time taken to get recomputed solution logits:  52.00749969482422
+Time taken to get recomputed solution logits:  46.16677927970886
+>Prompt Choice:  your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.4859373569488525, Mistakes: 0.05999999865889549, Control Loss: 4.170709609985352, Total Loss: 0.1434141844511032
+Time taken to get recomputed solution logits:  43.66652822494507
+Time taken to get recomputed solution logits:  43.06410503387451
+>Prompt Choice:  your logical deduction to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.2094366550445557, Mistakes: 0.09999999403953552, Control Loss: 4.165354251861572, Total Loss: 0.18330708146095276
+Time taken to get recomputed solution logits:  49.109116077423096
+Time taken to get recomputed solution logits:  49.15855026245117
+>Prompt Choice:  your logical reasoning to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.984344959259033, Mistakes: 0.11999999731779099, Control Loss: 4.225703716278076, Total Loss: 0.20451407134532928
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.1434141844511032
+Current length: 34
+ your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.1434141844511032 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Step:  75 Candidates:  [(0.12122835218906403, ' the timeline provided and answer step by step. Finally give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1417766511440277, ' logic, deduction to answer this question!. I have the best choice.we will get.'), (0.1434141844511032, ' your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.'), (0.1453070342540741, ' the timeline provided and answer accordingly by analyzing. Analy give the answer correct answer.'), (0.14681965112686157, ' logic, deduction to answer this question!. I have the best choice.we will get.'), (0.1469218134880066, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1471969336271286, ' the timeline provided and answer accordingly by analyzing. Finally give the actual correct answer.'), (0.1473398655653, ' the timeline provided and answer accordingly by analyzing. Analy give the answer. Answeer accordingly_')]
+Time taken to update solutions:  74.67066764831543
+Intersection set size: 4
+Candidate tokens:  and to skills.
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! and. to skills from based
+Time taken to get recomputed solution logits:  47.616509675979614
+Time taken to get recomputed solution logits:  46.231855154037476
+>Prompt Choice:  your logical deductions! answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 4.3984375, Mistakes: 0.09999999403953552, Control Loss: 4.677250385284424, Total Loss: 0.19354499876499176
+Time taken to get recomputed solution logits:  50.20986747741699
+Time taken to get recomputed solution logits:  78.39344787597656
+>Prompt Choice:  your logical deductions. answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.504869222640991, Mistakes: 0.09999999403953552, Control Loss: 4.518950939178467, Total Loss: 0.19037900865077972
+Time taken to get recomputed solution logits:  98.19902563095093
+Time taken to get recomputed solution logits:  65.80224847793579
+>Prompt Choice:  your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.46484375, Mistakes: 0.05999999865889549, Control Loss: 4.204487323760986, Total Loss: 0.1440897434949875
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.1440897434949875
+Current length: 34
+ your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.1440897434949875 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  71.74134635925293
+Intersection set size: 5
+Candidate tokens:  answer find determine solve figure
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  answer find determine solve figure choose arrive
+Time taken to get recomputed solution logits:  43.41433000564575
+Time taken to get recomputed solution logits:  37.48103404045105
+>Prompt Choice:  your logical deductions to choose this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 4.849518299102783, Mistakes: 0.14000000059604645, Control Loss: 4.552760124206543, Total Loss: 0.23105520009994507
+Time taken to get recomputed solution logits:  51.37955832481384
+Time taken to get recomputed solution logits:  45.616058349609375
+>Prompt Choice:  your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.46484375, Mistakes: 0.05999999865889549, Control Loss: 4.204487323760986, Total Loss: 0.1440897434949875
+Time taken to get recomputed solution logits:  52.04352831840515
+Time taken to get recomputed solution logits:  45.10991454124451
+>Prompt Choice:  your logical deductions to figure this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 5.992968559265137, Mistakes: 0.14000000059604645, Control Loss: 4.545306205749512, Total Loss: 0.23090612888336182
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.1440897434949875
+Current length: 34
+ your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.1440897434949875 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  71.91662168502808
+Intersection set size: 5
+Candidate tokens: ! this. these the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: ! this. these correctly the
+Time taken to get recomputed solution logits:  39.27137207984924
+Time taken to get recomputed solution logits:  39.04464030265808
+>Prompt Choice:  your logical deductions to answer correctly question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 4.1859564781188965, Mistakes: 0.11999999731779099, Control Loss: 4.47880220413208, Total Loss: 0.20957604050636292
+Time taken to get recomputed solution logits:  48.38937163352966
+Time taken to get recomputed solution logits:  39.77370238304138
+>Prompt Choice:  your logical deductions to answer the question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.685168981552124, Mistakes: 0.09999999403953552, Control Loss: 4.197944641113281, Total Loss: 0.18395888805389404
+Time taken to get recomputed solution logits:  54.003491163253784
+Time taken to get recomputed solution logits:  39.967304944992065
+>Prompt Choice:  your logical deductions to answer! question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.61641263961792, Mistakes: 0.09999999403953552, Control Loss: 4.720130443572998, Total Loss: 0.19440260529518127
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.18395888805389404
+Current length: 34
+ your logical deductions to answer the question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.18395888805389404 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.9944748878479
+Intersection set size: 4
+Candidate tokens:  question following problem questions
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  question answer following problem questions
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  question answer options following problem questions
+Time taken to get recomputed solution logits:  45.373127937316895
+Time taken to get recomputed solution logits:  40.24491500854492
+>Prompt Choice:  your logical deductions to answer the questions!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.1336395740509033, Mistakes: 0.09999999403953552, Control Loss: 4.141059875488281, Total Loss: 0.18282118439674377
+Time taken to get recomputed solution logits:  51.023115396499634
+Time taken to get recomputed solution logits:  39.386621713638306
+>Prompt Choice:  your logical deductions to answer the question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.2594528198242188, Mistakes: 0.09999999403953552, Control Loss: 4.187870979309082, Total Loss: 0.18375740945339203
+Time taken to get recomputed solution logits:  48.488786458969116
+Time taken to get recomputed solution logits:  39.460588455200195
+>Prompt Choice:  your logical deductions to answer the answer!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.123528480529785, Mistakes: 0.09999999403953552, Control Loss: 4.152261257171631, Total Loss: 0.18304520845413208
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.18282118439674377
+Current length: 34
+ your logical deductions to answer the questions!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.18282118439674377 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  68.24581527709961
+Intersection set size: 4
+Candidate tokens: ! and. based
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! and,. correctly based above
+Time taken to get recomputed solution logits:  42.47346234321594
+Time taken to get recomputed solution logits:  41.94954323768616
+>Prompt Choice:  your logical deductions to answer the questions, I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.479749917984009, Mistakes: 0.09999999403953552, Control Loss: 4.190118312835693, Total Loss: 0.18380236625671387
+Time taken to get recomputed solution logits:  45.476592779159546
+Time taken to get recomputed solution logits:  39.416502714157104
+>Prompt Choice:  your logical deductions to answer the questions!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.128170967102051, Mistakes: 0.09999999403953552, Control Loss: 4.265241622924805, Total Loss: 0.18530482053756714
+Time taken to get recomputed solution logits:  42.735684633255005
+Time taken to get recomputed solution logits:  39.66583275794983
+>Prompt Choice:  your logical deductions to answer the questions. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.659557342529297, Mistakes: 0.11999999731779099, Control Loss: 4.295434474945068, Total Loss: 0.20590868592262268
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.18380236625671387
+Current length: 34
+ your logical deductions to answer the questions, I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.18380236625671387 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.01732540130615
+Intersection set size: 5
+Candidate tokens:  focusing and using considering based
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  focusing and using considering based
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  focusing taking and using considering without as based
+Time taken to get recomputed solution logits:  41.162750244140625
+Time taken to get recomputed solution logits:  40.6109299659729
+>Prompt Choice:  your logical deductions to answer the questions, and have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.741772174835205, Mistakes: 0.11999999731779099, Control Loss: 4.105230331420898, Total Loss: 0.2021045982837677
+Time taken to get recomputed solution logits:  42.15512704849243
+Time taken to get recomputed solution logits:  40.82654523849487
+>Prompt Choice:  your logical deductions to answer the questions, taking have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 1.845469355583191, Mistakes: 0.07999999821186066, Control Loss: 4.425844192504883, Total Loss: 0.1685168743133545
+Time taken to get recomputed solution logits:  44.61831736564636
+Time taken to get recomputed solution logits:  39.54191851615906
+>Prompt Choice:  your logical deductions to answer the questions, using have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 1.744765281677246, Mistakes: 0.09999999403953552, Control Loss: 4.379323482513428, Total Loss: 0.1875864565372467
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.1685168743133545
+Current length: 34
+ your logical deductions to answer the questions, taking have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.1685168743133545 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.34702110290527
+Intersection set size: 3
+Candidate tokens:  note into the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  account note care into the each
+Time taken to get recomputed solution logits:  42.204567432403564
+Time taken to get recomputed solution logits:  39.37130331993103
+>Prompt Choice:  your logical deductions to answer the questions, taking into the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.1851561069488525, Mistakes: 0.11999999731779099, Control Loss: 4.756564617156982, Total Loss: 0.21513128280639648
+Time taken to get recomputed solution logits:  42.49675393104553
+Time taken to get recomputed solution logits:  39.355833530426025
+>Prompt Choice:  your logical deductions to answer the questions, taking have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 1.845469355583191, Mistakes: 0.07999999821186066, Control Loss: 4.397521018981934, Total Loss: 0.16795042157173157
+Time taken to get recomputed solution logits:  42.546674489974976
+Time taken to get recomputed solution logits:  42.22314739227295
+>Prompt Choice:  your logical deductions to answer the questions, taking each the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.331249952316284, Mistakes: 0.07999999821186066, Control Loss: 4.644195079803467, Total Loss: 0.17288389801979065
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.16795042157173157
+Current length: 34
+ your logical deductions to answer the questions, taking have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.16795042157173157 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.24573493003845
+Intersection set size: 4
+Candidate tokens:  a into to the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  been account a all into to the
+Time taken to get recomputed solution logits:  42.37661600112915
+Time taken to get recomputed solution logits:  39.545897483825684
+>Prompt Choice:  your logical deductions to answer the questions, taking have a correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 1.3806283473968506, Mistakes: 0.07999999821186066, Control Loss: 4.530759811401367, Total Loss: 0.17061519622802734
+Time taken to get recomputed solution logits:  42.38998031616211
+Time taken to get recomputed solution logits:  39.47220516204834
+>Prompt Choice:  your logical deductions to answer the questions, taking have account correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.6776626110076904, Mistakes: 0.11999999731779099, Control Loss: 4.662659645080566, Total Loss: 0.2132531851530075
+Time taken to get recomputed solution logits:  42.569031953811646
+Time taken to get recomputed solution logits:  39.66363883018494
+>Prompt Choice:  your logical deductions to answer the questions, taking have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 1.845469355583191, Mistakes: 0.07999999821186066, Control Loss: 4.397521018981934, Total Loss: 0.16795042157173157
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.16795042157173157
+Current length: 34
+ your logical deductions to answer the questions, taking have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.16795042157173157 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  68.43938732147217
+Intersection set size: 4
+Candidate tokens:  information given time options
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  information given time options
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  constraints statements given options following information time clues
+Time taken to get recomputed solution logits:  45.440457820892334
+Time taken to get recomputed solution logits:  39.56457185745239
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.1762771606445312, Mistakes: 0.14000000059604645, Control Loss: 4.550775051116943, Total Loss: 0.23101550340652466
+Time taken to get recomputed solution logits:  45.097973585128784
+Time taken to get recomputed solution logits:  39.45608186721802
+>Prompt Choice:  your logical deductions to answer the questions, taking have the given option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.7158117294311523, Mistakes: 0.1599999964237213, Control Loss: 4.530574798583984, Total Loss: 0.25061148405075073
+Time taken to get recomputed solution logits:  47.70128560066223
+Time taken to get recomputed solution logits:  39.287161350250244
+>Prompt Choice:  your logical deductions to answer the questions, taking have the information option.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.4500226974487305, Mistakes: 0.14000000059604645, Control Loss: 4.708892822265625, Total Loss: 0.2341778576374054
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following option.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.23101550340652466
+Current length: 34
+ your logical deductions to answer the questions, taking have the following option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.23101550340652466 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  70.24215531349182
+Intersection set size: 5
+Candidate tokens:  steps into information rules clues
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  steps assumptions into rules information clues
+Time taken to get recomputed solution logits:  42.56670379638672
+Time taken to get recomputed solution logits:  40.040868520736694
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following information.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.4203948974609375, Mistakes: 0.1599999964237213, Control Loss: 4.512340068817139, Total Loss: 0.2502467930316925
+Time taken to get recomputed solution logits:  48.45810890197754
+Time taken to get recomputed solution logits:  39.211220502853394
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following steps.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 6.650147438049316, Mistakes: 0.19999998807907104, Control Loss: 4.452315330505371, Total Loss: 0.2890462875366211
+Time taken to get recomputed solution logits:  42.29162812232971
+Time taken to get recomputed solution logits:  42.29617190361023
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules.we are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.627110481262207, Mistakes: 0.09999999403953552, Control Loss: 4.502430438995361, Total Loss: 0.19004860520362854
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following rules.we are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.19004860520362854
+Current length: 34
+ your logical deductions to answer the questions, taking have the following rules.we are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.19004860520362854 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  68.84173464775085
+Intersection set size: 5
+Candidate tokens:  and in for into of
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  and in for into as of to
+Time taken to get recomputed solution logits:  42.464738845825195
+Time taken to get recomputed solution logits:  42.61933994293213
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.210186719894409, Mistakes: 0.14000000059604645, Control Loss: 4.624265670776367, Total Loss: 0.2324853092432022
+Time taken to get recomputed solution logits:  42.64203882217407
+Time taken to get recomputed solution logits:  42.33401703834534
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules into are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 4.680572986602783, Mistakes: 0.19999998807907104, Control Loss: 4.870298385620117, Total Loss: 0.2974059581756592
+Time taken to get recomputed solution logits:  42.639843702316284
+Time taken to get recomputed solution logits:  42.466628074645996
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules as are getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 5.653867244720459, Mistakes: 0.19999998807907104, Control Loss: 4.796517372131348, Total Loss: 0.29593032598495483
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following rules and are getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.2324853092432022
+Current length: 34
+ your logical deductions to answer the questions, taking have the following rules and are getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.2324853092432022 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.28420948982239
+Intersection set size: 4
+Candidate tokens:  assumptions constraints information conventions
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  constraints restrictions assumptions principles information conventions
+Time taken to get recomputed solution logits:  39.36606168746948
+Time taken to get recomputed solution logits:  43.14767599105835
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and information getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.4722769260406494, Mistakes: 0.11999999731779099, Control Loss: 4.405308723449707, Total Loss: 0.2081061601638794
+Time taken to get recomputed solution logits:  42.553712129592896
+Time taken to get recomputed solution logits:  45.47763156890869
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and principles getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.7810935974121094, Mistakes: 0.1599999964237213, Control Loss: 4.4559783935546875, Total Loss: 0.2491195648908615
+Time taken to get recomputed solution logits:  42.367607831954956
+Time taken to get recomputed solution logits:  45.11700797080994
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.221829652786255, Mistakes: 0.09999999403953552, Control Loss: 4.408057689666748, Total Loss: 0.18816113471984863
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.18816113471984863
+Current length: 34
+ your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.18816113471984863 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  72.58812355995178
+Intersection set size: 5
+Candidate tokens:  in for into as of
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  in for into as of to
+Time taken to get recomputed solution logits:  42.300435304641724
+Time taken to get recomputed solution logits:  44.856245279312134
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions ofitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.1902825832366943, Mistakes: 0.09999999403953552, Control Loss: 4.589195728302002, Total Loss: 0.19178390502929688
+Time taken to get recomputed solution logits:  42.272202253341675
+Time taken to get recomputed solution logits:  44.97921919822693
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions intoitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.7730376720428467, Mistakes: 0.11999999731779099, Control Loss: 4.832848072052002, Total Loss: 0.21665695309638977
+Time taken to get recomputed solution logits:  42.53045845031738
+Time taken to get recomputed solution logits:  45.44522309303284
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.000842332839966, Mistakes: 0.09999999403953552, Control Loss: 4.2321248054504395, Total Loss: 0.184642493724823
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.184642493724823
+Current length: 34
+ your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.184642493724823 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  72.02504515647888
+Intersection set size: 4
+Candidate tokens:  used in into the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  used in into you the your
+Time taken to get recomputed solution logits:  42.46420478820801
+Time taken to get recomputed solution logits:  48.29676151275635
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions get usedning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.272923469543457, Mistakes: 0.11999999731779099, Control Loss: 4.449858665466309, Total Loss: 0.20899716019630432
+Time taken to get recomputed solution logits:  45.33139896392822
+Time taken to get recomputed solution logits:  45.28777027130127
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions get yourning to find the answer using the timeline given to find the answer using deduction logic. Loss: 2.6416237354278564, Mistakes: 0.09999999403953552, Control Loss: 4.461219310760498, Total Loss: 0.18922437727451324
+Time taken to get recomputed solution logits:  42.230525493621826
+Time taken to get recomputed solution logits:  45.599629640579224
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.000842332839966, Mistakes: 0.09999999403953552, Control Loss: 4.2321248054504395, Total Loss: 0.184642493724823
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.184642493724823
+Current length: 34
+ your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.184642493724823 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  71.87248253822327
+Intersection set size: 5
+Candidate tokens:  rightright donemeng
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  rightright doneme intong
+Time taken to get recomputed solution logits:  42.32686424255371
+Time taken to get recomputed solution logits:  45.732959508895874
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getit right to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.3871898651123047, Mistakes: 0.11999999731779099, Control Loss: 4.187046527862549, Total Loss: 0.2037409245967865
+Time taken to get recomputed solution logits:  43.2770619392395
+Time taken to get recomputed solution logits:  45.60216784477234
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.000842332839966, Mistakes: 0.09999999403953552, Control Loss: 4.2321248054504395, Total Loss: 0.184642493724823
+Time taken to get recomputed solution logits:  42.70376420021057
+Time taken to get recomputed solution logits:  42.56753897666931
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitng to find the answer using the timeline given to find the answer using deduction logic. Loss: 3.227339506149292, Mistakes: 0.14000000059604645, Control Loss: 4.222262382507324, Total Loss: 0.22444525361061096
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.184642493724823
+Current length: 34
+ your logical deductions to answer the questions, taking have the following rules and conventions getitning to find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.184642493724823 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Step:  90 Candidates:  [(0.12122835218906403, ' the timeline provided and answer step by step. Finally give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.14043450355529785, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.'), (0.1417766511440277, ' logic, deduction to answer this question!. I have the best choice.we will get.'), (0.1434141844511032, ' your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.'), (0.1440897434949875, ' your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.'), (0.1440897434949875, ' your logical deductions to answer this question!. I have the correct option.we are getitning to find the answer using the timeline given to find the answer using deduction logic.'), (0.1453070342540741, ' the timeline provided and answer accordingly by analyzing. Analy give the answer correct answer.'), (0.14681965112686157, ' logic, deduction to answer this question!. I have the best choice.we will get.'), (0.1469218134880066, ' the timeline provided and answer accordingly by analyzing. Analy give the actual correct answer.')]
+Time taken to update solutions:  69.47099542617798
+Intersection set size: 5
+Candidate tokens:  used in into you the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  used in into you the to
+Time taken to get recomputed solution logits:  42.10252785682678
+Time taken to get recomputed solution logits:  42.076624631881714
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the find the answer using the timeline given to find the answer using deduction logic. Loss: 2.119476318359375, Mistakes: 0.09999999403953552, Control Loss: 4.322048187255859, Total Loss: 0.18644095957279205
+Time taken to get recomputed solution logits:  42.55369710922241
+Time taken to get recomputed solution logits:  42.23208999633789
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning into find the answer using the timeline given to find the answer using deduction logic. Loss: 2.120258331298828, Mistakes: 0.09999999403953552, Control Loss: 4.483220100402832, Total Loss: 0.18966439366340637
+Time taken to get recomputed solution logits:  42.55897068977356
+Time taken to get recomputed solution logits:  45.16659998893738
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning in find the answer using the timeline given to find the answer using deduction logic. Loss: 2.8439314365386963, Mistakes: 0.11999999731779099, Control Loss: 4.378071308135986, Total Loss: 0.2075614184141159
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the find the answer using the timeline given to find the answer using deduction logic., New Loss: 0.18644095957279205
+Current length: 34
+ your logical deductions to answer the questions, taking have the following rules and conventions getitning the find the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.18644095957279205 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  66.07463908195496
+Intersection set size: 4
+Candidate tokens:  answer most answers following
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  answer best right correct following most answers
+Time taken to get recomputed solution logits:  42.41270351409912
+Time taken to get recomputed solution logits:  39.52805042266846
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the right the answer using the timeline given to find the answer using deduction logic. Loss: 4.007075309753418, Mistakes: 0.14000000059604645, Control Loss: 4.56609582901001, Total Loss: 0.23132191598415375
+Time taken to get recomputed solution logits:  45.1882221698761
+Time taken to get recomputed solution logits:  39.30416178703308
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the following the answer using the timeline given to find the answer using deduction logic. Loss: 3.6366207599639893, Mistakes: 0.09999999403953552, Control Loss: 4.6106648445129395, Total Loss: 0.1922132968902588
+Time taken to get recomputed solution logits:  42.504962682724
+Time taken to get recomputed solution logits:  41.71979331970215
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best the answer using the timeline given to find the answer using deduction logic. Loss: 3.077343702316284, Mistakes: 0.09999999403953552, Control Loss: 4.581288814544678, Total Loss: 0.19162577390670776
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best the answer using the timeline given to find the answer using deduction logic., New Loss: 0.19162577390670776
+Current length: 34
+ your logical deductions to answer the questions, taking have the following rules and conventions getitning the best the answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.19162577390670776 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.3301694393158
+Intersection set size: 4
+Candidate tokens:  answer possible of fit
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  answer out result possible solution of fit
+Time taken to get recomputed solution logits:  45.05244517326355
+Time taken to get recomputed solution logits:  40.19363784790039
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best result answer using the timeline given to find the answer using deduction logic. Loss: 3.4159538745880127, Mistakes: 0.11999999731779099, Control Loss: 4.509159564971924, Total Loss: 0.21018318831920624
+Time taken to get recomputed solution logits:  45.313538789749146
+Time taken to get recomputed solution logits:  44.89449691772461
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best answer answer using the timeline given to find the answer using deduction logic. Loss: 2.955195665359497, Mistakes: 0.07999999821186066, Control Loss: 4.529314994812012, Total Loss: 0.17058628797531128
+Time taken to get recomputed solution logits:  42.45315957069397
+Time taken to get recomputed solution logits:  39.28060531616211
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best solution answer using the timeline given to find the answer using deduction logic. Loss: 4.203610897064209, Mistakes: 0.11999999731779099, Control Loss: 4.469158172607422, Total Loss: 0.20938315987586975
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best answer answer using the timeline given to find the answer using deduction logic., New Loss: 0.17058628797531128
+Current length: 34
+ your logical deductions to answer the questions, taking have the following rules and conventions getitning the best answer answer using the timeline given to find the answer using deduction logic.
+Current Loss: 0.17058628797531128 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.99998617172241
+Intersection set size: 5
+Candidate tokens: . you possible from based
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ,. that you possible from based
+Time taken to get recomputed solution logits:  48.001250982284546
+Time taken to get recomputed solution logits:  42.51150727272034
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best answer you using the timeline given to find the answer using deduction logic. Loss: 1.9883962869644165, Mistakes: 0.07999999821186066, Control Loss: 4.536859035491943, Total Loss: 0.17073717713356018
+Time taken to get recomputed solution logits:  45.3763644695282
+Time taken to get recomputed solution logits:  42.509777784347534
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best answer from using the timeline given to find the answer using deduction logic. Loss: 3.510937452316284, Mistakes: 0.07999999821186066, Control Loss: 4.423878192901611, Total Loss: 0.16847756505012512
+Time taken to get recomputed solution logits:  45.43277072906494
+Time taken to get recomputed solution logits:  39.600197315216064
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best answer based using the timeline given to find the answer using deduction logic. Loss: 2.4555368423461914, Mistakes: 0.09999999403953552, Control Loss: 4.45651912689209, Total Loss: 0.18913036584854126
+No improvement in the current position. Moving to the next position.
+New Control:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best answer from using the timeline given to find the answer using deduction logic., New Loss: 0.16847756505012512
+Current length: 34
+ your logical deductions to answer the questions, taking have the following rules and conventions getitning the best answer from using the timeline given to find the answer using deduction logic.
+Current Loss: 0.16847756505012512 Best Loss: 0.12122835218906403 Best Control:  the timeline provided and answer step by step. Finally give the actual correct answer.
+Time taken to update solutions:  69.77257776260376
+Intersection set size: 5
+Candidate tokens:  a all the what your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  those a all these the what your
+Time taken to get recomputed solution logits:  44.53533935546875
+Time taken to get recomputed solution logits:  42.54981279373169
+>Prompt Choice:  your logical deductions to answer the questions, taking have the following rules and conventions getitning the best answer from using the timeline given to find the answer using deduction logic. Loss: 3.30078125, Mistakes: 0.07999999821186066, Control Loss: 4.245426654815674, Total Loss: 0.1649085283279419Process Process-1:
+Traceback (most recent call last):
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "../llm_opt/base/attack_manager.py", line 2466, in run
+    results.put(ob.grad(*args, **kwargs))
+  File "../llm_opt/base/attack_manager.py", line 1019, in grad
+    return sum([prompt.grad(model, current_pos, valid_tokens) for prompt in self._prompts])
+  File "../llm_opt/base/attack_manager.py", line 1019, in <listcomp>
+    return sum([prompt.grad(model, current_pos, valid_tokens) for prompt in self._prompts])
+  File "../llm_opt/gcg/gcg_attack.py", line 122, in grad
+    return token_gradients(
+  File "../llm_opt/gcg/gcg_attack.py", line 109, in token_gradients
+    loss.backward()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/_tensor.py", line 525, in backward
+    torch.autograd.backward(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 336.00 MiB. GPU 
+[W CudaIPCTypes.cpp:16] Producer process has been terminated before all shared CUDA tensors released. See Note [Sharing CUDA tensors]
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 33 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

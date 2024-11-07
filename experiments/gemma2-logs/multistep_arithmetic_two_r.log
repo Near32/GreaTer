@@ -1,0 +1,442 @@
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: proper logical reasoning and think step by step. Finally give the actual
+  correct answer.
+control_weight: 0.2
+conversation_templates:
+- gemma-2
+- gemma-2
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exactly this format: **NUMBER**,
+  where NUMBER is a positive or negative integer) is **'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_gemma2_multistep_arithmetic_two_ff.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/multistep_arithmetic_two.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  use_fast: false
+- add_bos_token: false
+  use_fast: false
+tokenizer_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+topk: 40
+train_data: ../data/BBH/multistep_arithmetic_two.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.70it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.75it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.72it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.87it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.81it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.73it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.77it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.88it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.83it/s]Initialized Workers...
+
+Started worker 731799 for model google/gemma-2-9b-it
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Started worker 732402 for model google/gemma-2-9b-it
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  33.95861554145813
+Intersection set size: 5
+Candidate tokens:  parentheses order PEM the Order
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  parentheses order PEM the Order BOD
+Time taken to get recomputed solution logits:  36.62484288215637
+>Prompt Choice:  BOD logical reasoning and think step by step. Finally give the actual correct answer. Loss: 5.578434944152832, Mistakes: 0.19999998807907104, Control Loss: 6.271826267242432, Total Loss: 0.325436532497406
+Time taken to get recomputed solution logits:  34.876216173172
+>Prompt Choice:  the logical reasoning and think step by step. Finally give the actual correct answer. Loss: 3.7664434909820557, Mistakes: 0.1599999964237213, Control Loss: 5.3575029373168945, Total Loss: 0.26715004444122314
+Time taken to get recomputed solution logits:  37.5728325843811
+>Prompt Choice:  parentheses logical reasoning and think step by step. Finally give the actual correct answer. Loss: 2.857294797897339, Mistakes: 0.11999999731779099, Control Loss: 5.399755001068115, Total Loss: 0.2279950976371765
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.2279950976371765
+Current length: 15
+ parentheses logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.2279950976371765 Best Loss: 0.2279950976371765 Best Control:  parentheses logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.2279950976371765, ' parentheses logical reasoning and think step by step. Finally give the actual correct answer.')]
+Loss below loss_threshold. Moving to next objective.
+Time taken to update solutions:  69.13443279266357
+Intersection set size: 5
+Candidate tokens:  parentheses order PEM the Order
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  parentheses order PEM the Order
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  parentheses order PEM pem the Order BOD
+Time taken to get recomputed solution logits:  70.98960089683533
+>Prompt Choice:  parentheses logical reasoning and think step by step. Finally give the actual correct answer. Loss: 2.7313902378082275, Mistakes: 0.09999999403953552, Control Loss: 5.183417797088623, Total Loss: 0.20366835594177246
+Time taken to get recomputed solution logits:  67.6679174900055
+>Prompt Choice:  the logical reasoning and think step by step. Finally give the actual correct answer. Loss: 3.1978847980499268, Mistakes: 0.11999999731779099, Control Loss: 5.1436448097229, Total Loss: 0.22287288308143616
+Time taken to get recomputed solution logits:  68.4320216178894
+>Prompt Choice:  order logical reasoning and think step by step. Finally give the actual correct answer. Loss: 2.384716033935547, Mistakes: 0.09999999403953552, Control Loss: 5.534321308135986, Total Loss: 0.21068641543388367
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.20366835594177246
+Current length: 15
+ parentheses logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.20366835594177246 Best Loss: 0.20366835594177246 Best Control:  parentheses logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.20366835594177246, ' parentheses logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  69.03646349906921
+Intersection set size: 4
+Candidate tokens:  to and first for
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  to and, or first for
+Time taken to get recomputed solution logits:  73.95018196105957
+>Prompt Choice:  parentheses, reasoning and think step by step. Finally give the actual correct answer. Loss: 2.87713885307312, Mistakes: 0.09999999403953552, Control Loss: 5.769406795501709, Total Loss: 0.21538811922073364
+Time taken to get recomputed solution logits:  69.29747176170349
+>Prompt Choice:  parentheses or reasoning and think step by step. Finally give the actual correct answer. Loss: 3.4715940952301025, Mistakes: 0.11999999731779099, Control Loss: 5.7934651374816895, Total Loss: 0.23586928844451904
+Time taken to get recomputed solution logits:  72.55148482322693
+>Prompt Choice:  parentheses for reasoning and think step by step. Finally give the actual correct answer. Loss: 3.0768377780914307, Mistakes: 0.11999999731779099, Control Loss: 5.427986145019531, Total Loss: 0.2285597175359726
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.21538811922073364
+Current length: 15
+ parentheses, reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.21538811922073364 Best Loss: 0.20366835594177246 Best Control:  parentheses logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  72.00063419342041
+Intersection set size: 4
+Candidate tokens:  multiplication exponents and order
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  exponents and negative multiplication order the
+Time taken to get recomputed solution logits:  69.24868607521057
+>Prompt Choice:  parentheses, order and think step by step. Finally give the actual correct answer. Loss: 3.118410348892212, Mistakes: 0.11999999731779099, Control Loss: 5.596968650817871, Total Loss: 0.2319393754005432
+Time taken to get recomputed solution logits:  69.07646703720093
+>Prompt Choice:  parentheses, and and think step by step. Finally give the actual correct answer. Loss: 2.9852402210235596, Mistakes: 0.09999999403953552, Control Loss: 5.39924430847168, Total Loss: 0.20798487961292267
+Time taken to get recomputed solution logits:  69.25449681282043
+>Prompt Choice:  parentheses, multiplication and think step by step. Finally give the actual correct answer. Loss: 3.532778739929199, Mistakes: 0.14000000059604645, Control Loss: 5.326656341552734, Total Loss: 0.2465331256389618
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and think step by step. Finally give the actual correct answer., New Loss: 0.20798487961292267
+Current length: 15
+ parentheses, and and think step by step. Finally give the actual correct answer.
+Current Loss: 0.20798487961292267 Best Loss: 0.20366835594177246 Best Control:  parentheses logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  68.6247045993805
+Intersection set size: 5
+Candidate tokens:  order follow remember show the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  order follow remember show the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  order follow remember show the write please
+Time taken to get recomputed solution logits:  69.65353512763977
+>Prompt Choice:  parentheses, and and think step by step. Finally give the actual correct answer. Loss: 2.9852402210235596, Mistakes: 0.09999999403953552, Control Loss: 4.7622575759887695, Total Loss: 0.1952451467514038
+Time taken to get recomputed solution logits:  73.5129075050354
+>Prompt Choice:  parentheses, and write think step by step. Finally give the actual correct answer. Loss: 3.9831037521362305, Mistakes: 0.14000000059604645, Control Loss: 5.1849517822265625, Total Loss: 0.24369904398918152
+Time taken to get recomputed solution logits:  73.19604468345642
+>Prompt Choice:  parentheses, and follow think step by step. Finally give the actual correct answer. Loss: 3.0289337635040283, Mistakes: 0.09999999403953552, Control Loss: 5.346690654754639, Total Loss: 0.20693379640579224
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and think step by step. Finally give the actual correct answer., New Loss: 0.1952451467514038normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Current length: 15
+ parentheses, and and think step by step. Finally give the actual correct answer.
+Current Loss: 0.1952451467514038 Best Loss: 0.1952451467514038 Best Control:  parentheses, and and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.61192202568054
+Intersection set size: 5
+Candidate tokens:  or exponents other order the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  exponents other multiplication order or the
+Time taken to get recomputed solution logits:  70.31303215026855
+>Prompt Choice:  parentheses, and and other step by step. Finally give the actual correct answer. Loss: 3.848295211791992, Mistakes: 0.1599999964237213, Control Loss: 5.7327375411987305, Total Loss: 0.274654746055603
+Time taken to get recomputed solution logits:  71.88730120658875
+>Prompt Choice:  parentheses, and and multiplication step by step. Finally give the actual correct answer. Loss: 4.194725036621094, Mistakes: 0.1599999964237213, Control Loss: 5.17648983001709, Total Loss: 0.26352977752685547
+Time taken to get recomputed solution logits:  68.83795595169067
+>Prompt Choice:  parentheses, and and the step by step. Finally give the actual correct answer. Loss: 2.509230136871338, Mistakes: 0.09999999403953552, Control Loss: 5.743834018707275, Total Loss: 0.2148766815662384
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step by step. Finally give the actual correct answer., New Loss: 0.2148766815662384
+Current length: 15
+ parentheses, and and the step by step. Finally give the actual correct answer.
+Current Loss: 0.2148766815662384 Best Loss: 0.1952451467514038 Best Control:  parentheses, and and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.40688729286194
+Intersection set size: 4
+Candidate tokens:  proper order rules correct
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  proper order multiplication standard correct rules
+Time taken to get recomputed solution logits:  68.97065854072571
+>Prompt Choice:  parentheses, and and the step by step. Finally give the actual correct answer. Loss: 2.509230136871338, Mistakes: 0.09999999403953552, Control Loss: 5.307281494140625, Total Loss: 0.20614561438560486
+Time taken to get recomputed solution logits:  67.76470494270325
+>Prompt Choice:  parentheses, and and the multiplication by step. Finally give the actual correct answer. Loss: 4.617595195770264, Mistakes: 0.17999999225139618, Control Loss: 5.698151588439941, Total Loss: 0.2939630150794983
+Time taken to get recomputed solution logits:  71.10800766944885
+>Prompt Choice:  parentheses, and and the rules by step. Finally give the actual correct answer. Loss: 2.4071297645568848, Mistakes: 0.09999999403953552, Control Loss: 6.116576671600342, Total Loss: 0.22233152389526367
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step by step. Finally give the actual correct answer., New Loss: 0.20614561438560486
+Current length: 15
+ parentheses, and and the step by step. Finally give the actual correct answer.
+Current Loss: 0.20614561438560486 Best Loss: 0.1952451467514038 Best Control:  parentheses, and and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.33355116844177
+Intersection set size: 5
+Candidate tokens:  wise method orderby by
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  wise method to order processby by
+Time taken to get recomputed solution logits:  71.04761099815369
+>Prompt Choice:  parentheses, and and the step process step. Finally give the actual correct answer. Loss: 3.0852081775665283, Mistakes: 0.11999999731779099, Control Loss: 5.715088367462158, Total Loss: 0.23430176079273224
+Time taken to get recomputed solution logits:  70.66137456893921
+>Prompt Choice:  parentheses, and and the step method step. Finally give the actual correct answer. Loss: 3.0689518451690674, Mistakes: 0.11999999731779099, Control Loss: 5.812776565551758, Total Loss: 0.23625552654266357
+Time taken to get recomputed solution logits:  68.66300964355469
+>Prompt Choice:  parentheses, and and the step wise step. Finally give the actual correct answer. Loss: 3.2690043449401855, Mistakes: 0.11999999731779099, Control Loss: 5.599104881286621, Total Loss: 0.23198208212852478
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step wise step. Finally give the actual correct answer., New Loss: 0.23198208212852478
+Current length: 15
+ parentheses, and and the step wise step. Finally give the actual correct answer.
+Current Loss: 0.23198208212852478 Best Loss: 0.1952451467514038 Best Control:  parentheses, and and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.10228085517883
+Intersection set size: 5
+Candidate tokens:  method order process calculation solution
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  method order process calculation procedure solution approach
+Time taken to get recomputed solution logits:  68.83974289894104
+>Prompt Choice:  parentheses, and and the step wise step. Finally give the actual correct answer. Loss: 3.2690043449401855, Mistakes: 0.11999999731779099, Control Loss: 5.935433387756348, Total Loss: 0.23870866000652313
+Time taken to get recomputed solution logits:  64.93028688430786
+>Prompt Choice:  parentheses, and and the step wise calculation. Finally give the actual correct answer. Loss: 3.138458728790283, Mistakes: 0.11999999731779099, Control Loss: 5.668584823608398, Total Loss: 0.23337168991565704
+Time taken to get recomputed solution logits:  68.2437207698822
+>Prompt Choice:  parentheses, and and the step wise order. Finally give the actual correct answer. Loss: 2.406904458999634, Mistakes: 0.09999999403953552, Control Loss: 5.897573471069336, Total Loss: 0.2179514616727829
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step wise order. Finally give the actual correct answer., New Loss: 0.2179514616727829
+Current length: 15
+ parentheses, and and the step wise order. Finally give the actual correct answer.
+Current Loss: 0.2179514616727829 Best Loss: 0.1952451467514038 Best Control:  parentheses, and and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.28087019920349
+Intersection set size: 5
+Candidate tokens:  of to operations operation or
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  of to. operations operation or for
+Time taken to get recomputed solution logits:  67.60830330848694
+>Prompt Choice:  parentheses, and and the step wise order. Finally give the actual correct answer. Loss: 2.406904458999634, Mistakes: 0.09999999403953552, Control Loss: 5.58103084564209, Total Loss: 0.21162059903144836
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step wise order. Finally give the actual correct answer., New Loss: 0.21162059903144836
+Current length: 15
+ parentheses, and and the step wise order. Finally give the actual correct answer.
+Current Loss: 0.21162059903144836 Best Loss: 0.1952451467514038 Best Control:  parentheses, and and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  66.46972322463989
+Intersection set size: 5
+Candidate tokens:  of PEM  Please Remember
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  of order PEM  Please Remember Order
+Time taken to get recomputed solution logits:  68.60231518745422
+>Prompt Choice:  parentheses, and and the step wise order.  give the actual correct answer. Loss: 1.9058098793029785, Mistakes: 0.07999999821186066, Control Loss: 6.583250522613525, Total Loss: 0.21166500449180603
+Time taken to get recomputed solution logits:  75.5850875377655
+>Prompt Choice:  parentheses, and and the step wise order. Order give the actual correct answer. Loss: 2.947096109390259, Mistakes: 0.11999999731779099, Control Loss: 6.179505825042725, Total Loss: 0.2435901165008545normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  66.34496974945068
+>Prompt Choice:  parentheses, and and the step wise order. Please give the actual correct answer. Loss: 2.3852858543395996, Mistakes: 0.09999999403953552, Control Loss: 5.776330947875977, Total Loss: 0.21552661061286926
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step wise order.  give the actual correct answer., New Loss: 0.21166500449180603
+Current length: 15
+ parentheses, and and the step wise order.  give the actual correct answer.
+Current Loss: 0.21166500449180603 Best Loss: 0.1952451467514038 Best Control:  parentheses, and and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  67.20615315437317
+Intersection set size: 3
+Candidate tokens: ShowPleaseSolve
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: ShowPleaseshowSolveOrderPEM
+Time taken to get recomputed solution logits:  75.14806008338928
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve the actual correct answer. Loss: 1.9753190279006958, Mistakes: 0.07999999821186066, Control Loss: 5.838945388793945, Total Loss: 0.19677889347076416
+Time taken to get recomputed solution logits:  72.17816758155823
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Please the actual correct answer. Loss: 2.3776466846466064, Mistakes: 0.09999999403953552, Control Loss: 5.783592700958252, Total Loss: 0.2156718373298645
+Time taken to get recomputed solution logits:  74.01922464370728
+>Prompt Choice:  parentheses, and and the step wise order.▁▁PEM the actual correct answer. Loss: 4.836216449737549, Mistakes: 0.1599999964237213, Control Loss: 6.857025623321533, Total Loss: 0.297140508890152
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step wise order.▁▁Solve the actual correct answer., New Loss: 0.19677889347076416
+Current length: 15
+ parentheses, and and the step wise order.▁▁Solve the actual correct answer.
+Current Loss: 0.19677889347076416 Best Loss: 0.1952451467514038 Best Control:  parentheses, and and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  73.41757798194885
+Intersection set size: 5
+Candidate tokens:  this. it for the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  this. using  it for the
+Time taken to get recomputed solution logits:  74.9090530872345
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve the actual correct answer. Loss: 1.9753190279006958, Mistakes: 0.07999999821186066, Control Loss: 5.476122856140137, Total Loss: 0.18952244520187378
+Time taken to get recomputed solution logits:  74.5938515663147
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve for actual correct answer. Loss: 1.9847577810287476, Mistakes: 0.07999999821186066, Control Loss: 5.159994125366211, Total Loss: 0.18319988250732422
+Time taken to get recomputed solution logits:  73.83705854415894
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve using actual correct answer. Loss: 1.9943972826004028, Mistakes: 0.07999999821186066, Control Loss: 5.430527687072754, Total Loss: 0.18861055374145508
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step wise order.▁▁Solve for actual correct answer., New Loss: 0.18319988250732422
+Current length: 15
+ parentheses, and and the step wise order.▁▁Solve for actual correct answer.
+Current Loss: 0.18319988250732422 Best Loss: 0.18319988250732422 Best Control:  parentheses, and and the step wise order.▁▁Solve for actual correct answer.
+Time taken to update solutions:  72.95592474937439
+Intersection set size: 4
+Candidate tokens:  this the x each
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  this the me x answer each
+Time taken to get recomputed solution logits:  75.0271852016449
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve for actual correct answer. Loss: 1.9847577810287476, Mistakes: 0.07999999821186066, Control Loss: 5.191771030426025, Total Loss: 0.18383541703224182
+Time taken to get recomputed solution logits:  78.49556970596313
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve for the correct answer. Loss: 1.9441828727722168, Mistakes: 0.07999999821186066, Control Loss: 5.03718376159668, Total Loss: 0.18074366450309753
+Time taken to get recomputed solution logits:  76.5924608707428
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve for me correct answer. Loss: 1.9380723237991333, Mistakes: 0.07999999821186066, Control Loss: 5.355429649353027, Total Loss: 0.1871085911989212
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step wise order.▁▁Solve for the correct answer., New Loss: 0.18074366450309753
+Current length: 15
+ parentheses, and and the step wise order.▁▁Solve for the correct answer.
+Current Loss: 0.18074366450309753 Best Loss: 0.18074366450309753 Best Control:  parentheses, and and the step wise order.▁▁Solve for the correct answer.
+Time taken to update solutions:  74.67721390724182
+Intersection set size: 4
+Candidate tokens:  step value expression answer
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  step equation expression problem value answer
+Time taken to get recomputed solution logits:  75.37592482566833
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve for the answer answer. Loss: 2.2900657653808594, Mistakes: 0.09999999403953552, Control Loss: 5.009589195251465, Total Loss: 0.20019176602363586
+Time taken to get recomputed solution logits:  74.68298244476318
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve for the equation answer. Loss: 2.3155577182769775, Mistakes: 0.09999999403953552, Control Loss: 4.916165828704834, Total Loss: 0.1983233094215393
+Time taken to get recomputed solution logits:  77.81967067718506
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve for the problem answer. Loss: 2.3183109760284424, Mistakes: 0.09999999403953552, Control Loss: 4.951435565948486, Total Loss: 0.19902870059013367
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step wise order.▁▁Solve for the equation answer., New Loss: 0.1983233094215393
+Current length: 15
+ parentheses, and and the step wise order.▁▁Solve for the equation answer.
+Current Loss: 0.1983233094215393 Best Loss: 0.18074366450309753 Best Control:  parentheses, and and the step wise order.▁▁Solve for the correct answer.
+Time taken to update solutions:  72.872882604599
+Intersection set size: 4
+Candidate tokens:  . using step
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: . using step and,  above
+Time taken to get recomputed solution logits:  81.4922730922699
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve for the equation step. Loss: 3.0606703758239746, Mistakes: 0.14000000059604645, Control Loss: 5.153129577636719, Total Loss: 0.2430625855922699
+Time taken to get recomputed solution logits:  78.35834646224976
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve for the equation and. Loss: 2.9801015853881836, Mistakes: 0.11999999731779099, Control Loss: 5.20401668548584, Total Loss: 0.22408032417297363
+Time taken to get recomputed solution logits:  79.52915906906128
+>Prompt Choice:  parentheses, and and the step wise order.▁▁Solve for the equation . Loss: 2.31291127204895, Mistakes: 0.09999999403953552, Control Loss: 5.3998260498046875, Total Loss: 0.20799651741981506
+No improvement in the current position. Moving to the next position.
+New Control:  parentheses, and and the step wise order.▁▁Solve for the equation ., New Loss: 0.20799651741981506
+Current length: 14
+ parentheses, and and the step wise order.▁▁Solve for the equation .
+Current Loss: 0.20799651741981506 Best Loss: 0.18074366450309753 Best Control:  parentheses, and and the step wise order.▁▁Solve for the correct answer.normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Process Process-1:
+Traceback (most recent call last):
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "../llm_opt/base/attack_manager.py", line 2459, in run
+    results.put(ob.logits(*args, **kwargs))
+  File "../llm_opt/base/attack_manager.py", line 1093, in logits
+    vals = [prompt.logits(model, test_controls, return_ids) for prompt in self._prompts]
+  File "../llm_opt/base/attack_manager.py", line 1093, in <listcomp>
+    vals = [prompt.logits(model, test_controls, return_ids) for prompt in self._prompts]
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "../llm_opt/base/attack_manager.py", line 683, in logits
+    return model(input_ids=ids, attention_mask=attn_mask).logits, ids
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/models/gemma2/modeling_gemma2.py", line 1089, in forward
+    logits = logits / self.config.final_logit_softcapping
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 132.00 MiB. GPU 
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 33 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

@@ -1,0 +1,3335 @@
+goal,target,final_target
+"Premise:
+People in this club who perform in school talent shows often attend and are very engaged with school events.
+People in this club either perform in school talent shows often or are inactive and disinterested community members.
+People in this club who chaperone high school dances are not students who attend the school.
+All people in this club who are inactive and disinterested members of their community chaperone high school dances.
+All young children and teenagers in this club who wish to further their academic careers and educational opportunities are students who attend the school. 
+Bonnie is in this club and she either both attends and is very engaged with school events and is a student who attends the school or is not someone who both attends and is very engaged with school events and is not a student who attends the school.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Bonnie performs in school talent shows often.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+People in this club who perform in school talent shows often attend and are very engaged with school events.
+People in this club either perform in school talent shows often or are inactive and disinterested community members.
+People in this club who chaperone high school dances are not students who attend the school.
+All people in this club who are inactive and disinterested members of their community chaperone high school dances.
+All young children and teenagers in this club who wish to further their academic careers and educational opportunities are students who attend the school. 
+Bonnie is in this club and she either both attends and is very engaged with school events and is a student who attends the school or is not someone who both attends and is very engaged with school events and is not a student who attends the school.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Bonnie is either both a young child or teenager who wishes to further her academic career and educational opportunities and chaperones high school dances or neither is a young child nor teenager who wishes to further her academic career and educational opportunities, then Bonnie is either a student who attends the school or is an inactive and disinterested member of the community.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+People in this club who perform in school talent shows often attend and are very engaged with school events.
+People in this club either perform in school talent shows often or are inactive and disinterested community members.
+People in this club who chaperone high school dances are not students who attend the school.
+All people in this club who are inactive and disinterested members of their community chaperone high school dances.
+All young children and teenagers in this club who wish to further their academic careers and educational opportunities are students who attend the school. 
+Bonnie is in this club and she either both attends and is very engaged with school events and is a student who attends the school or is not someone who both attends and is very engaged with school events and is not a student who attends the school.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Bonnie either chaperones high school dances or, if she does not, she performs in school talent shows often, then Bonnie is both a young child or teenager who wishes to further her academic career and educational opportunities and an inactive and disinterested member of the community.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All employees who schedule a meeting with their customers will go to the company building today. 
+Everyone who has lunch in the company building schedules meetings with their customers. 
+Employees have lunch either in the company building or at home.
+If an employee has lunch at home, they are working remotely from home.
+All employees who are in other countries work remotely from home. 
+No managers work remotely from home. 
+James will appear in the company today if and only if he is a manager.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James has lunch in the company.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All employees who schedule a meeting with their customers will go to the company building today. 
+Everyone who has lunch in the company building schedules meetings with their customers. 
+Employees have lunch either in the company building or at home.
+If an employee has lunch at home, they are working remotely from home.
+All employees who are in other countries work remotely from home. 
+No managers work remotely from home. 
+James will appear in the company today if and only if he is a manager.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James does not have lunch in the company.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All employees who schedule a meeting with their customers will go to the company building today. 
+Everyone who has lunch in the company building schedules meetings with their customers. 
+Employees have lunch either in the company building or at home.
+If an employee has lunch at home, they are working remotely from home.
+All employees who are in other countries work remotely from home. 
+No managers work remotely from home. 
+James will appear in the company today if and only if he is a manager.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If James is either a manager or in other countries,  then James does not either has lunch at home or work remotely from home. If James either has lunch at home or works remotely from home, then he is neither a manager nor does he work in other countries. [contrapositive is more natural]
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+When the Monkeypox virus occurs in a being, it may get Monkeypox. 
+Monkeypox virus can occur in certain animals.
+Humans are mammals.
+Mammals are animals.
+Symptoms of Monkeypox include fever, headache, muscle pains, and tiredness. 
+People feel tired when they get the flu.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: There is an animal.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+When the Monkeypox virus occurs in a being, it may get Monkeypox. 
+Monkeypox virus can occur in certain animals.
+Humans are mammals.
+Mammals are animals.
+Symptoms of Monkeypox include fever, headache, muscle pains, and tiredness. 
+People feel tired when they get the flu.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: No one gets the flu.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+When the Monkeypox virus occurs in a being, it may get Monkeypox. 
+Monkeypox virus can occur in certain animals.
+Humans are mammals.
+Mammals are animals.
+Symptoms of Monkeypox include fever, headache, muscle pains, and tiredness. 
+People feel tired when they get the flu.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Symptoms of Monkeypox include coughing.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+There are six types of wild turkeys: Eastern wild turkey, Osceola wild turkey, Gould’s wild turkey, Merriam’s wild turkey, Rio Grande wild turkey, and Ocellated wild turkey.
+Tom is not an Eastern wild turkey.
+Tom is not an Osceola wild turkey.
+Tom is not a Gould's wild turkey.
+Tom is neither a Merriam's wild turkey nor a Rio Grande wild turkey.
+Tom is a wild turkey.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tom is an Ocellated wild turkey.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+There are six types of wild turkeys: Eastern wild turkey, Osceola wild turkey, Gould’s wild turkey, Merriam’s wild turkey, Rio Grande wild turkey, and Ocellated wild turkey.
+Tom is not an Eastern wild turkey.
+Tom is not an Osceola wild turkey.
+Tom is not a Gould's wild turkey.
+Tom is neither a Merriam's wild turkey nor a Rio Grande wild turkey.
+Tom is a wild turkey.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tom is an Eastern wild turkey.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+There are six types of wild turkeys: Eastern wild turkey, Osceola wild turkey, Gould’s wild turkey, Merriam’s wild turkey, Rio Grande wild turkey, and Ocellated wild turkey.
+Tom is not an Eastern wild turkey.
+Tom is not an Osceola wild turkey.
+Tom is not a Gould's wild turkey.
+Tom is neither a Merriam's wild turkey nor a Rio Grande wild turkey.
+Tom is a wild turkey.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Joey is a wild turkey.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+A Japanese game company created the game the Legend of Zelda.
+All games on the Top 10 list are made by Japanese game companies.
+If a game sells more than one million copies, then it will be included in the Top 10 list.
+The Legend of Zelda sold more than one million copies.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The Legend of Zelda is on the Top 10 list.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+A Japanese game company created the game the Legend of Zelda.
+All games on the Top 10 list are made by Japanese game companies.
+If a game sells more than one million copies, then it will be included in the Top 10 list.
+The Legend of Zelda sold more than one million copies.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: FIFA 22 is made by a Japanese video game company.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+A Japanese game company created the game the Legend of Zelda.
+All games on the Top 10 list are made by Japanese game companies.
+If a game sells more than one million copies, then it will be included in the Top 10 list.
+The Legend of Zelda sold more than one million copies.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The Legend of Zelda is not on the Top 10 list.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All squares are four-sided.
+All four-sided things are shapes. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: All squares are shapes.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All rabbits that can be spotted near the campus are cute. 
+Some turtles can be spotted near the campus. 
+The only animals that can be spotted near the campus are rabbits and squirrels.
+If something is skittish, then it is not calm.
+All the squirrels that can be spotted near the campus are skittish.
+Rockie can be spotted near the campus, and it is calm.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Rockie is a turtle.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All rabbits that can be spotted near the campus are cute. 
+Some turtles can be spotted near the campus. 
+The only animals that can be spotted near the campus are rabbits and squirrels.
+If something is skittish, then it is not calm.
+All the squirrels that can be spotted near the campus are skittish.
+Rockie can be spotted near the campus, and it is calm.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Rockie is not a turtle.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All rabbits that can be spotted near the campus are cute. 
+Some turtles can be spotted near the campus. 
+The only animals that can be spotted near the campus are rabbits and squirrels.
+If something is skittish, then it is not calm.
+All the squirrels that can be spotted near the campus are skittish.
+Rockie can be spotted near the campus, and it is calm.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Rockie is a turtle or cute.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All rabbits that can be spotted near the campus are cute. 
+Some turtles can be spotted near the campus. 
+The only animals that can be spotted near the campus are rabbits and squirrels.
+If something is skittish, then it is not calm.
+All the squirrels that can be spotted near the campus are skittish.
+Rockie can be spotted near the campus, and it is calm.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Rockie is not both a turtle and a squirrel, then Rockie is either cute or skittish.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All rabbits that can be spotted near the campus are cute. 
+Some turtles can be spotted near the campus. 
+The only animals that can be spotted near the campus are rabbits and squirrels.
+If something is skittish, then it is not calm.
+All the squirrels that can be spotted near the campus are skittish.
+Rockie can be spotted near the campus, and it is calm.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Rockie is cute and calm, then Rockie is a skittish turtle.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:Stranger Things"" is a popular Netflix show.
+If a Netflix show is popular, Karen will binge-watch it.
+If and only if Karen binge-watches a Netflix show, she will download it.
+Karen does not download ""Black Mirror.""Black Mirror"" is a Netflix show.
+If Karen binge-watches a Netflix show, she will share it with Lisa.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Karen will share ""Stranger Things"" with Lisa.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:Stranger Things"" is a popular Netflix show.
+If a Netflix show is popular, Karen will binge-watch it.
+If and only if Karen binge-watches a Netflix show, she will download it.
+Karen does not download ""Black Mirror.""Black Mirror"" is a Netflix show.
+If Karen binge-watches a Netflix show, she will share it with Lisa.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: ""Black Mirror"" is popular.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:Stranger Things"" is a popular Netflix show.
+If a Netflix show is popular, Karen will binge-watch it.
+If and only if Karen binge-watches a Netflix show, she will download it.
+Karen does not download ""Black Mirror.""Black Mirror"" is a Netflix show.
+If Karen binge-watches a Netflix show, she will share it with Lisa.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Karen will share ""Black Mirror"" with Lisa.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Beijing is the capital of the People's Republic of China. 
+Beijing is the capital city of the world's most populous nation.
+Beijing is located in Northern China.
+Beijing hosted the 2008 Summer Olympics and 2008 Summer Paralympics Games.
+Beijing has hosted the Summer and Winter Olympics and the Summer and Winter Paralympics.
+Many of Beijing's 91 universities consistently rank among the best universities in the world.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Beijing hosted both the 2008 Summer Olympics and the Winter Olympics.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Beijing is the capital of the People's Republic of China. 
+Beijing is the capital city of the world's most populous nation.
+Beijing is located in Northern China.
+Beijing hosted the 2008 Summer Olympics and 2008 Summer Paralympics Games.
+Beijing has hosted the Summer and Winter Olympics and the Summer and Winter Paralympics.
+Many of Beijing's 91 universities consistently rank among the best universities in the world.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Beijing is located in southern China.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Beijing is the capital of the People's Republic of China. 
+Beijing is the capital city of the world's most populous nation.
+Beijing is located in Northern China.
+Beijing hosted the 2008 Summer Olympics and 2008 Summer Paralympics Games.
+Beijing has hosted the Summer and Winter Olympics and the Summer and Winter Paralympics.
+Many of Beijing's 91 universities consistently rank among the best universities in the world.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Beijing is the second largest Chinese city.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All aliens are extraterrestrials.
+If someone is from Mars, then they are an alien.
+No extraterrestrials are human.
+All highly intelligent beings from Earth are humans.
+Marvin is a highly intelligent being.
+Marvin is either from Earth and from Mars, or he is from neither.
+If Marvin is not from Earth, then Marvin is an extraterrestrial.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Marvin is an alien.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All aliens are extraterrestrials.
+If someone is from Mars, then they are an alien.
+No extraterrestrials are human.
+All highly intelligent beings from Earth are humans.
+Marvin is a highly intelligent being.
+Marvin is either from Earth and from Mars, or he is from neither.
+If Marvin is not from Earth, then Marvin is an extraterrestrial.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Marvin is neither a human nor from Mars.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All aliens are extraterrestrials.
+If someone is from Mars, then they are an alien.
+No extraterrestrials are human.
+All highly intelligent beings from Earth are humans.
+Marvin is a highly intelligent being.
+Marvin is either from Earth and from Mars, or he is from neither.
+If Marvin is not from Earth, then Marvin is an extraterrestrial.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Marvin is not from Mars, then Marvin is a human.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Everyone at the mixer is a Grand Slam champion or an Oscar-nominated actor.
+Every Grand Slam champion at the mixer is a professional tennis player.
+All Oscar-nominated actors at the mixer are celebrities.
+All professional tennis players at the mixer are athletes.
+If a person at the mixer is a celebrity, then they are well paid.
+If a person at the mixer is an athlete, then they are famous.
+All well-paid people at the mixer live in tax havens.
+Djokovic is at the mixer: if Djokovic is a famous athlete, then Djokovic is well-paid.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Djokovic is a Grand Slam champion.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Everyone at the mixer is a Grand Slam champion or an Oscar-nominated actor.
+Every Grand Slam champion at the mixer is a professional tennis player.
+All Oscar-nominated actors at the mixer are celebrities.
+All professional tennis players at the mixer are athletes.
+If a person at the mixer is a celebrity, then they are well paid.
+If a person at the mixer is an athlete, then they are famous.
+All well-paid people at the mixer live in tax havens.
+Djokovic is at the mixer: if Djokovic is a famous athlete, then Djokovic is well-paid.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Djokovic lives in a tax haven.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Everyone at the mixer is a Grand Slam champion or an Oscar-nominated actor.
+Every Grand Slam champion at the mixer is a professional tennis player.
+All Oscar-nominated actors at the mixer are celebrities.
+All professional tennis players at the mixer are athletes.
+If a person at the mixer is a celebrity, then they are well paid.
+If a person at the mixer is an athlete, then they are famous.
+All well-paid people at the mixer live in tax havens.
+Djokovic is at the mixer: if Djokovic is a famous athlete, then Djokovic is well-paid.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Djokovic does not live in a tax haven.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Diamond Mine is a professional wrestling stable formed in WWE.
+Roderick Strong leads Diamond Mine.
+Diamond Mine includes the Creed Brothers and Ivy Nile.
+Imperium has a feud with Diamond Mine.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Roderick Strong leads a professional wrestling stable.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Diamond Mine is a professional wrestling stable formed in WWE.
+Roderick Strong leads Diamond Mine.
+Diamond Mine includes the Creed Brothers and Ivy Nile.
+Imperium has a feud with Diamond Mine.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Roderick Strong leads the Creed Brothers.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Diamond Mine is a professional wrestling stable formed in WWE.
+Roderick Strong leads Diamond Mine.
+Diamond Mine includes the Creed Brothers and Ivy Nile.
+Imperium has a feud with Diamond Mine.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Imperium doesn't have a feud with a professional wrestling stable that includes Ivy Nile.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Symphony No. 9 is a music piece.
+Composers write music pieces.
+Beethoven wrote Symphony No. 9.
+Vienna Music Society premiered Symphony No. 9.
+Vienna Music Society is an orchestra.
+Beethoven leads the Vienna Music Society.
+Orchestras are led by conductors.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Beethoven is a composer.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Symphony No. 9 is a music piece.
+Composers write music pieces.
+Beethoven wrote Symphony No. 9.
+Vienna Music Society premiered Symphony No. 9.
+Vienna Music Society is an orchestra.
+Beethoven leads the Vienna Music Society.
+Orchestras are led by conductors.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some orchestras premiered music pieces.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Symphony No. 9 is a music piece.
+Composers write music pieces.
+Beethoven wrote Symphony No. 9.
+Vienna Music Society premiered Symphony No. 9.
+Vienna Music Society is an orchestra.
+Beethoven leads the Vienna Music Society.
+Orchestras are led by conductors.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Beethoven is not a conductor.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All of Zaha Hadid's design styles that Max adores have interesting geometries.
+No brutalist buildings that Max adores have interesting geometries.
+Every style that Max adores is either Zaha Hadid's design style or Kelly Wearstler's design style. 
+All of Kelly Wearstler's design styles that Max adores are evocative.
+All of Kelly Wearstler's design styles that Max adores are dreamy.
+If a design by Max that he adores has interesting geometries, then the design is a brutalist building and evocative.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A design by Max is a brutalist building.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All of Zaha Hadid's design styles that Max adores have interesting geometries.
+No brutalist buildings that Max adores have interesting geometries.
+Every style that Max adores is either Zaha Hadid's design style or Kelly Wearstler's design style. 
+All of Kelly Wearstler's design styles that Max adores are evocative.
+All of Kelly Wearstler's design styles that Max adores are dreamy.
+If a design by Max that he adores has interesting geometries, then the design is a brutalist building and evocative.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A design by Max is evocative and dreamy.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All of Zaha Hadid's design styles that Max adores have interesting geometries.
+No brutalist buildings that Max adores have interesting geometries.
+Every style that Max adores is either Zaha Hadid's design style or Kelly Wearstler's design style. 
+All of Kelly Wearstler's design styles that Max adores are evocative.
+All of Kelly Wearstler's design styles that Max adores are dreamy.
+If a design by Max that he adores has interesting geometries, then the design is a brutalist building and evocative.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A design by Max is either evocative or dreamy.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If someone is ranked highly by the Women's Tennis Association, then they are one of the most active players in major tennis. 
+Everyone who lost to Iga Świątek at Roland Garros 2022 is ranked highly by the Women's Tennis Association.
+All female tennis players at Roland Garros 2022 lost to Iga Świątek.
+All tennis players at Roland Garros 2022 are either female or male.
+All male tennis players at Roland Garros in 2022 lost to Rafael Nadal.
+If Coco Gauff is ranked highly by the Women's Tennis Association or lost to Rafael Nadal, then Coco Gauff is not a male tennis player at Roland Garros 2022.
+Coco Gauff is at Roland Garros 2022.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Coco Gauff is among the most active Grand-Slam players.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If someone is ranked highly by the Women's Tennis Association, then they are one of the most active players in major tennis. 
+Everyone who lost to Iga Świątek at Roland Garros 2022 is ranked highly by the Women's Tennis Association.
+All female tennis players at Roland Garros 2022 lost to Iga Świątek.
+All tennis players at Roland Garros 2022 are either female or male.
+All male tennis players at Roland Garros in 2022 lost to Rafael Nadal.
+If Coco Gauff is ranked highly by the Women's Tennis Association or lost to Rafael Nadal, then Coco Gauff is not a male tennis player at Roland Garros 2022.
+Coco Gauff is at Roland Garros 2022.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Coco Gauff has lost to Rafael Nadal.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+If someone is ranked highly by the Women's Tennis Association, then they are one of the most active players in major tennis. 
+Everyone who lost to Iga Świątek at Roland Garros 2022 is ranked highly by the Women's Tennis Association.
+All female tennis players at Roland Garros 2022 lost to Iga Świątek.
+All tennis players at Roland Garros 2022 are either female or male.
+All male tennis players at Roland Garros in 2022 lost to Rafael Nadal.
+If Coco Gauff is ranked highly by the Women's Tennis Association or lost to Rafael Nadal, then Coco Gauff is not a male tennis player at Roland Garros 2022.
+Coco Gauff is at Roland Garros 2022.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Coco Gauff is not both a player who lost to Iga Świątek at Roland Garros 2022 and one of the most active players in major tennis.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All cats are mammals.
+Some pets are not mammals.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: No pets are cats.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+There are four seasons in a year: Spring, Summer, Fall, and Winter.
+All students who want to have a long vacation have summer as their favorite season.
+Emma's favorite season is summer.
+Mia's favorite season is not the same as Emma's. 
+James wants to have a long vacation.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James's favorite season is summer.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+There are four seasons in a year: Spring, Summer, Fall, and Winter.
+All students who want to have a long vacation have summer as their favorite season.
+Emma's favorite season is summer.
+Mia's favorite season is not the same as Emma's. 
+James wants to have a long vacation.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Mia's favorite season is spring.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No digital media are analog.
+Every printed text is analog media.
+All streaming services are digital media.
+If an object is a hardcover book, then it is printed text.
+If 1984 is a streaming service, then 1984 is a hardcover book.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: 1984 is printed text.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No digital media are analog.
+Every printed text is analog media.
+All streaming services are digital media.
+If an object is a hardcover book, then it is printed text.
+If 1984 is a streaming service, then 1984 is a hardcover book.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: 1984 is a streaming service.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No digital media are analog.
+Every printed text is analog media.
+All streaming services are digital media.
+If an object is a hardcover book, then it is printed text.
+If 1984 is a streaming service, then 1984 is a hardcover book.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: 1984 is not a streaming service.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All Romance languages are Indo-European languages.
+Romance languages are a language family.
+All languages within a language family are related to each other.
+French and Spanish are both Romance languages.
+German is related to Spanish.
+Basque is not related to any other language.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Basque is a Romance language.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All Romance languages are Indo-European languages.
+Romance languages are a language family.
+All languages within a language family are related to each other.
+French and Spanish are both Romance languages.
+German is related to Spanish.
+Basque is not related to any other language.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: German is a Romance language.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All Romance languages are Indo-European languages.
+Romance languages are a language family.
+All languages within a language family are related to each other.
+French and Spanish are both Romance languages.
+German is related to Spanish.
+Basque is not related to any other language.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: French is an Indo-European language.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Robert Lewandowski is a striker.
+Strikers are soccer players.
+Robert Lewandowski left Bayern Munchen.
+If a player leaves a team they no longer play for that team.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Robert Lewandowski is a soccer player.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Robert Lewandowski is a striker.
+Strikers are soccer players.
+Robert Lewandowski left Bayern Munchen.
+If a player leaves a team they no longer play for that team.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Robert Lewandowski plays for Bayern Munchen.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Robert Lewandowski is a striker.
+Strikers are soccer players.
+Robert Lewandowski left Bayern Munchen.
+If a player leaves a team they no longer play for that team.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Robert Lewandowski is a star.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Billings is a city in the state of Montana in U.S.
+The state of Montana includes the cities of Butte, Helena, and Missoula.
+White Sulphur Springs and Butte are cities in the same state in U.S.
+The city of St Pierre is not in the state of Montana.
+Any city in Butte is not in St Pierre.
+A city can only be in one state in U.S.  except for Bristol, Texarkana, Texhoma and Union City.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Butte and St Pierre are in the same state.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Billings is a city in the state of Montana in U.S.
+The state of Montana includes the cities of Butte, Helena, and Missoula.
+White Sulphur Springs and Butte are cities in the same state in U.S.
+The city of St Pierre is not in the state of Montana.
+Any city in Butte is not in St Pierre.
+A city can only be in one state in U.S.  except for Bristol, Texarkana, Texhoma and Union City.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: St Pierre and Bismarck are in the same state.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Billings is a city in the state of Montana in U.S.
+The state of Montana includes the cities of Butte, Helena, and Missoula.
+White Sulphur Springs and Butte are cities in the same state in U.S.
+The city of St Pierre is not in the state of Montana.
+Any city in Butte is not in St Pierre.
+A city can only be in one state in U.S.  except for Bristol, Texarkana, Texhoma and Union City.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Montana is home to the city of Missoula.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+International students in the US have either an F1 visa or a J1 visa.
+An international student in the US with an F1 visa needs to apply for CPT or OPT if the student wants to work in the US.
+Mike is an international student.
+Mike needs to apply for CPT if he wants to work in the US.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Mike has an F1 visa.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+International students in the US have either an F1 visa or a J1 visa.
+An international student in the US with an F1 visa needs to apply for CPT or OPT if the student wants to work in the US.
+Mike is an international student.
+Mike needs to apply for CPT if he wants to work in the US.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Mike has a J1 visa.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All Brown Swiss cattle are cows.
+Some pets are Brown Swiss Cattle.
+All cows are domesticated animals.
+Alligators are not domesticated animals.
+Ted is an alligator.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ted is a pet.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All Brown Swiss cattle are cows.
+Some pets are Brown Swiss Cattle.
+All cows are domesticated animals.
+Alligators are not domesticated animals.
+Ted is an alligator.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ted is a pet and Brown Swiss cattle
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All Brown Swiss cattle are cows.
+Some pets are Brown Swiss Cattle.
+All cows are domesticated animals.
+Alligators are not domesticated animals.
+Ted is an alligator.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Ted is a Brown Swiss cattle, then Ted is not a pet.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Yale University is a private Ivy League research university.
+Yale University moved to New Haven in 1716.
+Yale university's endowment was valued at $42.3 billion.
+A list of residential colleges at Yale: Benjamin Franklin College, Berkeley College, Branford College, Davenport College, Ezra Stiles College, Grace Hopper College, Jonathan Edwards College, Morse College, Pauli Murray College, Pierson College, Saybrook College, Silliman College, Timothy Dwight College, and Trumbull College.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A private Ivy League research university moved to New Haven.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Yale University is a private Ivy League research university.
+Yale University moved to New Haven in 1716.
+Yale university's endowment was valued at $42.3 billion.
+A list of residential colleges at Yale: Benjamin Franklin College, Berkeley College, Branford College, Davenport College, Ezra Stiles College, Grace Hopper College, Jonathan Edwards College, Morse College, Pauli Murray College, Pierson College, Saybrook College, Silliman College, Timothy Dwight College, and Trumbull College.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Yale University has the largest university endowment of any educational institution.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Yale University is a private Ivy League research university.
+Yale University moved to New Haven in 1716.
+Yale university's endowment was valued at $42.3 billion.
+A list of residential colleges at Yale: Benjamin Franklin College, Berkeley College, Branford College, Davenport College, Ezra Stiles College, Grace Hopper College, Jonathan Edwards College, Morse College, Pauli Murray College, Pierson College, Saybrook College, Silliman College, Timothy Dwight College, and Trumbull College.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Pierson College is a residential college at Yale.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Badults is a British Sitcom series starring members of Pappy's.
+Badults was piloted in July 2013 on BBC Three.
+The Working title ""The Secret Dude Society"" was used for Badults.
+Andrew Collins was the script editor for Badults.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Andrew Collins was the script editor for a series with the working title ""The Secret Dude Society"".
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Badults is a British Sitcom series starring members of Pappy's.
+Badults was piloted in July 2013 on BBC Three.
+The Working title ""The Secret Dude Society"" was used for Badults.
+Andrew Collins was the script editor for Badults.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: No members of Pappy's have starred in a show piloting on BBC Two or BBC Three.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All growth stocks are bought to earn profits from rapid price appreciation.
+If the stock price is bought to earn profits from rapid price appreciation, then it is not suitable for a retirement fund.
+Some stocks are growth stocks.
+All mature stocks are suitable for a retirement fund.
+KO is a mature stock.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: KO is a stock.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All growth stocks are bought to earn profits from rapid price appreciation.
+If the stock price is bought to earn profits from rapid price appreciation, then it is not suitable for a retirement fund.
+Some stocks are growth stocks.
+All mature stocks are suitable for a retirement fund.
+KO is a mature stock.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: KO is a stock and a growth stock.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All growth stocks are bought to earn profits from rapid price appreciation.
+If the stock price is bought to earn profits from rapid price appreciation, then it is not suitable for a retirement fund.
+Some stocks are growth stocks.
+All mature stocks are suitable for a retirement fund.
+KO is a mature stock.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If KO is a growth stock or bought to earn profits from rapid price appreciation, then KO is neither a stock nor is its price volatile.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All vehicle registration plates in Istanbul begin with the number 34.
+Plates that do not begin with the number 34 are not from Istanbul. 
+Joe's vehicle registration plate is from Istanbul. 
+Tom's license plate begins with the number 35. 
+If a license plate begins with the number 35, then it does not begin with the number 34.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Joe's license plate begins with the number 34.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All vehicle registration plates in Istanbul begin with the number 34.
+Plates that do not begin with the number 34 are not from Istanbul. 
+Joe's vehicle registration plate is from Istanbul. 
+Tom's license plate begins with the number 35. 
+If a license plate begins with the number 35, then it does not begin with the number 34.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tom's license plate is from Istanbul.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If people at Mary's school work in student jobs on campus, then they need to earn money to help pay for their college tuition.
+If people at Mary's school order takeout frequently in college, then they work in student jobs on campus.
+People at Mary's school order takeout frequently in college or enjoy the dining hall meals and recipes.
+If people at Mary's school enjoy the dining hall meals and recipes, then they are not picky eaters.
+If people at Mary's school enjoy the dining hall meals and recipes, then they spend a lot of their time eating and catching up with friends in the campus dining halls.
+Hannah is at Mary's school.
+Hannah works in student jobs on campus and if she needs to earn money to help pay for her college tuition, then she is neither picky nor needs to earn money to help pay for her college tuition.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Hannah needs to earn money to help pay for her college tuition.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+If people at Mary's school work in student jobs on campus, then they need to earn money to help pay for their college tuition.
+If people at Mary's school order takeout frequently in college, then they work in student jobs on campus.
+People at Mary's school order takeout frequently in college or enjoy the dining hall meals and recipes.
+If people at Mary's school enjoy the dining hall meals and recipes, then they are not picky eaters.
+If people at Mary's school enjoy the dining hall meals and recipes, then they spend a lot of their time eating and catching up with friends in the campus dining halls.
+Hannah is at Mary's school.
+Hannah works in student jobs on campus and if she needs to earn money to help pay for her college tuition, then she is neither picky nor needs to earn money to help pay for her college tuition.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Hannah is at Mary's school and she is not a picky eater and spends a lot of her time eating and catching up with friends in the campus dining halls.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If people at Mary's school work in student jobs on campus, then they need to earn money to help pay for their college tuition.
+If people at Mary's school order takeout frequently in college, then they work in student jobs on campus.
+People at Mary's school order takeout frequently in college or enjoy the dining hall meals and recipes.
+If people at Mary's school enjoy the dining hall meals and recipes, then they are not picky eaters.
+If people at Mary's school enjoy the dining hall meals and recipes, then they spend a lot of their time eating and catching up with friends in the campus dining halls.
+Hannah is at Mary's school.
+Hannah works in student jobs on campus and if she needs to earn money to help pay for her college tuition, then she is neither picky nor needs to earn money to help pay for her college tuition.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Hannah is at Mary's school and she either is not a picky eater or, if she is, then she spends a lot of her time eating and catching up with friends in the campus dining halls.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No baked sweets are spicy.
+All cupcakes are baked sweets.
+All mala hotpots are spicy.
+All products from Baked by Melissa are cupcakes.
+Dried Thai chilies are spicy or mala hotpots or not baked sweets.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Dried Thai chilies are products of Baked by Melissa.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No baked sweets are spicy.
+All cupcakes are baked sweets.
+All mala hotpots are spicy.
+All products from Baked by Melissa are cupcakes.
+Dried Thai chilies are spicy or mala hotpots or not baked sweets.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Dried Thai chilies are not products of Baked by Melissa.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No baked sweets are spicy.
+All cupcakes are baked sweets.
+All mala hotpots are spicy.
+All products from Baked by Melissa are cupcakes.
+Dried Thai chilies are spicy or mala hotpots or not baked sweets.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Dried Thai chilies are a mala hotpot.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No baked sweets are spicy.
+All cupcakes are baked sweets.
+All mala hotpots are spicy.
+All products from Baked by Melissa are cupcakes.
+Dried Thai chilies are spicy or mala hotpots or not baked sweets.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Dried Thai chilies are neither products of Baked by Melissa nor baked sweets.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No baked sweets are spicy.
+All cupcakes are baked sweets.
+All mala hotpots are spicy.
+All products from Baked by Melissa are cupcakes.
+Dried Thai chilies are spicy or mala hotpots or not baked sweets.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Dried Thai chilies are cupcakes and products of Baked by Melissa.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If a restaurant is listed in Yelp’s recommendations, then the restaurant has not received many negative reviews.
+All restaurants with a rating greater than four are listed in Yelp’s recommendations.
+Some restaurants that do not provide take-out service receive many negative reviews.
+All restaurants that are popular among local residents have ratings greater than four.
+The Hamden Plaza Subway store has a rating greater than four, or it is popular among local residents.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If the Hamden Plaza Subway store provides take-out service and receives many negative reviews, then its rating is greater than 4 and it does not provide take-out service.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If a restaurant is listed in Yelp’s recommendations, then the restaurant has not received many negative reviews.
+All restaurants with a rating greater than four are listed in Yelp’s recommendations.
+Some restaurants that do not provide take-out service receive many negative reviews.
+All restaurants that are popular among local residents have ratings greater than four.
+The Hamden Plaza Subway store has a rating greater than four, or it is popular among local residents.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The Hamden Plaza Subway store provides take-out service or does not receive many negative reviews.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If a restaurant is listed in Yelp’s recommendations, then the restaurant has not received many negative reviews.
+All restaurants with a rating greater than four are listed in Yelp’s recommendations.
+Some restaurants that do not provide take-out service receive many negative reviews.
+All restaurants that are popular among local residents have ratings greater than four.
+The Hamden Plaza Subway store has a rating greater than four, or it is popular among local residents.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The Hamden Plaza store does not provide take-out service.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+In superhero movies, the good guys always win.
+The Surprising Adventures of Sir Digby Chicken Caesar is a superhero movie.
+Good guys fight bad guys and vice versa.
+Sir Digby fights his nemesis.
+If a superhero movie is named after a character, that character is a good guy.
+The Surprising Adventures of Sir Digby Chicken Caesar is named after Sir Digby.
+If somebody wins a fight, the person they are fighting does not win.
+If a superhero movie is named after a character, that character is in the movie.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Sir Digby’s nemesis does not win.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Books contain tons of knowledge.
+When a person reads a book, that person gains knowledge. 
+If a person gains knowledge, they become smarter.
+Harry read the book “Walden” by Henry Thoreau.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Walden contains knowledge.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Books contain tons of knowledge.
+When a person reads a book, that person gains knowledge. 
+If a person gains knowledge, they become smarter.
+Harry read the book “Walden” by Henry Thoreau.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Harry is smarter than before.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Books contain tons of knowledge.
+When a person reads a book, that person gains knowledge. 
+If a person gains knowledge, they become smarter.
+Harry read the book “Walden” by Henry Thoreau.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A smarter person has gained knowledge.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+A natural language processing task can be categorized as either a language generation task or a language understanding task.
+If the output of a natural language processing task is a text sequence, then it is a language generation task.
+Machine translation is a natural language processing task.
+The output of machine translation is a text sequence.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Machine translation is a language generation task.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+A natural language processing task can be categorized as either a language generation task or a language understanding task.
+If the output of a natural language processing task is a text sequence, then it is a language generation task.
+Machine translation is a natural language processing task.
+The output of machine translation is a text sequence.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Machine translation is a language understanding task.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Pets are allowed in some managed buildings.
+A deposit is required to rent an apartment in a managed building.
+The security deposit can be either equal to the monthly rent at a managed building or more.
+Fluffy is Tom's cat.
+Cats are pets.
+The Olive Garden is a managed building.
+The monthly rent at the Olive Garden is $2000.
+$2000 is more than $1500.
+Tom will rent an apartment in a managed building if he is allowed to move in with Fluffy, and the security deposit is no more than $1500.
+If a managed building allows pets, then people are allowed to move in with a pet. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tom will rent an apartment in The Olive Garden.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Pets are allowed in some managed buildings.
+A deposit is required to rent an apartment in a managed building.
+The security deposit can be either equal to the monthly rent at a managed building or more.
+Fluffy is Tom's cat.
+Cats are pets.
+The Olive Garden is a managed building.
+The monthly rent at the Olive Garden is $2000.
+$2000 is more than $1500.
+Tom will rent an apartment in a managed building if he is allowed to move in with Fluffy, and the security deposit is no more than $1500.
+If a managed building allows pets, then people are allowed to move in with a pet. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tom is allowed to move into an apartment in The Olive Garden with Fluffy.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Pets are allowed in some managed buildings.
+A deposit is required to rent an apartment in a managed building.
+The security deposit can be either equal to the monthly rent at a managed building or more.
+Fluffy is Tom's cat.
+Cats are pets.
+The Olive Garden is a managed building.
+The monthly rent at the Olive Garden is $2000.
+$2000 is more than $1500.
+Tom will rent an apartment in a managed building if he is allowed to move in with Fluffy, and the security deposit is no more than $1500.
+If a managed building allows pets, then people are allowed to move in with a pet. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The security deposit at the Olive Garden is either $2000 or more.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All business organizations are legal entities.
+All companies are business organizations.
+All private companies are companies.
+All legal entities are created under law. 
+All legal entities have legal obligations.
+If the Harvard Weekly Book Club is created under law, then it is not a private company. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The Harvard Weekly Book club has legal obligations.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All business organizations are legal entities.
+All companies are business organizations.
+All private companies are companies.
+All legal entities are created under law. 
+All legal entities have legal obligations.
+If the Harvard Weekly Book Club is created under law, then it is not a private company. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The Harvard Weekly Book club has legal obligations and is a private company.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All business organizations are legal entities.
+All companies are business organizations.
+All private companies are companies.
+All legal entities are created under law. 
+All legal entities have legal obligations.
+If the Harvard Weekly Book Club is created under law, then it is not a private company. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If the Harvard Weekly Book club is a private company, then it either has legal obligations or is created under law.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Animals are either invertebrates or vertebrates.
+All animals with backbones reproduce by male-and-female mating. 
+All vertebrate animals have a backbone.
+All bees do not reproduce by male-and-female mating.
+All queen bees are bees.
+Harry is a bee.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Harry is a queen bee.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Animals are either invertebrates or vertebrates.
+All animals with backbones reproduce by male-and-female mating. 
+All vertebrate animals have a backbone.
+All bees do not reproduce by male-and-female mating.
+All queen bees are bees.
+Harry is a bee.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Harry is an invertebrate or a queen bee.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Animals are either invertebrates or vertebrates.
+All animals with backbones reproduce by male-and-female mating. 
+All vertebrate animals have a backbone.
+All bees do not reproduce by male-and-female mating.
+All queen bees are bees.
+Harry is a bee.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Harry is either both a vertebrate and an animal with a backbone, or neither a vertebrate nor an animal with a backbone, then Harry is neither an invertebrate nor a queen bee.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+People who are born in a multiple birth with siblings spend a lot of time hanging out with and playing with their siblings.
+If people have siblings who were born together, then they were born in a multiple birth.
+If people complain often about annoying siblings, then they have siblings who were born together.
+If people live at home, then they do not live with strangers.
+If people spend a lot of time hanging out with and playing with their siblings, then they often live at home. 
+Luke either is a baby born in a multiple birth and live with strangers, or is not a baby born in a multiple birth and does not live with strangers
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Luke spends a lot of time hanging out and playing with his siblings.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+People who are born in a multiple birth with siblings spend a lot of time hanging out with and playing with their siblings.
+If people have siblings who were born together, then they were born in a multiple birth.
+If people complain often about annoying siblings, then they have siblings who were born together.
+If people live at home, then they do not live with strangers.
+If people spend a lot of time hanging out with and playing with their siblings, then they often live at home. 
+Luke either is a baby born in a multiple birth and live with strangers, or is not a baby born in a multiple birth and does not live with strangers
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Luke complains often about annoying siblings.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+People who are born in a multiple birth with siblings spend a lot of time hanging out with and playing with their siblings.
+If people have siblings who were born together, then they were born in a multiple birth.
+If people complain often about annoying siblings, then they have siblings who were born together.
+If people live at home, then they do not live with strangers.
+If people spend a lot of time hanging out with and playing with their siblings, then they often live at home. 
+Luke either is a baby born in a multiple birth and live with strangers, or is not a baby born in a multiple birth and does not live with strangers
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Luke is neither born in a multiple birth nor complains often about annoying siblings.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+It costs $205 to take the GRE test, which is cheaper than $300.
+ETS provides financial aid to those GRE applicants who prove economic hardship.
+Those living in single-parent families or having few resources available to them can prove economic hardship.
+Tom lives in a single-parent family.
+Tom's dad has been out of work, and Tom has few resources available to them. 
+Tom is applying to take the GRE test.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: ETS provides financial aid to Tom.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+It costs $205 to take the GRE test, which is cheaper than $300.
+ETS provides financial aid to those GRE applicants who prove economic hardship.
+Those living in single-parent families or having few resources available to them can prove economic hardship.
+Tom lives in a single-parent family.
+Tom's dad has been out of work, and Tom has few resources available to them. 
+Tom is applying to take the GRE test.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: It costs below US $300 to take the GRE test.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+It costs $205 to take the GRE test, which is cheaper than $300.
+ETS provides financial aid to those GRE applicants who prove economic hardship.
+Those living in single-parent families or having few resources available to them can prove economic hardship.
+Tom lives in a single-parent family.
+Tom's dad has been out of work, and Tom has few resources available to them. 
+Tom is applying to take the GRE test.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: No one taking the GRE test has financial aid provided to them by something.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If people spill a lot of food on their clothing, then they are not notably tidy.
+All clumsy foodies who go out frequently to find new food restaurants to try are people who spill a lot of food on their clothing.
+If people are cleanly, then they are notably tidy.
+If people value order and spotlessness, then they are cleanly.
+All people whose families prioritize order and spotlessness themselves value order and spotlessness.
+Peter is either a person who spills a lot of food on his clothing and is cleanly, or a person who does not spill a lot of food on his clothing and is not cleanly
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Peter is notably tidy.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+If people spill a lot of food on their clothing, then they are not notably tidy.
+All clumsy foodies who go out frequently to find new food restaurants to try are people who spill a lot of food on their clothing.
+If people are cleanly, then they are notably tidy.
+If people value order and spotlessness, then they are cleanly.
+All people whose families prioritize order and spotlessness themselves value order and spotlessness.
+Peter is either a person who spills a lot of food on his clothing and is cleanly, or a person who does not spill a lot of food on his clothing and is not cleanly
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Peter is either a  clumsy foodie who goes out frequently to find new food restaurants to try or he is someone whose family prioritizes order and spotlessness.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If people spill a lot of food on their clothing, then they are not notably tidy.
+All clumsy foodies who go out frequently to find new food restaurants to try are people who spill a lot of food on their clothing.
+If people are cleanly, then they are notably tidy.
+If people value order and spotlessness, then they are cleanly.
+All people whose families prioritize order and spotlessness themselves value order and spotlessness.
+Peter is either a person who spills a lot of food on his clothing and is cleanly, or a person who does not spill a lot of food on his clothing and is not cleanly
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Peter is either both a clumsy foodie who goes out frequently to find new food restaurants to try and issomeone whose family prioritizes order and spotlessness, or he neither is a clumsy foodie who goes out frequently to find new food restaurants to try nor does his family prioritize order and spotlessness.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All fir trees are evergreens.
+Some objects of worship are fir trees.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some evergreens are not objects of worship.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+The Picuris Mountains are a mountain range in New Mexico or Texas.
+Juan de Onate visited the Picuris Mountains.
+The Harding Pegmatite Mine, located in the Picuris Mountains, was donated.
+There are no mountain ranges in texas that have mines that have been donated.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Juan de Onate visited a mountain range in New Mexico.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+The Picuris Mountains are a mountain range in New Mexico or Texas.
+Juan de Onate visited the Picuris Mountains.
+The Harding Pegmatite Mine, located in the Picuris Mountains, was donated.
+There are no mountain ranges in texas that have mines that have been donated.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Juan de Onate visited a mountain range in Texas.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+The Picuris Mountains are a mountain range in New Mexico or Texas.
+Juan de Onate visited the Picuris Mountains.
+The Harding Pegmatite Mine, located in the Picuris Mountains, was donated.
+There are no mountain ranges in texas that have mines that have been donated.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The Harding Pegmatite Mine is not located in a mountain range in New Mexico.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If a man is taller than another man, the taller one can block the other's shooting.
+Michael is a man who is taller than everyone else in his class.
+If person x is taller than person y, and person y is taller than person z, then x is taller than z
+Peter is a man who is taller than Michael.
+Michael can block any shooting from a person as long as the person does not jump when shooting.
+Michael cannot block Windy's shooting.
+Every shooter who can jump when shooting is a great shooter.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Peter is shorter than a man in Michael's class.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If a man is taller than another man, the taller one can block the other's shooting.
+Michael is a man who is taller than everyone else in his class.
+If person x is taller than person y, and person y is taller than person z, then x is taller than z
+Peter is a man who is taller than Michael.
+Michael can block any shooting from a person as long as the person does not jump when shooting.
+Michael cannot block Windy's shooting.
+Every shooter who can jump when shooting is a great shooter.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Windy is a great shooter.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If a man is taller than another man, the taller one can block the other's shooting.
+Michael is a man who is taller than everyone else in his class.
+If person x is taller than person y, and person y is taller than person z, then x is taller than z
+Peter is a man who is taller than Michael.
+Michael can block any shooting from a person as long as the person does not jump when shooting.
+Michael cannot block Windy's shooting.
+Every shooter who can jump when shooting is a great shooter.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Peter can block Windy's shooting.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Barutin Cove is a cove named after the Bulgarian settlement of Barutin.
+Barutin Cove is on the southwest coast of Snow Island.
+Snow Island, Greenwich Island, and Deception Island are located in the South Shetland Islands.
+Antarctica is located on the South Shetland Islands. 
+If place A is located in place B and place B is located in place C, then place A is located in place C.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Barutin Cove is named after all islands in Antarctica.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Barutin Cove is a cove named after the Bulgarian settlement of Barutin.
+Barutin Cove is on the southwest coast of Snow Island.
+Snow Island, Greenwich Island, and Deception Island are located in the South Shetland Islands.
+Antarctica is located on the South Shetland Islands. 
+If place A is located in place B and place B is located in place C, then place A is located in place C.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: There is at least one cove in Antarctica named after a place in Bulgaria.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Barutin Cove is a cove named after the Bulgarian settlement of Barutin.
+Barutin Cove is on the southwest coast of Snow Island.
+Snow Island, Greenwich Island, and Deception Island are located in the South Shetland Islands.
+Antarctica is located on the South Shetland Islands. 
+If place A is located in place B and place B is located in place C, then place A is located in place C.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Barutin Cove is not located in Antarctica.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Some affection is love.
+Some love is positive.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some affection is positive.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+If something can transport multiple passengers, then they are not one-seaters.
+All Tesla Model 3 can transport multiple passengers.
+All single-seat electric cars are one-seaters.
+All Solo EV cars are single-seat electric cars. 
+If John's car is not a Tesla Model 3, then John's car is not a Tesla Model 3 or a single-seat electric car. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: John's car is a Tesla Model 3.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+If something can transport multiple passengers, then they are not one-seaters.
+All Tesla Model 3 can transport multiple passengers.
+All single-seat electric cars are one-seaters.
+All Solo EV cars are single-seat electric cars. 
+If John's car is not a Tesla Model 3, then John's car is not a Tesla Model 3 or a single-seat electric car. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: John's car is a Solo EV.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If something can transport multiple passengers, then they are not one-seaters.
+All Tesla Model 3 can transport multiple passengers.
+All single-seat electric cars are one-seaters.
+All Solo EV cars are single-seat electric cars. 
+If John's car is not a Tesla Model 3, then John's car is not a Tesla Model 3 or a single-seat electric car. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: John's car is not a Solo EV.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All of Peter's pets that are mammals are also animals.
+All monkeys are mammals. 
+Peter's pets are all either monkeys or birds. 
+Peter's birds can fly.
+All animals that are Peter's pets can breathe.
+If Peter's pet can fly, then it has wings.
+Rock is Peter's pet.
+Rock can fly, or Rock is a bird, or Rock cannot breathe. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Rock is a monkey.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All of Peter's pets that are mammals are also animals.
+All monkeys are mammals. 
+Peter's pets are all either monkeys or birds. 
+Peter's birds can fly.
+All animals that are Peter's pets can breathe.
+If Peter's pet can fly, then it has wings.
+Rock is Peter's pet.
+Rock can fly, or Rock is a bird, or Rock cannot breathe. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Rock has wings.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All of Peter's pets that are mammals are also animals.
+All monkeys are mammals. 
+Peter's pets are all either monkeys or birds. 
+Peter's birds can fly.
+All animals that are Peter's pets can breathe.
+If Peter's pet can fly, then it has wings.
+Rock is Peter's pet.
+Rock can fly, or Rock is a bird, or Rock cannot breathe. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Rock does not have wings.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All people who make wedding plans are people who are engaged.
+All people who invite others to come to their ceremony make wedding plans.
+Anyone who has a well-attended wedding invites others to come to their ceremony.
+Some people that have well-attended weddings have larger families.
+If John is engaged, then John does not invite friends to their ceremony and make wedding plans.
+If John has a larger family, then either John has a well-attended wedding or invites friends to their ceremony. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: John has a larger family.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All people who make wedding plans are people who are engaged.
+All people who invite others to come to their ceremony make wedding plans.
+Anyone who has a well-attended wedding invites others to come to their ceremony.
+Some people that have well-attended weddings have larger families.
+If John is engaged, then John does not invite friends to their ceremony and make wedding plans.
+If John has a larger family, then either John has a well-attended wedding or invites friends to their ceremony. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: John does not have a larger family.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All people who make wedding plans are people who are engaged.
+All people who invite others to come to their ceremony make wedding plans.
+Anyone who has a well-attended wedding invites others to come to their ceremony.
+Some people that have well-attended weddings have larger families.
+If John is engaged, then John does not invite friends to their ceremony and make wedding plans.
+If John has a larger family, then either John has a well-attended wedding or invites friends to their ceremony. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: John is engaged.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All people who make wedding plans are people who are engaged.
+All people who invite others to come to their ceremony make wedding plans.
+Anyone who has a well-attended wedding invites others to come to their ceremony.
+Some people that have well-attended weddings have larger families.
+If John is engaged, then John does not invite friends to their ceremony and make wedding plans.
+If John has a larger family, then either John has a well-attended wedding or invites friends to their ceremony. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: John neither has a larger family nor does he invite others to his wedding.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Some mammals have teeth.
+Platypuses have no teeth.
+Platypuses are mammals. 
+Humans have teeth.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Platypuses are mammals with no teeth.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Some mammals have teeth.
+Platypuses have no teeth.
+Platypuses are mammals. 
+Humans have teeth.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Platypuses are reptiles.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Some mammals have teeth.
+Platypuses have no teeth.
+Platypuses are mammals. 
+Humans have teeth.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Humans are mammals.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Plungers suck.
+Vacuums suck.
+Vampires suck.
+Space is a vacuum.
+A duster is a household appliance that doesn't suck.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Space sucks.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Plungers suck.
+Vacuums suck.
+Vampires suck.
+Space is a vacuum.
+A duster is a household appliance that doesn't suck.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Space is a vampire.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Plungers suck.
+Vacuums suck.
+Vampires suck.
+Space is a vacuum.
+A duster is a household appliance that doesn't suck.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If something is a household appliance, it sucks.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Machine Learning algorithms can be categorized as supervised learning, unsupervised learning, and reinforcement learning.
+Unsupervised learning algorithms do not require labeled data.
+The state-of-the-art text summarization model is trained with machine learning algorithms.
+Reinforcement learning is not used to train the state-of-the-art text summarization model.
+The Machine Learning algorithm for training text summarization models requires labeled data.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Supervised learning is used to train the state-of-the-art text summarization model.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Machine Learning algorithms can be categorized as supervised learning, unsupervised learning, and reinforcement learning.
+Unsupervised learning algorithms do not require labeled data.
+The state-of-the-art text summarization model is trained with machine learning algorithms.
+Reinforcement learning is not used to train the state-of-the-art text summarization model.
+The Machine Learning algorithm for training text summarization models requires labeled data.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Unsupervised learning is used to train the state-of-the-art text summarization model.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If a film is appropriate for people of all ages, then children can watch it without guidance from parents.
+If a film contains excessive erotic and violent content, children cannot watch it without guidance from their parents.
+If a film is rated General Audience, then it is appropriate for people of all ages.
+All family-friendly animated films are rated General Audience.
+All movies in the Frozen series are family-friendly animated films.
+“Hachi: A dog’s Tale” is a film.
+“Hachi: A dog’s Tale”  is either a family-friendly animated film or is appropriate for people of all ages. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: ""Hachi: A dog's Tale"" is rated General Audience.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+If a film is appropriate for people of all ages, then children can watch it without guidance from parents.
+If a film contains excessive erotic and violent content, children cannot watch it without guidance from their parents.
+If a film is rated General Audience, then it is appropriate for people of all ages.
+All family-friendly animated films are rated General Audience.
+All movies in the Frozen series are family-friendly animated films.
+“Hachi: A dog’s Tale” is a film.
+“Hachi: A dog’s Tale”  is either a family-friendly animated film or is appropriate for people of all ages. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: ""Hachi: A dog's Tale"" contains excessive erotic and violent content or is in the ""Frozen"" series or both.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If a film is appropriate for people of all ages, then children can watch it without guidance from parents.
+If a film contains excessive erotic and violent content, children cannot watch it without guidance from their parents.
+If a film is rated General Audience, then it is appropriate for people of all ages.
+All family-friendly animated films are rated General Audience.
+All movies in the Frozen series are family-friendly animated films.
+“Hachi: A dog’s Tale” is a film.
+“Hachi: A dog’s Tale”  is either a family-friendly animated film or is appropriate for people of all ages. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: ""Hachi: A dog's Tale"" either contains excessive erotic and violent content and is a film in the ""Frozen"" series, or it neither contains excessive erotic and violent content nor is a film in the ""Frozen"" series.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Breeding back is a form of artificial selection by the deliberate selective breeding of domestic animals.
+Heck cattle were bred back in the 1920s to resemble the aurochs.
+Heck cattle are animals.
+Aurochs are animals.
+Some animals to be bred back resemble extinct animals.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some Heck cattle are artificially selected.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Breeding back is a form of artificial selection by the deliberate selective breeding of domestic animals.
+Heck cattle were bred back in the 1920s to resemble the aurochs.
+Heck cattle are animals.
+Aurochs are animals.
+Some animals to be bred back resemble extinct animals.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Aurochs are extinct.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Everyone who can register to vote in the United States can participate in the 2024 United States presidential election.
+If someone has United States citizenship, then they can register to vote in the United States.
+A person either has United States citizenship or Taiwanese citizenship.
+No Russian Federation officials hold Taiwanese citizenship. 
+Vladimir neither holds Taiwanese citizenship nor is he a manager at Gazprom. 
+Ekaterina she can register to vote in the United States, or she is a Russian federation official.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Vladimir is a Russian federation official
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Everyone who can register to vote in the United States can participate in the 2024 United States presidential election.
+If someone has United States citizenship, then they can register to vote in the United States.
+A person either has United States citizenship or Taiwanese citizenship.
+No Russian Federation officials hold Taiwanese citizenship. 
+Vladimir neither holds Taiwanese citizenship nor is he a manager at Gazprom. 
+Ekaterina she can register to vote in the United States, or she is a Russian federation official.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Vladimir is not a Russian federation official
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Everyone who can register to vote in the United States can participate in the 2024 United States presidential election.
+If someone has United States citizenship, then they can register to vote in the United States.
+A person either has United States citizenship or Taiwanese citizenship.
+No Russian Federation officials hold Taiwanese citizenship. 
+Vladimir neither holds Taiwanese citizenship nor is he a manager at Gazprom. 
+Ekaterina she can register to vote in the United States, or she is a Russian federation official.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ekaterina can participate in the 2024 United States presidential election or is a manager at Gazprom.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Everyone who can register to vote in the United States can participate in the 2024 United States presidential election.
+If someone has United States citizenship, then they can register to vote in the United States.
+A person either has United States citizenship or Taiwanese citizenship.
+No Russian Federation officials hold Taiwanese citizenship. 
+Vladimir neither holds Taiwanese citizenship nor is he a manager at Gazprom. 
+Ekaterina she can register to vote in the United States, or she is a Russian federation official.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ekaterina can participate in the 2024 United States presidential election or Vladimir is a manager at Gazprom.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Everyone who can register to vote in the United States can participate in the 2024 United States presidential election.
+If someone has United States citizenship, then they can register to vote in the United States.
+A person either has United States citizenship or Taiwanese citizenship.
+No Russian Federation officials hold Taiwanese citizenship. 
+Vladimir neither holds Taiwanese citizenship nor is he a manager at Gazprom. 
+Ekaterina she can register to vote in the United States, or she is a Russian federation official.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: It is not true that Ekaterina can register to vote in the United States and Vladimir can participate in the 2024 United States presidential election.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+New Vessel Press is a publishing house specializing in translating foreign literature into English.
+All of New Vessel Press's published books are in English.
+Neapolitan Chronicles is a book published by New Vessel Press.
+Neapolitan Chronicles was translated from Italian.
+Palace of Flies is a book published by New Vessel Press.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Neapolitan Chronicles is an English book.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+New Vessel Press is a publishing house specializing in translating foreign literature into English.
+All of New Vessel Press's published books are in English.
+Neapolitan Chronicles is a book published by New Vessel Press.
+Neapolitan Chronicles was translated from Italian.
+Palace of Flies is a book published by New Vessel Press.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Harry Potter was published by New Vessel Press.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+New Vessel Press is a publishing house specializing in translating foreign literature into English.
+All of New Vessel Press's published books are in English.
+Neapolitan Chronicles is a book published by New Vessel Press.
+Neapolitan Chronicles was translated from Italian.
+Palace of Flies is a book published by New Vessel Press.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Palace of Flies was translated from Italian.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All hydrocarbons are organic compounds .
+All alkanes are hydrocarbons
+All organic compounds are chemical compounds.
+All organic compounds contain carbon.
+No chemical compounds contain only one element.
+The mixture either both is a chemical compound and contains only one element, or neither. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The mixture contains carbon.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All hydrocarbons are organic compounds .
+All alkanes are hydrocarbons
+All organic compounds are chemical compounds.
+All organic compounds contain carbon.
+No chemical compounds contain only one element.
+The mixture either both is a chemical compound and contains only one element, or neither. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The mixture is an alkane and contains carbon.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All hydrocarbons are organic compounds .
+All alkanes are hydrocarbons
+All organic compounds are chemical compounds.
+All organic compounds contain carbon.
+No chemical compounds contain only one element.
+The mixture either both is a chemical compound and contains only one element, or neither. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If the mixture contains only one element or contains carbon, then the mixture is neither a chemical compound nor an alkane.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All humans are mortal.
+All Greeks are humans.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some Greeks are mortal.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+None of the students who currently work in the library are from the computer science department. 
+All of the students with part-time jobs offered by the university currently work in the library. 
+All of the students who are taking the database course are from the computer science department. 
+All of the students taking a class with Professor David are taking the database course. 
+All students working in the lab are taking a class with Professor David.
+James is a student working in the lab. 
+James doesn't work in the lab or have a part-time job offered by the university.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James has a part-time job offered by the university.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+None of the students who currently work in the library are from the computer science department. 
+All of the students with part-time jobs offered by the university currently work in the library. 
+All of the students who are taking the database course are from the computer science department. 
+All of the students taking a class with Professor David are taking the database course. 
+All students working in the lab are taking a class with Professor David.
+James is a student working in the lab. 
+James doesn't work in the lab or have a part-time job offered by the university.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James does not have a part-time job offered by the university.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+None of the students who currently work in the library are from the computer science department. 
+All of the students with part-time jobs offered by the university currently work in the library. 
+All of the students who are taking the database course are from the computer science department. 
+All of the students taking a class with Professor David are taking the database course. 
+All students working in the lab are taking a class with Professor David.
+James is a student working in the lab. 
+James doesn't work in the lab or have a part-time job offered by the university.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James either takes the database course or has a part-time job offered by the university.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+None of the students who currently work in the library are from the computer science department. 
+All of the students with part-time jobs offered by the university currently work in the library. 
+All of the students who are taking the database course are from the computer science department. 
+All of the students taking a class with Professor David are taking the database course. 
+All students working in the lab are taking a class with Professor David.
+James is a student working in the lab. 
+James doesn't work in the lab or have a part-time job offered by the university.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James takes the database course.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+If George likes music, he wants to compose.
+If George has access to a program, he can compose.
+If George can compose and wants to compose, he will compose.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If George likes music and has access to a program, he will compose.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If George likes music, he wants to compose.
+If George has access to a program, he can compose.
+If George can compose and wants to compose, he will compose.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If George will not compose, George can not compose.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+A hawk never swims. 
+Some birds are hawks.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: All birds swim.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Some show airing at 8 pm on Monday gives out roses on TV.
+If a show gives out roses on TV, then the show is an episode of The Bachelor.
+The Bachelor portrays the lives of real people.
+All shows portraying the lives of real people are reality TV shows.
+Breaking Bad is a show.
+Breaking Bad is not a reality TV show.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Breaking Bad is on Monday at 8 pm.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Some show airing at 8 pm on Monday gives out roses on TV.
+If a show gives out roses on TV, then the show is an episode of The Bachelor.
+The Bachelor portrays the lives of real people.
+All shows portraying the lives of real people are reality TV shows.
+Breaking Bad is a show.
+Breaking Bad is not a reality TV show.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Breaking Bad is a TV show in which roses are given out on Monday at 8 pm.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Some show airing at 8 pm on Monday gives out roses on TV.
+If a show gives out roses on TV, then the show is an episode of The Bachelor.
+The Bachelor portrays the lives of real people.
+All shows portraying the lives of real people are reality TV shows.
+Breaking Bad is a show.
+Breaking Bad is not a reality TV show.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If roses are given out during Breaking Bad, then it is on Monday at 8 pm.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Heinrich Schmidt was a German politician. 
+Heinrich Schmidt was also a member of the Prussian State Parliament and the Nazi Reichstag.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Heinrich Schmidt was German or Russian or both.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Heinrich Schmidt was a German politician. 
+Heinrich Schmidt was also a member of the Prussian State Parliament and the Nazi Reichstag.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some German politician was part of both the Prussian State Parliament and the Nazi Reichstag.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Heinrich Schmidt was a German politician. 
+Heinrich Schmidt was also a member of the Prussian State Parliament and the Nazi Reichstag.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: No politicians are part of the Nazi Reichstag.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If something is a deadly disease, then it comes with a low survival rate. 
+Severe cancers are deadly diseases.
+Bile duct cancer is a severe form cancer. 
+All Cholangiocarcinoma is bile duct cancer.
+Mild flu comes with a low survival rate.
+Colorectal cancer is not both a bile duct cancer and with a low survival rate.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Colorectal cancer is a kind of severe cancer
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+If something is a deadly disease, then it comes with a low survival rate. 
+Severe cancers are deadly diseases.
+Bile duct cancer is a severe form cancer. 
+All Cholangiocarcinoma is bile duct cancer.
+Mild flu comes with a low survival rate.
+Colorectal cancer is not both a bile duct cancer and with a low survival rate.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If colorectal cancer is a kind of bile duct cancer or a form of Cholangiocarcinoma, then colorectal cancer is a kind of bile duct cancer and a kind of mild flu.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If something is a deadly disease, then it comes with a low survival rate. 
+Severe cancers are deadly diseases.
+Bile duct cancer is a severe form cancer. 
+All Cholangiocarcinoma is bile duct cancer.
+Mild flu comes with a low survival rate.
+Colorectal cancer is not both a bile duct cancer and with a low survival rate.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Colorectal cancer is a form of Cholangiocarcinoma and it is a kind of mild flu or a kind of bile duct cancer, or all of the above.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All people who eat salads regularly are very conscious about their health and eating habits.
+All people who grew up in health-conscious childhood homes eat salads regularly.
+All people who fulfill their daily nutritional intakes grew up in health-conscious childhood homes.
+All people who disregard their physical well-being are not very conscious about their health and eating habits.
+If people visit the gym at least once a day, then they always fulfill their daily nutritional intakes.
+Taylor either grew up in a health-conscious childhood home and disregard her physical well-being, or she did neither.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Taylor eats salads regularly.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All people who eat salads regularly are very conscious about their health and eating habits.
+All people who grew up in health-conscious childhood homes eat salads regularly.
+All people who fulfill their daily nutritional intakes grew up in health-conscious childhood homes.
+All people who disregard their physical well-being are not very conscious about their health and eating habits.
+If people visit the gym at least once a day, then they always fulfill their daily nutritional intakes.
+Taylor either grew up in a health-conscious childhood home and disregard her physical well-being, or she did neither.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Taylor visits the gym at least once a day.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All people who eat salads regularly are very conscious about their health and eating habits.
+All people who grew up in health-conscious childhood homes eat salads regularly.
+All people who fulfill their daily nutritional intakes grew up in health-conscious childhood homes.
+All people who disregard their physical well-being are not very conscious about their health and eating habits.
+If people visit the gym at least once a day, then they always fulfill their daily nutritional intakes.
+Taylor either grew up in a health-conscious childhood home and disregard her physical well-being, or she did neither.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Taylor neither grew up in a health-conscious childhood home nor does she visit the gym at least once a day.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+The summer Olympic games is a sporting event. 
+The last summer Olympic games was in Tokyo.
+The United States won the most medals in Tokyo. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The world championships is a sporting event.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+The summer Olympic games is a sporting event. 
+The last summer Olympic games was in Tokyo.
+The United States won the most medals in Tokyo. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The last summer Olympic games were not in Tokyo.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+The summer Olympic games is a sporting event. 
+The last summer Olympic games was in Tokyo.
+The United States won the most medals in Tokyo. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The United States won the most medals in the last summer Olympic games.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All horses have hooves.
+No humans have hooves.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some humans are horses.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Susan flies to LGA airport.
+The departure and arrival can not be at the same airport.
+John flies from LGA airport.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Susan flies from LGA airport.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Susan flies to LGA airport.
+The departure and arrival can not be at the same airport.
+John flies from LGA airport.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: John flies to LGA airport.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No one nice to animals is also mean to animals.
+Some grumpy people are mean to animals.
+All animal lovers are nice to animals.
+All pet owners love animals.
+Tom is a pet owner.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tom is a grumpy person.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No one nice to animals is also mean to animals.
+Some grumpy people are mean to animals.
+All animal lovers are nice to animals.
+All pet owners love animals.
+Tom is a pet owner.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tom is not both a grumpy person and mean to animals.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No one nice to animals is also mean to animals.
+Some grumpy people are mean to animals.
+All animal lovers are nice to animals.
+All pet owners love animals.
+Tom is a pet owner.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Tom is not both a grumpy person and mean to animals, then Tom is neither a grumpy person nor an animal lover.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+A podcast is not a novel.
+If a person is born in American City, the person is American.
+If a book is a novel and it is written by a person, then the person is a novel writer.
+Dani Shapiro is an American writer.
+Family History is written by Dani Shapiro.
+Family History is a novel written in 2003.
+Dani Shapiro created a podcast called Family Secrets.
+Boston is an American city.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Dani Shapiro is a novel writer.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+A podcast is not a novel.
+If a person is born in American City, the person is American.
+If a book is a novel and it is written by a person, then the person is a novel writer.
+Dani Shapiro is an American writer.
+Family History is written by Dani Shapiro.
+Family History is a novel written in 2003.
+Dani Shapiro created a podcast called Family Secrets.
+Boston is an American city.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Family Secrets is a novel.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+A podcast is not a novel.
+If a person is born in American City, the person is American.
+If a book is a novel and it is written by a person, then the person is a novel writer.
+Dani Shapiro is an American writer.
+Family History is written by Dani Shapiro.
+Family History is a novel written in 2003.
+Dani Shapiro created a podcast called Family Secrets.
+Boston is an American city.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Dani Shapiro was born in Boston.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Some professional basketball players are not American nationals.
+All professional basketball players can do jump shots.
+If someone can jump shots, they leap straight into the air.
+If someone leaps straight into the air, they activate their leg muscles. 
+Yuri does not activate his leg muscles.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Yuri is an American national.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Some professional basketball players are not American nationals.
+All professional basketball players can do jump shots.
+If someone can jump shots, they leap straight into the air.
+If someone leaps straight into the air, they activate their leg muscles. 
+Yuri does not activate his leg muscles.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Yuri is not an American professional basketball player.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Some professional basketball players are not American nationals.
+All professional basketball players can do jump shots.
+If someone can jump shots, they leap straight into the air.
+If someone leaps straight into the air, they activate their leg muscles. 
+Yuri does not activate his leg muscles.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Yuri is an American professional basketball player.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Some professional basketball players are not American nationals.
+All professional basketball players can do jump shots.
+If someone can jump shots, they leap straight into the air.
+If someone leaps straight into the air, they activate their leg muscles. 
+Yuri does not activate his leg muscles.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Yuri does not leap straight into the air, then Yuri is an American professional basketball player.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Some professional basketball players are not American nationals.
+All professional basketball players can do jump shots.
+If someone can jump shots, they leap straight into the air.
+If someone leaps straight into the air, they activate their leg muscles. 
+Yuri does not activate his leg muscles.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Yuri is not an American professional basketball player, then Yuri is a professional basketball player.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Events are either happy or sad.
+At least one event is happy. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: All events are sad.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+The winner of the 1992 du Maurier Classic was Steinhauer.
+Steinhauer participated in the 1992 du Maurier Classic.
+One six-way tie was on the leaderboard, and one person in the six-way tie was from Belgium.
+Descampe is from Belgium and is on the leaderboard of the 1992 du Maurier Classic.
+All people on the leaderboard of the 1992 du Maurier Classic participated in the 1992 du Maurier Classic.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Steinhauer was not the winner of the 1992 du Maurier Classic.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+The winner of the 1992 du Maurier Classic was Steinhauer.
+Steinhauer participated in the 1992 du Maurier Classic.
+One six-way tie was on the leaderboard, and one person in the six-way tie was from Belgium.
+Descampe is from Belgium and is on the leaderboard of the 1992 du Maurier Classic.
+All people on the leaderboard of the 1992 du Maurier Classic participated in the 1992 du Maurier Classic.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Descampe is in the six-way tie in the leaderboard of the 1992 du Maurier Classic.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Jane does not like any animals that bark.
+All dogs are animals that bark.
+Jane likes all animals that jump.
+If an animal has legs, then it jumps.
+If an animal is terricolous, then it has legs. 
+KiKi is an animal.
+If KiKi neither jumps nor has legs, then KiKi is terricolous or has legs.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: KiKi is terricolous.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Jane does not like any animals that bark.
+All dogs are animals that bark.
+Jane likes all animals that jump.
+If an animal has legs, then it jumps.
+If an animal is terricolous, then it has legs. 
+KiKi is an animal.
+If KiKi neither jumps nor has legs, then KiKi is terricolous or has legs.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: KiKi is a barking dog.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Jane does not like any animals that bark.
+All dogs are animals that bark.
+Jane likes all animals that jump.
+If an animal has legs, then it jumps.
+If an animal is terricolous, then it has legs. 
+KiKi is an animal.
+If KiKi neither jumps nor has legs, then KiKi is terricolous or has legs.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: KiKi does not bark and he is not a dog.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Ailton Silva, born in 1995, is commonly known as Ailton.
+Ailton is a football player who was loaned out to Braga.
+Ailton Silva is a Brazilian footballer who plays for Náutico.
+Náutico is a football club along with Braga.
+Fluminense is a football club.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: No one playing for Nautico is Brazilian.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Ailton Silva, born in 1995, is commonly known as Ailton.
+Ailton is a football player who was loaned out to Braga.
+Ailton Silva is a Brazilian footballer who plays for Náutico.
+Náutico is a football club along with Braga.
+Fluminense is a football club.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ailton Silva does not play for a football club.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Ailton Silva, born in 1995, is commonly known as Ailton.
+Ailton is a football player who was loaned out to Braga.
+Ailton Silva is a Brazilian footballer who plays for Náutico.
+Náutico is a football club along with Braga.
+Fluminense is a football club.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ailton was not loaned out to a football club.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Ailton Silva, born in 1995, is commonly known as Ailton.
+Ailton is a football player who was loaned out to Braga.
+Ailton Silva is a Brazilian footballer who plays for Náutico.
+Náutico is a football club along with Braga.
+Fluminense is a football club.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ailton Silva played for Fluminense.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Ailton Silva, born in 1995, is commonly known as Ailton.
+Ailton is a football player who was loaned out to Braga.
+Ailton Silva is a Brazilian footballer who plays for Náutico.
+Náutico is a football club along with Braga.
+Fluminense is a football club.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ailton Silva was loaned out to a football club.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)

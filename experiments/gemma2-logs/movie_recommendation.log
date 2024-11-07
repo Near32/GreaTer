@@ -1,0 +1,1681 @@
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: proper logical reasoning and think step by step. Finally give the actual
+  correct answer.
+control_weight: 0.2
+conversation_templates:
+- gemma-2
+- gemma-2
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ A'' or ''$ B''
+  or ''$ C'' or ''$ D'') is $'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_gemma2_movie_recommendation_formal_fallacies.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/movie_recommendation.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  use_fast: false
+- add_bos_token: false
+  use_fast: false
+tokenizer_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+topk: 40
+train_data: ../data/BBH/movie_recommendation.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.20it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.50it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.61it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.78it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.65it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.77it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.85it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.96it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.91it/s]Initialized Workers...
+
+Started worker 2621782 for model google/gemma-2-9b-it
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Started worker 2622208 for model google/gemma-2-9b-it
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  85.94945096969604
+Intersection set size: 4
+Candidate tokens:  your reasoning a the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  the process only reasoning a your
+Time taken to get recomputed solution logits:  88.01987099647522
+>Prompt Choice:  proper logical reasoning and think step by step. Finally give the actual correct answer. Loss: 20.323633193969727, Mistakes: 0.4399999976158142, Control Loss: 5.17592716217041, Total Loss: 0.5435185432434082
+Time taken to get recomputed solution logits:  71.81700110435486
+>Prompt Choice:  your logical reasoning and think step by step. Finally give the actual correct answer. Loss: 20.85833168029785, Mistakes: 0.4399999976158142, Control Loss: 5.292423248291016, Total Loss: 0.5458484888076782
+Time taken to get recomputed solution logits:  71.1754801273346
+>Prompt Choice:  only logical reasoning and think step by step. Finally give the actual correct answer. Loss: 24.039499282836914, Mistakes: 0.47999998927116394, Control Loss: 5.185307502746582, Total Loss: 0.5837061405181885
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.5435185432434082
+Current length: 15
+ proper logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.5435185432434082 Best Loss: 0.5435185432434082 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.5435185432434082, ' proper logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  83.69180512428284
+Intersection set size: 5
+Candidate tokens:  justification explanation logic reasoning grammar
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  explanations justification explanation logic rationale reasoning grammar
+Time taken to get recomputed solution logits:  80.96586656570435
+>Prompt Choice:  proper explanation reasoning and think step by step. Finally give the actual correct answer. Loss: 19.74736213684082, Mistakes: 0.3999999761581421, Control Loss: 5.632769584655762, Total Loss: 0.5126553773880005
+Time taken to get recomputed solution logits:  81.14977383613586
+>Prompt Choice:  proper explanations reasoning and think step by step. Finally give the actual correct answer. Loss: 23.08042335510254, Mistakes: 0.47999998927116394, Control Loss: 5.6565046310424805, Total Loss: 0.5931301116943359
+Time taken to get recomputed solution logits:  87.16807532310486
+>Prompt Choice:  proper justification reasoning and think step by step. Finally give the actual correct answer. Loss: 20.569110870361328, Mistakes: 0.4399999976158142, Control Loss: 5.71380615234375, Total Loss: 0.5542761087417603
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.5126553773880005
+Current length: 15
+ proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.5126553773880005 Best Loss: 0.5126553773880005 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  76.65162301063538
+Intersection set size: 4
+Candidate tokens:  to. and for
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  of to. and  for why
+Time taken to get recomputed solution logits:  79.60462164878845
+>Prompt Choice:  proper explanation reasoning and think step by step. Finally give the actual correct answer. Loss: 19.74736213684082, Mistakes: 0.3999999761581421, Control Loss: 5.377320289611816, Total Loss: 0.5075463652610779
+Time taken to get recomputed solution logits:  91.97642970085144
+>Prompt Choice:  proper explanation of and think step by step. Finally give the actual correct answer. Loss: 19.560007095336914, Mistakes: 0.4399999976158142, Control Loss: 5.774689674377441, Total Loss: 0.5554937720298767
+Time taken to get recomputed solution logits:  80.82286405563354
+>Prompt Choice:  proper explanation. and think step by step. Finally give the actual correct answer. Loss: 20.65662956237793, Mistakes: 0.4399999976158142, Control Loss: 5.910641670227051, Total Loss: 0.5582128167152405
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.5075463652610779
+Current length: 15
+ proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.5075463652610779 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  76.94737815856934
+Intersection set size: 4
+Candidate tokens: . for why behind
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: . and your  for why behind
+Time taken to get recomputed solution logits:  85.71938252449036
+>Prompt Choice:  proper explanation reasoning  think step by step. Finally give the actual correct answer. Loss: 21.563783645629883, Mistakes: 0.4399999976158142, Control Loss: 5.96194314956665, Total Loss: 0.559238851070404
+Time taken to get recomputed solution logits:  80.7406530380249
+>Prompt Choice:  proper explanation reasoning for think step by step. Finally give the actual correct answer. Loss: 19.975900650024414, Mistakes: 0.3999999761581421, Control Loss: 6.107822418212891, Total Loss: 0.5221564173698425
+Time taken to get recomputed solution logits:  85.93114256858826
+>Prompt Choice:  proper explanation reasoning. think step by step. Finally give the actual correct answer. Loss: 22.016986846923828, Mistakes: 0.4399999976158142, Control Loss: 6.110566139221191, Total Loss: 0.5622113347053528
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think step by step. Finally give the actual correct answer., New Loss: 0.5221564173698425
+Current length: 15
+ proper explanation reasoning for think step by step. Finally give the actual correct answer.
+Current Loss: 0.5221564173698425 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  77.57371091842651
+Intersection set size: 5
+Candidate tokens:  each your why the choosing
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  each your why selecting the choosing
+Time taken to get recomputed solution logits:  82.78298211097717
+>Prompt Choice:  proper explanation reasoning for think step by step. Finally give the actual correct answer. Loss: 19.975900650024414, Mistakes: 0.3999999761581421, Control Loss: 5.9608306884765625, Total Loss: 0.5192165970802307
+Time taken to get recomputed solution logits:  82.50541877746582
+>Prompt Choice:  proper explanation reasoning for why step by step. Finally give the actual correct answer. Loss: 19.419010162353516, Mistakes: 0.3999999761581421, Control Loss: 6.089737415313721, Total Loss: 0.5217947363853455
+Time taken to get recomputed solution logits:  89.78568124771118
+>Prompt Choice:  proper explanation reasoning for each step by step. Finally give the actual correct answer. Loss: 20.992321014404297, Mistakes: 0.3999999761581421, Control Loss: 6.3855085372924805, Total Loss: 0.5277101397514343
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think step by step. Finally give the actual correct answer., New Loss: 0.5192165970802307
+Current length: 15
+ proper explanation reasoning for think step by step. Finally give the actual correct answer.
+Current Loss: 0.5192165970802307 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to update solutions:  77.8517472743988
+Intersection set size: 5
+Candidate tokens:  so each your you the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  this so each your you it the
+Time taken to get recomputed solution logits:  90.70182657241821
+>Prompt Choice:  proper explanation reasoning for think so by step. Finally give the actual correct answer. Loss: 19.90972137451172, Mistakes: 0.3999999761581421, Control Loss: 7.375391960144043, Total Loss: 0.5475078225135803
+Time taken to get recomputed solution logits:  81.15918684005737
+>Prompt Choice:  proper explanation reasoning for think each by step. Finally give the actual correct answer. Loss: 23.582122802734375, Mistakes: 0.47999998927116394, Control Loss: 7.206315040588379, Total Loss: 0.6241263151168823
+Time taken to get recomputed solution logits:  86.58689832687378
+>Prompt Choice:  proper explanation reasoning for think this by step. Finally give the actual correct answer. Loss: 20.842636108398438, Mistakes: 0.4399999976158142, Control Loss: 7.450500965118408, Total Loss: 0.5890100002288818
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so by step. Finally give the actual correct answer., New Loss: 0.5475078225135803
+Current length: 15
+ proper explanation reasoning for think so by step. Finally give the actual correct answer.
+Current Loss: 0.5475078225135803 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  88.72959160804749
+Intersection set size: 5
+Candidate tokens: . and,  they
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . and,  they it
+Time taken to get recomputed solution logits:  90.19772458076477
+>Prompt Choice:  proper explanation reasoning for think so. step. Finally give the actual correct answer. Loss: 19.805442810058594, Mistakes: 0.3999999761581421, Control Loss: 7.416811466217041, Total Loss: 0.5483362078666687
+Time taken to get recomputed solution logits:  85.92290091514587
+>Prompt Choice:  proper explanation reasoning for think so, step. Finally give the actual correct answer. Loss: 19.50398063659668, Mistakes: 0.3999999761581421, Control Loss: 7.39405632019043, Total Loss: 0.5478811264038086
+Time taken to get recomputed solution logits:  77.4243996143341
+>Prompt Choice:  proper explanation reasoning for think so it step. Finally give the actual correct answer. Loss: 19.403453826904297, Mistakes: 0.3999999761581421, Control Loss: 7.479889392852783, Total Loss: 0.5495977401733398
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, step. Finally give the actual correct answer., New Loss: 0.5478811264038086
+Current length: 15
+ proper explanation reasoning for think so, step. Finally give the actual correct answer.
+Current Loss: 0.5478811264038086 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  83.87988257408142
+Intersection set size: 3
+Candidate tokens:   and why
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:   and each why
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  and while so each  why
+Time taken to get recomputed solution logits:  79.62559771537781
+>Prompt Choice:  proper explanation reasoning for think so, so. Finally give the actual correct answer. Loss: 19.90313720703125, Mistakes: 0.3999999761581421, Control Loss: 6.182793140411377, Total Loss: 0.5236558318138123
+Time taken to get recomputed solution logits:  80.60671353340149
+>Prompt Choice:  proper explanation reasoning for think so, . Finally give the actual correct answer. Loss: 19.755495071411133, Mistakes: 0.3999999761581421, Control Loss: 7.260725021362305, Total Loss: 0.5452144742012024
+Time taken to get recomputed solution logits:  80.71799278259277
+>Prompt Choice:  proper explanation reasoning for think so, why. Finally give the actual correct answer. Loss: 19.771953582763672, Mistakes: 0.3999999761581421, Control Loss: 6.455074310302734, Total Loss: 0.5291014909744263
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so. Finally give the actual correct answer., New Loss: 0.5236558318138123
+Current length: 15
+ proper explanation reasoning for think so, so. Finally give the actual correct answer.
+Current Loss: 0.5236558318138123 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  78.12217092514038
+Intersection set size: 4
+Candidate tokens: . that the I
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . that your I it the
+Time taken to get recomputed solution logits:  84.86380076408386
+>Prompt Choice:  proper explanation reasoning for think so, so I Finally give the actual correct answer. Loss: 19.637187957763672, Mistakes: 0.3999999761581421, Control Loss: 6.290491104125977, Total Loss: 0.5258097648620605
+Time taken to get recomputed solution logits:  80.66517233848572
+>Prompt Choice:  proper explanation reasoning for think so, so the Finally give the actual correct answer. Loss: 19.805545806884766, Mistakes: 0.3999999761581421, Control Loss: 6.068157196044922, Total Loss: 0.5213631391525269
+Time taken to get recomputed solution logits:  81.45780730247498
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally give the actual correct answer. Loss: 20.28371238708496, Mistakes: 0.3999999761581421, Control Loss: 6.039117813110352, Total Loss: 0.5207823514938354
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally give the actual correct answer., New Loss: 0.5207823514938354
+Current length: 15
+ proper explanation reasoning for think so, so that Finally give the actual correct answer.
+Current Loss: 0.5207823514938354 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  78.1904604434967
+Intersection set size: 4
+Candidate tokens:  I someone it the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  my I someone it the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  my I i you someone it a the
+Time taken to get recomputed solution logits:  80.81671571731567
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally give the actual correct answer. Loss: 20.28371238708496, Mistakes: 0.3999999761581421, Control Loss: 6.069704055786133, Total Loss: 0.5213940739631653
+Time taken to get recomputed solution logits:  71.04443955421448
+>Prompt Choice:  proper explanation reasoning for think so, so that a give the actual correct answer. Loss: 20.79228401184082, Mistakes: 0.4399999976158142, Control Loss: 6.0799760818481445, Total Loss: 0.5615994930267334
+Time taken to get recomputed solution logits:  74.7470953464508
+>Prompt Choice:  proper explanation reasoning for think so, so that i give the actual correct answer. Loss: 21.280153274536133, Mistakes: 0.4399999976158142, Control Loss: 6.142202854156494, Total Loss: 0.5628440380096436
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally give the actual correct answer., New Loss: 0.5213940739631653
+Current length: 15
+ proper explanation reasoning for think so, so that Finally give the actual correct answer.
+Current Loss: 0.5213940739631653 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  80.01731038093567
+Intersection set size: 5
+Candidate tokens: , I we understand you
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: , I we i understand younormalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  80.34125328063965
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we the actual correct answer. Loss: 19.195661544799805, Mistakes: 0.3999999761581421, Control Loss: 6.416576385498047, Total Loss: 0.5283315181732178
+Time taken to get recomputed solution logits:  79.01920866966248
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally I the actual correct answer. Loss: 19.480743408203125, Mistakes: 0.3999999761581421, Control Loss: 6.498505592346191, Total Loss: 0.5299700498580933
+Time taken to get recomputed solution logits:  75.57150650024414
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally understand the actual correct answer. Loss: 19.622325897216797, Mistakes: 0.3999999761581421, Control Loss: 6.71327018737793, Total Loss: 0.534265398979187
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we the actual correct answer., New Loss: 0.5283315181732178
+Current length: 15
+ proper explanation reasoning for think so, so that Finally we the actual correct answer.
+Current Loss: 0.5283315181732178 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  79.7242476940155
+Intersection set size: 3
+Candidate tokens:  have will can
+>>>> Topk increased to 7 <<<<
+Intersection set size: 8
+Candidate tokens:  arrive reach will know get understand have can
+Time taken to get recomputed solution logits:  79.6931004524231
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we understand actual correct answer. Loss: 21.676166534423828, Mistakes: 0.4399999976158142, Control Loss: 6.9828290939331055, Total Loss: 0.5796566009521484
+Time taken to get recomputed solution logits:  86.21249413490295
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we know actual correct answer. Loss: 19.53790283203125, Mistakes: 0.3999999761581421, Control Loss: 6.5378618240356445, Total Loss: 0.5307571887969971
+Time taken to get recomputed solution logits:  82.12944722175598
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get actual correct answer. Loss: 20.137298583984375, Mistakes: 0.3999999761581421, Control Loss: 6.482058525085449, Total Loss: 0.5296411514282227
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get actual correct answer., New Loss: 0.5296411514282227
+Current length: 15
+ proper explanation reasoning for think so, so that Finally we get actual correct answer.
+Current Loss: 0.5296411514282227 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  79.07426071166992
+Intersection set size: 4
+Candidate tokens:  to a the an
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  to some why a the an
+Time taken to get recomputed solution logits:  79.4612889289856
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get the correct answer. Loss: 20.20419692993164, Mistakes: 0.3999999761581421, Control Loss: 6.2710394859313965, Total Loss: 0.5254207849502563
+Time taken to get recomputed solution logits:  81.73349857330322
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct answer. Loss: 20.05552864074707, Mistakes: 0.3999999761581421, Control Loss: 6.03521728515625, Total Loss: 0.5207043290138245
+Time taken to get recomputed solution logits:  82.56554293632507
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get actual correct answer. Loss: 20.137298583984375, Mistakes: 0.3999999761581421, Control Loss: 6.106736183166504, Total Loss: 0.5221347212791443
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct answer., New Loss: 0.5207043290138245
+Current length: 15
+ proper explanation reasoning for think so, so that Finally we get to correct answer.
+Current Loss: 0.5207043290138245 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  78.94853043556213
+Intersection set size: 5
+Candidate tokens:  see know understand a the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  see know understand a the an
+Time taken to get recomputed solution logits:  80.56312775611877
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct answer. Loss: 20.05552864074707, Mistakes: 0.3999999761581421, Control Loss: 5.486310958862305, Total Loss: 0.5097261667251587
+Time taken to get recomputed solution logits:  81.88382458686829
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to an answer. Loss: 22.570690155029297, Mistakes: 0.4399999976158142, Control Loss: 5.503444194793701, Total Loss: 0.5500688552856445
+Time taken to get recomputed solution logits:  79.13600420951843
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to understand answer. Loss: 21.803483963012695, Mistakes: 0.4399999976158142, Control Loss: 6.162829399108887, Total Loss: 0.563256561756134
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct answer., New Loss: 0.5097261667251587
+Current length: 15
+ proper explanation reasoning for think so, so that Finally we get to correct answer.
+Current Loss: 0.5097261667251587 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  79.5747218132019
+Intersection set size: 4
+Candidate tokens:  choice option Answer answer
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  choice ans option Answer answer answers
+Time taken to get recomputed solution logits:  80.50887537002563
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct ans. Loss: 20.245824813842773, Mistakes: 0.3999999761581421, Control Loss: 5.58928108215332, Total Loss: 0.511785626411438
+Time taken to get recomputed solution logits:  79.12863278388977
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option. Loss: 19.975624084472656, Mistakes: 0.3999999761581421, Control Loss: 5.500164031982422, Total Loss: 0.5100032687187195
+Time taken to get recomputed solution logits:  85.5419647693634
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct Answer. Loss: 20.132781982421875, Mistakes: 0.3999999761581421, Control Loss: 5.511881351470947, Total Loss: 0.5102375745773315
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option., New Loss: 0.5100032687187195
+Current length: 15
+ proper explanation reasoning for think so, so that Finally we get to correct option.
+Current Loss: 0.5100032687187195 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.16990971565247
+Intersection set size: 4
+Candidate tokens: . and, 
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: . and with,  . for
+Time taken to get recomputed solution logits:  81.62994718551636
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option . Loss: 19.969209671020508, Mistakes: 0.3999999761581421, Control Loss: 5.759011268615723, Total Loss: 0.515180230140686
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option ._, New Loss: 0.515180230140686normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Current length: 15
+ proper explanation reasoning for think so, so that Finally we get to correct option ._
+Current Loss: 0.515180230140686 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Step:  15 Candidates:  [(0.5075463652610779, ' proper explanation reasoning and think step by step. Finally give the actual correct answer.'), (0.5097261667251587, ' proper explanation reasoning for think so, so that Finally we get to correct answer.'), (0.5100032687187195, ' proper explanation reasoning for think so, so that Finally we get to correct option.'), (0.5126553773880005, ' proper explanation reasoning and think step by step. Finally give the actual correct answer.'), (0.515180230140686, ' proper explanation reasoning for think so, so that Finally we get to correct option ._'), (0.5192165970802307, ' proper explanation reasoning for think step by step. Finally give the actual correct answer.'), (0.5207043290138245, ' proper explanation reasoning for think so, so that Finally we get to correct answer.'), (0.5207823514938354, ' proper explanation reasoning for think so, so that Finally give the actual correct answer.'), (0.5213940739631653, ' proper explanation reasoning for think so, so that Finally give the actual correct answer.'), (0.5221564173698425, ' proper explanation reasoning for think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  77.67125201225281
+Intersection set size: 4
+Candidate tokens:  . and,
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . and,  . for
+Time taken to get recomputed solution logits:  79.87470388412476
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option ._ Loss: 21.49071502685547, Mistakes: 0.4399999976158142, Control Loss: 6.849472999572754, Total Loss: 0.576989471912384
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .__, New Loss: 0.576989471912384
+Current length: 16
+ proper explanation reasoning for think so, so that Finally we get to correct option .__
+Current Loss: 0.576989471912384 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  75.15890717506409
+Intersection set size: 4
+Candidate tokens:   TheThe Finally
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  TheTheAnswer  Finally
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  TheTheAnswerand Finally Explanation Finally
+Time taken to get recomputed solution logits:  80.21695446968079
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and Loss: 19.490076065063477, Mistakes: 0.3999999761581421, Control Loss: 6.718388080596924, Total Loss: 0.5343677401542664
+Time taken to get recomputed solution logits:  76.62370872497559
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .__ Loss: 19.887815475463867, Mistakes: 0.3999999761581421, Control Loss: 6.734337329864502, Total Loss: 0.5346866846084595
+Time taken to get recomputed solution logits:  81.12481999397278
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option . Explanation Loss: 21.363954544067383, Mistakes: 0.4399999976158142, Control Loss: 6.7180023193359375, Total Loss: 0.5743600130081177
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and_, New Loss: 0.5343677401542664
+Current length: 17
+ proper explanation reasoning for think so, so that Finally we get to correct option .and_
+Current Loss: 0.5343677401542664 Best Loss: 0.5075463652610779 Best Control:  proper explanation reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  78.82651877403259
+Intersection set size: 5
+Candidate tokens:  the explanation explain its why
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  the explanation also explain its a why
+Time taken to get recomputed solution logits:  77.63395929336548
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and its Loss: 19.726329803466797, Mistakes: 0.3999999761581421, Control Loss: 6.5419440269470215, Total Loss: 0.5308388471603394
+Time taken to get recomputed solution logits:  80.59343457221985
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and_ Loss: 19.75297737121582, Mistakes: 0.3999999761581421, Control Loss: 6.560746192932129, Total Loss: 0.5312148928642273
+Time taken to get recomputed solution logits:  80.98912119865417
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a Loss: 17.904115676879883, Mistakes: 0.35999998450279236, Control Loss: 6.5434722900390625, Total Loss: 0.4908694326877594
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a_, New Loss: 0.4908694326877594
+Current length: 18
+ proper explanation reasoning for think so, so that Finally we get to correct option .and a_
+Current Loss: 0.4908694326877594 Best Loss: 0.4908694326877594 Best Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a_
+Time taken to update solutions:  78.49155950546265
+Intersection set size: 4
+Candidate tokens:  bit brief little short
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  bit brief short little
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  bit brief explanation short little detailed breakdown
+Time taken to get recomputed solution logits:  80.08428978919983
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a_ Loss: 19.705726623535156, Mistakes: 0.3999999761581421, Control Loss: 6.463972568511963, Total Loss: 0.5292794108390808
+Time taken to get recomputed solution logits:  86.09129595756531
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a breakdown Loss: 20.5059757232666, Mistakes: 0.3999999761581421, Control Loss: 6.44795036315918, Total Loss: 0.5289589762687683
+Time taken to get recomputed solution logits:  80.70195746421814
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit Loss: 17.939647674560547, Mistakes: 0.35999998450279236, Control Loss: 6.445123672485352, Total Loss: 0.4889024496078491
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit_, New Loss: 0.4889024496078491
+Current length: 19
+ proper explanation reasoning for think so, so that Finally we get to correct option .and a bit_
+Current Loss: 0.4889024496078491 Best Loss: 0.4889024496078491 Best Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit_
+Time taken to update solutions:  77.71675944328308
+Intersection set size: 4
+Candidate tokens:  of explanation about more
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  of explanation background about more
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  of explanation description background about more discussion
+Time taken to get recomputed solution logits:  78.64194917678833
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit_ Loss: 20.19104766845703, Mistakes: 0.3999999761581421, Control Loss: 6.33065128326416, Total Loss: 0.5266129970550537
+Time taken to get recomputed solution logits:  81.09194946289062
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit description Loss: 17.947113037109375, Mistakes: 0.35999998450279236, Control Loss: 6.313948154449463, Total Loss: 0.4862789511680603normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  82.2891755104065
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of Loss: 17.856399536132812, Mistakes: 0.35999998450279236, Control Loss: 6.307722091674805, Total Loss: 0.4861544370651245
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of_, New Loss: 0.4861544370651245
+Current length: 20
+ proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of_
+Current Loss: 0.4861544370651245 Best Loss: 0.4861544370651245 Best Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of_
+Time taken to update solutions:  78.24428844451904
+Intersection set size: 4
+Candidate tokens:  information explanation a why
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  information explanation description a why
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  information explanation insight description about a why
+Time taken to get recomputed solution logits:  80.10884690284729
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of_ Loss: 18.354265213012695, Mistakes: 0.35999998450279236, Control Loss: 6.156022548675537, Total Loss: 0.4831204414367676
+Time taken to get recomputed solution logits:  80.95469498634338
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a Loss: 18.079448699951172, Mistakes: 0.35999998450279236, Control Loss: 6.133344650268555, Total Loss: 0.48266687989234924
+Time taken to get recomputed solution logits:  80.7228147983551
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of description Loss: 18.10289192199707, Mistakes: 0.35999998450279236, Control Loss: 6.1340813636779785, Total Loss: 0.48268160223960876
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a_, New Loss: 0.48266687989234924
+Current length: 21
+ proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a_
+Current Loss: 0.48266687989234924 Best Loss: 0.48266687989234924 Best Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a_
+Time taken to update solutions:  80.01526117324829
+Intersection set size: 3
+Candidate tokens:  movie summary description
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  synopsis explanation description movie summary comparison discussion
+Time taken to get recomputed solution logits:  89.65076065063477
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a movie Loss: 17.578115463256836, Mistakes: 0.35999998450279236, Control Loss: 5.940865516662598, Total Loss: 0.47881728410720825
+Time taken to get recomputed solution logits:  85.84092855453491
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a_ Loss: 18.031599044799805, Mistakes: 0.35999998450279236, Control Loss: 5.960528373718262, Total Loss: 0.4792105555534363
+Time taken to get recomputed solution logits:  86.13607454299927
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis Loss: 17.788145065307617, Mistakes: 0.35999998450279236, Control Loss: 5.9400811195373535, Total Loss: 0.4788016080856323
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis_, New Loss: 0.4788016080856323
+Current length: 22
+ proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis_
+Current Loss: 0.4788016080856323 Best Loss: 0.4788016080856323 Best Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis_
+Time taken to update solutions:  116.44022059440613
+Intersection set size: 5
+Candidate tokens:  of. on about for
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  of. to on  about for
+Time taken to get recomputed solution logits:  110.9164080619812
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis_ Loss: 17.26148796081543, Mistakes: 0.35999998450279236, Control Loss: 5.8403825759887695, Total Loss: 0.4768076241016388
+Time taken to get recomputed solution logits:  117.84765648841858
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about Loss: 17.28941535949707, Mistakes: 0.35999998450279236, Control Loss: 5.8224687576293945, Total Loss: 0.4764493703842163
+Time taken to get recomputed solution logits:  91.4701280593872
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis on Loss: 17.6663818359375, Mistakes: 0.35999998450279236, Control Loss: 5.826322078704834, Total Loss: 0.4765264391899109
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about_, New Loss: 0.4764493703842163
+Current length: 23
+ proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about_
+Current Loss: 0.4764493703842163 Best Loss: 0.4764493703842163 Best Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about_
+Time taken to update solutions:  84.00487041473389
+Intersection set size: 4
+Candidate tokens:  that the it why
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  that the chosen each it why
+Time taken to get recomputed solution logits:  85.63194465637207
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about chosen Loss: 17.780656814575195, Mistakes: 0.35999998450279236, Control Loss: 5.719855308532715, Total Loss: 0.47439709305763245
+Time taken to get recomputed solution logits:  87.13682293891907
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about_ Loss: 17.661890029907227, Mistakes: 0.35999998450279236, Control Loss: 5.737121105194092, Total Loss: 0.47474241256713867
+Time taken to get recomputed solution logits:  119.93804860115051
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each Loss: 17.15070915222168, Mistakes: 0.35999998450279236, Control Loss: 5.7196855545043945, Total Loss: 0.47439369559288025
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each_, New Loss: 0.47439369559288025
+Current length: 24
+ proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each_
+Current Loss: 0.47439369559288025 Best Loss: 0.47439369559288025 Best Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each_
+Time taken to update solutions:  85.86157703399658
+Intersection set size: 5
+Candidate tokens:  of. movie film option
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  of. choice movie film option
+Time taken to get recomputed solution logits:  86.35050678253174
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each_ Loss: 17.474565505981445, Mistakes: 0.35999998450279236, Control Loss: 5.595542907714844, Total Loss: 0.47191083431243896normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  112.27541470527649
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie Loss: 16.86390495300293, Mistakes: 0.35999998450279236, Control Loss: 5.57659912109375, Total Loss: 0.4715319573879242
+Time taken to get recomputed solution logits:  89.88883352279663
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each film Loss: 17.395206451416016, Mistakes: 0.35999998450279236, Control Loss: 5.578224182128906, Total Loss: 0.47156447172164917
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie_, New Loss: 0.4715319573879242
+Current length: 25
+ proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie_
+Current Loss: 0.4715319573879242 Best Loss: 0.4715319573879242 Best Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie_
+Time taken to update solutions:  87.29513096809387
+Intersection set size: 4
+Candidate tokens:  to. listed for
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  to. listed  mentioned for
+Time taken to get recomputed solution logits:  90.32637548446655
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie listed Loss: 18.842632293701172, Mistakes: 0.3999999761581421, Control Loss: 5.372361660003662, Total Loss: 0.5074471831321716
+Time taken to get recomputed solution logits:  86.6573076248169
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie_ Loss: 17.291921615600586, Mistakes: 0.35999998450279236, Control Loss: 5.38552188873291, Total Loss: 0.4677104353904724
+Time taken to get recomputed solution logits:  90.49198150634766
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 19.520099639892578, Mistakes: 0.3999999761581421, Control Loss: 5.367685794830322, Total Loss: 0.507353663444519
+No improvement in the current position. Moving to the next position.
+New Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.507353663444519
+Current length: 25
+ proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.507353663444519 Best Loss: 0.4715319573879242 Best Control:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie_
+Time taken to update solutions:  85.97609496116638
+Intersection set size: 4
+Candidate tokens:  the reasoning a your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  logic your reasoning a the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  your only reasoning a the
+>>>> Topk increased to 11 <<<<
+Intersection set size: 9
+Candidate tokens:  the logic process these  only reasoning a your
+Time taken to get recomputed solution logits:  89.42990899085999
+>Prompt Choice:  proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 19.520099639892578, Mistakes: 0.3999999761581421, Control Loss: 4.945420265197754, Total Loss: 0.4989083707332611
+Time taken to get recomputed solution logits:  97.87164425849915
+>Prompt Choice:  a explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.39600944519043, Mistakes: 0.35999998450279236, Control Loss: 5.229134559631348, Total Loss: 0.4645826816558838
+Time taken to get recomputed solution logits:  85.8761203289032
+>Prompt Choice:  your explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 19.294532775878906, Mistakes: 0.3999999761581421, Control Loss: 5.136739253997803, Total Loss: 0.5027347803115845
+No improvement in the current position. Moving to the next position.
+New Control:  a explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.4645826816558838
+Current length: 25
+ a explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.4645826816558838 Best Loss: 0.4645826816558838 Best Control:  a explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  93.15124201774597
+Intersection set size: 2
+Candidate tokens:  common thematic
+>>>> Topk increased to 7 <<<<
+Intersection set size: 1
+Candidate tokens:  common
+>>>> Topk increased to 9 <<<<
+Intersection set size: 2
+Candidate tokens:  common thematic
+>>>> Topk increased to 11 <<<<
+Intersection set size: 2
+Candidate tokens:  thematic common
+>>>> Topk increased to 13 <<<<
+Intersection set size: 4
+Candidate tokens:  combination thematic list common
+>>>> Topk increased to 15 <<<<
+Intersection set size: 5
+Candidate tokens:  common thematic comparison thread reason
+>>>> Topk increased to 17 <<<<
+Intersection set size: 4
+Candidate tokens:  thematic comparison common thread
+>>>> Topk increased to 19 <<<<
+Intersection set size: 8
+Candidate tokens:  combination shared common  thematic thread key reason
+Time taken to get recomputed solution logits:  90.29428362846375
+>Prompt Choice:  a  reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 19.538137435913086, Mistakes: 0.3999999761581421, Control Loss: 5.750006198883057, Total Loss: 0.5150001049041748
+Time taken to get recomputed solution logits:  91.49225950241089
+>Prompt Choice:  a shared reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 19.193605422973633, Mistakes: 0.3999999761581421, Control Loss: 5.099638938903809, Total Loss: 0.5019927620887756
+Time taken to get recomputed solution logits:  87.96425890922546
+>Prompt Choice:  a reason reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 18.405900955200195, Mistakes: 0.3999999761581421, Control Loss: 5.2161149978637695, Total Loss: 0.5043222904205322
+No improvement in the current position. Moving to the next position.
+New Control:  a shared reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.5019927620887756
+Current length: 25
+ a shared reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.5019927620887756 Best Loss: 0.4645826816558838 Best Control:  a explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  89.82471776008606
+Intersection set size: 5
+Candidate tokens:  characteristic element theme thematic genre
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  trait characteristic element theme thematic
+>>>> Topk increased to 9 <<<<
+Intersection set size: 9
+Candidate tokens:  trait narrative characteristic common element theme thematic genre thread
+Time taken to get recomputed solution logits:  79.03590536117554
+>Prompt Choice:  a shared characteristic for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 18.9588565826416, Mistakes: 0.3999999761581421, Control Loss: 5.456763744354248, Total Loss: 0.5091352462768555
+Time taken to get recomputed solution logits:  76.3521044254303
+>Prompt Choice:  a shared theme for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 18.501667022705078, Mistakes: 0.3999999761581421, Control Loss: 5.445398807525635, Total Loss: 0.5089079737663269normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  72.19096159934998
+>Prompt Choice:  a shared thematic for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 18.135095596313477, Mistakes: 0.3999999761581421, Control Loss: 5.719809532165527, Total Loss: 0.5143961906433105
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.5089079737663269
+Current length: 25
+ a shared theme for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.5089079737663269 Best Loss: 0.4645826816558838 Best Control:  a explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  72.25375843048096
+Intersection set size: 4
+Candidate tokens:  or and.,
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: . and, across or
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens: . and with to, across as or
+Time taken to get recomputed solution logits:  75.58396553993225
+>Prompt Choice:  a shared theme across think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 18.180519104003906, Mistakes: 0.3999999761581421, Control Loss: 5.135992527008057, Total Loss: 0.5027198195457458
+Time taken to get recomputed solution logits:  80.35169410705566
+>Prompt Choice:  a shared theme, think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 18.179840087890625, Mistakes: 0.3999999761581421, Control Loss: 5.377783298492432, Total Loss: 0.5075556635856628
+Time taken to get recomputed solution logits:  82.93693947792053
+>Prompt Choice:  a shared theme with think so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.825271606445312, Mistakes: 0.3999999761581421, Control Loss: 5.1259918212890625, Total Loss: 0.5025197863578796
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with think so, so that Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.5025197863578796
+Current length: 25
+ a shared theme with think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.5025197863578796 Best Loss: 0.4645826816558838 Best Control:  a explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Step:  30 Candidates:  [(0.4645826816558838, ' a explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.'), (0.4715319573879242, ' proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie_'), (0.47439369559288025, ' proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each_'), (0.4764493703842163, ' proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about_'), (0.4788016080856323, ' proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis_'), (0.48266687989234924, ' proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of a_'), (0.4861544370651245, ' proper explanation reasoning for think so, so that Finally we get to correct option .and a bit of_'), (0.4889024496078491, ' proper explanation reasoning for think so, so that Finally we get to correct option .and a bit_'), (0.4908694326877594, ' proper explanation reasoning for think so, so that Finally we get to correct option .and a_'), (0.5019927620887756, ' a shared reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.')]
+Time taken to update solutions:  78.85215520858765
+Intersection set size: 4
+Candidate tokens:  any at the one
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  any each one at a the
+Time taken to get recomputed solution logits:  74.73284149169922
+>Prompt Choice:  a shared theme with at so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 18.29510498046875, Mistakes: 0.3999999761581421, Control Loss: 5.338995456695557, Total Loss: 0.5067799091339111
+Time taken to get recomputed solution logits:  87.28217935562134
+>Prompt Choice:  a shared theme with each so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 21.45110321044922, Mistakes: 0.47999998927116394, Control Loss: 5.115285396575928, Total Loss: 0.5823056697845459
+Time taken to get recomputed solution logits:  75.48237705230713
+>Prompt Choice:  a shared theme with the so, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.011091232299805, Mistakes: 0.35999998450279236, Control Loss: 5.393371105194092, Total Loss: 0.4678674042224884
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the so, so that Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.4678674042224884
+Current length: 25
+ a shared theme with the so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.4678674042224884 Best Loss: 0.4645826816558838 Best Control:  a explanation reasoning for think so, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  70.57550954818726
+Intersection set size: 3
+Candidate tokens:  listed chosen movies
+>>>> Topk increased to 7 <<<<
+Intersection set size: 3
+Candidate tokens:  listed chosen movies
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  listed chosen selected given movies
+>>>> Topk increased to 11 <<<<
+Intersection set size: 9
+Candidate tokens:  list listed chosen provided selected given mentioned movies films
+Time taken to get recomputed solution logits:  75.11253476142883
+>Prompt Choice:  a shared theme with the provided, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.19640350341797, Mistakes: 0.35999998450279236, Control Loss: 5.1622633934021, Total Loss: 0.4632452428340912
+Time taken to get recomputed solution logits:  76.57195901870728
+>Prompt Choice:  a shared theme with the listed, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.064754486083984, Mistakes: 0.35999998450279236, Control Loss: 5.221604347229004, Total Loss: 0.4644320607185364
+Time taken to get recomputed solution logits:  76.12218809127808
+>Prompt Choice:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.229642868041992, Mistakes: 0.35999998450279236, Control Loss: 5.150855541229248, Total Loss: 0.4630171060562134
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.4630171060562134
+Current length: 25
+ a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.4630171060562134 Best Loss: 0.4630171060562134 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  70.48793363571167
+Intersection set size: 4
+Candidate tokens:  movie titles movies films
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  list movie examples titles movies films
+Time taken to get recomputed solution logits:  74.04918503761292
+>Prompt Choice:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.229642868041992, Mistakes: 0.35999998450279236, Control Loss: 4.772731304168701, Total Loss: 0.45545461773872375normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  72.57162666320801
+>Prompt Choice:  a shared theme with the mentioned films so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.290241241455078, Mistakes: 0.35999998450279236, Control Loss: 4.873380661010742, Total Loss: 0.45746758580207825
+Time taken to get recomputed solution logits:  82.44184255599976
+>Prompt Choice:  a shared theme with the mentioned list so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.12316131591797, Mistakes: 0.35999998450279236, Control Loss: 4.799978733062744, Total Loss: 0.45599955320358276
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.45545461773872375
+Current length: 25
+ a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.45545461773872375 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  70.61183714866638
+Intersection set size: 3
+Candidate tokens:  and then but
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  and then but shared
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  and but shared or then
+>>>> Topk increased to 11 <<<<
+Intersection set size: 8
+Candidate tokens:  and but shared not such or then movies
+Time taken to get recomputed solution logits:  74.94223356246948
+>Prompt Choice:  a shared theme with the mentioned, or that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.07182502746582, Mistakes: 0.35999998450279236, Control Loss: 5.224491596221924, Total Loss: 0.46448981761932373
+Time taken to get recomputed solution logits:  70.43019270896912
+>Prompt Choice:  a shared theme with the mentioned, shared that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.04143714904785, Mistakes: 0.35999998450279236, Control Loss: 5.226001739501953, Total Loss: 0.46452000737190247
+Time taken to get recomputed solution logits:  75.47362637519836
+>Prompt Choice:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.229642868041992, Mistakes: 0.35999998450279236, Control Loss: 4.772731304168701, Total Loss: 0.45545461773872375
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.45545461773872375
+Current length: 25
+ a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.45545461773872375 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  70.45589327812195
+Intersection set size: 4
+Candidate tokens:  it choose I please
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  choose I it the please
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  the choose not I you it your please
+Time taken to get recomputed solution logits:  74.49063324928284
+>Prompt Choice:  a shared theme with the mentioned, so the Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.08088493347168, Mistakes: 0.35999998450279236, Control Loss: 4.8870086669921875, Total Loss: 0.4577401578426361
+Time taken to get recomputed solution logits:  72.06304574012756
+>Prompt Choice:  a shared theme with the mentioned, so it Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.06032943725586, Mistakes: 0.35999998450279236, Control Loss: 4.951021671295166, Total Loss: 0.4590204060077667
+Time taken to get recomputed solution logits:  74.55925416946411
+>Prompt Choice:  a shared theme with the mentioned, so I Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 16.83732795715332, Mistakes: 0.35999998450279236, Control Loss: 5.163257598876953, Total Loss: 0.4632651209831238
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.4577401578426361
+Current length: 25
+ a shared theme with the mentioned, so the Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.4577401578426361 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  68.56516790390015
+Intersection set size: 2
+Candidate tokens:  answer movie
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  choice best movie option answer
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  choice best movie option answer
+>>>> Topk increased to 11 <<<<
+Intersection set size: 9
+Candidate tokens:  choice closest most best movie option answer suggestion correct
+Time taken to get recomputed solution logits:  72.16572761535645
+>Prompt Choice:  a shared theme with the mentioned, so the Finally we get to correct option .and a bit of a synopsis about each movie. Loss: 17.08088493347168, Mistakes: 0.35999998450279236, Control Loss: 4.8738837242126465, Total Loss: 0.4574776589870453
+Time taken to get recomputed solution logits:  76.04792380332947
+>Prompt Choice:  a shared theme with the mentioned, so the closest we get to correct option .and a bit of a synopsis about each movie. Loss: 16.816593170166016, Mistakes: 0.35999998450279236, Control Loss: 4.884097576141357, Total Loss: 0.45768192410469055
+Time taken to get recomputed solution logits:  86.73147201538086
+>Prompt Choice:  a shared theme with the mentioned, so the movie we get to correct option .and a bit of a synopsis about each movie. Loss: 17.088621139526367, Mistakes: 0.35999998450279236, Control Loss: 5.221879959106445, Total Loss: 0.4644375741481781
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally we get to correct option .and a bit of a synopsis about each movie., New Loss: 0.4574776589870453
+Current length: 25
+ a shared theme with the mentioned, so the Finally we get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.4574776589870453 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  71.1009590625763
+Intersection set size: 5
+Candidate tokens: , choose I answer the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: ., choose I answer the
+Time taken to get recomputed solution logits:  80.17249011993408
+>Prompt Choice:  a shared theme with the mentioned, so the Finally answer get to correct option .and a bit of a synopsis about each movie. Loss: 17.231130599975586, Mistakes: 0.35999998450279236, Control Loss: 5.355338096618652, Total Loss: 0.46710675954818726
+Time taken to get recomputed solution logits:  80.44214344024658
+>Prompt Choice:  a shared theme with the mentioned, so the Finally choose get to correct option .and a bit of a synopsis about each movie. Loss: 17.436033248901367, Mistakes: 0.35999998450279236, Control Loss: 5.385918617248535, Total Loss: 0.46771836280822754
+Time taken to get recomputed solution logits:  75.95202231407166
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, get to correct option .and a bit of a synopsis about each movie. Loss: 17.37594985961914, Mistakes: 0.35999998450279236, Control Loss: 5.158382892608643, Total Loss: 0.46316763758659363normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, get to correct option .and a bit of a synopsis about each movie., New Loss: 0.46316763758659363
+Current length: 25
+ a shared theme with the mentioned, so the Finally, get to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.46316763758659363 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  72.36854362487793
+Intersection set size: 5
+Candidate tokens:  explain provide choose justify I
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  answer provide choose I explain justify please
+Time taken to get recomputed solution logits:  84.28980708122253
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, please to correct option .and a bit of a synopsis about each movie. Loss: 17.22015380859375, Mistakes: 0.35999998450279236, Control Loss: 5.416563034057617, Total Loss: 0.4683312475681305
+Time taken to get recomputed solution logits:  80.69487857818604
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, justify to correct option .and a bit of a synopsis about each movie. Loss: 17.3482608795166, Mistakes: 0.35999998450279236, Control Loss: 5.215767860412598, Total Loss: 0.46431535482406616
+Time taken to get recomputed solution logits:  73.84935235977173
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie. Loss: 17.33706283569336, Mistakes: 0.35999998450279236, Control Loss: 5.175495147705078, Total Loss: 0.4635098874568939
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie., New Loss: 0.4635098874568939
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.4635098874568939 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  72.30124306678772
+Intersection set size: 4
+Candidate tokens:  need will want have
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  need will would want have am
+Time taken to get recomputed solution logits:  75.77259111404419
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I will correct option .and a bit of a synopsis about each movie. Loss: 18.477176666259766, Mistakes: 0.3999999761581421, Control Loss: 5.247045993804932, Total Loss: 0.5049408674240112
+Time taken to get recomputed solution logits:  79.35894775390625
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie. Loss: 17.33706283569336, Mistakes: 0.35999998450279236, Control Loss: 5.021961212158203, Total Loss: 0.46043920516967773
+Time taken to get recomputed solution logits:  75.58895230293274
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I would correct option .and a bit of a synopsis about each movie. Loss: 17.175872802734375, Mistakes: 0.35999998450279236, Control Loss: 5.251357078552246, Total Loss: 0.4650271236896515
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie., New Loss: 0.46043920516967773
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.46043920516967773 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  72.32876682281494
+Intersection set size: 3
+Candidate tokens:  you find choose
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  the choose you pick find make
+Time taken to get recomputed solution logits:  78.89144682884216
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie. Loss: 17.33706283569336, Mistakes: 0.35999998450279236, Control Loss: 5.021961212158203, Total Loss: 0.46043920516967773
+Time taken to get recomputed solution logits:  72.42889761924744
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to you option .and a bit of a synopsis about each movie. Loss: 19.29339027404785, Mistakes: 0.3999999761581421, Control Loss: 5.038547039031982, Total Loss: 0.5007709264755249
+Time taken to get recomputed solution logits:  77.20243239402771
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to the option .and a bit of a synopsis about each movie. Loss: 17.59963035583496, Mistakes: 0.35999998450279236, Control Loss: 5.211191177368164, Total Loss: 0.46422380208969116
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie., New Loss: 0.46043920516967773
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie.
+Current Loss: 0.46043920516967773 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  72.3279595375061
+Intersection set size: 5
+Candidate tokens:  my your option answer the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . the my option answer your
+Time taken to get recomputed solution logits:  79.81060910224915
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct your .and a bit of a synopsis about each movie. Loss: 17.216758728027344, Mistakes: 0.35999998450279236, Control Loss: 4.975256443023682, Total Loss: 0.4595051109790802
+Time taken to get recomputed solution logits:  75.77215814590454
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie. Loss: 17.33706283569336, Mistakes: 0.35999998450279236, Control Loss: 5.021961212158203, Total Loss: 0.46043920516967773
+Time taken to get recomputed solution logits:  72.98897099494934
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie. Loss: 17.189821243286133, Mistakes: 0.35999998450279236, Control Loss: 4.896984100341797, Total Loss: 0.45793965458869934
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie., New Loss: 0.45793965458869934
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.
+Current Loss: 0.45793965458869934 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  69.58876514434814
+Intersection set size: 5
+Candidate tokens:  The I  answer Finally
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  The I  My Answer answer Finally
+Time taken to get recomputed solution logits:  75.3258125782013
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. Theand a bit of a synopsis about each movie. Loss: 17.170461654663086, Mistakes: 0.35999998450279236, Control Loss: 5.161793231964111, Total Loss: 0.46323585510253906
+Time taken to get recomputed solution logits:  76.91910314559937
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. answerand a bit of a synopsis about each movie. Loss: 17.340316772460938, Mistakes: 0.35999998450279236, Control Loss: 5.203024387359619, Total Loss: 0.4640604853630066normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  71.48489236831665
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie. Loss: 17.189821243286133, Mistakes: 0.35999998450279236, Control Loss: 4.900697708129883, Total Loss: 0.45801395177841187
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie., New Loss: 0.45801395177841187
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.
+Current Loss: 0.45801395177841187 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  69.60172390937805
+Intersection set size: 6
+Candidate tokens:  The I  Please answer Finally
+Time taken to get recomputed solution logits:  85.95167088508606
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .  a bit of a synopsis about each movie. Loss: 17.314359664916992, Mistakes: 0.35999998450279236, Control Loss: 5.581312656402588, Total Loss: 0.4716262221336365
+Time taken to get recomputed solution logits:  76.32137537002563
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. . I a bit of a synopsis about each movie. Loss: 17.239503860473633, Mistakes: 0.35999998450279236, Control Loss: 5.271857738494873, Total Loss: 0.4654371440410614
+Time taken to get recomputed solution logits:  73.91906762123108
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie. Loss: 17.189821243286133, Mistakes: 0.35999998450279236, Control Loss: 4.900697708129883, Total Loss: 0.45801395177841187
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie., New Loss: 0.45801395177841187
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.
+Current Loss: 0.45801395177841187 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  69.60227823257446
+Intersection set size: 3
+Candidate tokens:  explain provide the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  the provide I why explain justify please
+Time taken to get recomputed solution logits:  72.08775091171265
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie. Loss: 17.189821243286133, Mistakes: 0.35999998450279236, Control Loss: 4.900697708129883, Total Loss: 0.45801395177841187
+Time taken to get recomputed solution logits:  78.69331979751587
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and why bit of a synopsis about each movie. Loss: 18.773662567138672, Mistakes: 0.3999999761581421, Control Loss: 5.465147972106934, Total Loss: 0.5093029141426086
+Time taken to get recomputed solution logits:  71.41259932518005
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and the bit of a synopsis about each movie. Loss: 17.084800720214844, Mistakes: 0.35999998450279236, Control Loss: 5.262948036193848, Total Loss: 0.46525895595550537
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie., New Loss: 0.45801395177841187
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.
+Current Loss: 0.45801395177841187 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  69.57059240341187
+Intersection set size: 3
+Candidate tokens:  theme brief shared
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  theme brief shared reason
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  brief shared short theme reason
+>>>> Topk increased to 11 <<<<
+Intersection set size: 7
+Candidate tokens:  brief explanation shared clear theme little reason
+Time taken to get recomputed solution logits:  75.25585436820984
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a brief of a synopsis about each movie. Loss: 17.255603790283203, Mistakes: 0.35999998450279236, Control Loss: 5.437112808227539, Total Loss: 0.4687422513961792
+Time taken to get recomputed solution logits:  79.3228189945221
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a theme of a synopsis about each movie. Loss: 17.272830963134766, Mistakes: 0.35999998450279236, Control Loss: 5.35854959487915, Total Loss: 0.46717098355293274
+Time taken to get recomputed solution logits:  72.35373449325562
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a synopsis about each movie. Loss: 17.23499870300293, Mistakes: 0.35999998450279236, Control Loss: 5.244389533996582, Total Loss: 0.4648877680301666
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a synopsis about each movie., New Loss: 0.4648877680301666
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a synopsis about each movie.
+Current Loss: 0.4648877680301666 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Step:  45 Candidates:  [(0.45545461773872375, ' a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.'), (0.45545461773872375, ' a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.'), (0.4574776589870453, ' a shared theme with the mentioned, so the Finally we get to correct option .and a bit of a synopsis about each movie.'), (0.4577401578426361, ' a shared theme with the mentioned, so the Finally we get to correct option .and a bit of a synopsis about each movie.'), (0.45793965458869934, ' a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.'), (0.45801395177841187, ' a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.'), (0.45801395177841187, ' a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.'), (0.45801395177841187, ' a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.'), (0.46043920516967773, ' a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie.'), (0.46043920516967773, ' a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie.')]
+Time taken to update solutions:  69.88992047309875
+Intersection set size: 4
+Candidate tokens:  bit explanation about more
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  bit explanation about more reasoning
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  bit justification explanation about more explain reasoning
+Time taken to get recomputed solution logits:  78.66176676750183
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little bit a synopsis about each movie. Loss: 17.20053482055664, Mistakes: 0.35999998450279236, Control Loss: 5.257460117340088, Total Loss: 0.4651491940021515normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  72.91907405853271
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a synopsis about each movie. Loss: 17.23499870300293, Mistakes: 0.35999998450279236, Control Loss: 5.244515895843506, Total Loss: 0.4648903012275696
+Time taken to get recomputed solution logits:  75.71531772613525
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little about a synopsis about each movie. Loss: 17.319055557250977, Mistakes: 0.35999998450279236, Control Loss: 5.30137300491333, Total Loss: 0.4660274386405945
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a synopsis about each movie., New Loss: 0.4648903012275696
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a synopsis about each movie.
+Current Loss: 0.4648903012275696 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  70.6003360748291
+Intersection set size: 4
+Candidate tokens:  explanation why each the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  the explanation each your what why an
+Time taken to get recomputed solution logits:  78.9750599861145
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of an synopsis about each movie. Loss: 17.174625396728516, Mistakes: 0.35999998450279236, Control Loss: 5.4360270500183105, Total Loss: 0.46872052550315857
+Time taken to get recomputed solution logits:  81.25004267692566
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of why synopsis about each movie. Loss: 17.94562530517578, Mistakes: 0.3999999761581421, Control Loss: 5.487151145935059, Total Loss: 0.5097429752349854
+Time taken to get recomputed solution logits:  73.27029752731323
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a synopsis about each movie. Loss: 17.23499870300293, Mistakes: 0.35999998450279236, Control Loss: 5.244515895843506, Total Loss: 0.4648903012275696
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a synopsis about each movie., New Loss: 0.4648903012275696
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a synopsis about each movie.
+Current Loss: 0.4648903012275696 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  69.941086769104
+Intersection set size: 0
+Candidate tokens: 
+>>>> Topk increased to 7 <<<<
+Intersection set size: 2
+Candidate tokens:  story journey
+>>>> Topk increased to 9 <<<<
+Intersection set size: 1
+Candidate tokens:  story
+>>>> Topk increased to 11 <<<<
+Intersection set size: 2
+Candidate tokens:  story journey
+>>>> Topk increased to 13 <<<<
+Intersection set size: 3
+Candidate tokens:  story good journey
+>>>> Topk increased to 15 <<<<
+Intersection set size: 3
+Candidate tokens:  story good journey
+>>>> Topk increased to 17 <<<<
+Intersection set size: 2
+Candidate tokens:  story good
+>>>> Topk increased to 19 <<<<
+Intersection set size: 4
+Candidate tokens:  story struggle good reason
+>>>> Topk increased to 21 <<<<
+Intersection set size: 7
+Candidate tokens:  story backstory journey good theme character reason
+Time taken to get recomputed solution logits:  89.5785768032074
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story about each movie. Loss: 17.173019409179688, Mistakes: 0.35999998450279236, Control Loss: 5.129377841949463, Total Loss: 0.46258753538131714
+Time taken to get recomputed solution logits:  79.98671197891235
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a good about each movie. Loss: 17.305999755859375, Mistakes: 0.35999998450279236, Control Loss: 5.376969814300537, Total Loss: 0.46753937005996704
+Time taken to get recomputed solution logits:  77.44575333595276
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a journey about each movie. Loss: 16.77050018310547, Mistakes: 0.35999998450279236, Control Loss: 5.608260154724121, Total Loss: 0.47216516733169556
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story about each movie., New Loss: 0.46258753538131714
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story about each movie.
+Current Loss: 0.46258753538131714 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  85.59756469726562
+Intersection set size: 4
+Candidate tokens:  about. for behind
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . to explanation about for behind
+Time taken to get recomputed solution logits:  78.42821192741394
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story explanation each movie. Loss: 17.532835006713867, Mistakes: 0.35999998450279236, Control Loss: 5.107999324798584, Total Loss: 0.4621599614620209
+Time taken to get recomputed solution logits:  75.72344827651978
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each movie. Loss: 17.49897003173828, Mistakes: 0.35999998450279236, Control Loss: 5.319748878479004, Total Loss: 0.46639496088027954
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each movie., New Loss: 0.46639496088027954
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each movie.
+Current Loss: 0.46639496088027954 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  72.97817134857178
+Intersection set size: 5
+Candidate tokens:  A The I  Once
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  A The I  little Once
+Time taken to get recomputed solution logits:  69.50016617774963
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. Once movie. Loss: 18.673749923706055, Mistakes: 0.3999999761581421, Control Loss: 5.709062099456787, Total Loss: 0.5141811966896057
+Time taken to get recomputed solution logits:  75.85532665252686
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each movie. Loss: 17.49897003173828, Mistakes: 0.35999998450279236, Control Loss: 5.332561492919922, Total Loss: 0.46665120124816895
+Time taken to get recomputed solution logits:  76.2872748374939
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story.  movie. Loss: 17.956310272216797, Mistakes: 0.3999999761581421, Control Loss: 6.19093132019043, Total Loss: 0.5238186120986938
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each movie., New Loss: 0.46665120124816895
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each movie.
+Current Loss: 0.46665120124816895 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to update solutions:  73.89928412437439
+Intersection set size: 4
+Candidate tokens:  of. movie film
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  of. one movie film option
+Time taken to get recomputed solution logits:  74.8424129486084
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. Loss: 18.458906173706055, Mistakes: 0.3999999761581421, Control Loss: 5.7386474609375, Total Loss: 0.514772891998291
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.., New Loss: 0.514772891998291
+Current length: 24
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each..
+Current Loss: 0.514772891998291 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  74.53465414047241
+Intersection set size: 4
+Candidate tokens:  of. movie film
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  of. choice one movie film option
+Time taken to get recomputed solution logits:  76.34376382827759
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. Loss: 18.870271682739258, Mistakes: 0.3999999761581421, Control Loss: 5.726568698883057, Total Loss: 0.5145313739776611
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.._, New Loss: 0.5145313739776611
+Current length: 25
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.._
+Current Loss: 0.5145313739776611 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  77.11387395858765
+Intersection set size: 4
+Candidate tokens:   . a I
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  to I  Please . a
+Time taken to get recomputed solution logits:  75.18075299263
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I Loss: 16.992107391357422, Mistakes: 0.35999998450279236, Control Loss: 5.872662544250488, Total Loss: 0.47745323181152344
+Time taken to get recomputed solution logits:  75.49110770225525
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. a Loss: 18.160247802734375, Mistakes: 0.3999999761581421, Control Loss: 5.8720011711120605, Total Loss: 0.5174400210380554
+Time taken to get recomputed solution logits:  72.5761489868164
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. Please Loss: 17.3570613861084, Mistakes: 0.35999998450279236, Control Loss: 5.8727288246154785, Total Loss: 0.4774545431137085
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I_, New Loss: 0.47745323181152344
+Current length: 26
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I_
+Current Loss: 0.47745323181152344 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  73.32258248329163
+Intersection set size: 3
+Candidate tokens: . will have
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens: . have will think
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens: . will think have can
+>>>> Topk increased to 11 <<<<
+Intersection set size: 9
+Candidate tokens: . look will think  want have explain can
+Time taken to get recomputed solution logits:  76.67294359207153
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will Loss: 17.269044876098633, Mistakes: 0.3999999761581421, Control Loss: 5.879437446594238, Total Loss: 0.51758873462677
+Time taken to get recomputed solution logits:  79.26951193809509
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I look Loss: 17.99506378173828, Mistakes: 0.3999999761581421, Control Loss: 5.882562637329102, Total Loss: 0.5176512002944946
+Time taken to get recomputed solution logits:  76.92958855628967
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I want Loss: 17.883085250854492, Mistakes: 0.3999999761581421, Control Loss: 5.882909774780273, Total Loss: 0.5176581740379333
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will_, New Loss: 0.51758873462677
+Current length: 27
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will_
+Current Loss: 0.51758873462677 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  74.28525161743164
+Intersection set size: 4
+Candidate tokens:  tell provide give explain
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  be tell provide choose give pick explain
+Time taken to get recomputed solution logits:  75.51844000816345
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give Loss: 18.375104904174805, Mistakes: 0.3999999761581421, Control Loss: 5.846103191375732, Total Loss: 0.5169220566749573
+Time taken to get recomputed solution logits:  76.69521808624268
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will pick Loss: 21.66655158996582, Mistakes: 0.47999998927116394, Control Loss: 5.847666263580322, Total Loss: 0.5969533324241638
+Time taken to get recomputed solution logits:  76.1159679889679
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will tell Loss: 22.85918426513672, Mistakes: 0.47999998927116394, Control Loss: 5.846071243286133, Total Loss: 0.596921443939209
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give_, New Loss: 0.5169220566749573
+Current length: 28
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give_
+Current Loss: 0.5169220566749573 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  72.94152617454529
+Intersection set size: 4
+Candidate tokens:  you my a the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  points my you feedback a the an
+Time taken to get recomputed solution logits:  84.07177186012268
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give my Loss: 20.994491577148438, Mistakes: 0.47999998927116394, Control Loss: 5.739684104919434, Total Loss: 0.5947936773300171
+Time taken to get recomputed solution logits:  76.25483703613281
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback Loss: 18.1717529296875, Mistakes: 0.3999999761581421, Control Loss: 5.741158485412598, Total Loss: 0.5148231387138367
+Time taken to get recomputed solution logits: normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+ 75.85491132736206
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give a Loss: 19.642885208129883, Mistakes: 0.4399999976158142, Control Loss: 5.737598419189453, Total Loss: 0.554751992225647
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback_, New Loss: 0.5148231387138367
+Current length: 29
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback_
+Current Loss: 0.5148231387138367 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  71.75455331802368
+Intersection set size: 5
+Candidate tokens:  to. and on based
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: . and on to after  based
+Time taken to get recomputed solution logits:  79.33377861976624
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback based Loss: 25.35212516784668, Mistakes: 0.5600000023841858, Control Loss: 5.664135932922363, Total Loss: 0.6732827425003052
+Time taken to get recomputed solution logits:  71.25584554672241
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback_ Loss: 22.18842315673828, Mistakes: 0.47999998927116394, Control Loss: 5.673938751220703, Total Loss: 0.5934787392616272
+Time taken to get recomputed solution logits:  75.92094349861145
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on Loss: 21.591064453125, Mistakes: 0.47999998927116394, Control Loss: 5.661923408508301, Total Loss: 0.5932384729385376
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on_, New Loss: 0.5932384729385376
+Current length: 30
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on_
+Current Loss: 0.5932384729385376 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  72.40586495399475
+Intersection set size: 5
+Candidate tokens:  the my your which each
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  the my your which how what each
+Time taken to get recomputed solution logits:  80.14404654502869
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on my Loss: 22.668954849243164, Mistakes: 0.47999998927116394, Control Loss: 5.5844902992248535, Total Loss: 0.5916898250579834
+Time taken to get recomputed solution logits:  75.89832830429077
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on_ Loss: 18.62305450439453, Mistakes: 0.3999999761581421, Control Loss: 5.596639156341553, Total Loss: 0.5119327306747437
+Time taken to get recomputed solution logits:  77.35141324996948
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how Loss: 19.77583885192871, Mistakes: 0.4399999976158142, Control Loss: 5.58585262298584, Total Loss: 0.5517170429229736
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on__, New Loss: 0.5119327306747437
+Current length: 30
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on__
+Current Loss: 0.5119327306747437 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  68.24404621124268
+Intersection set size: 5
+Candidate tokens:  the my your which each
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  the my your which how what each
+Time taken to get recomputed solution logits:  71.23303747177124
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on__ Loss: 19.908132553100586, Mistakes: 0.4399999976158142, Control Loss: 5.64436674118042, Total Loss: 0.5528873205184937
+Time taken to get recomputed solution logits:  70.9857714176178
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on which Loss: 22.65713882446289, Mistakes: 0.47999998927116394, Control Loss: 5.631135940551758, Total Loss: 0.592622697353363
+Time taken to get recomputed solution logits:  76.56881999969482
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how Loss: 19.77583885192871, Mistakes: 0.4399999976158142, Control Loss: 5.631944179534912, Total Loss: 0.5526388883590698
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how_, New Loss: 0.5526388883590698
+Current length: 31
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how_
+Current Loss: 0.5526388883590698 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  66.2603006362915
+Intersection set size: 4
+Candidate tokens:  well I you close
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  to well I good accurate you close
+Time taken to get recomputed solution logits:  70.91710948944092
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how_ Loss: 19.375041961669922, Mistakes: 0.3999999761581421, Control Loss: 5.533185005187988, Total Loss: 0.5106636881828308
+Time taken to get recomputed solution logits:  75.69834852218628
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how you Loss: 18.43372917175293, Mistakes: 0.3999999761581421, Control Loss: 5.521047592163086, Total Loss: 0.5104209184646606
+Time taken to get recomputed solution logits:  70.57628893852234
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I Loss: 17.520280838012695, Mistakes: 0.35999998450279236, Control Loss: 5.520348072052002, Total Loss: 0.4704069495201111
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I_, New Loss: 0.4704069495201111
+Current length: 32
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I_
+Current Loss: 0.4704069495201111 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Step:  60 Candidates:  [(0.45545461773872375, ' a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.'), (0.45545461773872375, ' a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.'), (0.4574776589870453, ' a shared theme with the mentioned, so the Finally we get to correct option .and a bit of a synopsis about each movie.'), (0.4577401578426361, ' a shared theme with the mentioned, so the Finally we get to correct option .and a bit of a synopsis about each movie.'), (0.45793965458869934, ' a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.'), (0.45801395177841187, ' a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.'), (0.45801395177841187, ' a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.'), (0.45801395177841187, ' a shared theme with the mentioned, so the Finally, I to correct. .and a bit of a synopsis about each movie.'), (0.46043920516967773, ' a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie.'), (0.46043920516967773, ' a shared theme with the mentioned, so the Finally, I to correct option .and a bit of a synopsis about each movie.')]normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to update solutions:  70.41912913322449
+Intersection set size: 5
+Candidate tokens:  chose choose do am did
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  got chose choose do am did
+Time taken to get recomputed solution logits:  75.8825933933258
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I am Loss: 22.84831428527832, Mistakes: 0.47999998927116394, Control Loss: 5.4484453201293945, Total Loss: 0.5889688730239868
+Time taken to get recomputed solution logits:  75.73335933685303
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do Loss: 18.70757484436035, Mistakes: 0.3999999761581421, Control Loss: 5.452276229858398, Total Loss: 0.5090454816818237
+Time taken to get recomputed solution logits:  80.9609785079956
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I got Loss: 21.579992294311523, Mistakes: 0.47999998927116394, Control Loss: 5.452277183532715, Total Loss: 0.589045524597168
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do_, New Loss: 0.5090454816818237
+Current length: 33
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do_
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.5090454816818237 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  79.86758089065552
+Intersection set size: 5
+Candidate tokens: . and, ..
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . and, .. based
+Time taken to get recomputed solution logits:  75.71143865585327
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do  Loss: 25.608253479003906, Mistakes: 0.5600000023841858, Control Loss: 5.393723487854004, Total Loss: 0.6678744554519653
+Time taken to get recomputed solution logits:  86.10782742500305
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do_ Loss: 18.475786209106445, Mistakes: 0.3999999761581421, Control Loss: 5.402469158172607, Total Loss: 0.5080493688583374
+Time taken to get recomputed solution logits:  75.8763120174408
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and Loss: 20.050813674926758, Mistakes: 0.4399999976158142, Control Loss: 5.391536235809326, Total Loss: 0.5478307008743286
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do__, New Loss: 0.5080493688583374
+Current length: 33
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do__
+Current Loss: 0.5080493688583374 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  75.29029750823975
+Intersection set size: 5
+Candidate tokens: . and, ..
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . and on, ..
+Time taken to get recomputed solution logits:  76.32028269767761
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do__ Loss: 19.459035873413086, Mistakes: 0.4399999976158142, Control Loss: 5.464242935180664, Total Loss: 0.5492848753929138
+Time taken to get recomputed solution logits:  75.742840051651
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and Loss: 20.050813674926758, Mistakes: 0.4399999976158142, Control Loss: 5.450915813446045, Total Loss: 0.5490183234214783
+Time taken to get recomputed solution logits:  75.87909150123596
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do  Loss: 25.608253479003906, Mistakes: 0.5600000023841858, Control Loss: 5.453103065490723, Total Loss: 0.669062077999115
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and_, New Loss: 0.5490183234214783
+Current length: 34
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and_
+Current Loss: 0.5490183234214783 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  77.5554530620575
+Intersection set size: 5
+Candidate tokens:  I you then how what
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  I you then how what let
+Time taken to get recomputed solution logits:  75.59253859519958
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and then Loss: 21.26665496826172, Mistakes: 0.4399999976158142, Control Loss: 5.318745136260986, Total Loss: 0.5463749170303345
+Time taken to get recomputed solution logits:  80.78413414955139
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I Loss: 19.669475555419922, Mistakes: 0.4399999976158142, Control Loss: 5.318084716796875, Total Loss: 0.5463616847991943
+Time taken to get recomputed solution logits:  76.35618805885315
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and what Loss: 19.485807418823242, Mistakes: 0.4399999976158142, Control Loss: 5.318983554840088, Total Loss: 0.5463796854019165
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I_, New Loss: 0.5463616847991943
+Current length: 35
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I_
+Current Loss: 0.5463616847991943 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  70.36223483085632
+Intersection set size: 4
+Candidate tokens:  need will want am
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  need will hope want am
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  need will hope would want have am can
+Time taken to get recomputed solution logits:  78.87386083602905
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I_ Loss: 18.42863655090332, Mistakes: 0.3999999761581421, Control Loss: 5.295926094055176, Total Loss: 0.5059185028076172
+Time taken to get recomputed solution logits:  77.06349158287048
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I want Loss: 19.533763885498047, Mistakes: 0.4399999976158142, Control Loss: 5.2821478843688965, Total Loss: 0.5456429719924927normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  81.59327602386475
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would Loss: 18.21719741821289, Mistakes: 0.3999999761581421, Control Loss: 5.285964012145996, Total Loss: 0.5057192444801331
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would_, New Loss: 0.5057192444801331
+Current length: 36
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would_
+Current Loss: 0.5057192444801331 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  76.04787492752075
+Intersection set size: 5
+Candidate tokens:  like need you be have
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  like need be you have
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  like need love be choose want you have
+Time taken to get recomputed solution logits:  80.39574217796326
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would_ Loss: 19.958831787109375, Mistakes: 0.4399999976158142, Control Loss: 5.351879596710205, Total Loss: 0.5470376014709473
+Time taken to get recomputed solution logits:  76.36906695365906
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like Loss: 19.38922119140625, Mistakes: 0.4399999976158142, Control Loss: 5.335049152374268, Total Loss: 0.5467009544372559
+Time taken to get recomputed solution logits:  81.21353960037231
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would love Loss: 19.882326126098633, Mistakes: 0.4399999976158142, Control Loss: 5.340673923492432, Total Loss: 0.5468134880065918
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like_, New Loss: 0.5467009544372559
+Current length: 37
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like_
+Current Loss: 0.5467009544372559 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  80.35383558273315
+Intersection set size: 5
+Candidate tokens:  to some you a your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  to some you feedback a your
+Time taken to get recomputed solution logits:  80.10243678092957
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback Loss: 17.684900283813477, Mistakes: 0.3999999761581421, Control Loss: 5.117859840393066, Total Loss: 0.5023571848869324
+Time taken to get recomputed solution logits:  86.16266965866089
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like_ Loss: 18.721899032592773, Mistakes: 0.3999999761581421, Control Loss: 5.12632942199707, Total Loss: 0.502526581287384
+Time taken to get recomputed solution logits:  76.8399350643158
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like a Loss: 21.010883331298828, Mistakes: 0.47999998927116394, Control Loss: 5.116596698760986, Total Loss: 0.5823318958282471
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback_, New Loss: 0.5023571848869324
+Current length: 38
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback_
+Current Loss: 0.5023571848869324 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  79.93178677558899
+Intersection set size: 5
+Candidate tokens:  to. on from as
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  to. on from as in
+Time taken to get recomputed solution logits:  83.8609926700592
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback on Loss: 16.50271224975586, Mistakes: 0.35999998450279236, Control Loss: 5.078936576843262, Total Loss: 0.46157872676849365
+Time taken to get recomputed solution logits:  81.33837866783142
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback from Loss: 20.718740463256836, Mistakes: 0.47999998927116394, Control Loss: 5.082963466644287, Total Loss: 0.5816592574119568
+Time taken to get recomputed solution logits:  85.2482841014862
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback_ Loss: 19.352916717529297, Mistakes: 0.4399999976158142, Control Loss: 5.090987682342529, Total Loss: 0.5418197512626648
+No improvement in the current position. Moving to the next position.
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback on_, New Loss: 0.46157872676849365
+Current length: 39
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback on_
+Current Loss: 0.46157872676849365 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Time taken to update solutions:  79.21356177330017
+Intersection set size: 4
+Candidate tokens:  the my how your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  the my why how what your
+Time taken to get recomputed solution logits:  81.93502187728882
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback on why Loss: 17.42593002319336, Mistakes: 0.3999999761581421, Control Loss: 4.980077266693115, Total Loss: 0.4996015131473541
+Time taken to get recomputed solution logits:  89.34511590003967
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback on how Loss: 18.299280166625977, Mistakes: 0.3999999761581421, Control Loss: 4.978085994720459, Total Loss: 0.49956169724464417
+Time taken to get recomputed solution logits:  87.19688367843628
+>Prompt Choice:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback on what Loss: 16.483287811279297, Mistakes: 0.35999998450279236, Control Loss: 4.97993803024292, Total Loss: 0.45959874987602234
+No improvement in the current position. Moving to the next position.normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+../llm_opt/base/attack_manager.py:939: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+../llm_opt/base/attack_manager.py:1141: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+
+New Control:  a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback on what_, New Loss: 0.45959874987602234
+Current length: 40
+ a shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback on what_
+Current Loss: 0.45959874987602234 Best Loss: 0.45545461773872375 Best Control:  a shared theme with the mentioned, so that Finally we get to correct option .and a bit of a synopsis about each movie.
+Loss plateaued for 35 steps. Moving to next group optimization.
+Time taken to update solutions:  156.7840735912323
+Intersection set size: 4
+Candidate tokens:  the reasoning a your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  your process reasoning a the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  the logic process  only reasoning a your
+Time taken to get recomputed solution logits:  194.55006980895996
+>Prompt Choice:  process shared theme with the mentioned, so the Finally, I to correct. .and a little of a story. each.. I will give feedback on how I do and I would like feedback on what_ Loss: 19.570051193237305, Mistakes: 0.4599999785423279, Control Loss: 5.781139373779297, Total Loss: 0.5756227374076843
+Traceback (most recent call last):
+  File "main.py", line 103, in <module>
+    app.run(main)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 308, in run
+    _run_main(main, args)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 254, in _run_main
+    sys.exit(main(argv))
+  File "main.py", line 83, in main
+    attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1933, in run
+    control, loss, inner_steps = attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1574, in run
+    control, loss = self.step(
+  File "../llm_opt/gcg/gcg_attack.py", line 509, in step
+    _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=5, accumulate=True)
+  File "../llm_opt/gcg/gcg_attack.py", line 378, in morph_control
+    logits, target_slice_starts, targets_ids_list = self.prompts[0].logits_batched_gen(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "../llm_opt/base/attack_manager.py", line 1197, in logits_batched_gen
+    outputs_final = model(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/models/gemma2/modeling_gemma2.py", line 1089, in forward
+    logits = logits / self.config.final_logit_softcapping
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.65 GiB. GPU  has a total capacity of 79.14 GiB of which 1.44 GiB is free. Including non-PyTorch memory, this process has 77.28 GiB memory in use. Process 2622208 has 414.00 MiB memory in use. Of the allocated memory 75.26 GiB is allocated by PyTorch, and 1.52 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

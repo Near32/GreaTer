@@ -1,0 +1,1767 @@
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: proper logical reasoning and think step by step. Finally give the actual
+  correct answer.
+control_weight: 0.2
+conversation_templates:
+- gemma-2
+- gemma-2
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ Yes'' or ''$ No'')
+  is $'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_gemma2_causal_judgement_ff.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/causal_judgement.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  use_fast: false
+- add_bos_token: false
+  use_fast: false
+tokenizer_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+topk: 40
+train_data: ../data/BBH/causal_judgement.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.31it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.49it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.57it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.76it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.65it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.74it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.77it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.88it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.83it/s]Initialized Workers...
+
+Started worker 1589112 for model google/gemma-2-9b-it
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Started worker 1589500 for model google/gemma-2-9b-it
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  71.79350686073303
+Intersection set size: 5
+Candidate tokens:  this evidence the a your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this the a evidence your
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  this the a evidence your
+>>>> Topk increased to 11 <<<<
+Intersection set size: 8
+Candidate tokens:  this the explanation reasoning a evidence your an
+Time taken to get recomputed solution logits:  71.89163017272949
+>Prompt Choice:  this logical reasoning and think step by step. Finally give the actual correct answer. Loss: 15.360387802124023, Mistakes: 0.3999999761581421, Control Loss: 4.965472221374512, Total Loss: 0.4993094205856323
+Time taken to get recomputed solution logits:  69.955974817276
+>Prompt Choice:  proper logical reasoning and think step by step. Finally give the actual correct answer. Loss: 16.118711471557617, Mistakes: 0.3999999761581421, Control Loss: 4.687350749969482, Total Loss: 0.4937469959259033
+Time taken to get recomputed solution logits:  68.89646935462952
+>Prompt Choice:  a logical reasoning and think step by step. Finally give the actual correct answer. Loss: 15.805538177490234, Mistakes: 0.3999999761581421, Control Loss: 4.845119476318359, Total Loss: 0.49690234661102295
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.4937469959259033
+Current length: 15
+ proper logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.4937469959259033 Best Loss: 0.4937469959259033 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.4937469959259033, ' proper logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  71.27098965644836
+Intersection set size: 2
+Candidate tokens:  reasoning explanation
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  explanation scientific causal reasoning grammar
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  justification explanation causation causal reasoning grammar
+Time taken to get recomputed solution logits:  70.01452231407166
+>Prompt Choice:  proper logical reasoning and think step by step. Finally give the actual correct answer. Loss: 16.118711471557617, Mistakes: 0.3999999761581421, Control Loss: 4.687350749969482, Total Loss: 0.4937469959259033
+Time taken to get recomputed solution logits:  75.57440304756165
+>Prompt Choice:  proper grammar reasoning and think step by step. Finally give the actual correct answer. Loss: 18.82635498046875, Mistakes: 0.5199999809265137, Control Loss: 5.367590427398682, Total Loss: 0.6273517608642578
+Time taken to get recomputed solution logits:  71.79923915863037
+>Prompt Choice:  proper causal reasoning and think step by step. Finally give the actual correct answer. Loss: 13.140191078186035, Mistakes: 0.35999998450279236, Control Loss: 4.804532527923584, Total Loss: 0.45609062910079956
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.45609062910079956
+Current length: 15
+ proper causal reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.45609062910079956 Best Loss: 0.45609062910079956 Best Control:  proper causal reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  73.0200891494751
+Intersection set size: 4
+Candidate tokens:  analysis explanation language reasoning
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  explanation terminology language analysis reasoning
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  explanation terminology language logic analysis reasoning
+Time taken to get recomputed solution logits:  73.14517378807068
+>Prompt Choice:  proper causal logic and think step by step. Finally give the actual correct answer. Loss: 18.244117736816406, Mistakes: 0.4399999976158142, Control Loss: 4.560718059539795, Total Loss: 0.5312143564224243
+Time taken to get recomputed solution logits:  79.66457176208496
+>Prompt Choice:  proper causal analysis and think step by step. Finally give the actual correct answer. Loss: 20.76356315612793, Mistakes: 0.5199999809265137, Control Loss: 4.578435897827148, Total Loss: 0.6115686893463135
+Time taken to get recomputed solution logits:  71.70791411399841
+>Prompt Choice:  proper causal reasoning and think step by step. Finally give the actual correct answer. Loss: 13.140191078186035, Mistakes: 0.35999998450279236, Control Loss: 4.659649848937988, Total Loss: 0.45319297909736633
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.45319297909736633
+Current length: 15
+ proper causal reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.45319297909736633 Best Loss: 0.45319297909736633 Best Control:  proper causal reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  72.97784209251404
+Intersection set size: 4
+Candidate tokens:  to. and here
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  to and., here  for
+Time taken to get recomputed solution logits:  77.34057974815369
+>Prompt Choice:  proper causal reasoning  think step by step. Finally give the actual correct answer. Loss: 13.66380786895752, Mistakes: 0.35999998450279236, Control Loss: 5.299102783203125, Total Loss: 0.46598201990127563
+Time taken to get recomputed solution logits:  79.4949049949646
+>Prompt Choice:  proper causal reasoning to think step by step. Finally give the actual correct answer. Loss: 19.03010368347168, Mistakes: 0.47999998927116394, Control Loss: 5.102921485900879, Total Loss: 0.5820584297180176
+Time taken to get recomputed solution logits:  81.98387742042542
+>Prompt Choice:  proper causal reasoning here think step by step. Finally give the actual correct answer. Loss: 15.509855270385742, Mistakes: 0.4399999976158142, Control Loss: 5.0695037841796875, Total Loss: 0.541390061378479
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning  think step by step. Finally give the actual correct answer., New Loss: 0.46598201990127563
+Current length: 15
+ proper causal reasoning  think step by step. Finally give the actual correct answer.
+Current Loss: 0.46598201990127563 Best Loss: 0.45319297909736633 Best Control:  proper causal reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  76.81375575065613
+Intersection set size: 4
+Candidate tokens: explain.toand
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: explain.toNoand
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens: explain.heretoNoExplainand
+Time taken to get recomputed solution logits:  92.34951972961426
+>Prompt Choice:  proper causal reasoning▁▁. step by step. Finally give the actual correct answer. Loss: 12.205307006835938, Mistakes: 0.3199999928474426, Control Loss: 5.746552467346191, Total Loss: 0.43493103981018066
+Time taken to get recomputed solution logits:  79.10872507095337
+>Prompt Choice:  proper causal reasoning▁▁and step by step. Finally give the actual correct answer. Loss: 10.72225284576416, Mistakes: 0.3199999928474426, Control Loss: 5.853915214538574, Total Loss: 0.4370782971382141
+Time taken to get recomputed solution logits:  85.74261450767517
+>Prompt Choice:  proper causal reasoning▁▁to step by step. Finally give the actual correct answer. Loss: 14.609301567077637, Mistakes: 0.35999998450279236, Control Loss: 6.423573017120361, Total Loss: 0.48847144842147827
+No improvement in the current position. Moving to the next position.normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+New Control:  proper causal reasoning▁▁. step by step. Finally give the actual correct answer., New Loss: 0.43493103981018066
+Current length: 15
+ proper causal reasoning▁▁. step by step. Finally give the actual correct answer.
+Current Loss: 0.43493103981018066 Best Loss: 0.43493103981018066 Best Control:  proper causal reasoning▁▁. step by step. Finally give the actual correct answer.
+Time taken to update solutions:  94.41120672225952
+Intersection set size: 5
+Candidate tokens:  ExplainNo  Use No
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  Explain ThisNo  Use No
+Time taken to get recomputed solution logits:  81.54044151306152
+>Prompt Choice:  proper causal reasoning▁▁.No by step. Finally give the actual correct answer. Loss: 18.84158706665039, Mistakes: 0.47999998927116394, Control Loss: 6.772916793823242, Total Loss: 0.6154583096504211
+Time taken to get recomputed solution logits:  78.3690288066864
+>Prompt Choice:  proper causal reasoning▁▁.  by step. Finally give the actual correct answer. Loss: 15.823869705200195, Mistakes: 0.3999999761581421, Control Loss: 7.026215553283691, Total Loss: 0.5405243039131165
+Time taken to get recomputed solution logits:  92.36614513397217
+>Prompt Choice:  proper causal reasoning▁▁. step by step. Finally give the actual correct answer. Loss: 12.205307006835938, Mistakes: 0.3199999928474426, Control Loss: 5.407548904418945, Total Loss: 0.4281509518623352
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step by step. Finally give the actual correct answer., New Loss: 0.4281509518623352
+Current length: 15
+ proper causal reasoning▁▁. step by step. Finally give the actual correct answer.
+Current Loss: 0.4281509518623352 Best Loss: 0.4281509518623352 Best Control:  proper causal reasoning▁▁. step by step. Finally give the actual correct answer.
+Time taken to update solutions:  94.42163634300232
+Intersection set size: 4
+Candidate tokens:  one  through by
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . back one  through by
+Time taken to get recomputed solution logits:  92.45102381706238
+>Prompt Choice:  proper causal reasoning▁▁. step by step. Finally give the actual correct answer. Loss: 12.205307006835938, Mistakes: 0.3199999928474426, Control Loss: 5.407548904418945, Total Loss: 0.4281509518623352
+Time taken to get recomputed solution logits:  88.20134091377258
+>Prompt Choice:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer. Loss: 11.768839836120605, Mistakes: 0.2800000011920929, Control Loss: 5.871335983276367, Total Loss: 0.3974267244338989
+Time taken to get recomputed solution logits:  85.22415590286255
+>Prompt Choice:  proper causal reasoning▁▁. step back step. Finally give the actual correct answer. Loss: 13.188996315002441, Mistakes: 0.3199999928474426, Control Loss: 5.992541790008545, Total Loss: 0.4398508369922638
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer., New Loss: 0.3974267244338989
+Current length: 15
+ proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Current Loss: 0.3974267244338989 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  89.76686906814575
+Intersection set size: 5
+Candidate tokens:  the your how it each
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  the each your how it a why
+Time taken to get recomputed solution logits:  77.79748487472534
+>Prompt Choice:  proper causal reasoning▁▁. step through the. Finally give the actual correct answer. Loss: 15.864607810974121, Mistakes: 0.4399999976158142, Control Loss: 6.2884063720703125, Total Loss: 0.5657681226730347
+Time taken to get recomputed solution logits:  78.0809679031372
+>Prompt Choice:  proper causal reasoning▁▁. step through each. Finally give the actual correct answer. Loss: 17.301843643188477, Mistakes: 0.47999998927116394, Control Loss: 6.554841041564941, Total Loss: 0.6110967993736267
+Time taken to get recomputed solution logits:  79.47920060157776
+>Prompt Choice:  proper causal reasoning▁▁. step through it. Finally give the actual correct answer. Loss: 13.182477951049805, Mistakes: 0.35999998450279236, Control Loss: 6.133639335632324, Total Loss: 0.4826727509498596
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step through it. Finally give the actual correct answer., New Loss: 0.4826727509498596
+Current length: 15
+ proper causal reasoning▁▁. step through it. Finally give the actual correct answer.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.4826727509498596 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  80.59179615974426
+Intersection set size: 3
+Candidate tokens: . step carefully
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  . step carefully
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens: . step to and, with  carefully
+Time taken to get recomputed solution logits:  85.51878786087036
+>Prompt Choice:  proper causal reasoning▁▁. step through it step Finally give the actual correct answer. Loss: 11.463948249816895, Mistakes: 0.2800000011920929, Control Loss: 6.014997482299805, Total Loss: 0.40029996633529663
+Time taken to get recomputed solution logits:  78.93613934516907
+>Prompt Choice:  proper causal reasoning▁▁. step through it. Finally give the actual correct answer. Loss: 13.182477951049805, Mistakes: 0.35999998450279236, Control Loss: 5.775533676147461, Total Loss: 0.4755106568336487
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step through it. Finally give the actual correct answer., New Loss: 0.4755106568336487
+Current length: 15
+ proper causal reasoning▁▁. step through it. Finally give the actual correct answer.
+Current Loss: 0.4755106568336487 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  80.54067850112915
+Intersection set size: 4
+Candidate tokens:   Here Let I
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  Here Istep  Let
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  Here This I  Let Step
+Time taken to get recomputed solution logits:  83.09429788589478
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I give the actual correct answer. Loss: 16.62222671508789, Mistakes: 0.3999999761581421, Control Loss: 6.172636032104492, Total Loss: 0.5234526991844177
+Time taken to get recomputed solution logits:  63.47076106071472
+>Prompt Choice:  proper causal reasoning▁▁. step through it.  give the actual correct answer. Loss: 20.84549331665039, Mistakes: 0.47999998927116394, Control Loss: 7.194240570068359, Total Loss: 0.6238847970962524
+Time taken to get recomputed solution logits:  59.84642839431763
+>Prompt Choice:  proper causal reasoning▁▁. step through it. Here give the actual correct answer. Loss: 17.515869140625, Mistakes: 0.3999999761581421, Control Loss: 6.572981834411621, Total Loss: 0.531459629535675
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step through it. I give the actual correct answer., New Loss: 0.5234526991844177
+Current length: 15
+ proper causal reasoning▁▁. step through it. I give the actual correct answer.
+Current Loss: 0.5234526991844177 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  84.56227517127991
+Intersection set size: 4
+Candidate tokens:  need would will thinknormalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  need will think would don can
+Time taken to get recomputed solution logits:  58.08059239387512
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I need the actual correct answer. Loss: 19.203475952148438, Mistakes: 0.4399999976158142, Control Loss: 5.8032145500183105, Total Loss: 0.5560643076896667
+Time taken to get recomputed solution logits:  81.44909524917603
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think the actual correct answer. Loss: 12.314554214477539, Mistakes: 0.3999999761581421, Control Loss: 5.767027378082275, Total Loss: 0.5153405070304871
+Time taken to get recomputed solution logits:  84.76205348968506
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I would the actual correct answer. Loss: 17.23005485534668, Mistakes: 0.4399999976158142, Control Loss: 5.983426094055176, Total Loss: 0.5596685409545898
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step through it. I think the actual correct answer., New Loss: 0.5153405070304871
+Current length: 15
+ proper causal reasoning▁▁. step through it. I think the actual correct answer.
+Current Loss: 0.5153405070304871 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  83.02834343910217
+Intersection set size: 3
+Candidate tokens:  this it the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this that so it the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  this that so it the
+>>>> Topk increased to 11 <<<<
+Intersection set size: 7
+Candidate tokens:  this that so there it a the
+Time taken to get recomputed solution logits:  74.83109211921692
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think this actual correct answer. Loss: 12.44741439819336, Mistakes: 0.35999998450279236, Control Loss: 5.648119926452637, Total Loss: 0.4729623794555664
+Time taken to get recomputed solution logits:  73.96154427528381
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that actual correct answer. Loss: 12.653088569641113, Mistakes: 0.35999998450279236, Control Loss: 5.605708122253418, Total Loss: 0.4721141457557678
+Time taken to get recomputed solution logits:  82.45967292785645
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think so actual correct answer. Loss: 12.800426483154297, Mistakes: 0.35999998450279236, Control Loss: 5.6673264503479, Total Loss: 0.4733465015888214
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step through it. I think that actual correct answer., New Loss: 0.4721141457557678
+Current length: 15
+ proper causal reasoning▁▁. step through it. I think that actual correct answer.
+Current Loss: 0.4721141457557678 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  75.68031167984009
+Intersection set size: 3
+Candidate tokens:  while it the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 3
+Candidate tokens:  while it the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 3
+Candidate tokens:  while it the
+>>>> Topk increased to 11 <<<<
+Intersection set size: 5
+Candidate tokens:  this while it is the
+>>>> Topk increased to 13 <<<<
+Intersection set size: 4
+Candidate tokens:  this while it the
+>>>> Topk increased to 15 <<<<
+Intersection set size: 5
+Candidate tokens:  this, while it the
+>>>> Topk increased to 17 <<<<
+Intersection set size: 8
+Candidate tokens:  this because even while there it is the
+Time taken to get recomputed solution logits:  71.92834281921387
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that is correct answer. Loss: 15.768932342529297, Mistakes: 0.4399999976158142, Control Loss: 5.355052471160889, Total Loss: 0.5471010208129883
+Time taken to get recomputed solution logits:  78.82460260391235
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that it correct answer. Loss: 11.548457145690918, Mistakes: 0.3999999761581421, Control Loss: 6.111977577209473, Total Loss: 0.5222395062446594
+Time taken to get recomputed solution logits:  73.99662899971008
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that actual correct answer. Loss: 12.653088569641113, Mistakes: 0.35999998450279236, Control Loss: 5.711157321929932, Total Loss: 0.47422313690185547
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step through it. I think that actual correct answer., New Loss: 0.47422313690185547
+Current length: 15
+ proper causal reasoning▁▁. step through it. I think that actual correct answer.
+Current Loss: 0.47422313690185547 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  75.49070048332214
+Intersection set size: 3
+Candidate tokens:  causal causation cause
+>>>> Topk increased to 7 <<<<
+Intersection set size: 3
+Candidate tokens:  causal causation cause
+>>>> Topk increased to 9 <<<<
+Intersection set size: 3
+Candidate tokens:  causal causation cause
+>>>> Topk increased to 11 <<<<
+Intersection set size: 3
+Candidate tokens:  causal causation cause
+>>>> Topk increased to 13 <<<<
+Intersection set size: 6
+Candidate tokens:  physicaly causation cause causal causality
+Time taken to get recomputed solution logits:  85.97116303443909
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that actualy answer. Loss: 11.368903160095215, Mistakes: 0.4399999976158142, Control Loss: 6.221193790435791, Total Loss: 0.5644238591194153
+Time taken to get recomputed solution logits:  89.96735429763794
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that actual causation answer. Loss: 8.735028266906738, Mistakes: 0.3199999928474426, Control Loss: 6.363474369049072, Total Loss: 0.4472694993019104
+Time taken to get recomputed solution logits:  84.16448330879211
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that actual physical answer. Loss: 12.264277458190918, Mistakes: 0.47999998927116394, Control Loss: 6.4231791496276855, Total Loss: 0.6084635853767395
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step through it. I think that actual causation answer., New Loss: 0.4472694993019104
+Current length: 15
+ proper causal reasoning▁▁. step through it. I think that actual causation answer.
+Current Loss: 0.4472694993019104 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  91.83815455436707
+Intersection set size: 4
+Candidate tokens: , requires was is
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens: , requires was is
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens: , requires exists was is
+>>>> Topk increased to 11 <<<<
+Intersection set size: 9
+Candidate tokens:  doesn and, requires exists would was is can
+Time taken to get recomputed solution logits:  94.01769995689392
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that actual causation is. Loss: 15.266507148742676, Mistakes: 0.5199999809265137, Control Loss: 6.030292510986328, Total Loss: 0.6406058073043823
+Time taken to get recomputed solution logits:  95.97103333473206
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that actual causation,. Loss: 8.552337646484375, Mistakes: 0.2800000011920929, Control Loss: 6.4072065353393555, Total Loss: 0.40814411640167236
+Time taken to get recomputed solution logits:  88.79434990882874
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that actual causation and. Loss: 8.536971092224121, Mistakes: 0.3999999761581421, Control Loss: 6.153359413146973, Total Loss: 0.5230671763420105normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step through it. I think that actual causation,., New Loss: 0.40814411640167236
+Current length: 14
+ proper causal reasoning▁▁. step through it. I think that actual causation,.
+Current Loss: 0.40814411640167236 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  99.48375630378723
+Intersection set size: 3
+Candidate tokens:  requires was is
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: , requires exists was is
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  doesn and, requires was is
+Time taken to get recomputed solution logits:  97.43352317810059
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that actual causation,. Loss: 9.47233772277832, Mistakes: 0.3999999761581421, Control Loss: 6.110471725463867, Total Loss: 0.5222094058990479
+No improvement in the current position. Moving to the next position.
+New Control:  proper causal reasoning▁▁. step through it. I think that actual causation,., New Loss: 0.5222094058990479
+Current length: 14
+ proper causal reasoning▁▁. step through it. I think that actual causation,.
+Current Loss: 0.5222094058990479 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Step:  15 Candidates:  [(0.3974267244338989, ' proper causal reasoning▁▁. step through step. Finally give the actual correct answer.'), (0.40814411640167236, ' proper causal reasoning▁▁. step through it. I think that actual causation,.'), (0.4281509518623352, ' proper causal reasoning▁▁. step by step. Finally give the actual correct answer.'), (0.43493103981018066, ' proper causal reasoning▁▁. step by step. Finally give the actual correct answer.'), (0.4472694993019104, ' proper causal reasoning▁▁. step through it. I think that actual causation answer.'), (0.45319297909736633, ' proper causal reasoning and think step by step. Finally give the actual correct answer.'), (0.45609062910079956, ' proper causal reasoning and think step by step. Finally give the actual correct answer.'), (0.46598201990127563, ' proper causal reasoning  think step by step. Finally give the actual correct answer.'), (0.4721141457557678, ' proper causal reasoning▁▁. step through it. I think that actual correct answer.'), (0.47422313690185547, ' proper causal reasoning▁▁. step through it. I think that actual correct answer.')]
+Time taken to update solutions:  99.50175070762634
+Intersection set size: 5
+Candidate tokens:  this the a evidence your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this the a evidence your
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  this the a evidence your an
+Time taken to get recomputed solution logits:  97.41813015937805
+>Prompt Choice:  proper causal reasoning▁▁. step through it. I think that actual causation,. Loss: 9.47233772277832, Mistakes: 0.3999999761581421, Control Loss: 6.110471725463867, Total Loss: 0.5222094058990479
+Time taken to get recomputed solution logits:  83.22779560089111
+>Prompt Choice:  this causal reasoning▁▁. step through it. I think that actual causation,. Loss: 13.620253562927246, Mistakes: 0.3999999761581421, Control Loss: 6.5171403884887695, Total Loss: 0.5303428173065186
+Time taken to get recomputed solution logits:  76.80900192260742
+>Prompt Choice:  a causal reasoning▁▁. step through it. I think that actual causation,. Loss: 13.423770904541016, Mistakes: 0.35999998450279236, Control Loss: 6.502368927001953, Total Loss: 0.4900473654270172
+No improvement in the current position. Moving to the next position.
+New Control:  a causal reasoning▁▁. step through it. I think that actual causation,., New Loss: 0.4900473654270172
+Current length: 14
+ a causal reasoning▁▁. step through it. I think that actual causation,.
+Current Loss: 0.4900473654270172 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  78.33034014701843
+Intersection set size: 1
+Candidate tokens:  counter
+>>>> Topk increased to 7 <<<<
+Intersection set size: 2
+Candidate tokens:  simple different
+>>>> Topk increased to 9 <<<<
+Intersection set size: 2
+Candidate tokens:  counter different
+>>>> Topk increased to 11 <<<<
+Intersection set size: 6
+Candidate tokens:  simple more causal different counter reason
+Time taken to get recomputed solution logits:  76.46265530586243
+>Prompt Choice:  a counter reasoning▁▁. step through it. I think that actual causation,. Loss: 12.793749809265137, Mistakes: 0.35999998450279236, Control Loss: 6.9185404777526855, Total Loss: 0.49837079644203186
+Time taken to get recomputed solution logits:  70.92320895195007
+>Prompt Choice:  a different reasoning▁▁. step through it. I think that actual causation,. Loss: 11.53158950805664, Mistakes: 0.35999998450279236, Control Loss: 5.915080547332764, Total Loss: 0.4783015847206116
+Time taken to get recomputed solution logits:  76.79205346107483
+>Prompt Choice:  a causal reasoning▁▁. step through it. I think that actual causation,. Loss: 13.423770904541016, Mistakes: 0.35999998450279236, Control Loss: 6.038098335266113, Total Loss: 0.48076194524765015
+No improvement in the current position. Moving to the next position.
+New Control:  a different reasoning▁▁. step through it. I think that actual causation,., New Loss: 0.4783015847206116
+Current length: 14
+ a different reasoning▁▁. step through it. I think that actual causation,.
+Current Loss: 0.4783015847206116 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  72.26732993125916
+Intersection set size: 4
+Candidate tokens:  explanation answer reasoning word
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  explanation approach answer reasoning word reason
+Time taken to get recomputed solution logits:  93.33142876625061
+>Prompt Choice:  a different approach▁▁. step through it. I think that actual causation,. Loss: 8.96547794342041, Mistakes: 0.3999999761581421, Control Loss: 5.780665397644043, Total Loss: 0.5156132578849792
+Time taken to get recomputed solution logits:  89.54369235038757
+>Prompt Choice:  a different answer▁▁. step through it. I think that actual causation,. Loss: 11.811652183532715, Mistakes: 0.3999999761581421, Control Loss: 5.892145156860352, Total Loss: 0.5178428888320923
+Time taken to get recomputed solution logits:  81.87181758880615
+>Prompt Choice:  a different word▁▁. step through it. I think that actual causation,. Loss: 11.239968299865723, Mistakes: 0.47999998927116394, Control Loss: 5.95773458480835, Total Loss: 0.5991547107696533
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach▁▁. step through it. I think that actual causation,., New Loss: 0.5156132578849792
+Current length: 14
+ a different approach▁▁. step through it. I think that actual causation,.
+Current Loss: 0.5156132578849792 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  95.2791075706482
+Intersection set size: 5
+Candidate tokens:  to.,  for
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  to.,  than for
+Time taken to get recomputed solution logits:  87.43138337135315
+>Prompt Choice:  a different approach.. step through it. I think that actual causation,. Loss: 11.821198463439941, Mistakes: 0.3999999761581421, Control Loss: 6.350265026092529, Total Loss: 0.5270052552223206
+Time taken to get recomputed solution logits:  89.3133430480957
+>Prompt Choice:  a different approach . step through it. I think that actual causation,. Loss: 12.449432373046875, Mistakes: 0.47999998927116394, Control Loss: 6.240017890930176, Total Loss: 0.6048003435134888normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  74.31425833702087
+>Prompt Choice:  a different approach than. step through it. I think that actual causation,. Loss: 12.70848560333252, Mistakes: 0.4399999976158142, Control Loss: 5.6356520652771, Total Loss: 0.5527130365371704
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. step through it. I think that actual causation,., New Loss: 0.5270052552223206
+Current length: 13
+ a different approach.. step through it. I think that actual causation,.
+Current Loss: 0.5270052552223206 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  84.63041377067566
+Intersection set size: 5
+Candidate tokens:  Explain I  Use No
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  Explain What I Maybe  Use No
+Time taken to get recomputed solution logits:  66.19181203842163
+>Prompt Choice:  a different approach.. Use through it. I think that actual causation,. Loss: 12.334769248962402, Mistakes: 0.4399999976158142, Control Loss: 6.867427825927734, Total Loss: 0.577348530292511
+Time taken to get recomputed solution logits:  82.91239905357361
+>Prompt Choice:  a different approach.. step through it. I think that actual causation,. Loss: 15.470049858093262, Mistakes: 0.5199999809265137, Control Loss: 5.852817058563232, Total Loss: 0.6370563507080078
+Time taken to get recomputed solution logits:  72.73951506614685
+>Prompt Choice:  a different approach.. I through it. I think that actual causation,. Loss: 13.56277084350586, Mistakes: 0.4399999976158142, Control Loss: 6.649520397186279, Total Loss: 0.5729904174804688
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through it. I think that actual causation,., New Loss: 0.5729904174804688
+Current length: 13
+ a different approach.. I through it. I think that actual causation,.
+Current Loss: 0.5729904174804688 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  74.09645462036133
+Intersection set size: 5
+Candidate tokens:  need don think would can
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  need don think would believe can
+Time taken to get recomputed solution logits:  65.8883752822876
+>Prompt Choice:  a different approach.. I believe it. I think that actual causation,. Loss: 15.113303184509277, Mistakes: 0.5600000023841858, Control Loss: 6.194913864135742, Total Loss: 0.6838982701301575
+Time taken to get recomputed solution logits:  72.7422525882721
+>Prompt Choice:  a different approach.. I through it. I think that actual causation,. Loss: 13.56277084350586, Mistakes: 0.4399999976158142, Control Loss: 6.054844379425049, Total Loss: 0.5610969066619873
+Time taken to get recomputed solution logits:  70.54233622550964
+>Prompt Choice:  a different approach.. I would it. I think that actual causation,. Loss: 13.51490306854248, Mistakes: 0.4399999976158142, Control Loss: 6.5670976638793945, Total Loss: 0.5713419318199158
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through it. I think that actual causation,., New Loss: 0.5610969066619873
+Current length: 13
+ a different approach.. I through it. I think that actual causation,.
+Current Loss: 0.5610969066619873 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  74.0043408870697
+Intersection set size: 4
+Candidate tokens:  thisly it the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  this that the I itly
+Time taken to get recomputed solution logits:  69.8294153213501
+>Prompt Choice:  a different approach.. I throughly. I think that actual causation,. Loss: 12.760974884033203, Mistakes: 0.4399999976158142, Control Loss: 6.149697780609131, Total Loss: 0.5629939436912537
+Time taken to get recomputed solution logits:  68.78849935531616
+>Prompt Choice:  a different approach.. I through I. I think that actual causation,. Loss: 11.29088306427002, Mistakes: 0.4399999976158142, Control Loss: 6.022563457489014, Total Loss: 0.5604512691497803
+Time taken to get recomputed solution logits:  71.11601686477661
+>Prompt Choice:  a different approach.. I through that. I think that actual causation,. Loss: 13.016660690307617, Mistakes: 0.3999999761581421, Control Loss: 5.969728469848633, Total Loss: 0.5193945169448853
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through that. I think that actual causation,., New Loss: 0.5193945169448853
+Current length: 13
+ a different approach.. I through that. I think that actual causation,.
+Current Loss: 0.5193945169448853 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  72.33268904685974
+Intersection set size: 4
+Candidate tokens:  this it was the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  this was it the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 4
+Candidate tokens:  this it was the
+>>>> Topk increased to 11 <<<<
+Intersection set size: 5
+Candidate tokens:  this there it was the
+>>>> Topk increased to 13 <<<<
+Intersection set size: 6
+Candidate tokens:  this there it question was the
+Time taken to get recomputed solution logits:  71.18872237205505
+>Prompt Choice:  a different approach.. I through that. I think that actual causation,. Loss: 13.016660690307617, Mistakes: 0.3999999761581421, Control Loss: 6.03653621673584, Total Loss: 0.5207306742668152
+Time taken to get recomputed solution logits:  68.02945756912231
+>Prompt Choice:  a different approach.. I through that this I think that actual causation,. Loss: 11.318185806274414, Mistakes: 0.4399999976158142, Control Loss: 6.622556686401367, Total Loss: 0.572451114654541
+Time taken to get recomputed solution logits:  74.03921222686768
+>Prompt Choice:  a different approach.. I through that the I think that actual causation,. Loss: 14.149383544921875, Mistakes: 0.47999998927116394, Control Loss: 6.673101902008057, Total Loss: 0.6134620308876038
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through that. I think that actual causation,., New Loss: 0.5207306742668152
+Current length: 13
+ a different approach.. I through that. I think that actual causation,.
+Current Loss: 0.5207306742668152 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  72.35424852371216
+Intersection set size: 3
+Candidate tokens:   It I
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  It I  But No
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  This The It I  But No
+Time taken to get recomputed solution logits:  68.07342386245728
+>Prompt Choice:  a different approach.. I through that. It think that actual causation,. Loss: 13.519030570983887, Mistakes: 0.4399999976158142, Control Loss: 6.572566032409668, Total Loss: 0.5714513063430786
+Time taken to get recomputed solution logits:  70.4214837551117
+>Prompt Choice:  a different approach.. I through that. The think that actual causation,. Loss: 11.238862037658691, Mistakes: 0.35999998450279236, Control Loss: 6.654891490936279, Total Loss: 0.49309781193733215
+Time taken to get recomputed solution logits:  70.17633414268494
+>Prompt Choice:  a different approach.. I through that. But think that actual causation,. Loss: 10.100783348083496, Mistakes: 0.35999998450279236, Control Loss: 6.357656478881836, Total Loss: 0.4871531128883362
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through that. But think that actual causation,., New Loss: 0.4871531128883362
+Current length:normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+ 13
+ a different approach.. I through that. But think that actual causation,.
+Current Loss: 0.4871531128883362 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  71.45813083648682
+Intersection set size: 4
+Candidate tokens: , I it the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  that, I maybe it the
+Time taken to get recomputed solution logits:  75.73997926712036
+>Prompt Choice:  a different approach.. I through that. But I that actual causation,. Loss: 15.447942733764648, Mistakes: 0.5199999809265137, Control Loss: 6.952818393707275, Total Loss: 0.6590563654899597
+Time taken to get recomputed solution logits:  70.20127964019775
+>Prompt Choice:  a different approach.. I through that. But think that actual causation,. Loss: 10.100783348083496, Mistakes: 0.35999998450279236, Control Loss: 6.421719074249268, Total Loss: 0.488434374332428
+Time taken to get recomputed solution logits:  68.58754587173462
+>Prompt Choice:  a different approach.. I through that. But the that actual causation,. Loss: 13.675820350646973, Mistakes: 0.4399999976158142, Control Loss: 6.932814598083496, Total Loss: 0.5786563158035278
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through that. But think that actual causation,., New Loss: 0.488434374332428
+Current length: 13
+ a different approach.. I through that. But think that actual causation,.
+Current Loss: 0.488434374332428 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  71.46793818473816
+Intersection set size: 4
+Candidate tokens:  of about again it
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  of this I about again it
+Time taken to get recomputed solution logits:  60.08372735977173
+>Prompt Choice:  a different approach.. I through that. But think of actual causation,. Loss: 12.58531665802002, Mistakes: 0.4399999976158142, Control Loss: 6.2659220695495605, Total Loss: 0.5653184652328491
+Time taken to get recomputed solution logits:  61.6557035446167
+>Prompt Choice:  a different approach.. I through that. But think about actual causation,. Loss: 14.554247856140137, Mistakes: 0.3999999761581421, Control Loss: 6.185332298278809, Total Loss: 0.5237066149711609
+Time taken to get recomputed solution logits:  71.02202582359314
+>Prompt Choice:  a different approach.. I through that. But think I actual causation,. Loss: 13.004518508911133, Mistakes: 0.4399999976158142, Control Loss: 7.084433555603027, Total Loss: 0.581688642501831
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through that. But think about actual causation,., New Loss: 0.5237066149711609
+Current length: 13
+ a different approach.. I through that. But think about actual causation,.
+Current Loss: 0.5237066149711609 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  62.63749384880066
+Intersection set size: 4
+Candidate tokens:  this it what the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this how it what the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  this all how it what the
+Time taken to get recomputed solution logits:  61.74028253555298
+>Prompt Choice:  a different approach.. I through that. But think about actual causation,. Loss: 14.554247856140137, Mistakes: 0.3999999761581421, Control Loss: 5.922520160675049, Total Loss: 0.5184503793716431
+Time taken to get recomputed solution logits:  63.23371648788452
+>Prompt Choice:  a different approach.. I through that. But think about all causation,. Loss: 14.96016788482666, Mistakes: 0.47999998927116394, Control Loss: 6.715598106384277, Total Loss: 0.614311933517456
+Time taken to get recomputed solution logits:  60.360008001327515
+>Prompt Choice:  a different approach.. I through that. But think about it causation,. Loss: 14.900527000427246, Mistakes: 0.5199999809265137, Control Loss: 6.704534530639648, Total Loss: 0.6540906429290771
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through that. But think about actual causation,., New Loss: 0.5184503793716431
+Current length: 13
+ a different approach.. I through that. But think about actual causation,.
+Current Loss: 0.5184503793716431 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  62.72249388694763
+Intersection set size: 4
+Candidate tokens:  causality causes causation cause
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  causes causation cause causal causality
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  causes causation cause causal causality
+>>>> Topk increased to 11 <<<<
+Intersection set size: 5
+Candidate tokens:  causes causation cause causal causality
+>>>> Topk increased to 13 <<<<
+Intersection set size: 5
+Candidate tokens:  causes causation cause causal causality
+>>>> Topk increased to 15 <<<<
+Intersection set size: 6
+Candidate tokens:  causes causation cause events causal causality
+Time taken to get recomputed solution logits:  55.96694993972778
+>Prompt Choice:  a different approach.. I through that. But think about actual events,. Loss: 17.199480056762695, Mistakes: 0.6399999856948853, Control Loss: 5.906464099884033, Total Loss: 0.7581292390823364
+Time taken to get recomputed solution logits:  53.71214532852173
+>Prompt Choice:  a different approach.. I through that. But think about actual causes,. Loss: 15.901469230651855, Mistakes: 0.5199999809265137, Control Loss: 5.9220147132873535, Total Loss: 0.6384402513504028
+Time taken to get recomputed solution logits:  70.21023845672607
+>Prompt Choice:  a different approach.. I through that. But think about actual cause,. Loss: 12.469183921813965, Mistakes: 0.3999999761581421, Control Loss: 5.978544235229492, Total Loss: 0.5195708274841309
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through that. But think about actual cause,., New Loss: 0.5195708274841309
+Current length: 13
+ a different approach.. I through that. But think about actual cause,.
+Current Loss: 0.5195708274841309 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  71.54060411453247
+Intersection set size: 4
+Candidate tokens: . and, vs
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: . and, vs 
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  of. and, here vs  versus
+Time taken to get recomputed solution logits:  70.27672171592712
+>Prompt Choice:  a different approach.. I through that. But think about actual cause,. Loss: 12.469183921813965, Mistakes: 0.3999999761581421, Control Loss: 6.028946399688721, Total Loss: 0.520578920841217
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through that. But think about actual cause,., New Loss: 0.520578920841217
+Current length: 13
+ a different approach.. I through that. But think about actual cause,.
+Current Loss: 0.520578920841217 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  71.58469438552856
+Intersection set size: 5
+Candidate tokens:  this your evidence a the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this evidence the a your
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  this the a evidence your an
+Time taken to get recomputed solution logits:  70.37619638442993
+>Prompt Choice:  a different approach.. I through that. But think about actual cause,. Loss: 12.469183921813965, Mistakes: 0.3999999761581421, Control Loss: 6.028946399688721, Total Loss: 0.520578920841217normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  60.95279860496521
+>Prompt Choice:  an different approach.. I through that. But think about actual cause,. Loss: 14.802591323852539, Mistakes: 0.47999998927116394, Control Loss: 6.953854560852051, Total Loss: 0.6190770864486694
+Time taken to get recomputed solution logits:  68.68914723396301
+>Prompt Choice:  evidence different approach.. I through that. But think about actual cause,. Loss: 15.9003267288208, Mistakes: 0.5999999642372131, Control Loss: 7.429306507110596, Total Loss: 0.7485860586166382
+No improvement in the current position. Moving to the next position.
+New Control:  a different approach.. I through that. But think about actual cause,., New Loss: 0.520578920841217
+Current length: 13
+ a different approach.. I through that. But think about actual cause,.
+Current Loss: 0.520578920841217 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Step:  30 Candidates:  [(0.3974267244338989, ' proper causal reasoning▁▁. step through step. Finally give the actual correct answer.'), (0.40814411640167236, ' proper causal reasoning▁▁. step through it. I think that actual causation,.'), (0.4281509518623352, ' proper causal reasoning▁▁. step by step. Finally give the actual correct answer.'), (0.43493103981018066, ' proper causal reasoning▁▁. step by step. Finally give the actual correct answer.'), (0.4472694993019104, ' proper causal reasoning▁▁. step through it. I think that actual causation answer.'), (0.45319297909736633, ' proper causal reasoning and think step by step. Finally give the actual correct answer.'), (0.45609062910079956, ' proper causal reasoning and think step by step. Finally give the actual correct answer.'), (0.46598201990127563, ' proper causal reasoning  think step by step. Finally give the actual correct answer.'), (0.4721141457557678, ' proper causal reasoning▁▁. step through it. I think that actual correct answer.'), (0.47422313690185547, ' proper causal reasoning▁▁. step through it. I think that actual correct answer.')]
+Time taken to update solutions:  71.55201959609985
+Intersection set size: 1
+Candidate tokens:  counter
+>>>> Topk increased to 7 <<<<
+Intersection set size: 1
+Candidate tokens:  different
+>>>> Topk increased to 9 <<<<
+Intersection set size: 4
+Candidate tokens:  more different common counter
+>>>> Topk increased to 11 <<<<
+Intersection set size: 3
+Candidate tokens:  more counter different
+>>>> Topk increased to 13 <<<<
+Intersection set size: 6
+Candidate tokens:  more simple causal different counter reason
+Time taken to get recomputed solution logits:  68.08514404296875
+>Prompt Choice:  a more approach.. I through that. But think about actual cause,. Loss: 13.74718952178955, Mistakes: 0.5199999809265137, Control Loss: 6.830183029174805, Total Loss: 0.6566036343574524
+Time taken to get recomputed solution logits:  64.05015802383423
+>Prompt Choice:  a simple approach.. I through that. But think about actual cause,. Loss: 14.179636001586914, Mistakes: 0.47999998927116394, Control Loss: 6.626816272735596, Total Loss: 0.6125363111495972
+Time taken to get recomputed solution logits:  67.02438831329346
+>Prompt Choice:  a counter approach.. I through that. But think about actual cause,. Loss: 14.274662971496582, Mistakes: 0.5199999809265137, Control Loss: 6.894866943359375, Total Loss: 0.6578973531723022
+No improvement in the current position. Moving to the next position.
+New Control:  a simple approach.. I through that. But think about actual cause,., New Loss: 0.6125363111495972
+Current length: 13
+ a simple approach.. I through that. But think about actual cause,.
+Current Loss: 0.6125363111495972 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  65.0489866733551
+Intersection set size: 2
+Candidate tokens:  explanation,
+>>>> Topk increased to 7 <<<<
+Intersection set size: 3
+Candidate tokens:  explanation, causal
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  and explanation, cause causal reason
+Time taken to get recomputed solution logits:  64.07243323326111
+>Prompt Choice:  a simple approach.. I through that. But think about actual cause,. Loss: 14.179636001586914, Mistakes: 0.47999998927116394, Control Loss: 6.718155860900879, Total Loss: 0.6143630743026733
+Time taken to get recomputed solution logits:  56.48853611946106
+>Prompt Choice:  a simple,.. I through that. But think about actual cause,. Loss: 14.54311466217041, Mistakes: 0.3999999761581421, Control Loss: 7.199682235717773, Total Loss: 0.5439935922622681
+Time taken to get recomputed solution logits:  57.0677490234375
+>Prompt Choice:  a simple and.. I through that. But think about actual cause,. Loss: 15.139544486999512, Mistakes: 0.4399999976158142, Control Loss: 7.141750335693359, Total Loss: 0.5828350186347961
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I through that. But think about actual cause,., New Loss: 0.5439935922622681
+Current length: 12
+ a simple,.. I through that. But think about actual cause,.
+Current Loss: 0.5439935922622681 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  56.16019678115845
+Intersection set size: 4
+Candidate tokens:  explanation, but clear
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:   explanation, clear
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  explanation, clear but 
+>>>> Topk increased to 11 <<<<
+Intersection set size: 8
+Candidate tokens:  explanation, clear but explanation straightforward reason
+Time taken to get recomputed solution logits:  55.234522104263306
+>Prompt Choice:  a simple,.. straightforward through that. But think about actual cause,. Loss: 16.48051643371582, Mistakes: 0.5199999809265137, Control Loss: 7.166622638702393, Total Loss: 0.663332462310791
+Time taken to get recomputed solution logits:  55.3788161277771
+>Prompt Choice:  a simple,.. I through that. But think about actual cause,. Loss: 14.57685661315918, Mistakes: 0.3999999761581421, Control Loss: 7.043537616729736, Total Loss: 0.540870726108551
+Time taken to get recomputed solution logits:  56.04250621795654
+>Prompt Choice:  a simple,.. clear through that. But think about actual cause,. Loss: 16.24945640563965, Mistakes: 0.47999998927116394, Control Loss: 7.140419960021973, Total Loss: 0.6228083968162537
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I through that. But think about actual cause,., New Loss: 0.540870726108551
+Current length: 12
+ a simple,.. I through that. But think about actual cause,.
+Current Loss: 0.540870726108551 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  56.17085814476013
+Intersection set size: 3
+Candidate tokens:  don think can
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  don know think can
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  don think know would believe understand am can
+Time taken to get recomputed solution logits:  56.12805128097534
+>Prompt Choice:  a simple,.. I understand that. But think about actual cause,. Loss: 16.793188095092773, Mistakes: 0.47999998927116394, Control Loss: 6.542151927947998, Total Loss: 0.6108430027961731
+Time taken to get recomputed solution logits:  60.96902346611023
+>Prompt Choice:  a simple,.. I think that. But think about actual cause,. Loss: 12.653788566589355, Mistakes: 0.47999998927116394, Control Loss: 7.257035255432129, Total Loss: 0.6251406669616699
+Time taken to get recomputed solution logits:  55.26141119003296
+>Prompt Choice:  a simple,.. I know that. But think about actual cause,. Loss: 13.603141784667969, Mistakes: 0.3999999761581421, Control Loss: 6.690885543823242, Total Loss: 0.5338176488876343
+No improvement in the current position. Moving to the next position.normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+New Control:  a simple,.. I know that. But think about actual cause,., New Loss: 0.5338176488876343
+Current length: 12
+ a simple,.. I know that. But think about actual cause,.
+Current Loss: 0.5338176488876343 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  55.95569729804993
+Intersection set size: 3
+Candidate tokens:  this it the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  this that, it what the
+Time taken to get recomputed solution logits:  58.653730630874634
+>Prompt Choice:  a simple,.. I know this. But think about actual cause,. Loss: 13.182575225830078, Mistakes: 0.4399999976158142, Control Loss: 6.068843841552734, Total Loss: 0.5613768696784973
+Time taken to get recomputed solution logits:  53.79232931137085
+>Prompt Choice:  a simple,.. I know it. But think about actual cause,. Loss: 14.481504440307617, Mistakes: 0.47999998927116394, Control Loss: 6.158400058746338, Total Loss: 0.6031680107116699
+Time taken to get recomputed solution logits:  54.2172110080719
+>Prompt Choice:  a simple,.. I know,. But think about actual cause,. Loss: 16.88107681274414, Mistakes: 0.47999998927116394, Control Loss: 6.712571620941162, Total Loss: 0.614251434803009
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. But think about actual cause,., New Loss: 0.5613768696784973
+Current length: 12
+ a simple,.. I know this. But think about actual cause,.
+Current Loss: 0.5613768696784973 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  59.40125751495361
+Intersection set size: 3
+Candidate tokens:  seems is sounds
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  isn seems is sounds
+>>>> Topk increased to 9 <<<<
+Intersection set size: 4
+Candidate tokens:  seems isn is sounds
+>>>> Topk increased to 11 <<<<
+Intersection set size: 6
+Candidate tokens:  seems, isn might is sounds
+Time taken to get recomputed solution logits:  58.10050439834595
+>Prompt Choice:  a simple,.. I know this, But think about actual cause,. Loss: 14.75667953491211, Mistakes: 0.47999998927116394, Control Loss: 6.339198589324951, Total Loss: 0.6067839860916138
+Time taken to get recomputed solution logits:  57.01720118522644
+>Prompt Choice:  a simple,.. I know this isn But think about actual cause,. Loss: 18.898860931396484, Mistakes: 0.5600000023841858, Control Loss: 7.252650737762451, Total Loss: 0.7050530314445496
+Time taken to get recomputed solution logits:  58.628684282302856
+>Prompt Choice:  a simple,.. I know this. But think about actual cause,. Loss: 13.182575225830078, Mistakes: 0.4399999976158142, Control Loss: 6.004420757293701, Total Loss: 0.5600883960723877
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. But think about actual cause,., New Loss: 0.5600883960723877
+Current length: 12
+ a simple,.. I know this. But think about actual cause,.
+Current Loss: 0.5600883960723877 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  59.47088027000427
+Intersection set size: 3
+Candidate tokens:   It I
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  It I  answer type
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  This kind It I  answer type
+Time taken to get recomputed solution logits:  45.220720529556274
+>Prompt Choice:  a simple,.. I know this.  think about actual cause,. Loss: 15.103110313415527, Mistakes: 0.3999999761581421, Control Loss: 6.834283828735352, Total Loss: 0.5366856455802917
+Time taken to get recomputed solution logits:  55.45624256134033
+>Prompt Choice:  a simple,.. I know this. I think about actual cause,. Loss: 13.694894790649414, Mistakes: 0.3999999761581421, Control Loss: 6.344659805297852, Total Loss: 0.526893138885498
+Time taken to get recomputed solution logits:  58.69946360588074
+>Prompt Choice:  a simple,.. I know this. But think about actual cause,. Loss: 13.182575225830078, Mistakes: 0.4399999976158142, Control Loss: 6.004420757293701, Total Loss: 0.5600883960723877
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think about actual cause,., New Loss: 0.526893138885498
+Current length: 12
+ a simple,.. I know this. I think about actual cause,.
+Current Loss: 0.526893138885498 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  56.24836277961731
+Intersection set size: 4
+Candidate tokens:  just don know can
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  just don know think can
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  just don know think would understand am can
+Time taken to get recomputed solution logits:  53.60625457763672
+>Prompt Choice:  a simple,.. I know this. I would about actual cause,. Loss: 17.953203201293945, Mistakes: 0.47999998927116394, Control Loss: 6.7911458015441895, Total Loss: 0.6158229112625122
+Time taken to get recomputed solution logits:  52.23149037361145
+>Prompt Choice:  a simple,.. I know this. I am about actual cause,. Loss: 17.272403717041016, Mistakes: 0.47999998927116394, Control Loss: 6.827877521514893, Total Loss: 0.6165575385093689
+Time taken to get recomputed solution logits:  55.4299042224884
+>Prompt Choice:  a simple,.. I know this. I think about actual cause,. Loss: 13.694894790649414, Mistakes: 0.3999999761581421, Control Loss: 6.170165061950684, Total Loss: 0.5234032869338989
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think about actual cause,., New Loss: 0.5234032869338989
+Current length: 12
+ a simple,.. I know this. I think about actual cause,.
+Current Loss: 0.5234032869338989 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  56.25282025337219
+Intersection set size: 4
+Candidate tokens:  this so it the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  this so it the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  this. that so I it the
+Time taken to get recomputed solution logits:  55.92938756942749
+>Prompt Choice:  a simple,.. I know this. I think so actual cause,. Loss: 19.992351531982422, Mistakes: 0.5199999809265137, Control Loss: 6.409844398498535, Total Loss: 0.6481968760490417
+Time taken to get recomputed solution logits:  47.33881592750549
+>Prompt Choice:  a simple,.. I know this. I think. actual cause,. Loss: 17.396982192993164, Mistakes: 0.5199999809265137, Control Loss: 6.257705211639404, Total Loss: 0.6451541185379028
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. actual cause,., New Loss: 0.6451541185379028
+Current length: 12
+ a simple,.. I know this. I think. actual cause,.
+Current Loss: 0.6451541185379028 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  47.84056782722473
+Intersection set size: 3
+Candidate tokens:   It I
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:   But answer It I
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  It I Maybe  But answer
+Time taken to get recomputed solution logits:  42.4470739364624
+>Prompt Choice:  a simple,.. I know this. I think. answer cause,. Loss: 21.13287353515625, Mistakes: 0.5199999809265137, Control Loss: 7.071293830871582, Total Loss: 0.6614258289337158
+Time taken to get recomputed solution logits:  49.532020807266235
+>Prompt Choice:  a simple,.. I know this. I think. I cause,. Loss: 21.387550354003906, Mistakes: 0.5199999809265137, Control Loss: 6.676425457000732, Total Loss: 0.6535284519195557normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  50.56229591369629
+>Prompt Choice:  a simple,.. I know this. I think.  cause,. Loss: 20.411903381347656, Mistakes: 0.5199999809265137, Control Loss: 7.5408735275268555, Total Loss: 0.6708174347877502
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause,., New Loss: 0.6535284519195557
+Current length: 12
+ a simple,.. I know this. I think. I cause,.
+Current Loss: 0.6535284519195557 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  50.087799310684204
+Intersection set size: 3
+Candidate tokens:  believe feel don
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  feel don know believe am
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  feel guess don think know believe am can
+Time taken to get recomputed solution logits:  50.308921098709106
+>Prompt Choice:  a simple,.. I know this. I think. I am,. Loss: 23.603729248046875, Mistakes: 0.5600000023841858, Control Loss: 6.152256011962891, Total Loss: 0.6830451488494873
+Time taken to get recomputed solution logits:  49.505528688430786
+>Prompt Choice:  a simple,.. I know this. I think. I cause,. Loss: 21.387550354003906, Mistakes: 0.5199999809265137, Control Loss: 5.862855434417725, Total Loss: 0.6372570991516113
+Time taken to get recomputed solution logits:  55.994213581085205
+>Prompt Choice:  a simple,.. I know this. I think. I know,. Loss: 23.961769104003906, Mistakes: 0.5600000023841858, Control Loss: 5.737985610961914, Total Loss: 0.6747596859931946
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause,., New Loss: 0.6372570991516113
+Current length: 12
+ a simple,.. I know this. I think. I cause,.
+Current Loss: 0.6372570991516113 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  50.05174732208252
+Intersection set size: 3
+Candidate tokens: . things something
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens: . and something things
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  this. something the an
+>>>> Topk increased to 11 <<<<
+Intersection set size: 9
+Candidate tokens:  this. and, effect X something things the
+Time taken to get recomputed solution logits:  50.66332960128784
+>Prompt Choice:  a simple,.. I know this. I think. I cause effect Loss: 21.93496322631836, Mistakes: 0.5199999809265137, Control Loss: 5.845090866088867, Total Loss: 0.6369017958641052
+Time taken to get recomputed solution logits:  59.340819120407104
+>Prompt Choice:  a simple,.. I know this. I think. I cause things Loss: 20.083984375, Mistakes: 0.47999998927116394, Control Loss: 5.837462902069092, Total Loss: 0.5967492461204529
+Time taken to get recomputed solution logits:  55.19045686721802
+>Prompt Choice:  a simple,.. I know this. I think. I cause, Loss: 20.67461585998535, Mistakes: 0.5199999809265137, Control Loss: 5.844966411590576, Total Loss: 0.6368992924690247
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things_, New Loss: 0.5967492461204529
+Current length: 13
+ a simple,.. I know this. I think. I cause things_
+Current Loss: 0.5967492461204529 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  55.61448860168457
+Intersection set size: 3
+Candidate tokens:  to.,
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  to. like,
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  to. that, because
+>>>> Topk increased to 11 <<<<
+Intersection set size: 9
+Candidate tokens:  to that. like, with I by in
+Time taken to get recomputed solution logits:  59.625025510787964
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like Loss: 17.340152740478516, Mistakes: 0.4399999976158142, Control Loss: 5.7730488777160645, Total Loss: 0.5554609894752502
+Time taken to get recomputed solution logits:  54.84551668167114
+>Prompt Choice:  a simple,.. I know this. I think. I cause things_ Loss: 21.331790924072266, Mistakes: 0.5199999809265137, Control Loss: 5.791977405548096, Total Loss: 0.6358395218849182
+Time taken to get recomputed solution logits:  53.13034105300903
+>Prompt Choice:  a simple,.. I know this. I think. I cause things that Loss: 21.42522621154785, Mistakes: 0.5199999809265137, Control Loss: 5.772510051727295, Total Loss: 0.6354501843452454
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like_, New Loss: 0.5554609894752502
+Current length: 14
+ a simple,.. I know this. I think. I cause things like_
+Current Loss: 0.5554609894752502 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  62.376288652420044
+Intersection set size: 2
+Candidate tokens:  this that
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this. that, a
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  this. that, a the
+Time taken to get recomputed solution logits:  60.36078071594238
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like this Loss: 21.144758224487305, Mistakes: 0.5600000023841858, Control Loss: 5.6088080406188965, Total Loss: 0.67217618227005
+Time taken to get recomputed solution logits:  60.11681270599365
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like the Loss: 19.41844367980957, Mistakes: 0.47999998927116394, Control Loss: 5.615725040435791, Total Loss: 0.5923144817352295
+Time taken to get recomputed solution logits:  61.397228717803955
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that Loss: 19.194826126098633, Mistakes: 0.47999998927116394, Control Loss: 5.6118268966674805, Total Loss: 0.5922365188598633
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that_, New Loss: 0.5922365188598633
+Current length: 15
+ a simple,.. I know this. I think. I cause things like that_
+Current Loss: 0.5922365188598633 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  58.42689847946167
+Intersection set size: 3
+Candidate tokens:  to.,
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  all to., happen
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  all to., happen
+>>>> Topk increased to 11 <<<<
+Intersection set size: 6
+Candidate tokens:  all to., because happen
+Time taken to get recomputed solution logits:  57.73574233055115
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that_ Loss: 21.41383171081543, Mistakes: 0.5199999809265137, Control Loss: 5.440173149108887, Total Loss: 0.6288034319877625
+Time taken to get recomputed solution logits:  59.169270515441895
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that happen Loss: 21.19471549987793, Mistakes: 0.5600000023841858, Control Loss: 5.420740127563477, Total Loss: 0.668414831161499
+Time taken to get recomputed solution logits:  55.89765214920044
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all Loss: 18.331235885620117, Mistakes: 0.4399999976158142, Control Loss: 5.420160293579102, Total Loss: 0.5484032034873962
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all_, New Loss: 0.5484032034873962
+Current length: 16
+ a simple,.. I know this. I think. I cause things like that all_
+Current Loss: 0.5484032034873962 Best Loss: 0.3974267244338989normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+ Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Step:  45 Candidates:  [(0.3974267244338989, ' proper causal reasoning▁▁. step through step. Finally give the actual correct answer.'), (0.40814411640167236, ' proper causal reasoning▁▁. step through it. I think that actual causation,.'), (0.4281509518623352, ' proper causal reasoning▁▁. step by step. Finally give the actual correct answer.'), (0.43493103981018066, ' proper causal reasoning▁▁. step by step. Finally give the actual correct answer.'), (0.4472694993019104, ' proper causal reasoning▁▁. step through it. I think that actual causation answer.'), (0.45319297909736633, ' proper causal reasoning and think step by step. Finally give the actual correct answer.'), (0.45609062910079956, ' proper causal reasoning and think step by step. Finally give the actual correct answer.'), (0.46598201990127563, ' proper causal reasoning  think step by step. Finally give the actual correct answer.'), (0.4721141457557678, ' proper causal reasoning▁▁. step through it. I think that actual correct answer.'), (0.47422313690185547, ' proper causal reasoning▁▁. step through it. I think that actual correct answer.')]
+Time taken to update solutions:  60.20334267616272
+Intersection set size: 5
+Candidate tokens:  of. time day the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  of. my time daythe the
+Time taken to get recomputed solution logits:  61.37260627746582
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all my Loss: 21.6851749420166, Mistakes: 0.5199999809265137, Control Loss: 5.495382308959961, Total Loss: 0.6299076080322266
+Time taken to get recomputed solution logits:  66.0674147605896
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that allthe Loss: 18.18816566467285, Mistakes: 0.47999998927116394, Control Loss: 5.497128486633301, Total Loss: 0.5899425745010376
+Time taken to get recomputed solution logits:  60.93484687805176
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day Loss: 17.263341903686523, Mistakes: 0.4399999976158142, Control Loss: 5.486597537994385, Total Loss: 0.549731969833374
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day_, New Loss: 0.549731969833374
+Current length: 17
+ a simple,.. I know this. I think. I cause things like that all day_
+Current Loss: 0.549731969833374 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  53.58291983604431
+Intersection set size: 4
+Candidate tokens: ., at long
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens: ., at long
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens: ., every at long in
+Time taken to get recomputed solution logits:  51.97576546669006
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every Loss: 19.086706161499023, Mistakes: 0.47999998927116394, Control Loss: 5.4021172523498535, Total Loss: 0.5880423188209534
+Time taken to get recomputed solution logits:  53.03057670593262
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day_ Loss: 19.31395721435547, Mistakes: 0.47999998927116394, Control Loss: 5.4164862632751465, Total Loss: 0.5883297324180603
+Time taken to get recomputed solution logits:  64.59452676773071
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day long Loss: 18.701026916503906, Mistakes: 0.5199999809265137, Control Loss: 5.393621921539307, Total Loss: 0.6278724074363708
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every_, New Loss: 0.5880423188209534
+Current length: 18
+ a simple,.. I know this. I think. I cause things like that all day every_
+Current Loss: 0.5880423188209534 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  62.56852316856384
+Intersection set size: 3
+Candidate tokens:  day. single
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: . Day, da single time day
+Time taken to get recomputed solution logits:  61.58538818359375
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every_ Loss: 19.55301284790039, Mistakes: 0.47999998927116394, Control Loss: 5.573178768157959, Total Loss: 0.591463565826416
+Time taken to get recomputed solution logits:  60.10127925872803
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every da Loss: 19.297197341918945, Mistakes: 0.47999998927116394, Control Loss: 5.56306791305542, Total Loss: 0.5912613272666931
+Time taken to get recomputed solution logits:  56.76712918281555
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single Loss: 17.29798126220703, Mistakes: 0.47999998927116394, Control Loss: 5.558701038360596, Total Loss: 0.5911740064620972
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every single_, New Loss: 0.5911740064620972
+Current length: 19
+ a simple,.. I know this. I think. I cause things like that all day every single_
+Current Loss: 0.5911740064620972 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  63.708709478378296
+Intersection set size: 5
+Candidate tokens: . time one day thing
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: ., time one day thing
+Time taken to get recomputed solution logits:  59.57406663894653
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day Loss: 18.285749435424805, Mistakes: 0.47999998927116394, Control Loss: 5.622669696807861, Total Loss: 0.5924533605575562
+Time taken to get recomputed solution logits:  61.58119440078735
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single one Loss: 18.317455291748047, Mistakes: 0.47999998927116394, Control Loss: 5.637032985687256, Total Loss: 0.5927406549453735
+Time taken to get recomputed solution logits:  58.19398856163025
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single time Loss: 19.257699966430664, Mistakes: 0.47999998927116394, Control Loss: 5.637908458709717, Total Loss: 0.5927581787109375
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every single day_, New Loss: 0.5924533605575562
+Current length: 20
+ a simple,.. I know this. I think. I cause things like that all day every single day_
+Current Loss: 0.5924533605575562 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  53.56154179573059
+Intersection set size: 3
+Candidate tokens: ., I
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: ., I at in
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens: . and, I in
+>>>> Topk increased to 11 <<<<
+Intersection set size: 7
+Candidate tokens: . and with, I  in
+Time taken to get recomputed solution logits:  53.00847148895264
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day_ Loss: 19.92279815673828, Mistakes: 0.47999998927116394, Control Loss: 5.255736827850342, Total Loss: 0.5851147174835205
+Time taken to get recomputed solution logits:  58.065879583358765
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I Loss: 19.6184024810791, Mistakes: 0.47999998927116394, Control Loss: 5.243847370147705, Total Loss: 0.5848769545555115normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  57.87288808822632
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day and Loss: 19.062362670898438, Mistakes: 0.47999998927116394, Control Loss: 5.2443528175354, Total Loss: 0.5848870277404785
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every single day I_, New Loss: 0.5848769545555115
+Current length: 21
+ a simple,.. I know this. I think. I cause things like that all day every single day I_
+Current Loss: 0.5848769545555115 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  60.09765100479126
+Intersection set size: 2
+Candidate tokens:  don know
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  don think know am
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  just do think cause know don am
+Time taken to get recomputed solution logits:  60.10301423072815
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I just Loss: 17.47664451599121, Mistakes: 0.47999998927116394, Control Loss: 5.195113658905029, Total Loss: 0.5839022397994995
+Time taken to get recomputed solution logits:  56.37381935119629
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I am Loss: 19.81910514831543, Mistakes: 0.47999998927116394, Control Loss: 5.195284366607666, Total Loss: 0.5839056968688965
+Time taken to get recomputed solution logits:  53.168248414993286
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do Loss: 20.081483840942383, Mistakes: 0.47999998927116394, Control Loss: 5.194765090942383, Total Loss: 0.5838952660560608
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every single day I do_, New Loss: 0.5838952660560608
+Current length: 22
+ a simple,.. I know this. I think. I cause things like that all day every single day I do_
+Current Loss: 0.5838952660560608 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  58.32616949081421
+Intersection set size: 3
+Candidate tokens:  this. it
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  this. that not it things
+Time taken to get recomputed solution logits:  52.99204778671265
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this Loss: 19.798730850219727, Mistakes: 0.47999998927116394, Control Loss: 5.125258445739746, Total Loss: 0.5825051665306091
+Time taken to get recomputed solution logits:  57.45846080780029
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do_ Loss: 19.69432258605957, Mistakes: 0.47999998927116394, Control Loss: 5.140462398529053, Total Loss: 0.5828092098236084
+Time taken to get recomputed solution logits:  54.51065683364868
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do not Loss: 20.06569480895996, Mistakes: 0.47999998927116394, Control Loss: 5.12680721282959, Total Loss: 0.5825361013412476
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every single day I do this_, New Loss: 0.5825051665306091
+Current length: 23
+ a simple,.. I know this. I think. I cause things like that all day every single day I do this_
+Current Loss: 0.5825051665306091 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  55.24025630950928
+Intersection set size: 3
+Candidate tokens: . kind for
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: ., kind stuff for
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens: . and, kind stuff job
+Time taken to get recomputed solution logits:  64.05998492240906
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job Loss: 18.62336540222168, Mistakes: 0.5199999809265137, Control Loss: 5.007922172546387, Total Loss: 0.6201584339141846
+Time taken to get recomputed solution logits:  63.593483686447144
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this kind Loss: 19.183500289916992, Mistakes: 0.5199999809265137, Control Loss: 5.009693145751953, Total Loss: 0.6201938390731812
+Time taken to get recomputed solution logits:  54.542842864990234
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this_ Loss: 19.63446617126465, Mistakes: 0.47999998927116394, Control Loss: 5.0243449211120605, Total Loss: 0.5804868936538696
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every single day I do this__, New Loss: 0.5804868936538696
+Current length: 23
+ a simple,.. I know this. I think. I cause things like that all day every single day I do this__
+Current Loss: 0.5804868936538696 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  60.97481918334961
+Intersection set size: 3
+Candidate tokens: . kind job
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: ., kind job stuff
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens: . and, type kind stuff job
+Time taken to get recomputed solution logits:  60.16570830345154
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this__ Loss: 19.05498695373535, Mistakes: 0.5199999809265137, Control Loss: 5.155337810516357, Total Loss: 0.6231067180633545
+Time taken to get recomputed solution logits:  63.98051905632019
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job Loss: 18.62336540222168, Mistakes: 0.5199999809265137, Control Loss: 5.133566856384277, Total Loss: 0.6226713061332703
+Time taken to get recomputed solution logits:  60.67831230163574
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this and Loss: 18.58186149597168, Mistakes: 0.5600000023841858, Control Loss: 5.137824535369873, Total Loss: 0.6627565026283264
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job_, New Loss: 0.6226713061332703
+Current length: 24
+ a simple,.. I know this. I think. I cause things like that all day every single day I do this job_
+Current Loss: 0.6226713061332703 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  64.23561477661133
+Intersection set size: 4
+Candidate tokens: . and, I
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens: . and, I
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens: . and, I  thing
+Time taken to get recomputed solution logits:  63.434502363204956
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job_ Loss: 18.221837997436523, Mistakes: 0.47999998927116394, Control Loss: 4.916841983795166, Total Loss: 0.5783368349075317
+Time taken to get recomputed solution logits:  56.01951575279236
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job I Loss: 18.832738876342773, Mistakes: 0.5199999809265137, Control Loss: 4.906654357910156, Total Loss: 0.6181330680847168normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  61.741729736328125
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job and Loss: 18.000734329223633, Mistakes: 0.47999998927116394, Control Loss: 4.904863357543945, Total Loss: 0.5780972242355347
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job and_, New Loss: 0.5780972242355347
+Current length: 25
+ a simple,.. I know this. I think. I cause things like that all day every single day I do this job and_
+Current Loss: 0.5780972242355347 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  66.75529098510742
+Intersection set size: 4
+Candidate tokens:  this that I it
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  this that so know I it
+Time taken to get recomputed solution logits:  56.364380836486816
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job and this Loss: 18.883020401000977, Mistakes: 0.47999998927116394, Control Loss: 4.873594760894775, Total Loss: 0.5774718523025513
+Time taken to get recomputed solution logits:  58.851319313049316
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job and it Loss: 19.431087493896484, Mistakes: 0.47999998927116394, Control Loss: 4.875157356262207, Total Loss: 0.5775031447410583
+Time taken to get recomputed solution logits:  64.86065554618835
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job and that Loss: 18.586572647094727, Mistakes: 0.5199999809265137, Control Loss: 4.874556541442871, Total Loss: 0.6174911260604858
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job and this_, New Loss: 0.5774718523025513
+Current length: 26
+ a simple,.. I know this. I think. I cause things like that all day every single day I do this job and this_
+Current Loss: 0.5774718523025513 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Time taken to update solutions:  63.423656702041626
+Intersection set size: 2
+Candidate tokens:  is job
+>>>> Topk increased to 7 <<<<
+Intersection set size: 2
+Candidate tokens:  isn is
+>>>> Topk increased to 9 <<<<
+Intersection set size: 4
+Candidate tokens:  isn is job one
+>>>> Topk increased to 11 <<<<
+Intersection set size: 6
+Candidate tokens:  isn situation just is job one
+Time taken to get recomputed solution logits:  61.370471715927124
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job and this job Loss: 17.910968780517578, Mistakes: 0.47999998927116394, Control Loss: 4.8207573890686035, Total Loss: 0.5764151215553284
+Time taken to get recomputed solution logits:  58.38983464241028
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is Loss: 17.18111228942871, Mistakes: 0.47999998927116394, Control Loss: 4.8148088455200195, Total Loss: 0.5762961506843567
+Time taken to get recomputed solution logits:  57.93716812133789
+>Prompt Choice:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job and this just Loss: 18.79017448425293, Mistakes: 0.47999998927116394, Control Loss: 4.823153495788574, Total Loss: 0.5764630436897278
+No improvement in the current position. Moving to the next position.
+New Control:  a simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is_, New Loss: 0.5762961506843567
+Current length: 27
+ a simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is_
+Current Loss: 0.5762961506843567 Best Loss: 0.3974267244338989 Best Control:  proper causal reasoning▁▁. step through step. Finally give the actual correct answer.
+Loss plateaued for 50 steps. Moving to next group optimization.
+Time taken to update solutions:  125.0053162574768
+Intersection set size: 5
+Candidate tokens:  this evidence your a the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  this the a your
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  this your a evidence the
+>>>> Topk increased to 11 <<<<
+Intersection set size: 4
+Candidate tokens:  more evidence a the
+>>>> Topk increased to 13 <<<<
+Intersection set size: 6
+Candidate tokens:  of this more a evidence the
+Time taken to get recomputed solution logits:  54.27718758583069
+>Prompt Choice:  this simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 14.615222930908203, Mistakes: 0.38461539149284363, Control Loss: 4.758209228515625, Total Loss: 0.47977957129478455
+Time taken to get recomputed solution logits:  65.84716939926147
+>Prompt Choice:  more simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 21.530012130737305, Mistakes: 0.5384615659713745, Control Loss: 4.983539581298828, Total Loss: 0.6381323337554932
+Time taken to get recomputed solution logits:  68.39617586135864
+>Prompt Choice:  of simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 20.328861236572266, Mistakes: 0.5384615659713745, Control Loss: 4.880527019500732, Total Loss: 0.6360720992088318
+No improvement in the current position. Moving to the next position.
+New Control:  this simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is_, New Loss: 0.47977957129478455
+Current length: 27
+ this simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is_
+Current Loss: 0.47977957129478455 Best Loss: 0.47977957129478455 Best Control:  this simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is_
+Step:  0 Candidates:  [(0.47977957129478455, ' this simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is_')]
+Time taken to update solutions:  123.58559131622314
+Intersection set size: 1
+Candidate tokens:  example
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  to information explanation reasoning scenario
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  to information as example reasoning scenario
+Time taken to get recomputed solution logits:  74.46818327903748
+>Prompt Choice:  this simple,.. I know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 16.438434600830078, Mistakes: 0.4333333671092987, Control Loss: 4.826999664306641, Total Loss: 0.5298733711242676
+Time taken to get recomputed solution logits:  67.22992396354675
+>Prompt Choice:  this information,.. I know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 14.339295387268066, Mistakes: 0.42307692766189575, Control Loss: 4.881003379821777, Total Loss: 0.5206969976425171
+Time taken to get recomputed solution logits:  55.57172131538391
+>Prompt Choice:  this to,.. I know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 11.651140213012695, Mistakes: 0.3333333432674408, Control Loss: 5.007071495056152, Total Loss: 0.4334747791290283
+No improvement in the current position. Moving to the next position.
+New Control:  this to,.. I know this. I think. I cause things like that all day every single day I do this job and this is_, New Loss: 0.4334747791290283
+Current length: 27
+ this to,.. I know this. I think. I cause things like that all day every single day I do this job and this is_normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Current Loss: 0.4334747791290283 Best Loss: 0.4334747791290283 Best Control:  this to,.. I know this. I think. I cause things like that all day every single day I do this job and this is_
+Time taken to update solutions:  124.92007851600647
+Intersection set size: 2
+Candidate tokens:  explain illustrate
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  illustrate argue explain think discuss
+>>>> Topk increased to 9 <<<<
+Intersection set size: 4
+Candidate tokens:  illustrate answer explain think
+>>>> Topk increased to 11 <<<<
+Intersection set size: 7
+Candidate tokens:  illustrate argue answer explore think discuss explain
+Time taken to get recomputed solution logits:  85.47007989883423
+>Prompt Choice:  this to discuss I know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 13.850024223327637, Mistakes: 0.37931033968925476, Control Loss: 4.88332986831665, Total Loss: 0.4769769310951233
+Time taken to get recomputed solution logits:  64.1305205821991
+>Prompt Choice:  this to explain I know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 8.82795524597168, Mistakes: 0.29629629850387573, Control Loss: 4.818869113922119, Total Loss: 0.39267367124557495
+Time taken to get recomputed solution logits:  57.85130333900452
+>Prompt Choice:  this to explore I know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 19.51321792602539, Mistakes: 0.5416666865348816, Control Loss: 4.900683879852295, Total Loss: 0.6396803855895996
+No improvement in the current position. Moving to the next position.
+New Control:  this to explain I know this. I think. I cause things like that all day every single day I do this job and this is_, New Loss: 0.39267367124557495
+Current length: 27
+ this to explain I know this. I think. I cause things like that all day every single day I do this job and this is_
+Current Loss: 0.39267367124557495 Best Loss: 0.39267367124557495 Best Control:  this to explain I know this. I think. I cause things like that all day every single day I do this job and this is_
+Time taken to update solutions:  119.01233983039856
+Intersection set size: 4
+Candidate tokens:  your why how the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . your why how what the
+Time taken to get recomputed solution logits:  67.33766865730286
+>Prompt Choice:  this to explain what know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 14.423518180847168, Mistakes: 0.35999998450279236, Control Loss: 4.744622230529785, Total Loss: 0.45489242672920227
+Time taken to get recomputed solution logits:  76.65026903152466
+>Prompt Choice:  this to explain why know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 19.339008331298828, Mistakes: 0.5600000023841858, Control Loss: 4.594839096069336, Total Loss: 0.6518967747688293
+Time taken to get recomputed solution logits:  66.48270893096924
+>Prompt Choice:  this to explain how know this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 12.172606468200684, Mistakes: 0.42307692766189575, Control Loss: 4.523791313171387, Total Loss: 0.5135527849197388
+No improvement in the current position. Moving to the next position.
+New Control:  this to explain what know this. I think. I cause things like that all day every single day I do this job and this is_, New Loss: 0.45489242672920227
+Current length: 27
+ this to explain what know this. I think. I cause things like that all day every single day I do this job and this is_
+Current Loss: 0.45489242672920227 Best Loss: 0.39267367124557495 Best Control:  this to explain I know this. I think. I cause things like that all day every single day I do this job and this is_
+Time taken to update solutions:  138.61155772209167
+Intersection set size: 3
+Candidate tokens:  you causation caused
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  happened you causation is a caused
+Time taken to get recomputed solution logits:  98.24211072921753
+>Prompt Choice:  this to explain what causation this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 13.86495304107666, Mistakes: 0.46666669845581055, Control Loss: 4.999092102050781, Total Loss: 0.566648542881012
+Time taken to get recomputed solution logits:  85.79511070251465
+>Prompt Choice:  this to explain what happened this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 12.128732681274414, Mistakes: 0.3636363744735718, Control Loss: 4.877702713012695, Total Loss: 0.46119043231010437
+Time taken to get recomputed solution logits:  67.86683630943298
+>Prompt Choice:  this to explain what is this. I think. I cause things like that all day every single day I do this job and this is_ Loss: 5.91532564163208, Mistakes: 0.21739131212234497, Control Loss: 4.934691429138184, Total Loss: 0.3160851299762726
+No improvement in the current position. Moving to the next position.
+New Control:  this to explain what is this. I think. I cause things like that all day every single day I do this job and this is_, New Loss: 0.3160851299762726
+Current length: 27
+ this to explain what is this. I think. I cause things like that all day every single day I do this job and this is_
+Current Loss: 0.3160851299762726 Best Loss: 0.3160851299762726 Best Control:  this to explain what is this. I think. I cause things like that all day every single day I do this job and this is_
+Time taken to update solutions:  137.1001808643341
+Intersection set size: 2
+Candidate tokens:  meant wrong
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  wrong a meant happening going
+>>>> Topk increased to 9 <<<<
+Intersection set size: 3
+Candidate tokens:  a meant wrong
+>>>> Topk increased to 11 <<<<
+Intersection set size: 4
+Candidate tokens:  needed necessary a meant
+>>>> Topk increased to 13 <<<<
+Intersection set size: 8
+Candidate tokens:  likely happening going wrong actually meant a important
+Time taken to get recomputed solution logits:  66.81612157821655
+>Prompt Choice:  this to explain what is happening. I think. I cause things like that all day every single day I do this job and this is_ Loss: 11.074828147888184, Mistakes: 0.3478260934352875, Control Loss: 4.3715009689331055, Total Loss: 0.43525612354278564
+Time taken to get recomputed solution logits:  89.44753098487854
+>Prompt Choice:  this to explain what is wrong. I think. I cause things like that all day every single day I do this job and this is_ Loss: 15.379118919372559, Mistakes: 0.4482758641242981, Control Loss: 4.589261531829834, Total Loss: 0.5400611162185669
+Time taken to get recomputed solution logits:  93.35440373420715
+>Prompt Choice:  this to explain what is likely. I think. I cause things like that all day every single day I do this job and this is_ Loss: 15.152623176574707, Mistakes: 0.392857164144516, Control Loss: 4.527704238891602, Total Loss: 0.4834112524986267
+No improvement in the current position. Moving to the next position.
+New Control:  this to explain what is happening. I think. I cause things like that all day every single day I do this job and this is_, New Loss: 0.43525612354278564
+Current length: 27
+ this to explain what is happening. I think. I cause things like that all day every single day I do this job and this is_
+Current Loss: 0.43525612354278564 Best Loss: 0.3160851299762726 Best Control:  this to explain what is this. I think. I cause things like that all day every single day I do this job and this is_
+Time taken to update solutions:  144.458598613739
+Intersection set size: 5
+Candidate tokens: . and with here in
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: . and with, here  in
+Time taken to get recomputed solution logits:  73.85084080696106
+>Prompt Choice:  this to explain what is happening. I think. I cause things like that all day every single day I do this job and this is_ Loss: 11.762718200683594, Mistakes: 0.40740740299224854, Control Loss: 4.10262393951416, Total Loss: 0.4894598722457886normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  51.02827048301697
+>Prompt Choice:  this to explain what is happening, I think. I cause things like that all day every single day I do this job and this is_ Loss: 13.142963409423828, Mistakes: 0.47058823704719543, Control Loss: 4.005127906799316, Total Loss: 0.550690770149231
+Time taken to get recomputed solution logits:  66.10925912857056
+>Prompt Choice:  this to explain what is happening  I think. I cause things like that all day every single day I do this job and this is_ Loss: 10.651275634765625, Mistakes: 0.3461538553237915, Control Loss: 4.406688213348389, Total Loss: 0.4342876076698303
+No improvement in the current position. Moving to the next position.
+New Control:  this to explain what is happening  I think. I cause things like that all day every single day I do this job and this is_, New Loss: 0.4342876076698303
+Current length: 27
+ this to explain what is happening  I think. I cause things like that all day every single day I do this job and this is_
+Current Loss: 0.4342876076698303 Best Loss: 0.3160851299762726 Best Control:  this to explain what is this. I think. I cause things like that all day every single day I do this job and this is_
+Time taken to update solutions:  137.54390144348145
+Intersection set size: 2
+Candidate tokens: .No
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens: .withhereNo
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens: .withhereNoExplanationHereand
+Time taken to get recomputed solution logits:  82.04143905639648
+>Prompt Choice:  this to explain what is happening▁▁with think. I cause things like that all day every single day I do this job and this is_ Loss: 11.742644309997559, Mistakes: 0.38461539149284363, Control Loss: 4.801967144012451, Total Loss: 0.4806547164916992
+Time taken to get recomputed solution logits:  88.12935996055603
+>Prompt Choice:  this to explain what is happening▁▁. think. I cause things like that all day every single day I do this job and this is_ Loss: 9.139286994934082, Mistakes: 0.3103448152542114, Control Loss: 4.910192489624023, Total Loss: 0.40854865312576294
+Time taken to get recomputed solution logits:  90.11162853240967
+>Prompt Choice:  this to explain what is happening▁▁Explanation think. I cause things like that all day every single day I do this job and this is_ Loss: 11.380484580993652, Mistakes: 0.3448275923728943, Control Loss: 4.839343547821045, Total Loss: 0.44161444902420044
+No improvement in the current position. Moving to the next position.
+New Control:  this to explain what is happening▁▁. think. I cause things like that all day every single day I do this job and this is_, New Loss: 0.40854865312576294
+Current length: 27
+ this to explain what is happening▁▁. think. I cause things like that all day every single day I do this job and this is_
+Current Loss: 0.40854865312576294 Best Loss: 0.3160851299762726 Best Control:  this to explain what is this. I think. I cause things like that all day every single day I do this job and this is_
+Time taken to update solutions:  138.31457448005676
+Intersection set size: 3
+Candidate tokens:   NoNo
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:   Explain This No
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  Explain Here This The ItNo  No
+Time taken to get recomputed solution logits:  69.44171357154846
+>Prompt Choice:  this to explain what is happening▁▁. think. I cause things like that all day every single day I do this job and this is_ Loss: 15.415401458740234, Mistakes: 0.4545454680919647, Control Loss: 4.891898155212402, Total Loss: 0.5523834228515625
+Time taken to get recomputed solution logits:  62.95058298110962
+>Prompt Choice:  this to explain what is happening▁▁. . I cause things like that all day every single day I do this job and this is_ Loss: 9.398357391357422, Mistakes: 0.3181818127632141, Control Loss: 5.2093658447265625, Total Loss: 0.422369122505188
+Time taken to get recomputed solution logits:  63.95815372467041
+>Prompt Choice:  this to explain what is happening▁▁. The. I cause things like that all day every single day I do this job and this is_ Loss: 11.107478141784668, Mistakes: 0.3478260934352875, Control Loss: 4.869614601135254, Total Loss: 0.44521838426589966
+No improvement in the current position. Moving to the next position.
+New Control:  this to explain what is happening▁▁. . I cause things like that all day every single day I do this job and this is_, New Loss: 0.422369122505188
+Current length: 26
+ this to explain what is happening▁▁. . I cause things like that all day every single day I do this job and this is_
+Current Loss: 0.422369122505188 Best Loss: 0.3160851299762726 Best Control:  this to explain what is this. I think. I cause things like that all day every single day I do this job and this is_
+Time taken to update solutions:  133.46977424621582
+Intersection set size: 3
+Candidate tokens:   no No
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  This The I  no No a
+Time taken to get recomputed solution logits:  60.2323362827301
+>Prompt Choice:  this to explain what is happening▁▁. .  cause things like that all day every single day I do this job and this is_ Loss: 6.877320766448975, Mistakes: 0.260869562625885, Control Loss: 5.285937786102295, Total Loss: 0.3665883243083954
+Time taken to get recomputed solution logits:  68.77871942520142
+>Prompt Choice:  this to explain what is happening▁▁. . The cause things like that all day every single day I do this job and this is_ Loss: 12.83069133758545, Mistakes: 0.3461538553237915, Control Loss: 4.873614311218262, Total Loss: 0.44362613558769226
+Time taken to get recomputed solution logits:  87.6726188659668
+>Prompt Choice:  this to explain what is happening▁▁. . No cause things like that all day every single day I do this job and this is_ Loss: 13.103836059570312, Mistakes: 0.36666667461395264, Control Loss: 4.967546463012695, Total Loss: 0.46601760387420654
+No improvement in the current position. Moving to the next position.
+New Control:  this to explain what is happening▁▁. .  cause things like that all day every single day I do this job and this is_, New Loss: 0.3665883243083954
+Current length: 26
+ this to explain what is happening▁▁. .  cause things like that all day every single day I do this job and this is_
+Current Loss: 0.3665883243083954 Best Loss: 0.3160851299762726 Best Control:  this to explain what is this. I think. I cause things like that all day every single day I do this job and this is_
+Time taken to update solutions:  125.20789527893066
+Intersection set size: 3
+Candidate tokens: .ExplainNo
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: explain.,NoExplain
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens: explain.,NoExplainand
+Time taken to get recomputed solution logits:  50.7968065738678
+>Prompt Choice:  this to explain what is happening▁▁. .▁▁explain things like that all day every single day I do this job and this is_ Loss: 15.667774200439453, Mistakes: 0.5555555820465088, Control Loss: 4.523024559020996, Total Loss: 0.6460160613059998
+Time taken to get recomputed solution logits:  74.44915699958801
+>Prompt Choice:  this to explain what is happening▁▁. .▁▁Explain things like that all day every single day I do this job and this is_ Loss: 7.684443950653076, Mistakes: 0.4000000059604645, Control Loss: 4.5777153968811035, Total Loss: 0.491554319858551
+Time taken to get recomputed solution logits:  81.854727268219
+>Prompt Choice:  this to explain what is happening▁▁. .▁▁No things like that all day every single day I do this job and this is_ Loss: 15.354981422424316, Mistakes: 0.46666669845581055, Control Loss: 4.7843828201293945, Total Loss: 0.562354326248169
+No improvement in the current position. Moving to the next position.
+New Control:  this to explain what is happening▁▁. .▁▁Explain things like that all day every single day I do this job and this is_, New Loss: 0.491554319858551
+Current length: 26
+ this to explain what is happening▁▁. .▁▁Explain things like that all day every single day I do this job and this is_normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Process Process-1:
+Traceback (most recent call last):
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "../llm_opt/base/attack_manager.py", line 2460, in run
+    results.put(ob.grad(*args, **kwargs))
+  File "../llm_opt/base/attack_manager.py", line 1019, in grad
+    return sum([prompt.grad(model, current_pos, valid_tokens) for prompt in self._prompts])
+  File "../llm_opt/base/attack_manager.py", line 1019, in <listcomp>
+    return sum([prompt.grad(model, current_pos, valid_tokens) for prompt in self._prompts])
+  File "../llm_opt/gcg/gcg_attack.py", line 122, in grad
+    return token_gradients(
+  File "../llm_opt/gcg/gcg_attack.py", line 109, in token_gradients
+    loss.backward()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/_tensor.py", line 525, in backward
+    torch.autograd.backward(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 1018.00 MiB. GPU 
+[W CudaIPCTypes.cpp:16] Producer process has been terminated before all shared CUDA tensors released. See Note [Sharing CUDA tensors]
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 33 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

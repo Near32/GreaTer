@@ -1,0 +1,1512 @@
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: proper logical reasoning and think step by step. Finally give the actual
+  correct answer.
+control_weight: 0.2
+conversation_templates:
+- gemma-2
+- gemma-2
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ valid'' or ''$
+  invalid'') is $'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_gemma2_formal_fallacies_ffr.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/formal_fallacies.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  use_fast: false
+- add_bos_token: false
+  use_fast: false
+tokenizer_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+topk: 40
+train_data: ../data/BBH/formal_fallacies.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.60it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.67it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.67it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.85it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.77it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.79it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.80it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.79it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.93it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.88it/s]Initialized Workers...
+
+Started worker 3733178 for model google/gemma-2-9b-it
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Started worker 3733608 for model google/gemma-2-9b-it
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  170.2315502166748
+Intersection set size: 15
+Candidate tokens:  of Modus proof example count a your case an Case this contra modus counter the
+Time taken to get recomputed solution logits:  100.32680225372314
+>Prompt Choice:  Modus logical reasoning and think step by step. Finally give the actual correct answer. Loss: 23.068485260009766, Mistakes: 0.47999998927116394, Control Loss: 5.755191326141357, Total Loss: 0.5951038002967834
+Time taken to get recomputed solution logits:  104.77107858657837
+>Prompt Choice:  modus logical reasoning and think step by step. Finally give the actual correct answer. Loss: 17.968374252319336, Mistakes: 0.3636363744735718, Control Loss: 5.685708045959473, Total Loss: 0.47735053300857544
+Time taken to get recomputed solution logits:  110.4279465675354
+>Prompt Choice:  count logical reasoning and think step by step. Finally give the actual correct answer. Loss: 19.796630859375, Mistakes: 0.40740740299224854, Control Loss: 5.886733055114746, Total Loss: 0.5251420736312866
+No improvement in the current position. Moving to the next position.
+New Control:  modus logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.47735053300857544
+Current length: 15
+ modus logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.47735053300857544 Best Loss: 0.47735053300857544 Best Control:  modus logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.47735053300857544, ' modus logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  181.9215567111969
+Intersection set size: 18
+Candidate tokens:  po pod Pon tol poll ponen operToll to tolle tolls ton Toll tollen viven p pon toll
+Time taken to get recomputed solution logits:  84.69628620147705
+>Prompt Choice:  modus to reasoning and think step by step. Finally give the actual correct answer. Loss: 22.876249313354492, Mistakes: 0.4761904776096344, Control Loss: 5.896946907043457, Total Loss: 0.5941294431686401
+Time taken to get recomputed solution logits:  106.8900682926178
+>Prompt Choice:  modus Pon reasoning and think step by step. Finally give the actual correct answer. Loss: 19.269134521484375, Mistakes: 0.3913043439388275, Control Loss: 6.933302879333496, Total Loss: 0.5299704074859619
+Time taken to get recomputed solution logits:  95.58112788200378
+>Prompt Choice:  modus pon reasoning and think step by step. Finally give the actual correct answer. Loss: 12.979470252990723, Mistakes: 0.260869562625885, Control Loss: 6.878725528717041, Total Loss: 0.3984440565109253
+No improvement in the current position. Moving to the next position.
+New Control:  modus pon reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.3984440565109253
+Current length: 15
+ modus pon reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.3984440565109253 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  179.05934381484985
+Intersection set size: 17
+Candidate tokens: ensisendisenesendumendienendsendnsenteendoemensentesnesenisentis
+Time taken to get recomputed solution logits:  118.37764954566956
+>Prompt Choice:  modus ponenis and think step by step. Finally give the actual correct answer. Loss: 14.316869735717773, Mistakes: 0.2857142984867096, Control Loss: 6.118844985961914, Total Loss: 0.4080911874771118
+Time taken to get recomputed solution logits:  92.3439552783966
+>Prompt Choice:  modus ponns and think step by step. Finally give the actual correct answer. Loss: 17.00981903076172, Mistakes: 0.3461538553237915, Control Loss: 6.107239723205566, Total Loss: 0.46829864382743835
+Time taken to get recomputed solution logits:  95.22169876098633
+>Prompt Choice:  modus ponens and think step by step. Finally give the actual correct answer. Loss: 14.19317626953125, Mistakes: 0.2857142984867096, Control Loss: 6.14060115814209, Total Loss: 0.40852630138397217
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis and think step by step. Finally give the actual correct answer., New Loss: 0.4080911874771118
+Current length: 15
+ modus ponenis and think step by step. Finally give the actual correct answer.
+Current Loss: 0.4080911874771118 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  176.00220441818237
+Intersection set size: 19
+Candidate tokens:  to. and falla, error incorrectly but rule reasoning for instead with on as  or fallacy in
+Time taken to get recomputed solution logits:  121.40325498580933
+>Prompt Choice:  modus ponenis falla think step by step. Finally give the actual correct answer. Loss: 21.424413681030273, Mistakes: 0.4285714626312256, Control Loss: 5.584477424621582, Total Loss: 0.5402610301971436
+Time taken to get recomputed solution logits:  108.10570073127747
+>Prompt Choice:  modus ponenis and think step by step. Finally give the actual correct answer. Loss: 20.395841598510742, Mistakes: 0.40740740299224854, Control Loss: 4.983987808227539, Total Loss: 0.5070871710777283
+Time taken to get recomputed solution logits:  94.41558885574341
+>Prompt Choice:  modus ponenis incorrectly think step by step. Finally give the actual correct answer. Loss: 17.753965377807617, Mistakes: 0.3478260934352875, Control Loss: 5.220752716064453, Total Loss: 0.4522411525249481
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly think step by step. Finally give the actual correct answer., New Loss: 0.4522411525249481
+Current length: 15
+ modus ponenis incorrectly think step by step. Finally give the actual correct answer.
+Current Loss: 0.4522411525249481 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  167.62384366989136
+Intersection set size: 19
+Candidate tokens:  applied. to and, because used due by for when on with as here  or assuming in
+Time taken to get recomputed solution logits:  92.89771866798401
+>Prompt Choice:  modus ponenis incorrectly think step by step. Finally give the actual correct answer. Loss: 22.880863189697266, Mistakes: 0.4583333432674408, Control Loss: 5.264458656311035, Total Loss: 0.5636225342750549
+Time taken to get recomputed solution logits:  94.1946496963501
+>Prompt Choice:  modus ponenis incorrectly because step by step. Finally give the actual correct answer. Loss: 16.70851707458496, Mistakes: 0.3333333432674408, Control Loss: 6.215707778930664, Total Loss: 0.45764750242233276
+Time taken to get recomputed solution logits:  119.8033537864685
+>Prompt Choice:  modus ponenis incorrectly here step by step. Finally give the actual correct answer. Loss: 19.22118377685547, Mistakes: 0.3870967626571655, Control Loss: 5.92696475982666, Total Loss: 0.5056360363960266
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step by step. Finally give the actual correct answer., New Loss: 0.45764750242233276
+Current length: 15
+ modus ponenis incorrectly because step by step. Finally give the actual correct answer.
+Current Loss: 0.45764750242233276 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  171.78901481628418
+Intersection set size: 14
+Candidate tokens:  of not we there only they it its a this modus  you the
+Time taken to get recomputed solution logits:  90.39898729324341
+>Prompt Choice:  modus ponenis incorrectly because step by step. Finally give the actual correct answer. Loss: 17.082914352416992, Mistakes: 0.3333333432674408, Control Loss: 5.801146030426025, Total Loss: 0.4493562579154968
+Time taken to get recomputed solution logits: normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+ 87.69679856300354
+>Prompt Choice:  modus ponenis incorrectly because  by step. Finally give the actual correct answer. Loss: 21.132949829101562, Mistakes: 0.42307692766189575, Control Loss: 7.120996952056885, Total Loss: 0.5654968619346619
+Time taken to get recomputed solution logits:  85.69419646263123
+>Prompt Choice:  modus ponenis incorrectly because they by step. Finally give the actual correct answer. Loss: 15.869600296020508, Mistakes: 0.3199999928474426, Control Loss: 6.76908540725708, Total Loss: 0.45538169145584106
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step by step. Finally give the actual correct answer., New Loss: 0.4493562579154968
+Current length: 15
+ modus ponenis incorrectly because step by step. Finally give the actual correct answer.
+Current Loss: 0.4493562579154968 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  169.01647996902466
+Intersection set size: 17
+Candidate tokens:  of to doesn. should from A one II is by four two three  does in
+Time taken to get recomputed solution logits:  90.99772763252258
+>Prompt Choice:  modus ponenis incorrectly because step in step. Finally give the actual correct answer. Loss: 15.944847106933594, Mistakes: 0.3333333432674408, Control Loss: 6.105335712432861, Total Loss: 0.45544004440307617
+Time taken to get recomputed solution logits:  86.42583656311035
+>Prompt Choice:  modus ponenis incorrectly because step is step. Finally give the actual correct answer. Loss: 14.806381225585938, Mistakes: 0.2800000011920929, Control Loss: 6.374579906463623, Total Loss: 0.4074915945529938
+Time taken to get recomputed solution logits:  118.60626649856567
+>Prompt Choice:  modus ponenis incorrectly because step by step. Finally give the actual correct answer. Loss: 22.396434783935547, Mistakes: 0.4375, Control Loss: 5.79939079284668, Total Loss: 0.5534878373146057
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is step. Finally give the actual correct answer., New Loss: 0.4074915945529938
+Current length: 15
+ modus ponenis incorrectly because step is step. Finally give the actual correct answer.
+Current Loss: 0.4074915945529938 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  150.44347739219666
+Intersection set size: 15
+Candidate tokens:  missing assumed not invalid incorrect only wrong based a an already made  taken too
+Time taken to get recomputed solution logits:  78.5039496421814
+>Prompt Choice:  modus ponenis incorrectly because step is invalid. Finally give the actual correct answer. Loss: 20.66256332397461, Mistakes: 0.3999999761581421, Control Loss: 6.3877410888671875, Total Loss: 0.5277547836303711
+Time taken to get recomputed solution logits:  67.4403293132782
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect. Finally give the actual correct answer. Loss: 16.092891693115234, Mistakes: 0.30000001192092896, Control Loss: 6.2933244705200195, Total Loss: 0.4258664846420288
+Time taken to get recomputed solution logits:  75.82043600082397
+>Prompt Choice:  modus ponenis incorrectly because step is assumed. Finally give the actual correct answer. Loss: 26.679731369018555, Mistakes: 0.52173912525177, Control Loss: 6.450447082519531, Total Loss: 0.650748074054718
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect. Finally give the actual correct answer., New Loss: 0.4258664846420288
+Current length: 15
+ modus ponenis incorrectly because step is incorrect. Finally give the actual correct answer.
+Current Loss: 0.4258664846420288 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  130.87983465194702
+Intersection set size: 15
+Candidate tokens: . and to, from because due based forly step as  or in
+Time taken to get recomputed solution logits:  108.2360451221466
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect and Finally give the actual correct answer. Loss: 22.871322631835938, Mistakes: 0.4333333671092987, Control Loss: 6.512716770172119, Total Loss: 0.5635876655578613
+Time taken to get recomputed solution logits:  82.26744508743286
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect from Finally give the actual correct answer. Loss: 16.677976608276367, Mistakes: 0.3499999940395355, Control Loss: 5.991481304168701, Total Loss: 0.46982961893081665
+Time taken to get recomputed solution logits:  82.83000588417053
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for Finally give the actual correct answer. Loss: 14.52815055847168, Mistakes: 0.30434784293174744, Control Loss: 6.225665092468262, Total Loss: 0.428861141204834
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for Finally give the actual correct answer., New Loss: 0.428861141204834
+Current length: 15
+ modus ponenis incorrectly because step is incorrect for Finally give the actual correct answer.
+Current Loss: 0.428861141204834 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  134.39219450950623
+Intersection set size: 14
+Candidate tokens:  the Modus applying valid example it a an this step that modus some its
+Time taken to get recomputed solution logits:  87.7878885269165
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for a give the actual correct answer. Loss: 17.700193405151367, Mistakes: 0.37037038803100586, Control Loss: 7.0571746826171875, Total Loss: 0.511513888835907
+Time taken to get recomputed solution logits:  83.00248837471008
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some give the actual correct answer. Loss: 16.090774536132812, Mistakes: 0.35999998450279236, Control Loss: 6.848298072814941, Total Loss: 0.4969659447669983
+Time taken to get recomputed solution logits:  77.8114001750946
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for it give the actual correct answer. Loss: 22.122018814086914, Mistakes: 0.4545454680919647, Control Loss: 7.186568260192871, Total Loss: 0.5982768535614014
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some give the actual correct answer., New Loss: 0.4969659447669983
+Current length: 15
+ modus ponenis incorrectly because step is incorrect for some give the actual correct answer.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.4969659447669983 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  134.26687598228455
+Intersection set size: 14
+Candidate tokens:  of unknown other unspecified specific premises rule reasoning step logical reasons argument steps reason
+Time taken to get recomputed solution logits:  100.6430242061615
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises the actual correct answer. Loss: 16.875181198120117, Mistakes: 0.3571428656578064, Control Loss: 6.734957695007324, Total Loss: 0.49184203147888184
+Time taken to get recomputed solution logits:  77.89131689071655
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some of the actual correct answer. Loss: 25.029315948486328, Mistakes: 0.5384615659713745, Control Loss: 6.672537803649902, Total Loss: 0.6719123125076294
+Time taken to get recomputed solution logits:  81.041748046875
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some unknown the actual correct answer. Loss: 20.48430824279785, Mistakes: 0.4399999976158142, Control Loss: 7.005192756652832, Total Loss: 0.580103874206543normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises the actual correct answer., New Loss: 0.49184203147888184
+Current length: 15
+ modus ponenis incorrectly because step is incorrect for some premises the actual correct answer.
+Current Loss: 0.49184203147888184 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  141.42754697799683
+Intersection set size: 14
+Candidate tokens: . and to are, given not that do  or which being in
+Time taken to get recomputed solution logits:  79.42525434494019
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises, actual correct answer. Loss: 26.551071166992188, Mistakes: 0.5454545617103577, Control Loss: 6.581416130065918, Total Loss: 0.677082896232605
+Time taken to get recomputed solution logits:  81.91095328330994
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises  actual correct answer. Loss: 20.5139217376709, Mistakes: 0.42307692766189575, Control Loss: 7.176332473754883, Total Loss: 0.5666035413742065
+Time taken to get recomputed solution logits:  83.91460084915161
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. actual correct answer. Loss: 28.580974578857422, Mistakes: 0.5909091234207153, Control Loss: 6.796995639801025, Total Loss: 0.7268490195274353
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. actual correct answer., New Loss: 0.7268490195274353
+Current length: 15
+ modus ponenis incorrectly because step is incorrect for some premises. actual correct answer.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.7268490195274353 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  145.26134753227234
+Intersection set size: 18
+Candidate tokens:  use Modus This The A It Step We Using You Apply  In Use Uses Incorrect Error Invalid
+Time taken to get recomputed solution logits:  101.47302746772766
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid correct answer. Loss: 15.689043998718262, Mistakes: 0.3214285969734192, Control Loss: 6.84080696105957, Total Loss: 0.4582447409629822
+Time taken to get recomputed solution logits:  79.7877631187439
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Incorrect correct answer. Loss: 16.25997543334961, Mistakes: 0.35999998450279236, Control Loss: 6.830360412597656, Total Loss: 0.4966071844100952
+Time taken to get recomputed solution logits:  84.35375833511353
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Apply correct answer. Loss: 17.71915054321289, Mistakes: 0.375, Control Loss: 6.8003950119018555, Total Loss: 0.5110079050064087
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid correct answer., New Loss: 0.4582447409629822
+Current length: 15
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid correct answer.
+Current Loss: 0.4582447409629822 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  142.55152034759521
+Intersection set size: 18
+Candidate tokens: . use since because,ated uses due arguments also reasoning for conclusionity as  argument in
+Time taken to get recomputed solution logits:  74.98669600486755
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due answer. Loss: 18.986364364624023, Mistakes: 0.3999999761581421, Control Loss: 7.046348571777344, Total Loss: 0.5409269332885742
+Time taken to get recomputed solution logits:  74.48103737831116
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid as answer. Loss: 21.056537628173828, Mistakes: 0.4444444477558136, Control Loss: 6.6420135498046875, Total Loss: 0.5772846937179565
+Time taken to get recomputed solution logits:  70.35107135772705
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid because answer. Loss: 23.90629768371582, Mistakes: 0.52173912525177, Control Loss: 6.814306259155273, Total Loss: 0.6580252647399902
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due answer., New Loss: 0.5409269332885742
+Current length: 15
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due answer.
+Current Loss: 0.5409269332885742 Best Loss: 0.3984440565109253 Best Control:  modus pon reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  144.66534066200256
+Intersection set size: 17
+Candidate tokens:  to missing. other improper ot because not incorrect mis a lack faulty  another too the
+Time taken to get recomputed solution logits:  72.87797570228577
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because. Loss: 7.515098571777344, Mistakes: 0.1666666716337204, Control Loss: 6.66525936126709, Total Loss: 0.2999718487262726
+Time taken to get recomputed solution logits:  69.85742044448853
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due . Loss: 18.591262817382812, Mistakes: 0.3999999761581421, Control Loss: 7.138279914855957, Total Loss: 0.5427655577659607
+Time taken to get recomputed solution logits:  82.1511754989624
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due incorrect. Loss: 18.236526489257812, Mistakes: 0.392857164144516, Control Loss: 6.659511566162109, Total Loss: 0.52604740858078
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because., New Loss: 0.2999718487262726
+Current length: 15
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Current Loss: 0.2999718487262726 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  140.7534532546997
+Intersection set size: 17
+Candidate tokens:  of not one we premises there it its a premise an step modus  some argument the
+Time taken to get recomputed solution logits:  76.21228432655334
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we Loss: 15.28332233428955, Mistakes: 0.3199999928474426, Control Loss: 6.084887981414795, Total Loss: 0.44169774651527405
+Time taken to get recomputed solution logits:  97.19636344909668
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because there Loss: 17.051136016845703, Mistakes: 0.36666667461395264, Control Loss: 6.100582122802734, Total Loss: 0.48867830634117126
+Time taken to get recomputed solution logits:  71.32051992416382
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because modus Loss: 24.450767517089844, Mistakes: 0.550000011920929, Control Loss: 6.06722354888916, Total Loss: 0.6713444590568542
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we_, New Loss: 0.44169774651527405
+Current length: 16
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we_
+Current Loss: 0.44169774651527405 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Step:  15 Candidates:  [(0.2999718487262726, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.'), (0.3984440565109253, ' modus pon reasoning and think step by step. Finally give the actual correct answer.'), (0.4074915945529938, ' modus ponenis incorrectly because step is step. Finally give the actual correct answer.'), (0.4080911874771118, ' modus ponenis and think step by step. Finally give the actual correct answer.'), (0.4258664846420288, ' modus ponenis incorrectly because step is incorrect. Finally give the actual correct answer.'), (0.428861141204834, ' modus ponenis incorrectly because step is incorrect for Finally give the actual correct answer.'), (0.44169774651527405, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we_'), (0.4493562579154968, ' modus ponenis incorrectly because step by step. Finally give the actual correct answer.'), (0.4522411525249481, ' modus ponenis incorrectly think step by step. Finally give the actual correct answer.'), (0.45764750242233276, ' modus ponenis incorrectly because step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  139.47348928451538
+Intersection set size: 16
+Candidate tokens:  use cant are need should assume cannot assumed know must have dont can lack don do
+Time taken to get recomputed solution logits:  72.58738780021667
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cannot Loss: 19.78042221069336, Mistakes: 0.43478262424468994, Control Loss: 6.4043426513671875, Total Loss: 0.5628694891929626
+Time taken to get recomputed solution logits:  71.82402157783508
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant Loss: 18.640466690063477, Mistakes: 0.3999999761581421, Control Loss: 6.384705543518066, Total Loss: 0.5276941061019897
+Time taken to get recomputed solution logits:  62.80398988723755
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we are Loss: 20.914932250976562, Mistakes: 0.4545454680919647, Control Loss: 6.421494483947754, Total Loss: 0.5829753875732422
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant_, New Loss: 0.5276941061019897
+Current length: 17
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant_
+Current Loss: 0.5276941061019897 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  138.2304883003235
+Intersection set size: 17
+Candidate tokens:  use prove conclude assume tell say know directly establish guarantee make derive be determine infer logically apply
+Time taken to get recomputed solution logits:  74.40071320533752
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant say Loss: 15.579778671264648, Mistakes: 0.3461538553237915, Control Loss: 6.277050018310547, Total Loss: 0.47169485688209534
+Time taken to get recomputed solution logits:  77.44799566268921
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell Loss: 16.223316192626953, Mistakes: 0.3333333432674408, Control Loss: 6.28257942199707, Total Loss: 0.458984911441803
+Time taken to get recomputed solution logits:  84.47503757476807
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant know Loss: 19.463956832885742, Mistakes: 0.43478262424468994, Control Loss: 6.258852958679199, Total Loss: 0.5599596500396729
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell_, New Loss: 0.458984911441803
+Current length: 18
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell_
+Current Loss: 0.458984911441803 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  146.5389370918274
+Intersection set size: 17
+Candidate tokens: . from about how a for that with who whether  which if anything relationship what the
+Time taken to get recomputed solution logits:  99.64005303382874
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who Loss: 18.188949584960938, Mistakes: 0.392857164144516, Control Loss: 6.108827114105225, Total Loss: 0.5150337219238281
+Time taken to get recomputed solution logits:  75.42004919052124
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell anything Loss: 20.0911865234375, Mistakes: 0.42307692766189575, Control Loss: 6.1656694412231445, Total Loss: 0.5463902950286865
+Time taken to get recomputed solution logits:  89.27458310127258
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell a Loss: 22.823848724365234, Mistakes: 0.5, Control Loss: 6.144893169403076, Total Loss: 0.6228978633880615
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who_, New Loss: 0.5150337219238281
+Current length: 19
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who_
+Current Loss: 0.5150337219238281 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  137.55188655853271
+Intersection set size: 7
+Candidate tokens:  all are or has is a the
+Time taken to get recomputed solution logits:  90.92819857597351
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who has Loss: 18.025205612182617, Mistakes: 0.37931033968925476, Control Loss: 6.037360668182373, Total Loss: 0.500057578086853
+Time taken to get recomputed solution logits:  90.25606846809387
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is Loss: 17.35625648498535, Mistakes: 0.36666667461395264, Control Loss: 6.046657085418701, Total Loss: 0.48759981989860535
+Time taken to get recomputed solution logits:  86.34599208831787
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who_ Loss: 19.071048736572266, Mistakes: 0.41379308700561523, Control Loss: 6.055428981781006, Total Loss: 0.5349016785621643
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is_, New Loss: 0.48759981989860535
+Current length: 20
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is_
+Current Loss: 0.48759981989860535 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  137.5497269630432
+Intersection set size: 10
+Candidate tokens:  and who not in related or being a the an
+Time taken to get recomputed solution logits:  65.28623628616333
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is who Loss: 16.944408416748047, Mistakes: 0.35999998450279236, Control Loss: 5.815054416656494, Total Loss: 0.47630107402801514
+Time taken to get recomputed solution logits:  94.29629826545715
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is the Loss: 15.083134651184082, Mistakes: 0.3333333432674408, Control Loss: 5.826960563659668, Total Loss: 0.44987255334854126normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  74.14519572257996
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an Loss: 13.636359214782715, Mistakes: 0.29629629850387573, Control Loss: 5.846357345581055, Total Loss: 0.4132234454154968
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an_, New Loss: 0.4132234454154968
+Current length: 21
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an_
+Current Loss: 0.4132234454154968 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  138.73152232170105
+Intersection set size: 0
+Candidate tokens: 
+>>>> Topk increased to 22 <<<<
+Intersection set size: 1
+Candidate tokens:  actual
+>>>> Topk increased to 24 <<<<
+Intersection set size: 3
+Candidate tokens:  actual a individual
+>>>> Topk increased to 26 <<<<
+Intersection set size: 2
+Candidate tokens:  enemy individual
+>>>> Topk increased to 28 <<<<
+Intersection set size: 3
+Candidate tokens:  enemy individual actual
+>>>> Topk increased to 30 <<<<
+Intersection set size: 2
+Candidate tokens:  actual a
+>>>> Topk increased to 32 <<<<
+Intersection set size: 2
+Candidate tokens:  individual actual
+>>>> Topk increased to 34 <<<<
+Intersection set size: 3
+Candidate tokens:  individual actual a
+>>>> Topk increased to 36 <<<<
+Intersection set size: 3
+Candidate tokens:  actual a individual
+>>>> Topk increased to 38 <<<<
+Intersection set size: 4
+Candidate tokens:  enemy individual actual a
+>>>> Topk increased to 40 <<<<
+Intersection set size: 11
+Candidate tokens:  immediate individual offspring uncle actual enemycester ancestor heir aunt a
+Time taken to get recomputed solution logits:  81.91940402984619
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an_ Loss: 15.241154670715332, Mistakes: 0.3333333432674408, Control Loss: 5.799855709075928, Total Loss: 0.4493304491043091
+Time taken to get recomputed solution logits:  108.01810073852539
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an enemy Loss: 17.752124786376953, Mistakes: 0.40000003576278687, Control Loss: 5.736166954040527, Total Loss: 0.5147233605384827
+Time taken to get recomputed solution logits:  78.43037104606628
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an heir Loss: 15.71732234954834, Mistakes: 0.3478260934352875, Control Loss: 5.773872375488281, Total Loss: 0.4633035361766815
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an__, New Loss: 0.4493304491043091
+Current length: 21
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an__
+Current Loss: 0.4493304491043091 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  144.12879347801208
+Intersection set size: 0
+Candidate tokens: 
+>>>> Topk increased to 22 <<<<
+Intersection set size: 0
+Candidate tokens: 
+>>>> Topk increased to 24 <<<<
+Intersection set size: 0
+Candidate tokens: 
+>>>> Topk increased to 26 <<<<
+Intersection set size: 6
+Candidate tokens:  uncle immediate individual offspring ancestor actual
+Time taken to get recomputed solution logits:  77.98132801055908
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle Loss: 15.145416259765625, Mistakes: 0.3333333432674408, Control Loss: 5.863993167877197, Total Loss: 0.45061320066452026
+Time taken to get recomputed solution logits:  83.20928978919983
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an actual Loss: 18.01141357421875, Mistakes: 0.38461539149284363, Control Loss: 5.8995184898376465, Total Loss: 0.5026057362556458
+Time taken to get recomputed solution logits:  86.26129245758057
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an immediate Loss: 24.227863311767578, Mistakes: 0.5185185074806213, Control Loss: 5.886812686920166, Total Loss: 0.6362547874450684
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle_, New Loss: 0.45061320066452026
+Current length: 22
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle_
+Current Loss: 0.45061320066452026 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  136.387766122818
+Intersection set size: 17
+Candidate tokens:  of. to and, from because based by for with who without  or if in
+Time taken to get recomputed solution logits:  108.38431000709534
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle who Loss: 24.307039260864258, Mistakes: 0.5333333611488342, Control Loss: 5.825710296630859, Total Loss: 0.6498475670814514
+Time taken to get recomputed solution logits:  98.50485682487488
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle of Loss: 16.238304138183594, Mistakes: 0.3571428656578064, Control Loss: 5.803501605987549, Total Loss: 0.4732128977775574
+Time taken to get recomputed solution logits:  98.20788359642029
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from Loss: 14.44360637664795, Mistakes: 0.3214285969734192, Control Loss: 5.815183639526367, Total Loss: 0.4377322793006897
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from_, New Loss: 0.4377322793006897
+Current length: 23
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from_
+Current Loss: 0.4377322793006897 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  136.09654688835144
+Intersection set size: 15
+Candidate tokens:  whom premises aunt someone a an this step just who these some which what the
+Time taken to get recomputed solution logits:  73.18247127532959
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from someone Loss: 19.957569122314453, Mistakes: 0.45000001788139343, Control Loss: 5.850798606872559, Total Loss: 0.5670160055160522
+Time taken to get recomputed solution logits:  80.70649671554565
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from this Loss: 22.0023250579834, Mistakes: 0.4761904776096344, Control Loss: 5.790608882904053, Total Loss: 0.5920026302337646
+Time taken to get recomputed solution logits:  99.1836986541748
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which Loss: 20.08493423461914, Mistakes: 0.4375, Control Loss: 5.795206069946289, Total Loss: 0.5534040927886963
+No improvement in the current position. Moving to the next position.normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which_, New Loss: 0.5534040927886963
+Current length: 24
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which_
+Current Loss: 0.5534040927886963 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  134.98927116394043
+Intersection set size: 13
+Candidate tokens:  of. other cousin statement one premises person aunt premise side family argument
+Time taken to get recomputed solution logits:  79.3267514705658
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which_ Loss: 17.6900691986084, Mistakes: 0.380952388048172, Control Loss: 5.72804069519043, Total Loss: 0.4955132007598877
+Time taken to get recomputed solution logits:  79.11348009109497
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other Loss: 15.225275993347168, Mistakes: 0.3333333432674408, Control Loss: 5.714831829071045, Total Loss: 0.44762998819351196
+Time taken to get recomputed solution logits:  81.35082674026489
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which side Loss: 22.385156631469727, Mistakes: 0.5, Control Loss: 5.739484786987305, Total Loss: 0.6147897243499756
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other_, New Loss: 0.44762998819351196
+Current length: 25
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other_
+Current Loss: 0.44762998819351196 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  142.20349860191345
+Intersection set size: 13
+Candidate tokens: . relations relation characters person persons character relatives family people relative relationship individuals
+Time taken to get recomputed solution logits:  82.84556531906128
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other persons Loss: 17.14263343811035, Mistakes: 0.37037038803100586, Control Loss: 5.683905601501465, Total Loss: 0.4840484857559204
+Time taken to get recomputed solution logits:  80.77648878097534
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other_ Loss: 17.521839141845703, Mistakes: 0.38461539149284363, Control Loss: 5.714710235595703, Total Loss: 0.498909592628479
+Time taken to get recomputed solution logits:  81.26535296440125
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person Loss: 15.966036796569824, Mistakes: 0.3461538553237915, Control Loss: 5.686008453369141, Total Loss: 0.4598740339279175
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person_, New Loss: 0.4598740339279175
+Current length: 26
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person_
+Current Loss: 0.4598740339279175 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  130.8558166027069
+Intersection set size: 18
+Candidate tokens: ., from we based with who or mentioned in and are because due given is by 
+Time taken to get recomputed solution logits:  79.45454740524292
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person or Loss: 21.62287139892578, Mistakes: 0.47999998927116394, Control Loss: 5.447907447814941, Total Loss: 0.5889581441879272
+Time taken to get recomputed solution logits:  71.32618427276611
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based Loss: 15.780319213867188, Mistakes: 0.3499999940395355, Control Loss: 5.468186378479004, Total Loss: 0.459363728761673
+Time taken to get recomputed solution logits:  76.80540347099304
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person because Loss: 18.18434715270996, Mistakes: 0.4000000059604645, Control Loss: 5.502674102783203, Total Loss: 0.5100535154342651
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based_, New Loss: 0.459363728761673
+Current length: 27
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based_
+Current Loss: 0.459363728761673 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  137.28187942504883
+Intersection set size: 18
+Candidate tokens:  of. from so given onlyon solely on purely just provided o upon  off the in
+Time taken to get recomputed solution logits:  87.11962604522705
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based of Loss: 19.928255081176758, Mistakes: 0.43478262424468994, Control Loss: 5.578366756439209, Total Loss: 0.5463499426841736
+Time taken to get recomputed solution logits:  102.16857409477234
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based solely Loss: 16.47410011291504, Mistakes: 0.3571428656578064, Control Loss: 5.5617804527282715, Total Loss: 0.468378484249115
+Time taken to get recomputed solution logits:  100.94677472114563
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only Loss: 15.341861724853516, Mistakes: 0.3214285969734192, Control Loss: 5.589524745941162, Total Loss: 0.4332190752029419
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only_, New Loss: 0.4332190752029419
+Current length: 28
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only_
+Current Loss: 0.4332190752029419 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  136.59881854057312
+Intersection set size: 19
+Candidate tokens:  of information. from given one premises byon this on these upon  off knowing what the in
+Time taken to get recomputed solution logits:  81.66110873222351
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only  Loss: 16.17490005493164, Mistakes: 0.3478260934352875, Control Loss: 5.577493667602539, Total Loss: 0.4593759775161743normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  79.89706492424011
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only of Loss: 18.801921844482422, Mistakes: 0.3913043439388275, Control Loss: 5.544449329376221, Total Loss: 0.5021933317184448
+Time taken to get recomputed solution logits:  79.64675426483154
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only in Loss: 20.81675910949707, Mistakes: 0.4444444477558136, Control Loss: 5.536385536193848, Total Loss: 0.5551721453666687
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only _, New Loss: 0.4593759775161743
+Current length: 28
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only _
+Current Loss: 0.4593759775161743 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  133.13975405693054
+Intersection set size: 19
+Candidate tokens: . from these what the in of information given one byon premise this on o upon  off
+Time taken to get recomputed solution logits:  79.86021661758423
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o Loss: 14.366326332092285, Mistakes: 0.3199999928474426, Control Loss: 5.559164047241211, Total Loss: 0.4311832785606384
+Time taken to get recomputed solution logits:  98.46063542366028
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only this Loss: 14.258370399475098, Mistakes: 0.3214285969734192, Control Loss: 5.5635528564453125, Total Loss: 0.43269965052604675
+Time taken to get recomputed solution logits:  98.66564130783081
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only _ Loss: 21.39244842529297, Mistakes: 0.4482758641242981, Control Loss: 5.579973220825195, Total Loss: 0.5598753094673157
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o_, New Loss: 0.4311832785606384
+Current length: 29
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o_
+Current Loss: 0.4311832785606384 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Step:  30 Candidates:  [(0.2999718487262726, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.'), (0.3984440565109253, ' modus pon reasoning and think step by step. Finally give the actual correct answer.'), (0.4074915945529938, ' modus ponenis incorrectly because step is step. Finally give the actual correct answer.'), (0.4080911874771118, ' modus ponenis and think step by step. Finally give the actual correct answer.'), (0.4132234454154968, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an_'), (0.4258664846420288, ' modus ponenis incorrectly because step is incorrect. Finally give the actual correct answer.'), (0.428861141204834, ' modus ponenis incorrectly because step is incorrect for Finally give the actual correct answer.'), (0.4311832785606384, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o_'), (0.4332190752029419, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only_'), (0.4377322793006897, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from_')]
+Time taken to update solutions:  137.6157512664795
+Intersection set size: 16
+Candidate tokens:  their. information premisestheinonen this premise on n nt these what the
+Time taken to get recomputed solution logits:  103.72896575927734
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only othe Loss: 15.643935203552246, Mistakes: 0.3448275923728943, Control Loss: 5.4558820724487305, Total Loss: 0.45394521951675415
+Time taken to get recomputed solution logits:  93.35577249526978
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the Loss: 11.818699836730957, Mistakes: 0.2666666805744171, Control Loss: 5.486340522766113, Total Loss: 0.37639349699020386
+Time taken to get recomputed solution logits:  99.06267595291138
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o on Loss: 16.606670379638672, Mistakes: 0.36666667461395264, Control Loss: 5.427214622497559, Total Loss: 0.475210964679718
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the_, New Loss: 0.37639349699020386
+Current length: 30
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the_
+Current Loss: 0.37639349699020386 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  130.31542944908142
+Intersection set size: 18
+Candidate tokens:  information statement given fact relation premises stated first info premise facts provided statements pre prem relationship argument relationships
+Time taken to get recomputed solution logits:  101.05469107627869
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts Loss: 20.265077590942383, Mistakes: 0.4482758641242981, Control Loss: 5.441721439361572, Total Loss: 0.5571103096008301
+Time taken to get recomputed solution logits:  82.59327363967896
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the fact Loss: 21.281513214111328, Mistakes: 0.4583333432674408, Control Loss: 5.4355549812316895, Total Loss: 0.5670444369316101
+Time taken to get recomputed solution logits:  70.52327823638916
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the_ Loss: 22.454824447631836, Mistakes: 0.5, Control Loss: 5.477006435394287, Total Loss: 0.6095401048660278
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts_, New Loss: 0.5571103096008301
+Current length: 31
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts_normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Current Loss: 0.5571103096008301 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  138.56989240646362
+Intersection set size: 17
+Candidate tokens:  of., given we stated about supplied that listed provided presented give  mentioned above in
+Time taken to get recomputed solution logits:  73.02617025375366
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts provided Loss: 20.385751724243164, Mistakes: 0.4545454680919647, Control Loss: 5.418523788452148, Total Loss: 0.5629159212112427
+Time taken to get recomputed solution logits:  81.69061183929443
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated Loss: 17.56938362121582, Mistakes: 0.38461539149284363, Control Loss: 5.416772842407227, Total Loss: 0.4929508566856384
+Time taken to get recomputed solution logits:  74.8014588356018
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts that Loss: 21.06515884399414, Mistakes: 0.45000001788139343, Control Loss: 5.459445953369141, Total Loss: 0.559188961982727
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated_, New Loss: 0.4929508566856384
+Current length: 32
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated_
+Current Loss: 0.4929508566856384 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  134.42069458961487
+Intersection set size: 17
+Candidate tokens: . and to, so premises about by premise on here as  or pre above in
+Time taken to get recomputed solution logits:  76.68771529197693
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise Loss: 18.69702911376953, Mistakes: 0.4166666865348816, Control Loss: 5.299204349517822, Total Loss: 0.5226507782936096
+Time taken to get recomputed solution logits:  103.37162041664124
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated here Loss: 19.09096908569336, Mistakes: 0.4375, Control Loss: 5.328888893127441, Total Loss: 0.5440777540206909
+Time taken to get recomputed solution logits:  82.66048645973206
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated or Loss: 20.55889892578125, Mistakes: 0.4545454680919647, Control Loss: 5.297226428985596, Total Loss: 0.5604900121688843
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise_, New Loss: 0.5226507782936096
+Current length: 33
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise_
+Current Loss: 0.5226507782936096 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  137.742173910141
+Intersection set size: 19
+Candidate tokens:  of. and wise are, to statement given only is by fores s  ore statements
+Time taken to get recomputed solution logits:  100.03797960281372
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are Loss: 18.810794830322266, Mistakes: 0.41379308700561523, Control Loss: 5.368138790130615, Total Loss: 0.521155834197998
+Time taken to get recomputed solution logits:  55.59881258010864
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise is Loss: 21.80489158630371, Mistakes: 0.5, Control Loss: 5.362990379333496, Total Loss: 0.6072598099708557
+Time taken to get recomputed solution logits:  84.5378406047821
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise, Loss: 26.24125862121582, Mistakes: 0.5769230723381042, Control Loss: 5.33787202835083, Total Loss: 0.683680534362793
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are_, New Loss: 0.521155834197998
+Current length: 34
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are_
+Current Loss: 0.521155834197998 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  138.55768084526062
+Intersection set size: 16
+Candidate tokens:  all. not given invalid incorrect about only based false insufficient true incomplete irrelevant inconsistent too
+Time taken to get recomputed solution logits:  76.77526617050171
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are only Loss: 17.342092514038086, Mistakes: 0.3913043439388275, Control Loss: 5.427272796630859, Total Loss: 0.499849796295166
+Time taken to get recomputed solution logits:  104.63860511779785
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are all Loss: 22.062942504882812, Mistakes: 0.48275861144065857, Control Loss: 5.4022955894470215, Total Loss: 0.5908045172691345
+Time taken to get recomputed solution logits:  73.19646573066711
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are_ Loss: 10.014734268188477, Mistakes: 0.21052631735801697, Control Loss: 5.4471330642700195, Total Loss: 0.31946897506713867
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are__, New Loss: 0.31946897506713867
+Current length: 34
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are__
+Current Loss: 0.31946897506713867 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  134.01785898208618normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Intersection set size: 16
+Candidate tokens:  all. missing not given invalid about only based insufficient true incomplete logically irrelevant inconsistent too
+Time taken to get recomputed solution logits:  74.47461318969727
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete Loss: 17.85600471496582, Mistakes: 0.40909093618392944, Control Loss: 5.565445423126221, Total Loss: 0.520399808883667
+Time taken to get recomputed solution logits:  76.92777013778687
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are invalid Loss: 23.984769821166992, Mistakes: 0.5454545617103577, Control Loss: 5.556454658508301, Total Loss: 0.6565836668014526
+Time taken to get recomputed solution logits:  84.04186797142029
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are insufficient Loss: 19.559463500976562, Mistakes: 0.4444444477558136, Control Loss: 5.552371501922607, Total Loss: 0.5554918646812439
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete_, New Loss: 0.520399808883667
+Current length: 35
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete_
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.520399808883667 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  135.43833303451538
+Intersection set size: 19
+Candidate tokens: . and to information, because are so but due about forly with etc as  or in
+Time taken to get recomputed solution logits:  75.50272250175476
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete are Loss: 16.65949821472168, Mistakes: 0.3636363744735718, Control Loss: 5.356146812438965, Total Loss: 0.4707593023777008
+Time taken to get recomputed solution logits:  97.15437579154968
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete to Loss: 16.28407859802246, Mistakes: 0.3571428656578064, Control Loss: 5.353142738342285, Total Loss: 0.46420571208000183
+Time taken to get recomputed solution logits:  84.16796851158142
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or Loss: 14.729150772094727, Mistakes: 0.3333333432674408, Control Loss: 5.346799850463867, Total Loss: 0.4402693510055542
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or_, New Loss: 0.4402693510055542
+Current length: 36
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or_
+Current Loss: 0.4402693510055542 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  142.29570770263672
+Intersection set size: 16
+Candidate tokens:  missing contain misleading not unclear contradictory inaccurate lack insufficient vague ambiguous irrelevant lacking inconsistent too the
+Time taken to get recomputed solution logits:  78.76830959320068
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or lack Loss: 13.385184288024902, Mistakes: 0.3076923191547394, Control Loss: 5.453835964202881, Total Loss: 0.41676902770996094
+Time taken to get recomputed solution logits:  100.2734546661377
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or lacking Loss: 20.022783279418945, Mistakes: 0.4482758641242981, Control Loss: 5.443623065948486, Total Loss: 0.5571483373641968
+Time taken to get recomputed solution logits:  67.5119686126709
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the Loss: 12.772562980651855, Mistakes: 0.2857142984867096, Control Loss: 5.437167167663574, Total Loss: 0.3944576382637024
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the_, New Loss: 0.3944576382637024
+Current length: 37
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the_
+Current Loss: 0.3944576382637024 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  140.10760974884033
+Intersection set size: 19
+Candidate tokens:  information like truth logic structure statement fact arguments premises reasoning premise conclusion conclusions facts logical statements relationship argument reason
+Time taken to get recomputed solution logits:  89.06160593032837
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements Loss: 16.911273956298828, Mistakes: 0.37037038803100586, Control Loss: 5.421006679534912, Total Loss: 0.4787905216217041
+Time taken to get recomputed solution logits:  55.62756848335266
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the arguments Loss: 21.658416748046875, Mistakes: 0.5, Control Loss: 5.382896900177002, Total Loss: 0.6076579093933105
+Time taken to get recomputed solution logits:  83.89346742630005
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the fact Loss: 21.831371307373047, Mistakes: 0.47999998927116394, Control Loss: 5.3785247802734375, Total Loss: 0.5875704884529114
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements_, New Loss: 0.4787905216217041
+Current length:normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+ 38
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements_
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.4787905216217041 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  142.06052708625793
+Intersection set size: 18
+Candidate tokens:  of. within are contain themselves given contradict about have dont make lack aren made do don in
+Time taken to get recomputed solution logits:  77.75613403320312
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of Loss: 12.921278953552246, Mistakes: 0.2857142984867096, Control Loss: 5.389109134674072, Total Loss: 0.39349648356437683
+Time taken to get recomputed solution logits:  106.63657712936401
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements are Loss: 14.86143684387207, Mistakes: 0.3214285969734192, Control Loss: 5.362894058227539, Total Loss: 0.4286864697933197
+Time taken to get recomputed solution logits:  89.59242057800293
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements in Loss: 19.446502685546875, Mistakes: 0.4285714626312256, Control Loss: 5.360877513885498, Total Loss: 0.5357890129089355
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of_, New Loss: 0.39349648356437683
+Current length: 39
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of_
+Current Loss: 0.39349648356437683 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  134.2224624156952
+Intersection set size: 17
+Candidate tokens:  truth the logic fact premises a premise this argument facts these some condition which pre what each
+Time taken to get recomputed solution logits:  83.59776139259338
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of fact Loss: 20.682353973388672, Mistakes: 0.4545454680919647, Control Loss: 5.405285835266113, Total Loss: 0.5626511573791504
+Time taken to get recomputed solution logits:  83.05813431739807
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of this Loss: 20.500659942626953, Mistakes: 0.46153849363327026, Control Loss: 5.362299919128418, Total Loss: 0.5687844753265381
+Time taken to get recomputed solution logits:  83.00672602653503
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what Loss: 18.97000503540039, Mistakes: 0.42307692766189575, Control Loss: 5.396279335021973, Total Loss: 0.5310025215148926
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what_, New Loss: 0.5310025215148926
+Current length: 40
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what_
+Current Loss: 0.5310025215148926 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  136.24388694763184
+Intersection set size: 14
+Candidate tokens:  counts are the we constitute someone they it is a constitutes people makes each
+Time taken to get recomputed solution logits:  78.47074103355408
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what is Loss: 20.107589721679688, Mistakes: 0.43478262424468994, Control Loss: 5.370075225830078, Total Loss: 0.5421841144561768
+Time taken to get recomputed solution logits:  84.84649181365967
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are Loss: 17.854738235473633, Mistakes: 0.40740740299224854, Control Loss: 5.406556129455566, Total Loss: 0.5155385136604309
+Time taken to get recomputed solution logits:  82.85766100883484
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what a Loss: 21.730817794799805, Mistakes: 0.47826087474823, Control Loss: 5.387936592102051, Total Loss: 0.5860196352005005
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are_, New Loss: 0.5155385136604309
+Current length: 41
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are_
+Current Loss: 0.5155385136604309 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  139.74293637275696
+Intersection set size: 12
+Candidate tokens:  and given not implied premises facts considered true or known the being
+Time taken to get recomputed solution logits:  78.03609585762024
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the Loss: 16.16232681274414, Mistakes: 0.3636363744735718, Control Loss: 5.33608865737915, Total Loss: 0.47035813331604004
+Time taken to get recomputed solution logits:  77.92202854156494
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are or Loss: 19.22694206237793, Mistakes: 0.42105263471603394, Control Loss: 5.316035747528076, Total Loss: 0.5273733139038086
+Time taken to get recomputed solution logits:  69.64666032791138
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are_ Loss: 18.101531982421875, Mistakes: 0.4000000059604645, Control Loss: 5.305021286010742, Total Loss: 0.5061004161834717normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the_, New Loss: 0.47035813331604004
+Current length: 42
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the_
+Current Loss: 0.47035813331604004 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  136.3410360813141
+Intersection set size: 5
+Candidate tokens:  facts relations premises relationship relationships
+>>>> Topk increased to 22 <<<<
+Intersection set size: 6
+Candidate tokens:  facts conditions relations premises relationship relationships
+Time taken to get recomputed solution logits:  97.8198676109314
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the_ Loss: 19.338619232177734, Mistakes: 0.4285714626312256, Control Loss: 5.301608085632324, Total Loss: 0.5346035957336426
+Time taken to get recomputed solution logits:  73.83979320526123
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relationships Loss: 15.036676406860352, Mistakes: 0.3333333432674408, Control Loss: 5.290507793426514, Total Loss: 0.43914347887039185
+Time taken to get recomputed solution logits:  73.30049514770508
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations Loss: 14.973406791687012, Mistakes: 0.3199999928474426, Control Loss: 5.3310866355896, Total Loss: 0.4266217350959778
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations_, New Loss: 0.4266217350959778
+Current length: 43
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations_
+Current Loss: 0.4266217350959778 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Step:  45 Candidates:  [(0.2999718487262726, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.'), (0.31946897506713867, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are__'), (0.37639349699020386, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the_'), (0.39349648356437683, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of_'), (0.3944576382637024, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the_'), (0.3984440565109253, ' modus pon reasoning and think step by step. Finally give the actual correct answer.'), (0.4074915945529938, ' modus ponenis incorrectly because step is step. Finally give the actual correct answer.'), (0.4080911874771118, ' modus ponenis and think step by step. Finally give the actual correct answer.'), (0.4132234454154968, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an_'), (0.4258664846420288, ' modus ponenis incorrectly because step is incorrect. Finally give the actual correct answer.')]
+Time taken to update solutions:  126.96794867515564
+Intersection set size: 16
+Candidate tokens:  of. to and are, betweenhips is amonghi that do orh in
+Time taken to get recomputed solution logits:  92.69386911392212
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of Loss: 16.319936752319336, Mistakes: 0.3571428656578064, Control Loss: 5.252431392669678, Total Loss: 0.46219149231910706
+Time taken to get recomputed solution logits:  73.23108577728271
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations between Loss: 17.151599884033203, Mistakes: 0.375, Control Loss: 5.23124885559082, Total Loss: 0.47962498664855957
+Time taken to get recomputed solution logits:  81.09493160247803
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations among Loss: 19.008373260498047, Mistakes: 0.4166666865348816, Control Loss: 5.230808734893799, Total Loss: 0.5212828516960144
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of_, New Loss: 0.46219149231910706
+Current length: 44
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of_
+Current Loss: 0.46219149231910706 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  132.1121165752411
+Intersection set size: 12
+Candidate tokens:  one those a who these each family some people certain the individuals
+Time taken to get recomputed solution logits:  78.64325499534607
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of who Loss: 18.845487594604492, Mistakes: 0.42307692766189575, Control Loss: 5.192661762237549, Total Loss: 0.5269301533699036
+Time taken to get recomputed solution logits:  81.14079761505127
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of some Loss: 21.707998275756836, Mistakes: 0.47999998927116394, Control Loss: 5.181912422180176, Total Loss: 0.5836382508277893
+Time taken to get recomputed solution logits:  74.63797116279602
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family Loss: 17.018651962280273, Mistakes: 0.38461539149284363, Control Loss: 5.173440456390381, Total Loss: 0.48808419704437256normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family_, New Loss: 0.48808419704437256
+Current length: 45
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family_
+Current Loss: 0.48808419704437256 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  130.26451802253723
+Intersection set size: 17
+Candidate tokens: . members and are, to between ties member is meme that tree  or relationships in
+Time taken to get recomputed solution logits:  78.03506565093994
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family  Loss: 17.325193405151367, Mistakes: 0.375, Control Loss: 5.157196044921875, Total Loss: 0.47814393043518066
+Time taken to get recomputed solution logits:  80.1692054271698
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family or Loss: 19.412681579589844, Mistakes: 0.4166666865348816, Control Loss: 5.138197422027588, Total Loss: 0.5194306373596191
+Time taken to get recomputed solution logits:  76.08503246307373
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family in Loss: 17.7581729888916, Mistakes: 0.40909093618392944, Control Loss: 5.19310188293457, Total Loss: 0.512952983379364
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family _, New Loss: 0.47814393043518066
+Current length: 45
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family _
+Current Loss: 0.47814393043518066 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  130.52159762382507
+Intersection set size: 18
+Candidate tokens: . members and are, to trees between ties member is meme that tree  or relationships in
+Time taken to get recomputed solution logits:  105.47063446044922
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 15.303290367126465, Mistakes: 0.3333333432674408, Control Loss: 5.230729579925537, Total Loss: 0.43794792890548706
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.43794792890548706
+Current length: 45
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.43794792890548706 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  136.4513454437256
+Intersection set size: 15
+Candidate tokens:  of Modus proof example count a your case an this Case contra modus counter the
+Time taken to get recomputed solution logits:  81.56420230865479
+>Prompt Choice:  Modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 22.584012985229492, Mistakes: 0.48148149251937866, Control Loss: 5.157955169677734, Total Loss: 0.584640622138977
+Time taken to get recomputed solution logits:  99.91717576980591
+>Prompt Choice:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 20.474191665649414, Mistakes: 0.4482758641242981, Control Loss: 5.009030818939209, Total Loss: 0.5484564900398254
+Time taken to get recomputed solution logits:  79.74566531181335
+>Prompt Choice:  contra ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 21.516897201538086, Mistakes: 0.47999998927116394, Control Loss: 5.789031505584717, Total Loss: 0.595780611038208
+No improvement in the current position. Moving to the next position.
+New Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.5484564900398254
+Current length: 45
+ modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.5484564900398254 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  135.59352087974548
+Intersection set size: 17
+Candidate tokens:  po to tolle tolls ton pod Toll tol tollen poll ponen viven operToll p pon toll
+Time taken to get recomputed solution logits:  78.03623533248901
+>Prompt Choice:  modus operis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 19.48287010192871, Mistakes: 0.4399999976158142, Control Loss: 5.523530960083008, Total Loss: 0.5504705905914307
+Time taken to get recomputed solution logits:  81.47580766677856
+>Prompt Choice:  modus Tollis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 19.912076950073242, Mistakes: 0.4444444477558136, Control Loss: 5.42777681350708, Total Loss: 0.5529999732971191
+Time taken to get recomputed solution logits:  78.93217253684998
+>Prompt Choice:  modus tollis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 16.11041831970215, Mistakes: 0.3478260934352875, Control Loss: 5.41443395614624, Total Loss: 0.4561147689819336normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+No improvement in the current position. Moving to the next position.
+New Control:  modus tollis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.4561147689819336
+Current length: 45
+ modus tollis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.4561147689819336 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  136.81264114379883
+Intersection set size: 18
+Candidate tokens: llesposllopponllen showllinglollon seeponllanllisllaslllons pon toll
+Time taken to get recomputed solution logits:  104.36191964149475
+>Prompt Choice:  modus tollis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 23.795228958129883, Mistakes: 0.517241358757019, Control Loss: 5.093848705291748, Total Loss: 0.619118332862854
+Time taken to get recomputed solution logits:  85.33005094528198
+>Prompt Choice:  modus to show incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 17.68590545654297, Mistakes: 0.380952388048172, Control Loss: 5.1423139572143555, Total Loss: 0.48379868268966675
+Time taken to get recomputed solution logits:  71.06823682785034
+>Prompt Choice:  modus to see incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 20.97581672668457, Mistakes: 0.4761904776096344, Control Loss: 5.0993876457214355, Total Loss: 0.5781782269477844
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.48379868268966675
+Current length: 45
+ modus to show incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.48379868268966675 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  149.43427753448486
+Intersection set size: 18
+Candidate tokens: . invalid proof how it its a your why an this that where  which fallacy what the
+Time taken to get recomputed solution logits:  84.62682962417603
+>Prompt Choice:  modus to show invalid because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 16.000957489013672, Mistakes: 0.3478260934352875, Control Loss: 5.284360408782959, Total Loss: 0.4535132944583893
+Time taken to get recomputed solution logits:  111.08504271507263
+>Prompt Choice:  modus to show fallacy because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 23.168806076049805, Mistakes: 0.535714328289032, Control Loss: 5.257973670959473, Total Loss: 0.6408737897872925
+Time taken to get recomputed solution logits:  111.21971654891968
+>Prompt Choice:  modus to show that because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 19.462827682495117, Mistakes: 0.4482758641242981, Control Loss: 5.205458164215088, Total Loss: 0.5523850321769714
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalid because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.4535132944583893
+Current length: 45
+ modus to show invalid because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.4535132944583893 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  141.62741661071777
+Intersection set size: 19
+Candidate tokens: ., logicated inference argumentsness reasoningly conclusionation deductionatyityities arity argument dedu
+Time taken to get recomputed solution logits:  88.49222087860107
+>Prompt Choice:  modus to show invalidities step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 22.1720027923584, Mistakes: 0.47826087474823, Control Loss: 5.298492431640625, Total Loss: 0.5842307209968567
+Time taken to get recomputed solution logits:  110.47144508361816
+>Prompt Choice:  modus to show invalid because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 21.89357566833496, Mistakes: 0.47058823704719543, Control Loss: 5.170957565307617, Total Loss: 0.5740073919296265
+Time taken to get recomputed solution logits:  119.97766017913818
+>Prompt Choice:  modus to show invalidity step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 16.6843318939209, Mistakes: 0.37931033968925476, Control Loss: 5.373681545257568, Total Loss: 0.4867839813232422
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.4867839813232422
+Current length: 45
+ modus to show invalidity step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.4867839813232422 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  162.40795254707336
+Intersection set size: 20
+Candidate tokens: . using, from proof via with or through argument in of and Modus example mode by modus  if
+Time taken to get recomputed solution logits:  82.42917060852051
+>Prompt Choice:  modus to show invalidity through is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 12.799296379089355, Mistakes: 0.2800000011920929, Control Loss: 5.240291118621826, Total Loss: 0.384805828332901normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  83.11511206626892
+>Prompt Choice:  modus to show invalidity by is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 22.38461685180664, Mistakes: 0.47826087474823, Control Loss: 5.181219577789307, Total Loss: 0.5818852782249451
+Time taken to get recomputed solution logits:  88.41498756408691
+>Prompt Choice:  modus to show invalidity example is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 16.17363739013672, Mistakes: 0.35999998450279236, Control Loss: 5.008144855499268, Total Loss: 0.460162878036499
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.384805828332901
+Current length: 45
+ modus to show invalidity through is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.384805828332901 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  146.6979784965515
+Intersection set size: 19
+Candidate tokens:  truth contradiction proof contradictory hypothetical example count a an contra ref modus instantiation constructing falsi construction counter the fallacy
+Time taken to get recomputed solution logits:  86.07522559165955
+>Prompt Choice:  modus to show invalidity through truth incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 18.939712524414062, Mistakes: 0.40909093618392944, Control Loss: 5.46910285949707, Total Loss: 0.5184729695320129
+Time taken to get recomputed solution logits:  108.49666428565979
+>Prompt Choice:  modus to show invalidity through proof incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 22.075847625732422, Mistakes: 0.46666669845581055, Control Loss: 5.357700347900391, Total Loss: 0.5738207101821899
+Time taken to get recomputed solution logits:  85.53041410446167
+>Prompt Choice:  modus to show invalidity through contra incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 21.36377716064453, Mistakes: 0.48148149251937866, Control Loss: 5.61668586730957, Total Loss: 0.5938152074813843
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.5184729695320129
+Current length: 45
+ modus to show invalidity through truth incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.5184729695320129 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  160.4760982990265
+Intersection set size: 17
+Candidate tokens:  values assignmentsvalue value assigning valuation cases table assignment tables conditions assumption evaluation valuations functional scenariostable
+Time taken to get recomputed solution logits:  112.6584165096283
+>Prompt Choice:  modus to show invalidity through truth incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 14.705792427062988, Mistakes: 0.3103448152542114, Control Loss: 5.341774940490723, Total Loss: 0.41718029975891113
+Time taken to get recomputed solution logits:  100.17490792274475
+>Prompt Choice:  modus to show invalidity through truthvalue for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 18.605695724487305, Mistakes: 0.3913043439388275, Control Loss: 5.440805912017822, Total Loss: 0.5001204609870911
+Time taken to get recomputed solution logits:  102.45049715042114
+>Prompt Choice:  modus to show invalidity through truth table for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 12.677947998046875, Mistakes: 0.26923078298568726, Control Loss: 5.367958068847656, Total Loss: 0.37658995389938354
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.37658995389938354
+Current length: 45
+ modus to show invalidity through truth table for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.37658995389938354 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  174.84409141540527
+Intersection set size: 20
+Candidate tokens:  of. method and values, truth proof showing valuation for demonstration construction methods evaluation  or analysis if approach
+Time taken to get recomputed solution logits:  119.68425703048706
+>Prompt Choice:  modus to show invalidity through truth table truth some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 19.26409339904785, Mistakes: 0.4193548262119293, Control Loss: 5.122658729553223, Total Loss: 0.5218080282211304
+Time taken to get recomputed solution logits:  81.0942108631134
+>Prompt Choice:  modus to show invalidity through truth table values some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 16.607255935668945, Mistakes: 0.3499999940395355, Control Loss: 5.046361446380615, Total Loss: 0.4509272277355194
+Time taken to get recomputed solution logits:  92.62797713279724
+>Prompt Choice:  modus to show invalidity through truth table demonstration some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 14.943885803222656, Mistakes: 0.3333333432674408, Control Loss: 5.194360256195068, Total Loss: 0.4372205436229706
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.4372205436229706normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Current length: 45
+ modus to show invalidity through truth table demonstration some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.4372205436229706 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  165.56901168823242
+Intersection set size: 20
+Candidate tokens: . using, only that with where or in of to and method Modus showing is by for  if
+Time taken to get recomputed solution logits:  88.9353506565094
+>Prompt Choice:  modus to show invalidity through truth table demonstration showing premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 24.982431411743164, Mistakes: 0.5263158082962036, Control Loss: 5.354598522186279, Total Loss: 0.6334077715873718
+Time taken to get recomputed solution logits:  105.69865274429321
+>Prompt Choice:  modus to show invalidity through truth table demonstration only premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 22.75226593017578, Mistakes: 0.47999998927116394, Control Loss: 5.441808223724365, Total Loss: 0.588836133480072
+Time taken to get recomputed solution logits:  109.34422874450684
+>Prompt Choice:  modus to show invalidity through truth table demonstration that premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 17.33484649658203, Mistakes: 0.3870967626571655, Control Loss: 5.313745498657227, Total Loss: 0.4933716654777527
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.4933716654777527
+Current length: 45
+ modus to show invalidity through truth table demonstration that premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.4933716654777527 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  152.0780963897705
+Intersection set size: 17
+Candidate tokens:  all doesn leads not there premises it is a can an this conclusion shows does argument the
+Time taken to get recomputed solution logits:  100.75746512413025
+>Prompt Choice:  modus to show invalidity through truth table demonstration that can. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 25.783649444580078, Mistakes: 0.5384615659713745, Control Loss: 5.056955337524414, Total Loss: 0.6396006941795349
+Time taken to get recomputed solution logits:  170.28526878356934
+>Prompt Choice:  modus to show invalidity through truth table demonstration that is. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 18.082996368408203, Mistakes: 0.40000003576278687, Control Loss: 5.133883953094482, Total Loss: 0.5026776790618896
+Time taken to get recomputed solution logits:  105.1492567062378
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 16.170446395874023, Mistakes: 0.37037038803100586, Control Loss: 5.100198745727539, Total Loss: 0.4723743498325348
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.4723743498325348
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.4723743498325348 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Step:  60 Candidates:  [(0.2999718487262726, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.'), (0.31946897506713867, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are__'), (0.37639349699020386, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the_'), (0.37658995389938354, ' modus to show invalidity through truth table for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.'), (0.384805828332901, ' modus to show invalidity through is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.'), (0.39349648356437683, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of_'), (0.3944576382637024, ' modus ponenis incorrectly because step is incorrect for some premises. Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the_'), (0.3984440565109253, ' modus pon reasoning and think step by step. Finally give the actual correct answer.'), (0.4074915945529938, ' modus ponenis incorrectly because step is step. Finally give the actual correct answer.'), (0.4080911874771118, ' modus ponenis and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  184.2942762374878
+Intersection set size: 19
+Candidate tokens:  could doesn lacks form structure invalid not fails premises has is can conclusion may isn violates forms does follows
+Time taken to get recomputed solution logits:  99.48213219642639
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 15.260538101196289, Mistakes: 0.3448275923728943, Control Loss: 5.438124179840088, Total Loss: 0.45359006524086
+Time taken to get recomputed solution logits:  70.90108513832092
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument invalid Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 20.272613525390625, Mistakes: 0.45000001788139343, Control Loss: 5.153316974639893, Total Loss: 0.5530663728713989normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  70.009122133255
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument conclusion Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 23.81675148010254, Mistakes: 0.52173912525177, Control Loss: 5.166628360748291, Total Loss: 0.6250717043876648
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.45359006524086
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.45359006524086 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  160.13372254371643
+Intersection set size: 16
+Candidate tokens: .not toits, not ttead a ottatesitr the
+Time taken to get recomputed solution logits:  74.58163642883301
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 15.744264602661133, Mistakes: 0.3333333432674408, Control Loss: 5.391818046569824, Total Loss: 0.44116970896720886
+Time taken to get recomputed solution logits:  84.61376309394836
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesntead due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 22.039575576782227, Mistakes: 0.5, Control Loss: 5.4618659019470215, Total Loss: 0.6092373132705688
+Time taken to get recomputed solution logits:  84.48370790481567
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesnates due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 16.90174102783203, Mistakes: 0.35999998450279236, Control Loss: 5.591246128082275, Total Loss: 0.47182491421699524
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.44116970896720886
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid due because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.44116970896720886 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  159.63424444198608
+Intersection set size: 19
+Candidate tokens: . and because, but Modus due arguments isly conclusion withity as  ort argument in
+Time taken to get recomputed solution logits:  104.83952856063843
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid because because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 15.13984489440918, Mistakes: 0.3448275923728943, Control Loss: 5.346363544464111, Total Loss: 0.4517548680305481
+Time taken to get recomputed solution logits:  88.34418439865112
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid in because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 18.11273765563965, Mistakes: 0.40909093618392944, Control Loss: 5.315927028656006, Total Loss: 0.5154094696044922
+Time taken to get recomputed solution logits:  75.51044726371765
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 23.286457061767578, Mistakes: 0.5263158082962036, Control Loss: 5.413148403167725, Total Loss: 0.6345787644386292
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.6345787644386292
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. because we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.6345787644386292 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  160.29840850830078
+Intersection set size: 18
+Candidate tokens:  use True Show Modus This The ItUse Please t Not Explain Using You  Uset Invalid
+Time taken to get recomputed solution logits:  77.02277064323425
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid.t we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 16.624465942382812, Mistakes: 0.380952388048172, Control Loss: 5.649160861968994, Total Loss: 0.49393558502197266
+Time taken to get recomputed solution logits:  104.7192611694336
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid.  we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 18.4580078125, Mistakes: 0.40909093618392944, Control Loss: 5.848147392272949, Total Loss: 0.5260539054870605
+Time taken to get recomputed solution logits:  88.68568992614746
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 10.961409568786621, Mistakes: 0.25, Control Loss: 5.650341033935547, Total Loss: 0.3630068302154541
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.3630068302154541
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t we cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.3630068302154541 Best Loss: 0.2999718487262726normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+ Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  153.93830156326294
+Intersection set size: 17
+Candidate tokens: . need work follow lead guarantee have make preserve always necessarily logically  yield satisfy meet hold
+Time taken to get recomputed solution logits:  122.4427433013916
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 15.447897911071777, Mistakes: 0.3448275923728943, Control Loss: 5.799317359924316, Total Loss: 0.4608139395713806
+Time taken to get recomputed solution logits:  98.16651463508606
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t follow cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 22.166358947753906, Mistakes: 0.48148149251937866, Control Loss: 5.799984455108643, Total Loss: 0.5974811911582947
+Time taken to get recomputed solution logits:  115.58219146728516
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t necessarily cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 15.216267585754395, Mistakes: 0.35483869910240173, Control Loss: 5.8165059089660645, Total Loss: 0.4711688160896301
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.4608139395713806
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee cant tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.4608139395713806 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  166.93278551101685
+Intersection set size: 18
+Candidate tokens:  all truth. the consistent valid a validity conclusion conclusions that sound true consistency  conclusive soundness its
+Time taken to get recomputed solution logits:  95.36561036109924
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 13.03223705291748, Mistakes: 0.30000001192092896, Control Loss: 5.819736957550049, Total Loss: 0.41639474034309387
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.41639474034309387
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. tell who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.41639474034309387 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  158.87222480773926
+Intersection set size: 15
+Candidate tokens:  truth the Modus If This The A Dedu a conclusion that true  Use its
+Time taken to get recomputed solution logits:  95.00106644630432
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Dedu who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 18.885801315307617, Mistakes: 0.42307692766189575, Control Loss: 5.721182823181152, Total Loss: 0.5375005602836609
+Time taken to get recomputed solution logits:  89.06372451782227
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. true who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 22.237869262695312, Mistakes: 0.5, Control Loss: 5.7224440574646, Total Loss: 0.6144489049911499
+Time taken to get recomputed solution logits:  87.57305145263672
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Use who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 28.18679428100586, Mistakes: 0.5909091234207153, Control Loss: 5.767420291900635, Total Loss: 0.7062575221061707
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Dedu who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.5375005602836609
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Dedu who is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.5375005602836609 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  168.4203383922577
+Intersection set size: 19
+Candidate tokens: ductionctivecivectedctscibilitycectivityctivciblectiblectionctionsctivenessctivelycedcticallyctiocti
+Time taken to get recomputed solution logits:  101.89099287986755
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducible is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 23.474037170410156, Mistakes: 0.5199999809265137, Control Loss: 6.168666362762451, Total Loss: 0.6433733105659485
+Time taken to get recomputed solution logits:  89.75704622268677
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 15.730294227600098, Mistakes: 0.3333333432674408, Control Loss: 6.224146366119385, Total Loss: 0.4578162729740143
+Time taken to get recomputed solution logits:  88.31760621070862
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducive is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 24.044193267822266, Mistakes: 0.5384615659713745, Control Loss: 6.368677139282227, Total Loss: 0.6658351421356201
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.4578162729740143normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.4578162729740143 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  179.73866748809814
+Intersection set size: 19
+Candidate tokens:  of. doesn and, from requires cannot guarantees Guarantee guarantee is can  isn or guaranteed does in
+Time taken to get recomputed solution logits:  92.98832654953003
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 14.003718376159668, Mistakes: 0.3199999928474426, Control Loss: 6.030938148498535, Total Loss: 0.44061875343322754
+Time taken to get recomputed solution logits:  89.7868766784668
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility requires an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 15.922367095947266, Mistakes: 0.3461538553237915, Control Loss: 6.089078426361084, Total Loss: 0.4679354131221771
+Time taken to get recomputed solution logits:  91.58649396896362
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility is an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 17.307838439941406, Mistakes: 0.375, Control Loss: 6.035398960113525, Total Loss: 0.49570798873901367
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.44061875343322754
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and an uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.44061875343322754 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  157.85424041748047
+Intersection set size: 16
+Candidate tokens:  truth Modus Validity Dedu Logical Sound its therefore validity sound logical  Truth soundness the dedu
+Time taken to get recomputed solution logits:  131.68231678009033
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 14.610374450683594, Mistakes: 0.3125, Control Loss: 6.152200698852539, Total Loss: 0.4355440139770508
+Time taken to get recomputed solution logits:  95.15948843955994
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and Sound uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 19.08173370361328, Mistakes: 0.4166666865348816, Control Loss: 6.517911434173584, Total Loss: 0.5470249056816101
+Time taken to get recomputed solution logits:  73.94986605644226
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and Modus uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 17.68581199645996, Mistakes: 0.3888888955116272, Control Loss: 6.3480224609375, Total Loss: 0.5158493518829346
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.4355440139770508
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.4355440139770508 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  169.06110048294067
+Intersection set size: 16
+Candidate tokens:  truth negation opposite relation absence proof consequences guarantee validity converse lack logical implications Truth relationship connection
+Time taken to get recomputed solution logits:  103.59979438781738
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its uncle from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 13.163023948669434, Mistakes: 0.2916666865348816, Control Loss: 6.068051815032959, Total Loss: 0.41302770376205444
+Time taken to get recomputed solution logits:  105.64181923866272
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its converse from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 16.388025283813477, Mistakes: 0.3478260934352875, Control Loss: 6.129805088043213, Total Loss: 0.4704222083091736
+Time taken to get recomputed solution logits:  88.99804067611694
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 13.007500648498535, Mistakes: 0.2800000011920929, Control Loss: 6.272388935089111, Total Loss: 0.405447781085968
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.405447781085968
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth from which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.405447781085968 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  169.3623387813568
+Intersection set size: 18
+Candidate tokens: . Value values Table Tables Functional value Functionfulness table Conditions Functionality Values conditions  Conditiontableiness
+Time taken to get recomputed solution logits:  131.58385133743286
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Values which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 18.8864688873291, Mistakes: 0.40625, Control Loss: 6.151893615722656, Total Loss: 0.5292878746986389normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  105.27042865753174
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Function which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 16.666399002075195, Mistakes: 0.380952388048172, Control Loss: 6.218461990356445, Total Loss: 0.5053216218948364
+Time taken to get recomputed solution logits:  93.11424684524536
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 12.803017616271973, Mistakes: 0.2800000011920929, Control Loss: 6.189211845397949, Total Loss: 0.40378424525260925
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.40378424525260925
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.40378424525260925 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  176.70636415481567
+Intersection set size: 18
+Candidate tokens: . truth and are, Modus The Validity Dedu A by is for can In  Truth in
+Time taken to get recomputed solution logits:  98.34721088409424
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables can other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 15.742173194885254, Mistakes: 0.3333333432674408, Control Loss: 6.158263683319092, Total Loss: 0.4564986228942871
+Time taken to get recomputed solution logits:  87.1876471042633
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 15.037284851074219, Mistakes: 0.3181818127632141, Control Loss: 6.011541843414307, Total Loss: 0.4384126365184784
+Time taken to get recomputed solution logits:  92.49803185462952
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables are other person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 22.790302276611328, Mistakes: 0.48148149251937866, Control Loss: 6.255828857421875, Total Loss: 0.6065980792045593
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.4384126365184784
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which other person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+Current Loss: 0.4384126365184784 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  179.3962652683258
+Intersection set size: 16
+Candidate tokens:  of truth are I one demonstrate is show demonstrates can may states will you shows argument
+Time taken to get recomputed solution logits:  65.43886017799377
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which truth person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 21.02719497680664, Mistakes: 0.4375, Control Loss: 6.0870184898376465, Total Loss: 0.5592403411865234
+Time taken to get recomputed solution logits:  94.10253572463989
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which states person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 22.48440933227539, Mistakes: 0.47999998927116394, Control Loss: 6.207815647125244, Total Loss: 0.6041563153266907
+Time taken to get recomputed solution logits:  86.7289788722992
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which show person based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 23.37396240234375, Mistakes: 0.5, Control Loss: 6.177130699157715, Total Loss: 0.6235426068305969
+No improvement in the current position. Moving to the next position.
+New Control:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which truth person based only o the facts stated premise are incomplete or the statements of what are the relations of family., New Loss: 0.5592403411865234
+Current length: 45
+ modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which truth person based only o the facts stated premise are incomplete or the statements of what are the relations of family.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.5592403411865234 Best Loss: 0.2999718487262726 Best Control:  modus ponenis incorrectly because step is incorrect for some premises. Invalid due because.
+Time taken to update solutions:  175.83212518692017
+Intersection set size: 19
+Candidate tokens: . combination function values assignmentsvalue valuevalues functions valuation table combinations assignment tables conditions valuations condition functionaltable
+Time taken to get recomputed solution logits:  125.20741653442383
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which truthvalues based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 18.55510902404785, Mistakes: 0.3999999761581421, Control Loss: 6.024677753448486, Total Loss: 0.5204935073852539
+Time taken to get recomputed solution logits:  103.2398042678833
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which truth assignments based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 17.72536277770996, Mistakes: 0.37037038803100586, Control Loss: 6.080986022949219, Total Loss: 0.4919900894165039
+Time taken to get recomputed solution logits:  101.5352942943573
+>Prompt Choice:  modus to show invalidity through truth table demonstration that argument doesn Invalid. t guarantee. Deducibility and its Truth Tables which truth values based only o the facts stated premise are incomplete or the statements of what are the relations of family. Loss: 12.395235061645508, Mistakes: 0.25925925374031067, Control Loss: 6.0464768409729, Total Loss: 0.38018879294395447normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Process Process-1:
+Traceback (most recent call last):
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "../llm_opt/base/attack_manager.py", line 2460, in run
+    results.put(ob.grad(*args, **kwargs))
+  File "../llm_opt/base/attack_manager.py", line 1019, in grad
+    return sum([prompt.grad(model, current_pos, valid_tokens) for prompt in self._prompts])
+  File "../llm_opt/base/attack_manager.py", line 1019, in <listcomp>
+    return sum([prompt.grad(model, current_pos, valid_tokens) for prompt in self._prompts])
+  File "../llm_opt/gcg/gcg_attack.py", line 122, in grad
+    return token_gradients(
+  File "../llm_opt/gcg/gcg_attack.py", line 95, in token_gradients
+    logits = model(inputs_embeds=full_embeds, return_dict=False)[0]
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/models/gemma2/modeling_gemma2.py", line 1089, in forward
+    logits = logits / self.config.final_logit_softcapping
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 460.00 MiB. GPU 
+[W CudaIPCTypes.cpp:16] Producer process has been terminated before all shared CUDA tensors released. See Note [Sharing CUDA tensors]
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 33 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

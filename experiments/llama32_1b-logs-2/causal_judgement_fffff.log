@@ -1,0 +1,1879 @@
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: ' proper logical reasoning and think step by step. Finally give the
+  actual correct answer.'
+control_weight: 0.2
+conversation_templates:
+- llama-3
+- llama-3
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ Yes'' or ''$ No'')
+  is $ '
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: false
+  use_cache: false
+- low_cpu_mem_usage: false
+  use_cache: false
+model_paths:
+- meta-llama/Llama-3.2-1B-Instruct
+- meta-llama/Llama-3.2-1B-Instruct
+n_steps: 106
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_llama3_causal_judgement_fffff.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/causal_judgement.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+tokenizer_paths:
+- meta-llama/Llama-3.2-1B-Instruct
+- meta-llama/Llama-3.2-1B-Instruct
+topk: 40
+train_data: ../data/BBH/causal_judgement.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Initialized Workers...
+Started worker 2065722 for model meta-llama/Llama-3.2-1B-Instruct
+Started worker 2065858 for model meta-llama/Llama-3.2-1B-Instruct
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  43.04386305809021
+Intersection set size: 11
+Candidate tokens:  one caus a an evidence the this causal only of your
+Time taken to get recomputed solution logits:  24.883952617645264
+Time taken to get recomputed solution logits:  23.160094261169434
+>Prompt Choice:  a logical reasoning and think step by step. Finally give the actual correct answer. Loss: 9.672607421875, Mistakes: 0.8999999761581421, Control Loss: 4.124555587768555, Total Loss: 0.9824910759925842
+Time taken to get recomputed solution logits:  25.676208972930908
+Time taken to get recomputed solution logits:  32.48969006538391
+>Prompt Choice:  of logical reasoning and think step by step. Finally give the actual correct answer. Loss: 6.424975395202637, Mistakes: 0.7999999523162842, Control Loss: 4.430889129638672, Total Loss: 0.888617753982544
+Time taken to get recomputed solution logits:  34.36313271522522
+Time taken to get recomputed solution logits:  21.295228242874146
+>Prompt Choice:  an logical reasoning and think step by step. Finally give the actual correct answer. Loss: 9.650150299072266, Mistakes: 0.8799999952316284, Control Loss: 4.487732887268066, Total Loss: 0.9697546362876892
+No improvement in the current position. Moving to the next position.
+New Control:  of logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.888617753982544
+Current length: 16
+ of logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.888617753982544 Best Loss: 0.888617753982544 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.888617753982544, ' of logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  66.4536030292511
+Intersection set size: 3
+Candidate tokens:  this the a
+>>>> Topk increased to 17 <<<<
+Intersection set size: 4
+Candidate tokens:  this the a an
+>>>> Topk increased to 19 <<<<
+Intersection set size: 4
+Candidate tokens:  this the a an
+>>>> Topk increased to 21 <<<<
+Intersection set size: 4
+Candidate tokens:  this the a an
+>>>> Topk increased to 23 <<<<
+Intersection set size: 5
+Candidate tokens:  this any the a other
+>>>> Topk increased to 25 <<<<
+Intersection set size: 4
+Candidate tokens:  this the a an
+>>>> Topk increased to 27 <<<<
+Intersection set size: 7
+Candidate tokens:  this a any an the alternative other
+Time taken to get recomputed solution logits:  25.68926239013672
+Time taken to get recomputed solution logits:  32.37311935424805
+>Prompt Choice:  of logical reasoning and think step by step. Finally give the actual correct answer. Loss: 6.424975395202637, Mistakes: 0.7999999523162842, Control Loss: 4.253623962402344, Total Loss: 0.8850724101066589
+Time taken to get recomputed solution logits:  35.35156536102295
+Time taken to get recomputed solution logits:  22.620248317718506
+>Prompt Choice:  of a reasoning and think step by step. Finally give the actual correct answer. Loss: 7.787533283233643, Mistakes: 0.8999999761581421, Control Loss: 5.206110000610352, Total Loss: 1.0041221380233765
+Time taken to get recomputed solution logits:  27.11406397819519
+Time taken to get recomputed solution logits:  38.52473473548889
+>Prompt Choice:  of this reasoning and think step by step. Finally give the actual correct answer. Loss: 8.281275749206543, Mistakes: 0.8799999952316284, Control Loss: 4.992715835571289, Total Loss: 0.9798542857170105
+No improvement in the current position. Moving to the next position.
+New Control:  of logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.8850724101066589
+Current length: 16
+ of logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.8850724101066589 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  66.41676044464111
+Intersection set size: 10
+Candidate tokens:  and deduction fall reasoning rules arguments analysis inference argument thinking
+Time taken to get recomputed solution logits:  34.93658638000488
+Time taken to get recomputed solution logits:  27.28325891494751
+>Prompt Choice:  of logical thinking and think step by step. Finally give the actual correct answer. Loss: 7.434774398803711, Mistakes: 0.8999999761581421, Control Loss: 4.268303871154785, Total Loss: 0.9853660464286804
+Time taken to get recomputed solution logits:  25.87943458557129
+Time taken to get recomputed solution logits:  20.68766760826111
+>Prompt Choice:  of logical fall and think step by step. Finally give the actual correct answer. Loss: 7.514359951019287, Mistakes: 0.7999999523162842, Control Loss: 5.384707927703857, Total Loss: 0.9076941013336182
+Time taken to get recomputed solution logits:  25.133992433547974
+Time taken to get recomputed solution logits:  20.443451404571533
+>Prompt Choice:  of logical rules and think step by step. Finally give the actual correct answer. Loss: 9.849125862121582, Mistakes: 0.9199999570846558, Control Loss: 4.302468776702881, Total Loss: 1.0060492753982544
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and think step by step. Finally give the actual correct answer., New Loss: 0.9076941013336182
+Current length: 16
+ of logical fall and think step by step. Finally give the actual correct answer.
+Current Loss: 0.9076941013336182 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  53.38246417045593
+Intersection set size: 14
+Candidate tokens: acaxacyacityaciasacieibilityaciousaciaACYowsaciescyaci
+Time taken to get recomputed solution logits:  25.57857370376587
+Time taken to get recomputed solution logits:  18.929712057113647
+>Prompt Choice:  of logical fallcy think step by step. Finally give the actual correct answer. Loss: 8.934379577636719, Mistakes: 0.8799999952316284, Control Loss: 5.908341884613037, Total Loss: 0.9981667995452881
+Time taken to get recomputed solution logits:  25.79379630088806
+Time taken to get recomputed solution logits:  20.722298860549927
+>Prompt Choice:  of logical fall and think step by step. Finally give the actual correct answer. Loss: 7.514359951019287, Mistakes: 0.7999999523162842, Control Loss: 5.53291130065918, Total Loss: 0.9106581807136536
+Time taken to get recomputed solution logits:  22.37640690803528
+Time taken to get recomputed solution logits:  29.982030153274536
+>Prompt Choice:  of logical fallax think step by step. Finally give the actual correct answer. Loss: 7.582680702209473, Mistakes: 0.8199999928474426, Control Loss: 5.66345739364624, Total Loss: 0.9332691431045532
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and think step by step. Finally give the actual correct answer., New Loss: 0.9106581807136536
+Current length: 16
+ of logical fall and think step by step. Finally give the actual correct answer.
+Current Loss: 0.9106581807136536 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  53.51497268676758
+Intersection set size: 9
+Candidate tokens:  dis a h s reasoning argument assumption the chain
+Time taken to get recomputed solution logits:  25.78295874595642
+Time taken to get recomputed solution logits:  32.61764073371887
+>Prompt Choice:  of logical fall and s step by step. Finally give the actual correct answer. Loss: 9.87983512878418, Mistakes: 0.8999999761581421, Control Loss: 6.123710632324219, Total Loss: 1.0224741697311401
+Time taken to get recomputed solution logits:  25.134215354919434
+Time taken to get recomputed solution logits:  40.663498878479004
+>Prompt Choice:  of logical fall and dis step by step. Finally give the actual correct answer. Loss: 10.584146499633789, Mistakes: 0.9199999570846558, Control Loss: 6.254300117492676, Total Loss: 1.0450859069824219
+Time taken to get recomputed solution logits:  26.338104486465454
+Time taken to get recomputed solution logits:  27.629200220108032
+>Prompt Choice:  of logical fall and assumption step by step. Finally give the actual correct answer. Loss: 8.35645580291748, Mistakes: 0.9599999785423279, Control Loss: 5.582097053527832, Total Loss: 1.0716419219970703
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and s step by step. Finally give the actual correct answer., New Loss: 1.0224741697311401
+Current length: 16
+ of logical fall and s step by step. Finally give the actual correct answer.
+Current Loss: 1.0224741697311401 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  61.159430265426636
+Intersection set size: 10
+Candidate tokens: ibilledgeocraticibyleyciftingyl argumentavior
+Time taken to get recomputed solution logits:  37.05786442756653
+Time taken to get recomputed solution logits:  19.724222421646118
+>Prompt Choice:  of logical fall and savior by step. Finally give the actual correct answer. Loss: 8.752556800842285, Mistakes: 0.8399999737739563, Control Loss: 6.28144645690918, Total Loss: 0.9656289219856262
+Time taken to get recomputed solution logits:  25.308387517929077
+Time taken to get recomputed solution logits:  36.33540105819702
+>Prompt Choice:  of logical fall and s argument by step. Finally give the actual correct answer. Loss: 8.491252899169922, Mistakes: 0.85999995470047, Control Loss: 6.082485198974609, Total Loss: 0.98164963722229
+Time taken to get recomputed solution logits:  25.072493076324463
+Time taken to get recomputed solution logits:  37.74235439300537
+>Prompt Choice:  of logical fall and syl by step. Finally give the actual correct answer. Loss: 9.200457572937012, Mistakes: 0.8799999952316284, Control Loss: 6.763210296630859, Total Loss: 1.0152641534805298
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and savior by step. Finally give the actual correct answer., New Loss: 0.9656289219856262
+Current length: 16
+ of logical fall and savior by step. Finally give the actual correct answer.
+Current Loss: 0.9656289219856262 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  56.48178696632385
+Intersection set size: 7
+Candidate tokens:  complexes, clauseism fall argument complex
+Time taken to get recomputed solution logits:  27.50752854347229
+Time taken to get recomputed solution logits:  19.046124696731567
+>Prompt Choice:  of logical fall and savior, step. Finally give the actual correct answer. Loss: 9.932281494140625, Mistakes: 0.9199999570846558, Control Loss: 6.116730213165283, Total Loss: 1.0423345565795898
+Time taken to get recomputed solution logits:  24.923386096954346
+Time taken to get recomputed solution logits:  19.115939140319824
+>Prompt Choice:  of logical fall and saviorism step. Finally give the actual correct answer. Loss: 10.505139350891113, Mistakes: 0.9199999570846558, Control Loss: 6.07379150390625, Total Loss: 1.041475772857666
+Time taken to get recomputed solution logits:  19.302104234695435
+Time taken to get recomputed solution logits:  28.515465259552002
+>Prompt Choice:  of logical fall and savior complex step. Finally give the actual correct answer. Loss: 10.374686241149902, Mistakes: 0.9599999785423279, Control Loss: 6.146984100341797, Total Loss: 1.082939624786377
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and saviorism step. Finally give the actual correct answer., New Loss: 1.041475772857666
+Current length: 16
+ of logical fall and saviorism step. Finally give the actual correct answer.
+Current Loss: 1.041475772857666 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  43.744877576828
+Intersection set size: 13
+Candidate tokens:  can,. fall arguments to would may in argument is as of
+Time taken to get recomputed solution logits:  24.774521112442017
+Time taken to get recomputed solution logits:  37.389501333236694
+>Prompt Choice:  of logical fall and saviorism can. Finally give the actual correct answer. Loss: 7.523300647735596, Mistakes: 0.9399999976158142, Control Loss: 6.41232442855835, Total Loss: 1.0682464838027954
+Time taken to get recomputed solution logits:  26.469088554382324
+Time taken to get recomputed solution logits:  24.819572687149048
+>Prompt Choice:  of logical fall and saviorism may. Finally give the actual correct answer. Loss: 7.880621910095215, Mistakes: 0.9199999570846558, Control Loss: 6.436847686767578, Total Loss: 1.0487369298934937
+Time taken to get recomputed solution logits:  17.26230812072754
+Time taken to get recomputed solution logits:  21.131465196609497
+>Prompt Choice:  of logical fall and saviorism,. Finally give the actual correct answer. Loss: 10.27701187133789, Mistakes: 0.85999995470047, Control Loss: 6.545509338378906, Total Loss: 0.9909101724624634
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and saviorism,. Finally give the actual correct answer., New Loss: 0.9909101724624634
+Current length: 15
+ of logical fall and saviorism,. Finally give the actual correct answer.
+Current Loss: 0.9909101724624634 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  48.95360827445984
+Intersection set size: 14
+Candidate tokens:  The andeis. the This  orthecomand No
+Time taken to get recomputed solution logits:  34.47967839241028
+Time taken to get recomputed solution logits:  23.361164093017578
+>Prompt Choice:  of logical fall and saviorism,. or give the actual correct answer. Loss: 9.284327507019043, Mistakes: 0.9799999594688416, Control Loss: 6.8235578536987305, Total Loss: 1.1164710521697998
+Time taken to get recomputed solution logits:  15.105086326599121
+Time taken to get recomputed solution logits:  20.515389442443848
+>Prompt Choice:  of logical fall and saviorism,.com give the actual correct answer. Loss: 8.88154411315918, Mistakes: 0.9399999976158142, Control Loss: 6.717244625091553, Total Loss: 1.0743448734283447
+Time taken to get recomputed solution logits:  16.318905115127563
+Time taken to get recomputed solution logits:  19.489174604415894
+>Prompt Choice:  of logical fall and saviorism,.  give the actual correct answer. Loss: 10.19081974029541, Mistakes: 0.9399999976158142, Control Loss: 6.585990905761719, Total Loss: 1.071719765663147
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and saviorism,.  give the actual correct answer., New Loss: 1.071719765663147
+Current length: 15
+ of logical fall and saviorism,.  give the actual correct answer.
+Current Loss: 1.071719765663147 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  35.90752553939819
+Intersection set size: 10
+Candidate tokens:  You The and a This explanation or No A Use
+Time taken to get recomputed solution logits:  23.78114628791809
+Time taken to get recomputed solution logits:  29.31142020225525
+>Prompt Choice:  of logical fall and saviorism,.  or the actual correct answer. Loss: 9.186186790466309, Mistakes: 0.8999999761581421, Control Loss: 6.616365432739258, Total Loss: 1.0323272943496704
+Time taken to get recomputed solution logits:  22.136901140213013
+Time taken to get recomputed solution logits:  30.74634337425232
+>Prompt Choice:  of logical fall and saviorism,.  and the actual correct answer. Loss: 9.35686206817627, Mistakes: 0.8999999761581421, Control Loss: 6.583085536956787, Total Loss: 1.0316617488861084
+Time taken to get recomputed solution logits:  19.60110831260681
+Time taken to get recomputed solution logits:  22.34593939781189
+>Prompt Choice:  of logical fall and saviorism,.  The the actual correct answer. Loss: 8.941994667053223, Mistakes: 0.8999999761581421, Control Loss: 6.80673360824585, Total Loss: 1.0361346006393433
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and saviorism,.  and the actual correct answer., New Loss: 1.0316617488861084
+Current length: 15
+ of logical fall and saviorism,.  and the actual correct answer.
+Current Loss: 1.0316617488861084 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  51.533881425857544
+Intersection set size: 9
+Candidate tokens:  caus a, an mis the  logical other
+Time taken to get recomputed solution logits:  21.306785821914673
+Time taken to get recomputed solution logits:  29.674644231796265
+>Prompt Choice:  of logical fall and saviorism,.  and  actual correct answer. Loss: 8.4780855178833, Mistakes: 0.8199999928474426, Control Loss: 6.433272838592529, Total Loss: 0.94866544008255
+Time taken to get recomputed solution logits:  15.829240798950195
+Time taken to get recomputed solution logits:  29.6730055809021
+>Prompt Choice:  of logical fall and saviorism,.  and, actual correct answer. Loss: 8.209938049316406, Mistakes: 0.85999995470047, Control Loss: 6.396886348724365, Total Loss: 0.9879376888275146
+Time taken to get recomputed solution logits:  26.636615991592407
+Time taken to get recomputed solution logits:  38.61682462692261
+>Prompt Choice:  of logical fall and saviorism,.  and mis actual correct answer. Loss: 7.5363311767578125, Mistakes: 0.85999995470047, Control Loss: 7.101167678833008, Total Loss: 1.0020233392715454
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and saviorism,.  and  actual correct answer., New Loss: 0.94866544008255
+Current length: 15
+ of logical fall and saviorism,.  and  actual correct answer.
+Current Loss: 0.94866544008255 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  47.94314956665039
+Intersection set size: 6
+Candidate tokens:  and a mis argument logical the
+Time taken to get recomputed solution logits:  17.19125723838806
+Time taken to get recomputed solution logits:  21.678672790527344
+>Prompt Choice:  of logical fall and saviorism,.  and  a correct answer. Loss: 8.095860481262207, Mistakes: 0.8199999928474426, Control Loss: 6.349034309387207, Total Loss: 0.9469806551933289
+Time taken to get recomputed solution logits:  19.138203382492065
+Time taken to get recomputed solution logits:  29.622193098068237
+>Prompt Choice:  of logical fall and saviorism,.  and  actual correct answer. Loss: 8.4780855178833, Mistakes: 0.8199999928474426, Control Loss: 6.465189456939697, Total Loss: 0.9493037462234497
+Time taken to get recomputed solution logits:  26.76222848892212
+Time taken to get recomputed solution logits:  26.67583465576172
+>Prompt Choice:  of logical fall and saviorism,.  and  the correct answer. Loss: 7.394457817077637, Mistakes: 0.85999995470047, Control Loss: 6.381595134735107, Total Loss: 0.9876318573951721
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and saviorism,.  and  a correct answer., New Loss: 0.9469806551933289
+Current length: 15
+ of logical fall and saviorism,.  and  a correct answer.
+Current Loss: 0.9469806551933289 Best Loss: 0.8850724101066589 Best Control:  of logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  38.788413524627686
+Intersection set size: 9
+Candidate tokens:  causal non prior bit fall s lack logical 
+Time taken to get recomputed solution logits:  38.49202275276184
+Time taken to get recomputed solution logits:  44.735541582107544
+>Prompt Choice:  of logical fall and saviorism,.  and  a fall answer. Loss: 5.221932411193848, Mistakes: 0.6599999666213989, Control Loss: 6.672238349914551, Total Loss: 0.7934447526931763
+Time taken to get recomputed solution logits:  32.27324080467224
+Time taken to get recomputed solution logits:  36.58626389503479
+>Prompt Choice:  of logical fall and saviorism,.  and  a causal answer. Loss: 8.046643257141113, Mistakes: 0.8399999737739563, Control Loss: 6.375380039215088, Total Loss: 0.9675076007843018
+Time taken to get recomputed solution logits:  26.205073833465576
+Time taken to get recomputed solution logits:  31.118757009506226
+>Prompt Choice:  of logical fall and saviorism,.  and  a lack answer. Loss: 6.668022155761719, Mistakes: 0.7400000095367432, Control Loss: 6.749171257019043, Total Loss: 0.8749834299087524
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and saviorism,.  and  a fall answer., New Loss: 0.7934447526931763
+Current length: 15
+ of logical fall and saviorism,.  and  a fall answer.
+Current Loss: 0.7934447526931763 Best Loss: 0.7934447526931763 Best Control:  of logical fall and saviorism,.  and  a fall answer.
+Time taken to update solutions:  73.72528743743896
+Intersection set size: 13
+Candidate tokens: acacyibilityacious ible in foracies into to from of
+Time taken to get recomputed solution logits:  43.10688233375549
+Time taken to get recomputed solution logits:  44.01382279396057
+>Prompt Choice:  of logical fall and saviorism,.  and  a fallacy. Loss: 6.096136569976807, Mistakes: 0.85999995470047, Control Loss: 6.625004768371582, Total Loss: 0.9925000667572021
+Time taken to get recomputed solution logits:  37.95528841018677
+Time taken to get recomputed solution logits:  44.86456894874573
+>Prompt Choice:  of logical fall and saviorism,.  and  a fallacies. Loss: 5.958278656005859, Mistakes: 0.7999999523162842, Control Loss: 6.629045009613037, Total Loss: 0.932580828666687
+Time taken to get recomputed solution logits:  30.61939811706543
+Time taken to get recomputed solution logits:  38.98947334289551
+>Prompt Choice:  of logical fall and saviorism,.  and  a fall from. Loss: 7.301634311676025, Mistakes: 0.85999995470047, Control Loss: 6.79791784286499, Total Loss: 0.9959583282470703
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and saviorism,.  and  a fallacies., New Loss: 0.932580828666687
+Current length: 15
+ of logical fall and saviorism,.  and  a fallacies.
+Current Loss: 0.932580828666687 Best Loss: 0.7934447526931763 Best Control:  of logical fall and saviorism,.  and  a fall answer.
+Time taken to update solutions:  88.05784130096436
+Intersection set size: 10
+Candidate tokens: ,. fall  that in related argument to of
+Time taken to get recomputed solution logits:  37.795039653778076
+Time taken to get recomputed solution logits:  44.77286887168884
+>Prompt Choice:  of logical fall and saviorism,.  and  a fallacies. Loss: 5.958278656005859, Mistakes: 0.7999999523162842, Control Loss: 6.134211540222168, Total Loss: 0.9226841926574707
+No improvement in the current position. Moving to the next position.
+New Control:  of logical fall and saviorism,.  and  a fallacies., New Loss: 0.9226841926574707
+Current length: 15
+ of logical fall and saviorism,.  and  a fallacies.
+Current Loss: 0.9226841926574707 Best Loss: 0.7934447526931763 Best Control:  of logical fall and saviorism,.  and  a fall answer.
+Time taken to update solutions:  87.92059421539307
+Intersection set size: 10
+Candidate tokens:  one this a only an evidence the of your specific
+Time taken to get recomputed solution logits:  41.87880182266235
+Time taken to get recomputed solution logits:  44.780643463134766
+>Prompt Choice:  evidence logical fall and saviorism,.  and  a fallacies. Loss: 5.720653057098389, Mistakes: 0.7799999713897705, Control Loss: 6.434998989105225, Total Loss: 0.9086999297142029
+Time taken to get recomputed solution logits:  42.100282192230225
+Time taken to get recomputed solution logits:  44.937846183776855
+>Prompt Choice:  specific logical fall and saviorism,.  and  a fallacies. Loss: 4.782467365264893, Mistakes: 0.7999999523162842, Control Loss: 6.186628818511963, Total Loss: 0.9237325191497803
+Time taken to get recomputed solution logits:  44.82002234458923
+Time taken to get recomputed solution logits:  44.883784770965576
+>Prompt Choice:  your logical fall and saviorism,.  and  a fallacies. Loss: 5.928857326507568, Mistakes: 0.7999999523162842, Control Loss: 6.285857677459717, Total Loss: 0.9257171154022217
+No improvement in the current position. Moving to the next position.
+New Control:  evidence logical fall and saviorism,.  and  a fallacies., New Loss: 0.9086999297142029
+Current length: 15
+ evidence logical fall and saviorism,.  and  a fallacies.
+Current Loss: 0.9086999297142029 Best Loss: 0.7934447526931763 Best Control:  of logical fall and saviorism,.  and  a fall answer.
+Step:  15 Candidates:  [(0.7934447526931763, ' of logical fall and saviorism,.  and  a fall answer.'), (0.8850724101066589, ' of logical reasoning and think step by step. Finally give the actual correct answer.'), (0.888617753982544, ' of logical reasoning and think step by step. Finally give the actual correct answer.'), (0.9076941013336182, ' of logical fall and think step by step. Finally give the actual correct answer.'), (0.9086999297142029, ' evidence logical fall and saviorism,.  and  a fallacies.'), (0.9106581807136536, ' of logical fall and think step by step. Finally give the actual correct answer.'), (0.9226841926574707, ' of logical fall and saviorism,.  and  a fallacies.'), (0.932580828666687, ' of logical fall and saviorism,.  and  a fallacies.'), (0.9469806551933289, ' of logical fall and saviorism,.  and  a correct answer.'), (0.94866544008255, ' of logical fall and saviorism,.  and  actual correct answer.')]
+Time taken to update solutions:  86.10833692550659
+Intersection set size: 14
+Candidate tokens:  and,. about or only that in for such to from of based
+Time taken to get recomputed solution logits:  41.7806921005249
+Time taken to get recomputed solution logits:  44.80556058883667
+>Prompt Choice:  evidence logical fall and saviorism,.  and  a fallacies. Loss: 5.720653057098389, Mistakes: 0.7799999713897705, Control Loss: 6.538331985473633, Total Loss: 0.9107666015625
+Time taken to get recomputed solution logits:  44.68048858642578
+Time taken to get recomputed solution logits:  44.871243953704834
+>Prompt Choice:  evidence for fall and saviorism,.  and  a fallacies. Loss: 4.010080337524414, Mistakes: 0.7400000095367432, Control Loss: 7.003719329833984, Total Loss: 0.8800743818283081
+Time taken to get recomputed solution logits:  44.78731107711792
+Time taken to get recomputed solution logits:  44.79382944107056
+>Prompt Choice:  evidence that fall and saviorism,.  and  a fallacies. Loss: 5.453171730041504, Mistakes: 0.7999999523162842, Control Loss: 7.307325839996338, Total Loss: 0.9461464881896973
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fall and saviorism,.  and  a fallacies., New Loss: 0.8800743818283081
+Current length: 15
+ evidence for fall and saviorism,.  and  a fallacies.
+Current Loss: 0.8800743818283081 Best Loss: 0.7934447526931763 Best Control:  of logical fall and saviorism,.  and  a fall answer.
+Time taken to update solutions:  87.8597571849823
+Intersection set size: 10
+Candidate tokens:  support a an evidence the explanation answer this your each
+Time taken to get recomputed solution logits:  44.80286717414856
+Time taken to get recomputed solution logits:  44.84234881401062
+>Prompt Choice:  evidence for fall and saviorism,.  and  a fallacies. Loss: 4.010080337524414, Mistakes: 0.7400000095367432, Control Loss: 6.449135780334473, Total Loss: 0.86898273229599
+Time taken to get recomputed solution logits:  39.7673237323761
+Time taken to get recomputed solution logits:  43.349279165267944
+>Prompt Choice:  evidence for evidence and saviorism,.  and  a fallacies. Loss: 4.743991374969482, Mistakes: 0.85999995470047, Control Loss: 6.410866737365723, Total Loss: 0.988217294216156
+Time taken to get recomputed solution logits:  44.75862240791321
+Time taken to get recomputed solution logits:  44.86121988296509
+>Prompt Choice:  evidence for support and saviorism,.  and  a fallacies. Loss: 4.659614562988281, Mistakes: 0.7799999713897705, Control Loss: 6.336610317230225, Total Loss: 0.9067322015762329
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fall and saviorism,.  and  a fallacies., New Loss: 0.86898273229599
+Current length: 15
+ evidence for fall and saviorism,.  and  a fallacies.
+Current Loss: 0.86898273229599 Best Loss: 0.7934447526931763 Best Control:  of logical fall and saviorism,.  and  a fall answer.
+Time taken to update solutions:  87.96964716911316
+Intersection set size: 11
+Candidate tokens: ibilacacyibilityaciousibleowsacies in back of
+Time taken to get recomputed solution logits:  40.662338972091675
+Time taken to get recomputed solution logits:  44.81472873687744
+>Prompt Choice:  evidence for fallible saviorism,.  and  a fallacies. Loss: 4.408257484436035, Mistakes: 0.7799999713897705, Control Loss: 6.273077487945557, Total Loss: 0.9054615497589111
+Time taken to get recomputed solution logits:  44.67772674560547
+Time taken to get recomputed solution logits:  44.82651877403259
+>Prompt Choice:  evidence for fallac saviorism,.  and  a fallacies. Loss: 4.114479064941406, Mistakes: 0.7599999904632568, Control Loss: 6.498315811157227, Total Loss: 0.8899663090705872
+Time taken to get recomputed solution logits:  44.76796340942383
+Time taken to get recomputed solution logits:  44.891648054122925
+>Prompt Choice:  evidence for fallacy saviorism,.  and  a fallacies. Loss: 5.823829650878906, Mistakes: 0.7999999523162842, Control Loss: 6.475770473480225, Total Loss: 0.9295153617858887
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac saviorism,.  and  a fallacies., New Loss: 0.8899663090705872
+Current length: 15
+ evidence for fallac saviorism,.  and  a fallacies.
+Current Loss: 0.8899663090705872 Best Loss: 0.7934447526931763 Best Control:  of logical fall and saviorism,.  and  a fall answer.
+Time taken to update solutions:  86.3418664932251
+Intersection set size: 10
+Candidate tokens: ulumulacyulationibleynibilityulousaciousiness
+Time taken to get recomputed solution logits:  40.80723762512207
+Time taken to get recomputed solution logits:  44.785666942596436
+>Prompt Choice:  evidence for fallacaciousaviorism,.  and  a fallacies. Loss: 5.491369724273682, Mistakes: 0.85999995470047, Control Loss: 7.134891033172607, Total Loss: 1.0026977062225342
+Time taken to get recomputed solution logits:  39.768951654434204
+Time taken to get recomputed solution logits:  43.05831241607666
+>Prompt Choice:  evidence for fallaculousaviorism,.  and  a fallacies. Loss: 5.429053783416748, Mistakes: 0.7599999904632568, Control Loss: 7.049012184143066, Total Loss: 0.9009802341461182
+Time taken to get recomputed solution logits:  44.66647481918335
+Time taken to get recomputed solution logits:  44.83954191207886
+>Prompt Choice:  evidence for fallac saviorism,.  and  a fallacies. Loss: 4.114479064941406, Mistakes: 0.7599999904632568, Control Loss: 6.375649452209473, Total Loss: 0.8875129818916321
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac saviorism,.  and  a fallacies., New Loss: 0.8875129818916321
+Current length: 15
+ evidence for fallac saviorism,.  and  a fallacies.
+Current Loss: 0.8875129818916321 Best Loss: 0.7934447526931763 Best Control:  of logical fall and saviorism,.  and  a fall answer.
+Time taken to update solutions:  86.26601648330688
+Intersection set size: 13
+Candidate tokens:  and,.ionsibility  orionies in argument to of
+Time taken to get recomputed solution logits:  44.72095990180969
+Time taken to get recomputed solution logits:  38.656429290771484
+>Prompt Choice:  evidence for fallac sionism,.  and  a fallacies. Loss: 5.1396098136901855, Mistakes: 0.7400000095367432, Control Loss: 6.73687744140625, Total Loss: 0.874737560749054
+Time taken to get recomputed solution logits:  44.58846426010132
+Time taken to get recomputed solution logits:  44.773743629455566
+>Prompt Choice:  evidence for fallac sionsism,.  and  a fallacies. Loss: 5.674100399017334, Mistakes: 0.7999999523162842, Control Loss: 7.265379905700684, Total Loss: 0.9453075528144836
+Time taken to get recomputed solution logits:  44.70364212989807
+Time taken to get recomputed solution logits:  44.73778176307678
+>Prompt Choice:  evidence for fallac s toism,.  and  a fallacies. Loss: 5.44114351272583, Mistakes: 0.7599999904632568, Control Loss: 7.232056140899658, Total Loss: 0.9046410918235779
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sionism,.  and  a fallacies., New Loss: 0.874737560749054
+Current length: 15
+ evidence for fallac sionism,.  and  a fallacies.
+Current Loss: 0.874737560749054 Best Loss: 0.7934447526931763 Best Control:  of logical fall and saviorism,.  and  a fall answer.
+Time taken to update solutions:  87.78934335708618
+Intersection set size: 13
+Candidate tokens:  and,.ary analysis or  detection in argument to from of
+Time taken to get recomputed solution logits:  36.681411027908325
+Time taken to get recomputed solution logits:  44.64413356781006
+>Prompt Choice:  evidence for fallac sion analysis,.  and  a fallacies. Loss: 6.656823635101318, Mistakes: 0.8799999952316284, Control Loss: 6.4914116859436035, Total Loss: 1.0098282098770142
+Time taken to get recomputed solution logits:  44.6455602645874
+Time taken to get recomputed solution logits:  39.6981897354126
+>Prompt Choice:  evidence for fallac sion argument,.  and  a fallacies. Loss: 4.542908668518066, Mistakes: 0.7400000095367432, Control Loss: 6.3940629959106445, Total Loss: 0.8678812980651855
+Time taken to get recomputed solution logits:  44.66518974304199
+Time taken to get recomputed solution logits:  44.83098363876343
+>Prompt Choice:  evidence for fallac sion detection,.  and  a fallacies. Loss: 6.279257774353027, Mistakes: 0.8199999928474426, Control Loss: 6.5504069328308105, Total Loss: 0.951008141040802
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sion argument,.  and  a fallacies., New Loss: 0.8678812980651855
+Current length: 15
+ evidence for fallac sion argument,.  and  a fallacies.
+Current Loss: 0.8678812980651855 Best Loss: 0.7934447526931763 Best Control:  of logical fall and saviorism,.  and  a fall answer.
+Time taken to update solutions:  81.96206545829773
+Intersection set size: 12
+Candidate tokens:  and,. fall or againstation in for to from of
+Time taken to get recomputed solution logits:  44.664165019989014
+Time taken to get recomputed solution logits:  39.671306133270264
+>Prompt Choice:  evidence for fallac sion argument,.  and  a fallacies. Loss: 4.542908668518066, Mistakes: 0.7400000095367432, Control Loss: 6.347479343414307, Total Loss: 0.8669495582580566
+Time taken to get recomputed solution logits:  44.762364625930786
+Time taken to get recomputed solution logits:  44.85702037811279
+>Prompt Choice:  evidence for fallac sion argument against  and  a fallacies. Loss: 5.403384685516357, Mistakes: 0.6599999666213989, Control Loss: 6.548577785491943, Total Loss: 0.7909715175628662
+Time taken to get recomputed solution logits:  44.780864000320435
+Time taken to get recomputed solution logits:  44.80530405044556
+>Prompt Choice:  evidence for fallac sion argument or  and  a fallacies. Loss: 5.166351318359375, Mistakes: 0.699999988079071, Control Loss: 6.505820274353027, Total Loss: 0.8301163911819458
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sion argument against  and  a fallacies., New Loss: 0.7909715175628662
+Current length: 15
+ evidence for fallac sion argument against  and  a fallacies.
+Current Loss: 0.7909715175628662 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  87.90078663825989
+Intersection set size: 6
+Candidate tokens:  this caus a evidence fall the
+Time taken to get recomputed solution logits:  44.709524631500244
+Time taken to get recomputed solution logits:  38.082908391952515
+>Prompt Choice:  evidence for fallac sion argument against evidence and  a fallacies. Loss: 5.796504974365234, Mistakes: 0.8399999737739563, Control Loss: 6.092206001281738, Total Loss: 0.9618440866470337
+Time taken to get recomputed solution logits:  44.728519678115845
+Time taken to get recomputed solution logits:  44.83817434310913
+>Prompt Choice:  evidence for fallac sion argument against fall and  a fallacies. Loss: 5.375018119812012, Mistakes: 0.7799999713897705, Control Loss: 6.23297119140625, Total Loss: 0.9046593904495239
+Time taken to get recomputed solution logits:  44.78401565551758
+Time taken to get recomputed solution logits:  44.87361764907837
+>Prompt Choice:  evidence for fallac sion argument against caus and  a fallacies. Loss: 5.671057224273682, Mistakes: 0.85999995470047, Control Loss: 6.691321849822998, Total Loss: 0.9938263893127441
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sion argument against fall and  a fallacies., New Loss: 0.9046593904495239
+Current length: 15
+ evidence for fallac sion argument against fall and  a fallacies.
+Current Loss: 0.9046593904495239 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  87.96657848358154
+Intersection set size: 13
+Candidate tokens: aibilacaxacyacityibilityaciousaciaationacies ofaci
+Time taken to get recomputed solution logits:  44.63055109977722
+Time taken to get recomputed solution logits:  44.71772217750549
+>Prompt Choice:  evidence for fallac sion argument against fallibility  a fallacies. Loss: 5.366923809051514, Mistakes: 0.7799999713897705, Control Loss: 6.671248435974121, Total Loss: 0.9134249687194824
+Time taken to get recomputed solution logits:  44.745810747146606
+Time taken to get recomputed solution logits:  44.811068534851074
+>Prompt Choice:  evidence for fallac sion argument against fall and  a fallacies. Loss: 5.375018119812012, Mistakes: 0.7799999713897705, Control Loss: 6.051887512207031, Total Loss: 0.9010376930236816
+Time taken to get recomputed solution logits:  44.68256068229675
+Time taken to get recomputed solution logits:  43.84516358375549
+>Prompt Choice:  evidence for fallac sion argument against fallacy  a fallacies. Loss: 4.155580520629883, Mistakes: 0.7400000095367432, Control Loss: 6.501229286193848, Total Loss: 0.870024561882019
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sion argument against fallacy  a fallacies., New Loss: 0.870024561882019
+Current length: 15
+ evidence for fallac sion argument against fallacy  a fallacies.
+Current Loss: 0.870024561882019 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  80.29953336715698
+Intersection set size: 13
+Candidate tokens:  and,. s fall rule  called ad in of argument type
+Time taken to get recomputed solution logits:  44.678683042526245
+Time taken to get recomputed solution logits:  43.84624433517456
+>Prompt Choice:  evidence for fallac sion argument against fallacy  a fallacies. Loss: 4.155580520629883, Mistakes: 0.7400000095367432, Control Loss: 5.886478900909424, Total Loss: 0.8577295541763306
+Time taken to get recomputed solution logits:  44.76510667800903
+Time taken to get recomputed solution logits:  44.76976680755615
+>Prompt Choice:  evidence for fallac sion argument against fallacy in a fallacies. Loss: 5.685266971588135, Mistakes: 0.85999995470047, Control Loss: 5.608917236328125, Total Loss: 0.9721782803535461
+Time taken to get recomputed solution logits:  44.69960260391235
+Time taken to get recomputed solution logits:  44.808541774749756
+>Prompt Choice:  evidence for fallac sion argument against fallacy. a fallacies. Loss: 5.86231803894043, Mistakes: 0.7999999523162842, Control Loss: 6.199867248535156, Total Loss: 0.9239972829818726
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sion argument against fallacy. a fallacies., New Loss: 0.9239972829818726
+Current length: 15
+ evidence for fallac sion argument against fallacy. a fallacies.
+Current Loss: 0.9239972829818726 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  82.38998103141785
+Intersection set size: 11
+Candidate tokens:  The Explanation Explain Fall This  Identify Use In Evidence Analy
+Time taken to get recomputed solution logits:  44.70695662498474
+Time taken to get recomputed solution logits:  44.934844732284546
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Explanation fallacies. Loss: 4.436096668243408, Mistakes: 0.6800000071525574, Control Loss: 5.776453018188477, Total Loss: 0.7955290675163269
+Time taken to get recomputed solution logits:  44.88397026062012
+Time taken to get recomputed solution logits:  44.83195185661316
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Explain fallacies. Loss: 5.8230438232421875, Mistakes: 0.85999995470047, Control Loss: 5.628191947937012, Total Loss: 0.9725638031959534
+Time taken to get recomputed solution logits:  44.79102110862732
+Time taken to get recomputed solution logits:  44.95860052108765
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Analy fallacies. Loss: 4.574393272399902, Mistakes: 0.8199999928474426, Control Loss: 6.203588962554932, Total Loss: 0.9440717697143555
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sion argument against fallacy. Explanation fallacies., New Loss: 0.7955290675163269
+Current length: 15
+ evidence for fallac sion argument against fallacy. Explanation fallacies.
+Current Loss: 0.7955290675163269 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  87.91812467575073
+Intersection set size: 15
+Candidate tokens:  and required should,. provided  or explanation given needed in for is of
+Time taken to get recomputed solution logits:  44.723557233810425
+Time taken to get recomputed solution logits:  44.88070750236511
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Explanation oracies. Loss: 5.696991920471191, Mistakes: 0.7199999690055847, Control Loss: 6.68839168548584, Total Loss: 0.8537678122520447
+Time taken to get recomputed solution logits:  44.743328332901
+Time taken to get recomputed solution logits:  44.84549140930176
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Explanation inacies. Loss: 4.664669036865234, Mistakes: 0.699999988079071, Control Loss: 6.74899435043335, Total Loss: 0.8349798917770386
+Time taken to get recomputed solution logits:  40.14452290534973
+Time taken to get recomputed solution logits:  34.73457479476929
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Explanation explanationacies. Loss: 5.5885515213012695, Mistakes: 0.7799999713897705, Control Loss: 6.52614164352417, Total Loss: 0.9105228185653687
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sion argument against fallacy. Explanation inacies., New Loss: 0.8349798917770386
+Current length: 15
+ evidence for fallac sion argument against fallacy. Explanation inacies.
+Current Loss: 0.8349798917770386 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  79.9607195854187
+Intersection set size: 15
+Candidate tokens:  detail details one required a sentence text the  response answer this terms words your
+Time taken to get recomputed solution logits:  39.252103090286255
+Time taken to get recomputed solution logits:  40.22860884666443
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Explanation in detail. Loss: 6.974462509155273, Mistakes: 0.9399999976158142, Control Loss: 6.336112976074219, Total Loss: 1.0667222738265991
+Time taken to get recomputed solution logits:  38.0809690952301
+Time taken to get recomputed solution logits:  28.504756927490234
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Explanation in required. Loss: 7.324151515960693, Mistakes: 0.8399999737739563, Control Loss: 6.502403259277344, Total Loss: 0.9700480699539185
+Time taken to get recomputed solution logits:  38.550814151763916
+Time taken to get recomputed solution logits:  40.64348077774048
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Explanation in details. Loss: 7.519407749176025, Mistakes: 0.9599999785423279, Control Loss: 6.366222381591797, Total Loss: 1.0873243808746338
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sion argument against fallacy. Explanation in required., New Loss: 0.9700480699539185
+Current length: 15
+ evidence for fallac sion argument against fallacy. Explanation in required.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.9700480699539185 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  58.8441903591156
+Intersection set size: 13
+Candidate tokens: . section range text  response paragraphs answer form space language paragraph format
+Time taken to get recomputed solution logits:  37.169605016708374
+Time taken to get recomputed solution logits:  27.62869906425476
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Explanation in required. Loss: 7.324151515960693, Mistakes: 0.8399999737739563, Control Loss: 5.498636245727539, Total Loss: 0.9499726891517639
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sion argument against fallacy. Explanation in required., New Loss: 0.9499726891517639
+Current length: 15
+ evidence for fallac sion argument against fallacy. Explanation in required.
+Current Loss: 0.9499726891517639 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  58.38653063774109
+Intersection set size: 9
+Candidate tokens:  one this a only an the of your specific
+Time taken to get recomputed solution logits:  37.12130260467529
+Time taken to get recomputed solution logits:  27.35366201400757
+>Prompt Choice:  evidence for fallac sion argument against fallacy. Explanation in required. Loss: 7.324151515960693, Mistakes: 0.8399999737739563, Control Loss: 5.498636245727539, Total Loss: 0.9499726891517639
+Time taken to get recomputed solution logits:  22.411088466644287
+Time taken to get recomputed solution logits:  35.71240282058716
+>Prompt Choice:  a for fallac sion argument against fallacy. Explanation in required. Loss: 7.771909236907959, Mistakes: 0.9399999976158142, Control Loss: 6.394296646118164, Total Loss: 1.0678858757019043
+Time taken to get recomputed solution logits:  41.29289364814758
+Time taken to get recomputed solution logits:  26.82142925262451
+>Prompt Choice:  one for fallac sion argument against fallacy. Explanation in required. Loss: 8.14148235321045, Mistakes: 0.9799999594688416, Control Loss: 6.1805033683776855, Total Loss: 1.1036100387573242
+No improvement in the current position. Moving to the next position.
+New Control:  evidence for fallac sion argument against fallacy. Explanation in required., New Loss: 0.9499726891517639
+Current length: 15
+ evidence for fallac sion argument against fallacy. Explanation in required.
+Current Loss: 0.9499726891517639 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Step:  30 Candidates:  [(0.7909715175628662, ' evidence for fallac sion argument against  and  a fallacies.'), (0.7934447526931763, ' of logical fall and saviorism,.  and  a fall answer.'), (0.7955290675163269, ' evidence for fallac sion argument against fallacy. Explanation fallacies.'), (0.8349798917770386, ' evidence for fallac sion argument against fallacy. Explanation inacies.'), (0.8678812980651855, ' evidence for fallac sion argument,.  and  a fallacies.'), (0.86898273229599, ' evidence for fall and saviorism,.  and  a fallacies.'), (0.870024561882019, ' evidence for fallac sion argument against fallacy  a fallacies.'), (0.874737560749054, ' evidence for fallac sionism,.  and  a fallacies.'), (0.8800743818283081, ' evidence for fall and saviorism,.  and  a fallacies.'), (0.8850724101066589, ' of logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  58.35284733772278
+Intersection set size: 14
+Candidate tokens:  and,. beyond or only that in for such to from of based
+Time taken to get recomputed solution logits:  33.31062197685242
+Time taken to get recomputed solution logits:  26.613500356674194
+>Prompt Choice:  evidence such fallac sion argument against fallacy. Explanation in required. Loss: 8.255294799804688, Mistakes: 0.9199999570846558, Control Loss: 5.931127548217773, Total Loss: 1.038622498512268
+Time taken to get recomputed solution logits:  38.97144889831543
+Time taken to get recomputed solution logits:  33.20268893241882
+>Prompt Choice:  evidence based fallac sion argument against fallacy. Explanation in required. Loss: 8.08354663848877, Mistakes: 0.85999995470047, Control Loss: 5.865342140197754, Total Loss: 0.9773067831993103
+Time taken to get recomputed solution logits:  34.825413942337036
+Time taken to get recomputed solution logits:  31.557072401046753
+>Prompt Choice:  evidence only fallac sion argument against fallacy. Explanation in required. Loss: 8.132241249084473, Mistakes: 0.8199999928474426, Control Loss: 5.79353141784668, Total Loss: 0.9358706474304199
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fallac sion argument against fallacy. Explanation in required., New Loss: 0.9358706474304199
+Current length: 15
+ evidence only fallac sion argument against fallacy. Explanation in required.
+Current Loss: 0.9358706474304199 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  60.69077444076538
+Intersection set size: 13
+Candidate tokens:  and<|eom_id|>,. to or if in for as from of based
+Time taken to get recomputed solution logits:  34.810996532440186
+Time taken to get recomputed solution logits:  31.486976146697998
+>Prompt Choice:  evidence only fallac sion argument against fallacy. Explanation in required. Loss: 8.132241249084473, Mistakes: 0.8199999928474426, Control Loss: 5.855364799499512, Total Loss: 0.937107264995575
+Time taken to get recomputed solution logits:  16.60392451286316
+Time taken to get recomputed solution logits:  25.46858286857605
+>Prompt Choice:  evidence only<|eom_id|>ac sion argument against fallacy. Explanation in required. Loss: 7.409542560577393, Mistakes: 0.85999995470047, Control Loss: 8.050378799438477, Total Loss: 1.0210075378417969
+Time taken to get recomputed solution logits:  30.421051025390625
+Time taken to get recomputed solution logits:  32.041741609573364
+>Prompt Choice:  evidence only ifac sion argument against fallacy. Explanation in required. Loss: 7.859443187713623, Mistakes: 0.8999999761581421, Control Loss: 7.048327922821045, Total Loss: 1.040966510772705
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fallac sion argument against fallacy. Explanation in required., New Loss: 0.937107264995575
+Current length: 15
+ evidence only fallac sion argument against fallacy. Explanation in required.
+Current Loss: 0.937107264995575 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  61.84346532821655
+Intersection set size: 15
+Candidate tokens:  withinacacy underibilityaciousowibleasowsacies in backowedowing
+Time taken to get recomputed solution logits:  33.09444856643677
+Time taken to get recomputed solution logits:  29.97902250289917
+>Prompt Choice:  evidence only fall under sion argument against fallacy. Explanation in required. Loss: 7.81455659866333, Mistakes: 0.8799999952316284, Control Loss: 5.916979789733887, Total Loss: 0.9983395934104919
+Time taken to get recomputed solution logits:  36.92435121536255
+Time taken to get recomputed solution logits:  33.971920013427734
+>Prompt Choice:  evidence only fall back sion argument against fallacy. Explanation in required. Loss: 7.704741477966309, Mistakes: 0.8799999952316284, Control Loss: 5.931828022003174, Total Loss: 0.9986365437507629
+Time taken to get recomputed solution logits:  30.766134023666382
+Time taken to get recomputed solution logits:  31.637994527816772
+>Prompt Choice:  evidence only fall within sion argument against fallacy. Explanation in required. Loss: 7.992480754852295, Mistakes: 0.85999995470047, Control Loss: 6.077602386474609, Total Loss: 0.981552004814148
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within sion argument against fallacy. Explanation in required., New Loss: 0.981552004814148
+Current length: 15
+ evidence only fall within sion argument against fallacy. Explanation in required.
+Current Loss: 0.981552004814148 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  61.40700817108154
+Intersection set size: 10
+Candidate tokens:  one reason option this a these the my  your
+Time taken to get recomputed solution logits:  36.93575429916382
+Time taken to get recomputed solution logits:  33.88251543045044
+>Prompt Choice:  evidence only fall within oneion argument against fallacy. Explanation in required. Loss: 7.5151686668396, Mistakes: 0.85999995470047, Control Loss: 6.593889236450195, Total Loss: 0.9918777346611023
+Time taken to get recomputed solution logits:  37.51147174835205
+Time taken to get recomputed solution logits:  21.964660167694092
+>Prompt Choice:  evidence only fall within aion argument against fallacy. Explanation in required. Loss: 8.883049964904785, Mistakes: 0.8999999761581421, Control Loss: 6.577395915985107, Total Loss: 1.0315479040145874
+Time taken to get recomputed solution logits:  30.665366649627686
+Time taken to get recomputed solution logits:  33.2681987285614
+>Prompt Choice:  evidence only fall within myion argument against fallacy. Explanation in required. Loss: 7.332781791687012, Mistakes: 0.8799999952316284, Control Loss: 6.522583484649658, Total Loss: 1.0104516744613647
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within oneion argument against fallacy. Explanation in required., New Loss: 0.9918777346611023
+Current length: 15
+ evidence only fall within oneion argument against fallacy. Explanation in required.
+Current Loss: 0.9918777346611023 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  66.91165852546692
+Intersection set size: 11
+Candidate tokens:  category person particular sentence or specific set domain of paragraph type
+Time taken to get recomputed solution logits:  28.700305461883545
+Time taken to get recomputed solution logits:  28.40400719642639
+>Prompt Choice:  evidence only fall within one particular argument against fallacy. Explanation in required. Loss: 8.046706199645996, Mistakes: 0.9399999976158142, Control Loss: 6.068110466003418, Total Loss: 1.0613622665405273
+Time taken to get recomputed solution logits:  43.75971078872681
+Time taken to get recomputed solution logits:  19.1230685710907
+>Prompt Choice:  evidence only fall within one sentence argument against fallacy. Explanation in required. Loss: 7.390834331512451, Mistakes: 0.85999995470047, Control Loss: 6.3296685218811035, Total Loss: 0.9865933060646057
+Time taken to get recomputed solution logits:  38.01531910896301
+Time taken to get recomputed solution logits:  45.01098895072937
+>Prompt Choice:  evidence only fall within one type argument against fallacy. Explanation in required. Loss: 8.197749137878418, Mistakes: 0.9199999570846558, Control Loss: 6.3190460205078125, Total Loss: 1.046380877494812
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within one sentence argument against fallacy. Explanation in required., New Loss: 0.9865933060646057
+Current length: 15
+ evidence only fall within one sentence argument against fallacy. Explanation in required.
+Current Loss: 0.9865933060646057 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  63.271828174591064
+Intersection set size: 13
+Candidate tokens:  and,. explanations or answer sentences answers each to per of responses
+Time taken to get recomputed solution logits:  43.37729072570801
+Time taken to get recomputed solution logits:  19.235287189483643
+>Prompt Choice:  evidence only fall within one sentence argument against fallacy. Explanation in required. Loss: 7.390834331512451, Mistakes: 0.85999995470047, Control Loss: 5.549251556396484, Total Loss: 0.9709849953651428
+Time taken to get recomputed solution logits:  15.01375937461853
+Time taken to get recomputed solution logits:  27.3774311542511
+>Prompt Choice:  evidence only fall within one sentence explanations against fallacy. Explanation in required. Loss: 8.193882942199707, Mistakes: 0.85999995470047, Control Loss: 6.002313137054443, Total Loss: 0.9800462126731873
+Time taken to get recomputed solution logits:  26.272706270217896
+Time taken to get recomputed solution logits:  23.465473890304565
+>Prompt Choice:  evidence only fall within one sentence per against fallacy. Explanation in required. Loss: 6.504153251647949, Mistakes: 0.7799999713897705, Control Loss: 6.597228527069092, Total Loss: 0.9119445085525513
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within one sentence per against fallacy. Explanation in required., New Loss: 0.9119445085525513
+Current length: 15
+ evidence only fall within one sentence per against fallacy. Explanation in required.
+Current Loss: 0.9119445085525513 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  61.11796545982361
+Intersection set size: 13
+Candidate tokens:  option Option sentence response answer question bullet statement options line choice paragraph other
+Time taken to get recomputed solution logits:  26.25074601173401
+Time taken to get recomputed solution logits:  37.98306393623352
+>Prompt Choice:  evidence only fall within one sentence per other fallacy. Explanation in required. Loss: 5.189846038818359, Mistakes: 0.7199999690055847, Control Loss: 6.58698844909668, Total Loss: 0.851739764213562
+Time taken to get recomputed solution logits:  36.87934184074402
+Time taken to get recomputed solution logits:  39.33964490890503
+>Prompt Choice:  evidence only fall within one sentence per sentence fallacy. Explanation in required. Loss: 6.210597991943359, Mistakes: 0.85999995470047, Control Loss: 6.67223596572876, Total Loss: 0.9934446811676025
+Time taken to get recomputed solution logits:  45.013447999954224
+Time taken to get recomputed solution logits:  30.183021068572998
+>Prompt Choice:  evidence only fall within one sentence per question fallacy. Explanation in required. Loss: 5.587742328643799, Mistakes: 0.8399999737739563, Control Loss: 6.833864688873291, Total Loss: 0.9766772985458374
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within one sentence per other fallacy. Explanation in required., New Loss: 0.851739764213562
+Current length: 15
+ evidence only fall within one sentence per other fallacy. Explanation in required.
+Current Loss: 0.851739764213562 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  71.06345343589783
+Intersection set size: 13
+Candidate tokens:  option Option person sentence,. response answer sentences statement options choice paragraph
+Time taken to get recomputed solution logits:  30.847464561462402
+Time taken to get recomputed solution logits:  29.989819049835205
+>Prompt Choice:  evidence only fall within one sentence per other paragraphacy. Explanation in required. Loss: 7.47429895401001, Mistakes: 0.8399999737739563, Control Loss: 6.8100714683532715, Total Loss: 0.9762014150619507
+Time taken to get recomputed solution logits:  26.262913703918457
+Time taken to get recomputed solution logits:  37.999613761901855
+>Prompt Choice:  evidence only fall within one sentence per other fallacy. Explanation in required. Loss: 5.189846038818359, Mistakes: 0.7199999690055847, Control Loss: 5.930821895599365, Total Loss: 0.8386163711547852
+Time taken to get recomputed solution logits:  26.59953212738037
+Time taken to get recomputed solution logits:  36.00209712982178
+>Prompt Choice:  evidence only fall within one sentence per other sentenceacy. Explanation in required. Loss: 7.113521099090576, Mistakes: 0.7599999904632568, Control Loss: 6.649850845336914, Total Loss: 0.8929970264434814
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within one sentence per other fallacy. Explanation in required., New Loss: 0.8386163711547852
+Current length: 15
+ evidence only fall within one sentence per other fallacy. Explanation in required.
+Current Loss: 0.8386163711547852 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  71.06979441642761
+Intersection set size: 11
+Candidate tokens:  option within sentence,. underowible inows of
+Time taken to get recomputed solution logits:  29.794736862182617
+Time taken to get recomputed solution logits:  36.765294551849365
+>Prompt Choice:  evidence only fall within one sentence per other fallows. Explanation in required. Loss: 6.7702178955078125, Mistakes: 0.85999995470047, Control Loss: 6.0214033126831055, Total Loss: 0.9804280400276184
+Time taken to get recomputed solution logits:  34.35033869743347
+Time taken to get recomputed solution logits:  44.95289063453674
+>Prompt Choice:  evidence only fall within one sentence per other fallow. Explanation in required. Loss: 6.291790008544922, Mistakes: 0.8199999928474426, Control Loss: 6.029352188110352, Total Loss: 0.940587043762207
+Time taken to get recomputed solution logits:  41.410059690475464
+Time taken to get recomputed solution logits:  36.33831262588501
+>Prompt Choice:  evidence only fall within one sentence per other fallible. Explanation in required. Loss: 7.367740154266357, Mistakes: 0.8999999761581421, Control Loss: 5.966929912567139, Total Loss: 1.019338607788086
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within one sentence per other fallow. Explanation in required., New Loss: 0.940587043762207
+Current length: 15
+ evidence only fall within one sentence per other fallow. Explanation in required.
+Current Loss: 0.940587043762207 Best Loss: 0.7909715175628662 Best Control:  evidence for fallac sion argument against  and  a fallacies.
+Time taken to update solutions:  79.15233421325684
+Intersection set size: 12
+Candidate tokens:  option sentence. response answer statements sentences statement options answers choice paragraph
+Time taken to get recomputed solution logits:  17.239412307739258
+Time taken to get recomputed solution logits:  20.60440158843994
+>Prompt Choice:  evidence only fall within one sentence per other fallow options Explanation in required. Loss: 4.5441575050354, Mistakes: 0.6399999856948853, Control Loss: 6.18438196182251, Total Loss: 0.7636876106262207
+Time taken to get recomputed solution logits:  18.022810697555542
+Time taken to get recomputed solution logits:  18.887646675109863
+>Prompt Choice:  evidence only fall within one sentence per other fallow option Explanation in required. Loss: 5.117096424102783, Mistakes: 0.6399999856948853, Control Loss: 6.1706223487854, Total Loss: 0.7634124159812927
+Time taken to get recomputed solution logits:  27.50480055809021
+Time taken to get recomputed solution logits:  45.07444453239441
+>Prompt Choice:  evidence only fall within one sentence per other fallow sentences Explanation in required. Loss: 4.454407691955566, Mistakes: 0.699999988079071, Control Loss: 6.140202045440674, Total Loss: 0.8228040337562561
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within one sentence per other fallow option Explanation in required., New Loss: 0.7634124159812927
+Current length: 15
+ evidence only fall within one sentence per other fallow option Explanation in required.
+Current Loss: 0.7634124159812927 Best Loss: 0.7634124159812927 Best Control:  evidence only fall within one sentence per other fallow option Explanation in required.
+Time taken to update solutions:  36.50260639190674
+Intersection set size: 11
+Candidate tokens:  and,.  to or in for choice as of
+Time taken to get recomputed solution logits:  15.92119288444519
+Time taken to get recomputed solution logits:  16.00817847251892
+>Prompt Choice:  evidence only fall within one sentence per other fallow option choice in required. Loss: 3.399444103240967, Mistakes: 0.699999988079071, Control Loss: 6.258747100830078, Total Loss: 0.8251749277114868
+Time taken to get recomputed solution logits:  13.736166000366211
+Time taken to get recomputed solution logits:  15.016206979751587
+>Prompt Choice:  evidence only fall within one sentence per other fallow option as in required. Loss: 4.943731784820557, Mistakes: 0.8199999928474426, Control Loss: 5.968768119812012, Total Loss: 0.9393753409385681
+Time taken to get recomputed solution logits:  19.630786418914795
+Time taken to get recomputed solution logits:  27.495996475219727
+>Prompt Choice:  evidence only fall within one sentence per other fallow option or in required. Loss: 4.006545543670654, Mistakes: 0.7199999690055847, Control Loss: 6.085878849029541, Total Loss: 0.841717541217804
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within one sentence per other fallow option choice in required., New Loss: 0.8251749277114868
+Current length: 15
+ evidence only fall within one sentence per other fallow option choice in required.
+Current Loss: 0.8251749277114868 Best Loss: 0.7634124159812927 Best Control:  evidence only fall within one sentence per other fallow option Explanation in required.
+Time taken to update solutions:  37.22166395187378
+Intersection set size: 13
+Candidate tokens:  option and,. to or only that in for as below of
+Time taken to get recomputed solution logits:  15.424078226089478
+Time taken to get recomputed solution logits:  15.284900188446045
+>Prompt Choice:  evidence only fall within one sentence per other fallow option choice of required. Loss: 4.12928581237793, Mistakes: 0.699999988079071, Control Loss: 5.816906929016113, Total Loss: 0.8163381218910217
+Time taken to get recomputed solution logits:  12.810950994491577
+Time taken to get recomputed solution logits:  15.004559755325317
+>Prompt Choice:  evidence only fall within one sentence per other fallow option choice, required. Loss: 3.3977513313293457, Mistakes: 0.5399999618530273, Control Loss: 5.908275127410889, Total Loss: 0.658165454864502
+Time taken to get recomputed solution logits:  23.598673582077026
+Time taken to get recomputed solution logits:  23.957213878631592
+>Prompt Choice:  evidence only fall within one sentence per other fallow option choice or required. Loss: 3.796220064163208, Mistakes: 0.6800000071525574, Control Loss: 5.828300476074219, Total Loss: 0.7965660095214844
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within one sentence per other fallow option choice, required., New Loss: 0.658165454864502
+Current length: 15
+ evidence only fall within one sentence per other fallow option choice, required.
+Current Loss: 0.658165454864502 Best Loss: 0.658165454864502 Best Control:  evidence only fall within one sentence per other fallow option choice, required.
+Time taken to update solutions:  27.063453435897827
+Intersection set size: 13
+Candidate tokens:  e with and which so but providing or unless as if in to
+Time taken to get recomputed solution logits:  17.85356640815735
+Time taken to get recomputed solution logits:  17.88060975074768
+>Prompt Choice:  evidence only fall within one sentence per other fallow option choice, e. Loss: 5.529505729675293, Mistakes: 0.7199999690055847, Control Loss: 5.801508903503418, Total Loss: 0.836030125617981
+Time taken to get recomputed solution logits:  13.088674068450928
+Time taken to get recomputed solution logits:  13.454673767089844
+>Prompt Choice:  evidence only fall within one sentence per other fallow option choice, and. Loss: 4.024991989135742, Mistakes: 0.7400000095367432, Control Loss: 6.175779819488525, Total Loss: 0.8635156154632568
+Time taken to get recomputed solution logits:  13.720922231674194
+Time taken to get recomputed solution logits:  14.702794313430786
+>Prompt Choice:  evidence only fall within one sentence per other fallow option choice, but. Loss: 3.918529510498047, Mistakes: 0.6200000047683716, Control Loss: 6.153049468994141, Total Loss: 0.7430610060691833
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within one sentence per other fallow option choice, but., New Loss: 0.7430610060691833
+Current length: 15
+ evidence only fall within one sentence per other fallow option choice, but.
+Current Loss: 0.7430610060691833 Best Loss: 0.658165454864502 Best Control:  evidence only fall within one sentence per other fallow option choice, required.
+Time taken to update solutions:  27.286088943481445
+Intersection set size: 12
+Candidate tokens:  do no the not I if only all use there you each
+Time taken to get recomputed solution logits:  13.713454961776733
+Time taken to get recomputed solution logits:  14.684639692306519
+>Prompt Choice:  evidence only fall within one sentence per other fallow option choice, but. Loss: 3.918529510498047, Mistakes: 0.6200000047683716, Control Loss: 5.708632469177246, Total Loss: 0.7341726422309875
+No improvement in the current position. Moving to the next position.
+New Control:  evidence only fall within one sentence per other fallow option choice, but., New Loss: 0.7341726422309875
+Current length: 15
+ evidence only fall within one sentence per other fallow option choice, but.
+Current Loss: 0.7341726422309875 Best Loss: 0.658165454864502 Best Control:  evidence only fall within one sentence per other fallow option choice, required.
+Time taken to update solutions:  27.270397424697876
+Intersection set size: 12
+Candidate tokens:  one caus a an evidence the specific this causal only of your
+Time taken to get recomputed solution logits:  10.117534160614014
+Time taken to get recomputed solution logits:  15.144555568695068
+>Prompt Choice:  only only fall within one sentence per other fallow option choice, but. Loss: 2.023796558380127, Mistakes: 0.5199999809265137, Control Loss: 5.582148551940918, Total Loss: 0.6316429376602173
+Time taken to get recomputed solution logits:  10.53946828842163
+Time taken to get recomputed solution logits:  17.815539360046387
+>Prompt Choice:  this only fall within one sentence per other fallow option choice, but. Loss: 2.98075532913208, Mistakes: 0.6399999856948853, Control Loss: 5.740861415863037, Total Loss: 0.7548171877861023
+Time taken to get recomputed solution logits:  12.979759216308594
+Time taken to get recomputed solution logits:  15.555839776992798
+>Prompt Choice:  the only fall within one sentence per other fallow option choice, but. Loss: 3.0265769958496094, Mistakes: 0.5600000023841858, Control Loss: 6.265851974487305, Total Loss: 0.6853170394897461
+No improvement in the current position. Moving to the next position.
+New Control:  only only fall within one sentence per other fallow option choice, but., New Loss: 0.6316429376602173
+Current length: 15
+ only only fall within one sentence per other fallow option choice, but.
+Current Loss: 0.6316429376602173 Best Loss: 0.6316429376602173 Best Control:  only only fall within one sentence per other fallow option choice, but.
+Step:  45 Candidates:  [(0.6316429376602173, ' only only fall within one sentence per other fallow option choice, but.'), (0.658165454864502, ' evidence only fall within one sentence per other fallow option choice, required.'), (0.7341726422309875, ' evidence only fall within one sentence per other fallow option choice, but.'), (0.7430610060691833, ' evidence only fall within one sentence per other fallow option choice, but.'), (0.7634124159812927, ' evidence only fall within one sentence per other fallow option Explanation in required.'), (0.7909715175628662, ' evidence for fallac sion argument against  and  a fallacies.'), (0.7934447526931763, ' of logical fall and saviorism,.  and  a fall answer.'), (0.7955290675163269, ' evidence for fallac sion argument against fallacy. Explanation fallacies.'), (0.8251749277114868, ' evidence only fall within one sentence per other fallow option choice in required.'), (0.8349798917770386, ' evidence for fallac sion argument against fallacy. Explanation inacies.')]
+Time taken to update solutions:  23.397048234939575
+Intersection set size: 4
+Candidate tokens:  one a the 
+>>>> Topk increased to 17 <<<<
+Intersection set size: 6
+Candidate tokens:  one a words the  your
+Time taken to get recomputed solution logits:  10.032542705535889
+Time taken to get recomputed solution logits:  16.895842790603638
+>Prompt Choice:  only  fall within one sentence per other fallow option choice, but. Loss: 2.6545281410217285, Mistakes: 0.5399999618530273, Control Loss: 6.099319934844971, Total Loss: 0.6619863510131836
+Time taken to get recomputed solution logits:  14.153803825378418
+Time taken to get recomputed solution logits:  15.417311191558838
+>Prompt Choice:  only the fall within one sentence per other fallow option choice, but. Loss: 2.3176465034484863, Mistakes: 0.5399999618530273, Control Loss: 5.875531196594238, Total Loss: 0.6575105786323547
+Time taken to get recomputed solution logits:  14.398785829544067
+Time taken to get recomputed solution logits:  16.866825342178345
+>Prompt Choice:  only one fall within one sentence per other fallow option choice, but. Loss: 2.6136767864227295, Mistakes: 0.5600000023841858, Control Loss: 5.74781608581543, Total Loss: 0.6749563217163086
+No improvement in the current position. Moving to the next position.
+New Control:  only the fall within one sentence per other fallow option choice, but., New Loss: 0.6575105786323547
+Current length: 15
+ only the fall within one sentence per other fallow option choice, but.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.6575105786323547 Best Loss: 0.6316429376602173 Best Control:  only only fall within one sentence per other fallow option choice, but.
+Time taken to update solutions:  26.491472244262695
+Intersection set size: 8
+Candidate tokens:  given evidence most following facts information first data
+Time taken to get recomputed solution logits:  26.049386978149414
+Time taken to get recomputed solution logits:  27.354429721832275
+>Prompt Choice:  only the evidence within one sentence per other fallow option choice, but. Loss: 3.872286796569824, Mistakes: 0.6200000047683716, Control Loss: 5.633639335632324, Total Loss: 0.7326728105545044
+Time taken to get recomputed solution logits:  23.504960298538208
+Time taken to get recomputed solution logits:  16.82073974609375
+>Prompt Choice:  only the information within one sentence per other fallow option choice, but. Loss: 2.7937188148498535, Mistakes: 0.5199999809265137, Control Loss: 5.482239246368408, Total Loss: 0.6296447515487671
+Time taken to get recomputed solution logits:  11.482147693634033
+Time taken to get recomputed solution logits:  26.587283611297607
+>Prompt Choice:  only the first within one sentence per other fallow option choice, but. Loss: 2.261685609817505, Mistakes: 0.6200000047683716, Control Loss: 5.960373401641846, Total Loss: 0.7392074465751648
+No improvement in the current position. Moving to the next position.
+New Control:  only the information within one sentence per other fallow option choice, but., New Loss: 0.6296447515487671
+Current length: 15
+ only the information within one sentence per other fallow option choice, but.
+Current Loss: 0.6296447515487671 Best Loss: 0.6296447515487671 Best Control:  only the information within one sentence per other fallow option choice, but.
+Time taken to update solutions:  46.66942858695984
+Intersection set size: 14
+Candidate tokens:  available we provided about above contained given presented that in you to from of
+Time taken to get recomputed solution logits:  13.001124143600464
+Time taken to get recomputed solution logits:  18.9692165851593
+>Prompt Choice:  only the information given one sentence per other fallow option choice, but. Loss: 2.955418348312378, Mistakes: 0.6399999856948853, Control Loss: 5.414961814880371, Total Loss: 0.748299241065979
+Time taken to get recomputed solution logits:  8.352508068084717
+Time taken to get recomputed solution logits:  20.289955377578735
+>Prompt Choice:  only the information provided one sentence per other fallow option choice, but. Loss: 2.6645596027374268, Mistakes: 0.5199999809265137, Control Loss: 5.360469818115234, Total Loss: 0.6272093653678894
+Time taken to get recomputed solution logits:  9.38929009437561
+Time taken to get recomputed solution logits:  10.96567153930664
+>Prompt Choice:  only the information we one sentence per other fallow option choice, but. Loss: 3.64550518989563, Mistakes: 0.5799999833106995, Control Loss: 5.768240928649902, Total Loss: 0.695364773273468
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided one sentence per other fallow option choice, but., New Loss: 0.6272093653678894
+Current length: 15
+ only the information provided one sentence per other fallow option choice, but.
+Current Loss: 0.6272093653678894 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  26.58231472969055
+Intersection set size: 13
+Candidate tokens:  and,. here about above as by that in for to from
+Time taken to get recomputed solution logits:  25.925275325775146
+Time taken to get recomputed solution logits:  38.850914478302
+>Prompt Choice:  only the information provided. sentence per other fallow option choice, but. Loss: 6.756738185882568, Mistakes: 0.7799999713897705, Control Loss: 6.331462860107422, Total Loss: 0.906629204750061
+Time taken to get recomputed solution logits:  28.03112506866455
+Time taken to get recomputed solution logits:  36.927440881729126
+>Prompt Choice:  only the information provided, sentence per other fallow option choice, but. Loss: 7.161499500274658, Mistakes: 0.7799999713897705, Control Loss: 6.1592817306518555, Total Loss: 0.9031856060028076
+Time taken to get recomputed solution logits:  28.000476837158203
+Time taken to get recomputed solution logits:  28.73201632499695
+>Prompt Choice:  only the information provided by sentence per other fallow option choice, but. Loss: 7.62246561050415, Mistakes: 0.7199999690055847, Control Loss: 6.317470550537109, Total Loss: 0.8463493585586548
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided by sentence per other fallow option choice, but., New Loss: 0.8463493585586548
+Current length: 15
+ only the information provided by sentence per other fallow option choice, but.
+Current Loss: 0.8463493585586548 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  48.99343395233154
+Intersection set size: 7
+Candidate tokens:  one this a you the your each
+Time taken to get recomputed solution logits:  17.778430461883545
+Time taken to get recomputed solution logits:  34.62242364883423
+>Prompt Choice:  only the information provided by this per other fallow option choice, but. Loss: 9.257699966430664, Mistakes: 0.8399999737739563, Control Loss: 6.329615592956543, Total Loss: 0.9665923118591309
+Time taken to get recomputed solution logits:  13.854922533035278
+Time taken to get recomputed solution logits:  17.107354402542114
+>Prompt Choice:  only the information provided by your per other fallow option choice, but. Loss: 10.192938804626465, Mistakes: 0.9399999976158142, Control Loss: 6.167227268218994, Total Loss: 1.0633444786071777
+Time taken to get recomputed solution logits:  20.357749700546265
+Time taken to get recomputed solution logits:  36.10676193237305
+>Prompt Choice:  only the information provided by each per other fallow option choice, but. Loss: 8.585843086242676, Mistakes: 0.8399999737739563, Control Loss: 5.913943290710449, Total Loss: 0.9582788348197937
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided by each per other fallow option choice, but., New Loss: 0.9582788348197937
+Current length: 15
+ only the information provided by each per other fallow option choice, but.
+Current Loss: 0.9582788348197937 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  62.06077837944031
+Intersection set size: 6
+Candidate tokens:  option question person statement individual of
+Time taken to get recomputed solution logits:  22.347126960754395
+Time taken to get recomputed solution logits:  28.580106496810913
+>Prompt Choice:  only the information provided by each option other fallow option choice, but. Loss: 5.962648391723633, Mistakes: 0.6800000071525574, Control Loss: 5.669824600219727, Total Loss: 0.7933964729309082
+Time taken to get recomputed solution logits:  22.04543685913086
+Time taken to get recomputed solution logits:  22.162771701812744
+>Prompt Choice:  only the information provided by each statement other fallow option choice, but. Loss: 7.781599998474121, Mistakes: 0.7999999523162842, Control Loss: 5.931855201721191, Total Loss: 0.9186370372772217
+Time taken to get recomputed solution logits:  25.341862678527832
+Time taken to get recomputed solution logits:  23.272849559783936
+>Prompt Choice:  only the information provided by each question other fallow option choice, but. Loss: 7.453967094421387, Mistakes: 0.8199999928474426, Control Loss: 6.118490695953369, Total Loss: 0.942369818687439
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided by each option other fallow option choice, but., New Loss: 0.7933964729309082
+Current length: 15
+ only the information provided by each option other fallow option choice, but.
+Current Loss: 0.7933964729309082 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  60.29526925086975
+Intersection set size: 14
+Candidate tokens:  and,. alone about to or if A that in for as of
+Time taken to get recomputed solution logits:  23.06398844718933
+Time taken to get recomputed solution logits:  28.891026496887207
+>Prompt Choice:  only the information provided by each option other fallow option choice, but. Loss: 5.962648391723633, Mistakes: 0.6800000071525574, Control Loss: 5.068700313568115, Total Loss: 0.7813739776611328
+Time taken to get recomputed solution logits:  25.975613117218018
+Time taken to get recomputed solution logits:  25.871484756469727
+>Prompt Choice:  only the information provided by each option A fallow option choice, but. Loss: 6.43018913269043, Mistakes: 0.7799999713897705, Control Loss: 5.016011714935303, Total Loss: 0.8803201913833618
+Time taken to get recomputed solution logits:  22.376681566238403
+Time taken to get recomputed solution logits:  38.11164951324463
+>Prompt Choice:  only the information provided by each option as fallow option choice, but. Loss: 6.790966510772705, Mistakes: 0.7599999904632568, Control Loss: 5.301381587982178, Total Loss: 0.8660275936126709
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided by each option other fallow option choice, but., New Loss: 0.7813739776611328
+Current length: 15
+ only the information provided by each option other fallow option choice, but.
+Current Loss: 0.7813739776611328 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  59.99932074546814
+Intersection set size: 12
+Candidate tokens:  option things than the Than then that optionsthan information to where
+Time taken to get recomputed solution logits:  19.739869594573975
+Time taken to get recomputed solution logits:  43.800140619277954
+>Prompt Choice:  only the information provided by each option other optionow option choice, but. Loss: 7.607261657714844, Mistakes: 0.8199999928474426, Control Loss: 6.523947715759277, Total Loss: 0.9504789113998413
+Time taken to get recomputed solution logits:  27.596922397613525
+Time taken to get recomputed solution logits:  38.98237633705139
+>Prompt Choice:  only the information provided by each option other optionsow option choice, but. Loss: 5.909939289093018, Mistakes: 0.7799999713897705, Control Loss: 6.446682929992676, Total Loss: 0.9089336395263672
+Time taken to get recomputed solution logits:  24.288487434387207
+Time taken to get recomputed solution logits:  36.72504186630249
+>Prompt Choice:  only the information provided by each option other informationow option choice, but. Loss: 6.513930320739746, Mistakes: 0.8199999928474426, Control Loss: 6.5877180099487305, Total Loss: 0.9517543315887451
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided by each option other optionsow option choice, but., New Loss: 0.9089336395263672
+Current length: 15
+ only the information provided by each option other optionsow option choice, but.
+Current Loss: 0.9089336395263672 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  58.9728262424469
+Intersection set size: 12
+Candidate tokens:  and can,. are provided do may A that include to
+Time taken to get recomputed solution logits:  27.197667598724365
+Time taken to get recomputed solution logits:  31.522566080093384
+>Prompt Choice:  only the information provided by each option other options that option choice, but. Loss: 5.9864935874938965, Mistakes: 0.7199999690055847, Control Loss: 5.928049564361572, Total Loss: 0.838560938835144
+Time taken to get recomputed solution logits:  26.03984308242798
+Time taken to get recomputed solution logits:  30.121849536895752
+>Prompt Choice:  only the information provided by each option other options to option choice, but. Loss: 7.869359016418457, Mistakes: 0.7799999713897705, Control Loss: 6.142117500305176, Total Loss: 0.9028423428535461
+Time taken to get recomputed solution logits:  30.871230363845825
+Time taken to get recomputed solution logits:  37.996312379837036
+>Prompt Choice:  only the information provided by each option other options A option choice, but. Loss: 5.915308475494385, Mistakes: 0.7999999523162842, Control Loss: 6.038637161254883, Total Loss: 0.9207726716995239
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided by each option other options that option choice, but., New Loss: 0.838560938835144
+Current length: 15
+ only the information provided by each option other options that option choice, but.
+Current Loss: 0.838560938835144 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  57.03508996963501
+Intersection set size: 12
+Candidate tokens:  are do the could would provide may involve have you include contain
+Time taken to get recomputed solution logits:  27.094781398773193
+Time taken to get recomputed solution logits:  31.068280458450317
+>Prompt Choice:  only the information provided by each option other options that option choice, but. Loss: 5.9864935874938965, Mistakes: 0.7199999690055847, Control Loss: 5.010148525238037, Total Loss: 0.8202029466629028
+Time taken to get recomputed solution logits:  25.337474822998047
+Time taken to get recomputed solution logits:  36.794453382492065
+>Prompt Choice:  only the information provided by each option other options that do choice, but. Loss: 6.485879898071289, Mistakes: 0.7999999523162842, Control Loss: 5.27138614654541, Total Loss: 0.9054276943206787
+Time taken to get recomputed solution logits:  26.912227630615234
+Time taken to get recomputed solution logits:  28.060030698776245
+>Prompt Choice:  only the information provided by each option other options that are choice, but. Loss: 6.527987957000732, Mistakes: 0.7799999713897705, Control Loss: 5.228570938110352, Total Loss: 0.884571373462677
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided by each option other options that option choice, but., New Loss: 0.8202029466629028
+Current length: 15
+ only the information provided by each option other options that option choice, but.
+Current Loss: 0.8202029466629028 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  57.088810205459595
+Intersection set size: 10
+Candidate tokens:  one C D a B A does is two 
+Time taken to get recomputed solution logits:  34.96969556808472
+Time taken to get recomputed solution logits:  33.82856011390686
+>Prompt Choice:  only the information provided by each option other options that option, but. Loss: 6.0773444175720215, Mistakes: 0.7199999690055847, Control Loss: 6.012735843658447, Total Loss: 0.8402546644210815
+Time taken to get recomputed solution logits:  19.585728883743286
+Time taken to get recomputed solution logits:  35.25616216659546
+>Prompt Choice:  only the information provided by each option other options that option A, but. Loss: 6.5007004737854, Mistakes: 0.7599999904632568, Control Loss: 4.902592182159424, Total Loss: 0.8580518364906311
+Time taken to get recomputed solution logits:  30.413843870162964
+Time taken to get recomputed solution logits:  45.51991844177246
+>Prompt Choice:  only the information provided by each option other options that option C, but. Loss: 5.540024280548096, Mistakes: 0.7599999904632568, Control Loss: 4.938680171966553, Total Loss: 0.8587735891342163
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided by each option other options that option, but., New Loss: 0.8402546644210815
+Current length: 14
+ only the information provided by each option other options that option, but.
+Current Loss: 0.8402546644210815 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  62.05260467529297
+Intersection set size: 11
+Candidate tokens:  e and which a the  or if A including No
+Time taken to get recomputed solution logits:  17.318162202835083
+Time taken to get recomputed solution logits:  36.178553104400635
+>Prompt Choice:  only the information provided by each option other options that option, No. Loss: 6.981154441833496, Mistakes: 0.7999999523162842, Control Loss: 4.398141384124756, Total Loss: 0.8879627585411072
+Time taken to get recomputed solution logits:  34.96878242492676
+Time taken to get recomputed solution logits:  34.48309135437012
+>Prompt Choice:  only the information provided by each option other options that option, A. Loss: 6.753668785095215, Mistakes: 0.8999999761581421, Control Loss: 4.47035026550293, Total Loss: 0.9894070029258728
+Time taken to get recomputed solution logits:  30.32113742828369
+Time taken to get recomputed solution logits:  37.83782410621643
+>Prompt Choice:  only the information provided by each option other options that option, a. Loss: 5.484444618225098, Mistakes: 0.7999999523162842, Control Loss: 4.494171142578125, Total Loss: 0.8898833990097046
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided by each option other options that option, No., New Loss: 0.8879627585411072
+Current length: 14
+ only the information provided by each option other options that option, No.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.8879627585411072 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  53.64531660079956
+Intersection set size: 11
+Candidate tokens:  and uses can,. could would use does is Use
+Time taken to get recomputed solution logits:  17.357733488082886
+Time taken to get recomputed solution logits:  36.18187069892883
+>Prompt Choice:  only the information provided by each option other options that option, No. Loss: 6.981154441833496, Mistakes: 0.7999999523162842, Control Loss: 4.33626651763916, Total Loss: 0.8867253065109253
+No improvement in the current position. Moving to the next position.
+New Control:  only the information provided by each option other options that option, No., New Loss: 0.8867253065109253
+Current length: 14
+ only the information provided by each option other options that option, No.
+Current Loss: 0.8867253065109253 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  53.64054775238037
+Intersection set size: 9
+Candidate tokens:  one this a only an the of your specific
+Time taken to get recomputed solution logits:  32.9711389541626
+Time taken to get recomputed solution logits:  36.67894148826599
+>Prompt Choice:  the the information provided by each option other options that option, No. Loss: 6.394545555114746, Mistakes: 0.6800000071525574, Control Loss: 5.035739898681641, Total Loss: 0.7807148098945618
+Time taken to get recomputed solution logits:  32.421889781951904
+Time taken to get recomputed solution logits:  30.410521984100342
+>Prompt Choice:  your the information provided by each option other options that option, No. Loss: 6.828110218048096, Mistakes: 0.8199999928474426, Control Loss: 5.166502475738525, Total Loss: 0.9233300685882568
+Time taken to get recomputed solution logits:  30.688270092010498
+Time taken to get recomputed solution logits:  31.674742221832275
+>Prompt Choice:  a the information provided by each option other options that option, No. Loss: 5.5125412940979, Mistakes: 0.699999988079071, Control Loss: 5.382424831390381, Total Loss: 0.8076484799385071
+No improvement in the current position. Moving to the next position.
+New Control:  the the information provided by each option other options that option, No., New Loss: 0.7807148098945618
+Current length: 14
+ the the information provided by each option other options that option, No.
+Current Loss: 0.7807148098945618 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  68.91629147529602
+Intersection set size: 5
+Candidate tokens:  process causal concept scientific following
+>>>> Topk increased to 17 <<<<
+Intersection set size: 7
+Candidate tokens:  process best causal concept following method information
+Time taken to get recomputed solution logits:  34.182069063186646
+Time taken to get recomputed solution logits:  45.11969304084778
+>Prompt Choice:  the process information provided by each option other options that option, No. Loss: 7.165883541107178, Mistakes: 0.85999995470047, Control Loss: 5.608917713165283, Total Loss: 0.9721783399581909
+Time taken to get recomputed solution logits:  37.9712598323822
+Time taken to get recomputed solution logits:  31.135335683822632
+>Prompt Choice:  the method information provided by each option other options that option, No. Loss: 5.365168571472168, Mistakes: 0.8199999928474426, Control Loss: 5.335144519805908, Total Loss: 0.9267028570175171
+Time taken to get recomputed solution logits:  33.02459502220154
+Time taken to get recomputed solution logits:  36.17724323272705
+>Prompt Choice:  the the information provided by each option other options that option, No. Loss: 6.394545555114746, Mistakes: 0.6800000071525574, Control Loss: 4.815829277038574, Total Loss: 0.7763165831565857
+No improvement in the current position. Moving to the next position.
+New Control:  the the information provided by each option other options that option, No., New Loss: 0.7763165831565857
+Current length: 14
+ the the information provided by each option other options that option, No.
+Current Loss: 0.7763165831565857 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Step:  60 Candidates:  [(0.6272093653678894, ' only the information provided one sentence per other fallow option choice, but.'), (0.6296447515487671, ' only the information within one sentence per other fallow option choice, but.'), (0.6316429376602173, ' only only fall within one sentence per other fallow option choice, but.'), (0.6575105786323547, ' only the fall within one sentence per other fallow option choice, but.'), (0.658165454864502, ' evidence only fall within one sentence per other fallow option choice, required.'), (0.7341726422309875, ' evidence only fall within one sentence per other fallow option choice, but.'), (0.7430610060691833, ' evidence only fall within one sentence per other fallow option choice, but.'), (0.7634124159812927, ' evidence only fall within one sentence per other fallow option Explanation in required.'), (0.7763165831565857, ' the the information provided by each option other options that option, No.'), (0.7807148098945618, ' the the information provided by each option other options that option, No.')]
+Time taken to update solutions:  68.0215654373169
+Intersection set size: 9
+Candidate tokens:  process causal conceptore principle law following scientificod
+Time taken to get recomputed solution logits:  31.534062385559082
+Time taken to get recomputed solution logits:  39.68513870239258
+>Prompt Choice:  the the scientific provided by each option other options that option, No. Loss: 5.839504241943359, Mistakes: 0.7599999904632568, Control Loss: 5.883610725402832, Total Loss: 0.8776721954345703
+Time taken to get recomputed solution logits:  36.89331364631653
+Time taken to get recomputed solution logits:  36.33960294723511
+>Prompt Choice:  the the law provided by each option other options that option, No. Loss: 5.646014213562012, Mistakes: 0.7400000095367432, Control Loss: 5.3406500816345215, Total Loss: 0.8468130230903625
+Time taken to get recomputed solution logits:  24.932904958724976
+Time taken to get recomputed solution logits:  29.490633487701416
+>Prompt Choice:  the theod provided by each option other options that option, No. Loss: 4.595822811126709, Mistakes: 0.6200000047683716, Control Loss: 5.8326921463012695, Total Loss: 0.7366538643836975
+No improvement in the current position. Moving to the next position.
+New Control:  the theod provided by each option other options that option, No., New Loss: 0.7366538643836975
+Current length: 14
+ the theod provided by each option other options that option, No.
+Current Loss: 0.7366538643836975 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  52.93987798690796
+Intersection set size: 9
+Candidate tokens: oricicyermoraiceramorusourical
+Time taken to get recomputed solution logits:  30.78065800666809
+Time taken to get recomputed solution logits:  35.66106605529785
+>Prompt Choice:  the theodou by each option other options that option, No. Loss: 4.42692232131958, Mistakes: 0.5399999618530273, Control Loss: 6.404948711395264, Total Loss: 0.6680989265441895
+Time taken to get recomputed solution logits:  26.427877187728882
+Time taken to get recomputed solution logits:  36.315425634384155
+>Prompt Choice:  the theodrical by each option other options that option, No. Loss: 4.698029041290283, Mistakes: 0.6399999856948853, Control Loss: 6.425540447235107, Total Loss: 0.7685108184814453
+Time taken to get recomputed solution logits:  37.8806471824646
+Time taken to get recomputed solution logits:  23.468870878219604
+>Prompt Choice:  the theoderm by each option other options that option, No. Loss: 5.963411331176758, Mistakes: 0.6399999856948853, Control Loss: 6.149588584899902, Total Loss: 0.7629917860031128
+No improvement in the current position. Moving to the next position.
+New Control:  the theodou by each option other options that option, No., New Loss: 0.6680989265441895
+Current length: 14
+ the theodou by each option other options that option, No.
+Current Loss: 0.6680989265441895 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  62.06350064277649
+Intersection set size: 12
+Candidate tokens: msrosmaticmlymallemismiclicicmi
+Time taken to get recomputed solution logits:  31.040749311447144
+Time taken to get recomputed solution logits:  32.326581716537476
+>Prompt Choice:  the theodoum each option other options that option, No. Loss: 5.970528602600098, Mistakes: 0.6200000047683716, Control Loss: 5.746272087097168, Total Loss: 0.7349254488945007
+Time taken to get recomputed solution logits:  30.26839542388916
+Time taken to get recomputed solution logits:  31.72274374961853
+>Prompt Choice:  the theodoumic each option other options that option, No. Loss: 5.420377731323242, Mistakes: 0.7199999690055847, Control Loss: 6.110499858856201, Total Loss: 0.8422099351882935
+Time taken to get recomputed solution logits:  38.96839165687561
+Time taken to get recomputed solution logits:  34.030083894729614
+>Prompt Choice:  the theodoumal each option other options that option, No. Loss: 5.901155471801758, Mistakes: 0.699999988079071, Control Loss: 6.077082633972168, Total Loss: 0.8215416669845581
+No improvement in the current position. Moving to the next position.
+New Control:  the theodoum each option other options that option, No., New Loss: 0.7349254488945007
+Current length: 14
+ the theodoum each option other options that option, No.
+Current Loss: 0.7349254488945007 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  58.08854866027832
+Intersection set size: 6
+Candidate tokens: ianousicalologicalistic of
+Time taken to get recomputed solution logits:  40.95910859107971
+Time taken to get recomputed solution logits:  32.20031380653381
+>Prompt Choice:  the theodoumistic option other options that option, No. Loss: 6.540054798126221, Mistakes: 0.699999988079071, Control Loss: 5.718048572540283, Total Loss: 0.8143609762191772
+Time taken to get recomputed solution logits:  33.79639434814453
+Time taken to get recomputed solution logits:  34.20881390571594
+>Prompt Choice:  the theodoumous option other options that option, No. Loss: 6.992344379425049, Mistakes: 0.7400000095367432, Control Loss: 5.724064826965332, Total Loss: 0.8544812798500061
+Time taken to get recomputed solution logits:  32.57178354263306
+Time taken to get recomputed solution logits:  40.065420627593994
+>Prompt Choice:  the theodoumological option other options that option, No. Loss: 5.656736850738525, Mistakes: 0.7199999690055847, Control Loss: 5.866757869720459, Total Loss: 0.8373351097106934
+No improvement in the current position. Moving to the next position.
+New Control:  the theodoumistic option other options that option, No., New Loss: 0.8143609762191772
+Current length: 14
+ the theodoumistic option other options that option, No.
+Current Loss: 0.8143609762191772 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  72.52671027183533
+Intersection set size: 13
+Candidate tokens:  and concept interpretation fall reasoning view method approach perspective principle framework argument tradition
+Time taken to get recomputed solution logits:  34.75824689865112
+Time taken to get recomputed solution logits:  34.489527463912964
+>Prompt Choice:  the theodoumistic tradition other options that option, No. Loss: 5.690884113311768, Mistakes: 0.7199999690055847, Control Loss: 5.3430657386779785, Total Loss: 0.8268612623214722
+Time taken to get recomputed solution logits:  23.99577498435974
+Time taken to get recomputed solution logits:  25.747177362442017
+>Prompt Choice:  the theodoumistic framework other options that option, No. Loss: 6.949010372161865, Mistakes: 0.7400000095367432, Control Loss: 5.313652038574219, Total Loss: 0.8462730646133423
+Time taken to get recomputed solution logits:  44.985896587371826
+Time taken to get recomputed solution logits:  44.126890897750854
+>Prompt Choice:  the theodoumistic and other options that option, No. Loss: 5.468142509460449, Mistakes: 0.7799999713897705, Control Loss: 5.071652889251709, Total Loss: 0.8814330101013184
+No improvement in the current position. Moving to the next position.
+New Control:  the theodoumistic tradition other options that option, No., New Loss: 0.8268612623214722
+Current length: 14
+ the theodoumistic tradition other options that option, No.
+Current Loss: 0.8268612623214722 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  68.0000913143158
+Intersection set size: 13
+Candidate tokens:  with and on within,. to or that in for as of
+Time taken to get recomputed solution logits:  35.98897981643677
+Time taken to get recomputed solution logits:  32.96260094642639
+>Prompt Choice:  the theodoumistic tradition within options that option, No. Loss: 6.64759635925293, Mistakes: 0.7999999523162842, Control Loss: 5.494999885559082, Total Loss: 0.9098999500274658
+Time taken to get recomputed solution logits:  36.48504662513733
+Time taken to get recomputed solution logits:  45.049628019332886
+>Prompt Choice:  the theodoumistic tradition of options that option, No. Loss: 6.419591426849365, Mistakes: 0.8399999737739563, Control Loss: 5.488400936126709, Total Loss: 0.9497680068016052
+Time taken to get recomputed solution logits:  36.18809366226196
+Time taken to get recomputed solution logits:  34.65117526054382
+>Prompt Choice:  the theodoumistic tradition, options that option, No. Loss: 4.9349045753479, Mistakes: 0.6599999666213989, Control Loss: 5.521820545196533, Total Loss: 0.7704364061355591
+No improvement in the current position. Moving to the next position.
+New Control:  the theodoumistic tradition, options that option, No., New Loss: 0.7704364061355591
+Current length: 14
+ the theodoumistic tradition, options that option, No.
+Current Loss: 0.7704364061355591 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  63.57616567611694
+Intersection set size: 14
+Candidate tokens:  e with and which a but the i or to that in as where
+Time taken to get recomputed solution logits:  41.0421507358551
+Time taken to get recomputed solution logits:  37.01846241950989
+>Prompt Choice:  the theodoumistic tradition, i that option, No. Loss: 5.628790378570557, Mistakes: 0.7199999690055847, Control Loss: 5.373584270477295, Total Loss: 0.8274716734886169
+Time taken to get recomputed solution logits:  44.75537347793579
+Time taken to get recomputed solution logits:  26.16426396369934
+>Prompt Choice:  the theodoumistic tradition, or that option, No. Loss: 6.738123416900635, Mistakes: 0.8399999737739563, Control Loss: 4.932878494262695, Total Loss: 0.9386575222015381
+Time taken to get recomputed solution logits:  34.13601279258728
+Time taken to get recomputed solution logits:  43.64680886268616
+>Prompt Choice:  the theodoumistic tradition, that that option, No. Loss: 5.7666168212890625, Mistakes: 0.6800000071525574, Control Loss: 4.984987735748291, Total Loss: 0.7796997427940369
+No improvement in the current position. Moving to the next position.
+New Control:  the theodoumistic tradition, that that option, No., New Loss: 0.7796997427940369
+Current length: 14
+ the theodoumistic tradition, that that option, No.
+Current Loss: 0.7796997427940369 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  77.42230224609375
+Intersection set size: 11
+Candidate tokens:  every caus we a the if all there you is causes
+Time taken to get recomputed solution logits:  38.00991082191467
+Time taken to get recomputed solution logits:  41.604867458343506
+>Prompt Choice:  the theodoumistic tradition, that we option, No. Loss: 5.5265302658081055, Mistakes: 0.7199999690055847, Control Loss: 5.11238431930542, Total Loss: 0.8222476243972778
+Time taken to get recomputed solution logits:  36.54342818260193
+Time taken to get recomputed solution logits:  29.176944732666016
+>Prompt Choice:  the theodoumistic tradition, that there option, No. Loss: 5.204232692718506, Mistakes: 0.6800000071525574, Control Loss: 5.0656890869140625, Total Loss: 0.7813137769699097
+Time taken to get recomputed solution logits:  42.0726420879364
+Time taken to get recomputed solution logits:  37.753655433654785
+>Prompt Choice:  the theodoumistic tradition, that every option, No. Loss: 4.60099458694458, Mistakes: 0.699999988079071, Control Loss: 4.491397380828857, Total Loss: 0.7898279428482056
+No improvement in the current position. Moving to the next position.
+New Control:  the theodoumistic tradition, that there option, No., New Loss: 0.7813137769699097
+Current length: 14
+ the theodoumistic tradition, that there option, No.
+Current Loss: 0.7813137769699097 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  73.16568160057068
+Intersection set size: 14
+Candidate tokens:  exist should can are exists cannot were must could would may will is was
+Time taken to get recomputed solution logits:  31.787134647369385
+Time taken to get recomputed solution logits:  33.20666527748108
+>Prompt Choice:  the theodoumistic tradition, that there could, No. Loss: 5.641584396362305, Mistakes: 0.7599999904632568, Control Loss: 5.600485801696777, Total Loss: 0.8720096945762634
+Time taken to get recomputed solution logits:  29.992778778076172
+Time taken to get recomputed solution logits:  39.04439377784729
+>Prompt Choice:  the theodoumistic tradition, that there would, No. Loss: 5.2845964431762695, Mistakes: 0.6800000071525574, Control Loss: 5.64877462387085, Total Loss: 0.7929754853248596
+Time taken to get recomputed solution logits:  33.88073253631592
+Time taken to get recomputed solution logits:  38.16708421707153
+>Prompt Choice:  the theodoumistic tradition, that there may, No. Loss: 5.561192035675049, Mistakes: 0.7400000095367432, Control Loss: 5.646777153015137, Total Loss: 0.8529355525970459
+No improvement in the current position. Moving to the next position.
+New Control:  the theodoumistic tradition, that there would, No., New Loss: 0.7929754853248596
+Current length: 14
+ the theodoumistic tradition, that there would, No.
+Current Loss: 0.7929754853248596 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  73.18149828910828
+Intersection set size: 13
+Candidate tokens:  exist be actually never normally come not happen have only need still always
+Time taken to get recomputed solution logits:  38.045374393463135
+Time taken to get recomputed solution logits:  45.10037088394165
+>Prompt Choice:  the theodoumistic tradition, that there would not No. Loss: 4.419679641723633, Mistakes: 0.6800000071525574, Control Loss: 5.364809513092041, Total Loss: 0.7872961759567261
+Time taken to get recomputed solution logits:  35.936991691589355
+Time taken to get recomputed solution logits:  40.79581594467163
+>Prompt Choice:  the theodoumistic tradition, that there would never No. Loss: 5.183109760284424, Mistakes: 0.7599999904632568, Control Loss: 5.33664608001709, Total Loss: 0.8667328953742981
+Time taken to get recomputed solution logits:  38.767066955566406
+Time taken to get recomputed solution logits:  40.36212778091431
+>Prompt Choice:  the theodoumistic tradition, that there would always No. Loss: 5.076376914978027, Mistakes: 0.7199999690055847, Control Loss: 5.34517240524292, Total Loss: 0.8269034028053284
+No improvement in the current position. Moving to the next position.
+New Control:  the theodoumistic tradition, that there would not No., New Loss: 0.7872961759567261
+Current length: 14
+ the theodoumistic tradition, that there would not No.
+Current Loss: 0.7872961759567261 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  76.16691756248474
+Intersection set size: 12
+Candidate tokens:  exist be normally come occur happen have only even need necessarily always
+Time taken to get recomputed solution logits:  37.99170470237732
+Time taken to get recomputed solution logits:  45.013773918151855
+>Prompt Choice:  the theodoumistic tradition, that there would not No. Loss: 4.419679641723633, Mistakes: 0.6800000071525574, Control Loss: 4.895434379577637, Total Loss: 0.7779086828231812
+Time taken to get recomputed solution logits:  35.85519075393677
+Time taken to get recomputed solution logits:  38.90910816192627
+>Prompt Choice:  the theodoumistic tradition, that there would not occur. Loss: 4.629500865936279, Mistakes: 0.7799999713897705, Control Loss: 5.115821838378906, Total Loss: 0.8823164105415344
+Time taken to get recomputed solution logits:  36.76496744155884
+Time taken to get recomputed solution logits:  30.63949966430664
+>Prompt Choice:  the theodoumistic tradition, that there would not exist. Loss: 4.4666008949279785, Mistakes: 0.7400000095367432, Control Loss: 5.136415481567383, Total Loss: 0.842728316783905
+No improvement in the current position. Moving to the next position.
+New Control:  the theodoumistic tradition, that there would not No., New Loss: 0.7779086828231812
+Current length: 14
+ the theodoumistic tradition, that there would not No.
+Current Loss: 0.7779086828231812 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  76.28182697296143
+Intersection set size: 11
+Candidate tokens:  one be because if Cause matter cause,. need to
+Time taken to get recomputed solution logits:  30.06173825263977
+Time taken to get recomputed solution logits:  29.92667031288147
+>Prompt Choice:  the theodoumistic tradition, that there would not No need Loss: 7.481083869934082, Mistakes: 0.8199999928474426, Control Loss: 4.900485515594482, Total Loss: 0.9180096983909607
+Time taken to get recomputed solution logits:  38.513258934020996
+Time taken to get recomputed solution logits:  45.09597396850586
+>Prompt Choice:  the theodoumistic tradition, that there would not No. Loss: 4.419679641723633, Mistakes: 0.6800000071525574, Control Loss: 4.895434379577637, Total Loss: 0.7779086828231812
+No improvement in the current position. Moving to the next position.
+New Control:  the theodoumistic tradition, that there would not No., New Loss: 0.7779086828231812
+Current length: 14
+ the theodoumistic tradition, that there would not No.
+Current Loss: 0.7779086828231812 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  76.41131138801575
+Intersection set size: 11
+Candidate tokens:  one caus a an evidence the specific causal only of your
+Time taken to get recomputed solution logits:  31.751672506332397
+Time taken to get recomputed solution logits:  32.04197716712952
+>Prompt Choice:  evidence theodoumistic tradition, that there would not No. Loss: 4.984719276428223, Mistakes: 0.7999999523162842, Control Loss: 6.089292526245117, Total Loss: 0.921785831451416
+Time taken to get recomputed solution logits:  33.74703097343445
+Time taken to get recomputed solution logits:  39.27386975288391
+>Prompt Choice:  specific theodoumistic tradition, that there would not No. Loss: 5.909825325012207, Mistakes: 0.7799999713897705, Control Loss: 5.699832439422607, Total Loss: 0.8939965963363647
+Time taken to get recomputed solution logits:  32.01954007148743
+Time taken to get recomputed solution logits:  45.28168225288391
+>Prompt Choice:  your theodoumistic tradition, that there would not No. Loss: 5.263283729553223, Mistakes: 0.6800000071525574, Control Loss: 5.135201454162598, Total Loss: 0.7827040553092957
+No improvement in the current position. Moving to the next position.
+New Control:  your theodoumistic tradition, that there would not No., New Loss: 0.7827040553092957
+Current length: 14
+ your theodoumistic tradition, that there would not No.
+Current Loss: 0.7827040553092957 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  74.17916941642761
+Intersection set size: 13
+Candidate tokens:  judgment intuition own logic reasoning knowledge discretion best answer imagination critical common understanding
+Time taken to get recomputed solution logits:  26.770408391952515
+Time taken to get recomputed solution logits:  22.70419716835022
+>Prompt Choice:  your discretionodoumistic tradition, that there would not No. Loss: 6.727004051208496, Mistakes: 0.8999999761581421, Control Loss: 7.810377597808838, Total Loss: 1.056207537651062
+Time taken to get recomputed solution logits:  31.29102373123169
+Time taken to get recomputed solution logits:  42.00886392593384
+>Prompt Choice:  your imaginationodoumistic tradition, that there would not No. Loss: 6.386654376983643, Mistakes: 0.7799999713897705, Control Loss: 7.974934101104736, Total Loss: 0.9394986629486084
+Time taken to get recomputed solution logits:  33.2230064868927
+Time taken to get recomputed solution logits:  26.343607187271118
+>Prompt Choice:  your logicodoumistic tradition, that there would not No. Loss: 7.037776947021484, Mistakes: 0.7799999713897705, Control Loss: 7.485770225524902, Total Loss: 0.9297153949737549
+No improvement in the current position. Moving to the next position.
+New Control:  your logicodoumistic tradition, that there would not No., New Loss: 0.9297153949737549
+Current length: 14
+ your logicodoumistic tradition, that there would not No.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.9297153949737549 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  68.7095046043396
+Intersection set size: 13
+Candidate tokens:  and,. here skills about to or in for as below of
+Time taken to get recomputed solution logits:  31.723968029022217
+Time taken to get recomputed solution logits:  28.631704568862915
+>Prompt Choice:  your logic hereoumistic tradition, that there would not No. Loss: 7.450192928314209, Mistakes: 0.8199999928474426, Control Loss: 7.311800956726074, Total Loss: 0.9662359952926636
+Time taken to get recomputed solution logits:  27.067984580993652
+Time taken to get recomputed solution logits:  29.6657657623291
+>Prompt Choice:  your logic oroumistic tradition, that there would not No. Loss: 6.825065612792969, Mistakes: 0.7999999523162842, Control Loss: 7.289074897766113, Total Loss: 0.9457814693450928
+Time taken to get recomputed solution logits:  20.401348114013672
+Time taken to get recomputed solution logits:  36.62392544746399
+>Prompt Choice:  your logic,oumistic tradition, that there would not No. Loss: 7.440709114074707, Mistakes: 0.8799999952316284, Control Loss: 7.376183986663818, Total Loss: 1.0275236368179321
+No improvement in the current position. Moving to the next position.
+New Control:  your logic oroumistic tradition, that there would not No., New Loss: 0.9457814693450928
+Current length: 14
+ your logic oroumistic tradition, that there would not No.
+Current Loss: 0.9457814693450928 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Step:  75 Candidates:  [(0.6272093653678894, ' only the information provided one sentence per other fallow option choice, but.'), (0.6296447515487671, ' only the information within one sentence per other fallow option choice, but.'), (0.6316429376602173, ' only only fall within one sentence per other fallow option choice, but.'), (0.6575105786323547, ' only the fall within one sentence per other fallow option choice, but.'), (0.658165454864502, ' evidence only fall within one sentence per other fallow option choice, required.'), (0.6680989265441895, ' the theodou by each option other options that option, No.'), (0.7341726422309875, ' evidence only fall within one sentence per other fallow option choice, but.'), (0.7349254488945007, ' the theodoum each option other options that option, No.'), (0.7366538643836975, ' the theod provided by each option other options that option, No.'), (0.7430610060691833, ' evidence only fall within one sentence per other fallow option choice, but.')]
+Time taken to update solutions:  52.38070607185364
+Intersection set size: 11
+Candidate tokens:  reason intuition a evidence reasoning rules the analysis critical common your
+Time taken to get recomputed solution logits:  34.88519883155823
+Time taken to get recomputed solution logits:  30.69690728187561
+>Prompt Choice:  your logic or analysismistic tradition, that there would not No. Loss: 7.283539772033691, Mistakes: 0.8799999952316284, Control Loss: 7.371819972991943, Total Loss: 1.027436375617981
+Time taken to get recomputed solution logits:  30.04223084449768
+Time taken to get recomputed solution logits:  28.29242992401123
+>Prompt Choice:  your logic or evidencemistic tradition, that there would not No. Loss: 6.492246150970459, Mistakes: 0.7999999523162842, Control Loss: 7.495394229888916, Total Loss: 0.9499078392982483
+Time taken to get recomputed solution logits:  22.888609409332275
+Time taken to get recomputed solution logits:  32.89685845375061
+>Prompt Choice:  your logic or yourmistic tradition, that there would not No. Loss: 8.095337867736816, Mistakes: 0.9199999570846558, Control Loss: 6.884854316711426, Total Loss: 1.057697057723999
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencemistic tradition, that there would not No., New Loss: 0.9499078392982483
+Current length: 15
+ your logic or evidencemistic tradition, that there would not No.
+Current Loss: 0.9499078392982483 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  63.03676652908325
+Intersection set size: 14
+Candidate tokens: enceencerencesenceneenienceencientialentiencialencinganceenced
+Time taken to get recomputed solution logits:  29.864373683929443
+Time taken to get recomputed solution logits:  25.338347673416138
+>Prompt Choice:  your logic or evidencingemistic tradition, that there would not No. Loss: 6.060032844543457, Mistakes: 0.8999999761581421, Control Loss: 6.542289733886719, Total Loss: 1.0308457612991333
+Time taken to get recomputed solution logits:  33.302215576171875
+Time taken to get recomputed solution logits:  37.10855507850647
+>Prompt Choice:  your logic or evidentiemistic tradition, that there would not No. Loss: 5.611435413360596, Mistakes: 0.7999999523162842, Control Loss: 6.742419719696045, Total Loss: 0.9348483085632324
+Time taken to get recomputed solution logits:  30.620866537094116
+Time taken to get recomputed solution logits:  34.1776647567749
+>Prompt Choice:  your logic or evidencialemistic tradition, that there would not No. Loss: 4.544920444488525, Mistakes: 0.6800000071525574, Control Loss: 6.50282621383667, Total Loss: 0.8100565075874329
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencialemistic tradition, that there would not No., New Loss: 0.8100565075874329
+Current length: 15
+ your logic or evidencialemistic tradition, that there would not No.
+Current Loss: 0.8100565075874329 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  55.78129816055298
+Intersection set size: 12
+Candidate tokens:  ande l,.ionire that in for to of
+Time taken to get recomputed solution logits:  38.02931523323059
+Time taken to get recomputed solution logits:  24.690853118896484
+>Prompt Choice:  your logic or evidencia foristic tradition, that there would not No. Loss: 6.830575942993164, Mistakes: 0.7799999713897705, Control Loss: 7.048668384552002, Total Loss: 0.9209733009338379
+Time taken to get recomputed solution logits:  28.022810697555542
+Time taken to get recomputed solution logits:  36.62031555175781
+>Prompt Choice:  your logic or evidenciaionistic tradition, that there would not No. Loss: 7.0179443359375, Mistakes: 0.8199999928474426, Control Loss: 6.663578987121582, Total Loss: 0.9532715678215027
+Time taken to get recomputed solution logits:  28.562583684921265
+Time taken to get recomputed solution logits:  23.03810739517212
+>Prompt Choice:  your logic or evidencia inistic tradition, that there would not No. Loss: 7.224114418029785, Mistakes: 0.7999999523162842, Control Loss: 6.823784828186035, Total Loss: 0.9364756345748901
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencia foristic tradition, that there would not No., New Loss: 0.9209733009338379
+Current length: 15
+ your logic or evidencia foristic tradition, that there would not No.
+Current Loss: 0.9209733009338379 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  53.835134744644165
+Intersection set size: 14
+Candidate tokens:  answering support a an evidence reasoning the answer this answers why both your each
+Time taken to get recomputed solution logits:  32.66367983818054
+Time taken to get recomputed solution logits:  31.61555504798889
+>Prompt Choice:  your logic or evidencia for why tradition, that there would not No. Loss: 8.033696174621582, Mistakes: 0.8799999952316284, Control Loss: 7.227985382080078, Total Loss: 1.024559736251831
+Time taken to get recomputed solution logits:  33.09658908843994
+Time taken to get recomputed solution logits:  25.06437397003174
+>Prompt Choice:  your logic or evidencia for reasoning tradition, that there would not No. Loss: 7.378398418426514, Mistakes: 0.85999995470047, Control Loss: 7.020139217376709, Total Loss: 1.0004026889801025
+Time taken to get recomputed solution logits:  44.98367381095886
+Time taken to get recomputed solution logits:  20.927195072174072
+>Prompt Choice:  your logic or evidencia for answering tradition, that there would not No. Loss: 8.769510269165039, Mistakes: 0.9199999570846558, Control Loss: 7.126856327056885, Total Loss: 1.0625370740890503
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencia for reasoning tradition, that there would not No., New Loss: 1.0004026889801025
+Current length: 15
+ your logic or evidencia for reasoning tradition, that there would not No.
+Current Loss: 1.0004026889801025 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  60.479663610458374
+Intersection set size: 14
+Candidate tokens:  and on,. here the about or this that in for to your
+Time taken to get recomputed solution logits:  33.14576506614685
+Time taken to get recomputed solution logits:  28.678438663482666
+>Prompt Choice:  your logic or evidencia for reasoning,, that there would not No. Loss: 6.759903430938721, Mistakes: 0.7199999690055847, Control Loss: 6.71075963973999, Total Loss: 0.854215145111084
+Time taken to get recomputed solution logits:  37.43272614479065
+Time taken to get recomputed solution logits:  25.0128436088562
+>Prompt Choice:  your logic or evidencia for reasoning the, that there would not No. Loss: 8.186751365661621, Mistakes: 0.8999999761581421, Control Loss: 6.52841854095459, Total Loss: 1.0305683612823486
+Time taken to get recomputed solution logits:  29.92656946182251
+Time taken to get recomputed solution logits:  20.928844690322876
+>Prompt Choice:  your logic or evidencia for reasoning or, that there would not No. Loss: 8.240569114685059, Mistakes: 0.8799999952316284, Control Loss: 6.456565856933594, Total Loss: 1.0091313123703003
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencia for reasoning,, that there would not No., New Loss: 0.854215145111084
+Current length: 14
+ your logic or evidencia for reasoning,, that there would not No.
+Current Loss: 0.854215145111084 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  50.79027032852173
+Intersection set size: 10
+Candidate tokens:  as and this evidence but in  to the or
+Time taken to get recomputed solution logits:  17.72216033935547
+Time taken to get recomputed solution logits:  27.45028591156006
+>Prompt Choice:  your logic or evidencia for reasoning,, but there would not No. Loss: 8.654051780700684, Mistakes: 0.9199999570846558, Control Loss: 6.412640571594238, Total Loss: 1.048252820968628
+Time taken to get recomputed solution logits:  32.03866243362427
+Time taken to get recomputed solution logits:  30.04310917854309
+>Prompt Choice:  your logic or evidencia for reasoning,, or there would not No. Loss: 8.111836433410645, Mistakes: 0.8999999761581421, Control Loss: 6.629479885101318, Total Loss: 1.0325895547866821
+Time taken to get recomputed solution logits:  27.80770969390869
+Time taken to get recomputed solution logits:  21.961930751800537
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence there would not No. Loss: 8.163874626159668, Mistakes: 0.8399999737739563, Control Loss: 6.653142929077148, Total Loss: 0.9730628132820129
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencia for reasoning,, evidence there would not No., New Loss: 0.9730628132820129
+Current length: 14
+ your logic or evidencia for reasoning,, evidence there would not No.
+Current Loss: 0.9730628132820129 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  51.593990325927734
+Intersection set size: 15
+Candidate tokens:  and can,. base or supporting that in for is to from of based
+Time taken to get recomputed solution logits:  21.516772985458374
+Time taken to get recomputed solution logits:  29.52424931526184
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence or would not No. Loss: 9.80538272857666, Mistakes: 0.9199999570846558, Control Loss: 6.7675065994262695, Total Loss: 1.0553500652313232
+Time taken to get recomputed solution logits:  30.171074628829956
+Time taken to get recomputed solution logits:  26.936058521270752
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and would not No. Loss: 8.378833770751953, Mistakes: 0.8399999737739563, Control Loss: 6.824267864227295, Total Loss: 0.9764853119850159
+Time taken to get recomputed solution logits:  30.095747709274292
+Time taken to get recomputed solution logits:  30.16217803955078
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence, would not No. Loss: 7.705815315246582, Mistakes: 0.8399999737739563, Control Loss: 6.845602989196777, Total Loss: 0.9769120216369629
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencia for reasoning,, evidence and would not No., New Loss: 0.9764853119850159
+Current length: 14
+ your logic or evidencia for reasoning,, evidence and would not No.
+Current Loss: 0.9764853119850159 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  59.45591354370117
+Intersection set size: 12
+Candidate tokens:  examples conclusion logic reasoning explanations the arguments analysis conclusions argument logical data
+Time taken to get recomputed solution logits:  28.291925191879272
+Time taken to get recomputed solution logits:  31.018317937850952
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and the not No. Loss: 8.330473899841309, Mistakes: 0.8999999761581421, Control Loss: 6.837419033050537, Total Loss: 1.0367484092712402
+Time taken to get recomputed solution logits:  30.123077392578125
+Time taken to get recomputed solution logits:  26.9852397441864
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and would not No. Loss: 8.378833770751953, Mistakes: 0.8399999737739563, Control Loss: 6.42623233795166, Total Loss: 0.9685246348381042
+Time taken to get recomputed solution logits:  16.54056715965271
+Time taken to get recomputed solution logits:  21.65953779220581
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and logic not No. Loss: 8.910113334655762, Mistakes: 0.9199999570846558, Control Loss: 6.785057544708252, Total Loss: 1.0557011365890503
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencia for reasoning,, evidence and would not No., New Loss: 0.9685246348381042
+Current length: 14
+ your logic or evidencia for reasoning,, evidence and would not No.
+Current Loss: 0.9685246348381042 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  59.431485176086426
+Intersection set size: 13
+Candidate tokens:  conclude be justify like make not determine provide have you explain suggest argue
+Time taken to get recomputed solution logits:  30.57736587524414
+Time taken to get recomputed solution logits:  30.796697854995728
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and would justify No. Loss: 7.785715103149414, Mistakes: 0.8399999737739563, Control Loss: 6.298417091369629, Total Loss: 0.9659683108329773
+Time taken to get recomputed solution logits:  37.553048610687256
+Time taken to get recomputed solution logits:  34.351069688797
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and would you No. Loss: 7.524749755859375, Mistakes: 0.7599999904632568, Control Loss: 6.504210948944092, Total Loss: 0.8900842070579529
+Time taken to get recomputed solution logits:  26.059207677841187
+Time taken to get recomputed solution logits:  28.39308190345764
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and would be No. Loss: 8.609501838684082, Mistakes: 0.7799999713897705, Control Loss: 6.240359783172607, Total Loss: 0.9048071503639221
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencia for reasoning,, evidence and would you No., New Loss: 0.8900842070579529
+Current length: 14
+ your logic or evidencia for reasoning,, evidence and would you No.
+Current Loss: 0.8900842070579529 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  74.91402840614319
+Intersection set size: 13
+Candidate tokens:  be like expect know say consider recommend agree have want rather argue accept
+Time taken to get recomputed solution logits:  37.4996337890625
+Time taken to get recomputed solution logits:  34.2913601398468
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and would you No. Loss: 7.524749755859375, Mistakes: 0.7599999904632568, Control Loss: 6.567425727844238, Total Loss: 0.8913484811782837
+Time taken to get recomputed solution logits:  44.90740656852722
+Time taken to get recomputed solution logits:  45.66367816925049
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and would you say. Loss: 6.84588098526001, Mistakes: 0.7999999523162842, Control Loss: 6.782431125640869, Total Loss: 0.9356485605239868
+Time taken to get recomputed solution logits:  44.945831060409546
+Time taken to get recomputed solution logits:  38.00875735282898
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and would you argue. Loss: 7.222499370574951, Mistakes: 0.8799999952316284, Control Loss: 6.762711048126221, Total Loss: 1.015254259109497
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencia for reasoning,, evidence and would you No., New Loss: 0.8913484811782837
+Current length: 14
+ your logic or evidencia for reasoning,, evidence and would you No.
+Current Loss: 0.8913484811782837 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  74.8494656085968
+Intersection set size: 13
+Candidate tokens:  option and<|eom_id|>,. evidence Yes the  or answer need to
+Time taken to get recomputed solution logits:  37.55376672744751
+Time taken to get recomputed solution logits:  34.33544087409973
+>Prompt Choice:  your logic or evidencia for reasoning,, evidence and would you No. Loss: 7.524749755859375, Mistakes: 0.7599999904632568, Control Loss: 6.567425727844238, Total Loss: 0.8913484811782837
+No improvement in the current position. Moving to the next position.
+New Control:  your logic or evidencia for reasoning,, evidence and would you No., New Loss: 0.8913484811782837
+Current length: 14
+ your logic or evidencia for reasoning,, evidence and would you No.
+Current Loss: 0.8913484811782837 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  74.84490633010864
+Intersection set size: 11
+Candidate tokens:  one caus a an evidence the this causal only of your
+Time taken to get recomputed solution logits:  32.76833462715149
+Time taken to get recomputed solution logits:  41.594576835632324
+>Prompt Choice:  evidence logic or evidencia for reasoning,, evidence and would you No. Loss: 6.381931781768799, Mistakes: 0.7999999523162842, Control Loss: 6.956735610961914, Total Loss: 0.9391346573829651
+Time taken to get recomputed solution logits:  39.88182330131531
+Time taken to get recomputed solution logits:  37.11771368980408
+>Prompt Choice:  caus logic or evidencia for reasoning,, evidence and would you No. Loss: 8.579229354858398, Mistakes: 0.8199999928474426, Control Loss: 7.379815578460693, Total Loss: 0.9675962924957275
+Time taken to get recomputed solution logits:  34.23742389678955
+Time taken to get recomputed solution logits:  21.66533875465393
+>Prompt Choice:  causal logic or evidencia for reasoning,, evidence and would you No. Loss: 7.791990280151367, Mistakes: 0.8399999737739563, Control Loss: 6.849930286407471, Total Loss: 0.9769985675811768
+No improvement in the current position. Moving to the next position.
+New Control:  evidence logic or evidencia for reasoning,, evidence and would you No., New Loss: 0.9391346573829651
+Current length: 14
+ evidence logic or evidencia for reasoning,, evidence and would you No.
+Current Loss: 0.9391346573829651 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  62.646005153656006
+Intersection set size: 14
+Candidate tokens:  and,. beyond or only that in for such to from of based
+Time taken to get recomputed solution logits:  32.58539295196533
+Time taken to get recomputed solution logits:  44.94993352890015
+>Prompt Choice:  evidence of or evidencia for reasoning,, evidence and would you No. Loss: 4.423547267913818, Mistakes: 0.6399999856948853, Control Loss: 7.582114219665527, Total Loss: 0.7916422486305237
+Time taken to get recomputed solution logits:  33.61432409286499
+Time taken to get recomputed solution logits:  37.5569007396698
+>Prompt Choice:  evidence that or evidencia for reasoning,, evidence and would you No. Loss: 5.840174198150635, Mistakes: 0.699999988079071, Control Loss: 7.570534706115723, Total Loss: 0.8514106869697571
+Time taken to get recomputed solution logits:  30.679861068725586
+Time taken to get recomputed solution logits:  41.86136031150818
+>Prompt Choice:  evidence for or evidencia for reasoning,, evidence and would you No. Loss: 4.05870246887207, Mistakes: 0.6599999666213989, Control Loss: 7.734417915344238, Total Loss: 0.8146883249282837
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidencia for reasoning,, evidence and would you No., New Loss: 0.7916422486305237
+Current length: 14
+ evidence of or evidencia for reasoning,, evidence and would you No.
+Current Loss: 0.7916422486305237 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  83.24537086486816
+Intersection set size: 6
+Candidate tokens:  caus a cause an the other
+Time taken to get recomputed solution logits:  32.54636073112488
+Time taken to get recomputed solution logits:  44.866374492645264
+>Prompt Choice:  evidence of or evidencia for reasoning,, evidence and would you No. Loss: 4.423547267913818, Mistakes: 0.6399999856948853, Control Loss: 7.032025337219238, Total Loss: 0.7806404829025269
+Time taken to get recomputed solution logits:  39.66528606414795
+Time taken to get recomputed solution logits:  38.07690215110779
+>Prompt Choice:  evidence of an evidencia for reasoning,, evidence and would you No. Loss: 4.471748352050781, Mistakes: 0.6599999666213989, Control Loss: 7.1474809646606445, Total Loss: 0.8029495477676392
+Time taken to get recomputed solution logits:  35.30072784423828
+Time taken to get recomputed solution logits:  35.37839150428772
+>Prompt Choice:  evidence of a evidencia for reasoning,, evidence and would you No. Loss: 4.477344989776611, Mistakes: 0.699999988079071, Control Loss: 7.4444355964660645, Total Loss: 0.8488886952400208
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidencia for reasoning,, evidence and would you No., New Loss: 0.7806404829025269
+Current length: 14
+ evidence of or evidencia for reasoning,, evidence and would you No.
+Current Loss: 0.7806404829025269 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  83.61221146583557
+Intersection set size: 10
+Candidate tokens:  reason against statements a evidence argument lack explanations arguments explanation
+Time taken to get recomputed solution logits:  37.16758179664612
+Time taken to get recomputed solution logits:  45.014103174209595
+>Prompt Choice:  evidence of or evidenceencia for reasoning,, evidence and would you No. Loss: 4.609992027282715, Mistakes: 0.5999999642372131, Control Loss: 7.786523342132568, Total Loss: 0.755730390548706
+Time taken to get recomputed solution logits:  32.567004442214966
+Time taken to get recomputed solution logits:  45.02445149421692
+>Prompt Choice:  evidence of or evidencia for reasoning,, evidence and would you No. Loss: 4.423547267913818, Mistakes: 0.6399999856948853, Control Loss: 7.032025337219238, Total Loss: 0.7806404829025269
+Time taken to get recomputed solution logits:  37.368369817733765
+Time taken to get recomputed solution logits:  31.463485956192017
+>Prompt Choice:  evidence of or reasonencia for reasoning,, evidence and would you No. Loss: 4.859291076660156, Mistakes: 0.6599999666213989, Control Loss: 7.604176998138428, Total Loss: 0.8120834827423096
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia for reasoning,, evidence and would you No., New Loss: 0.755730390548706
+Current length: 14
+ evidence of or evidenceencia for reasoning,, evidence and would you No.
+Current Loss: 0.755730390548706 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Step:  90 Candidates:  [(0.6272093653678894, ' only the information provided one sentence per other fallow option choice, but.'), (0.6296447515487671, ' only the information within one sentence per other fallow option choice, but.'), (0.6316429376602173, ' only only fall within one sentence per other fallow option choice, but.'), (0.6575105786323547, ' only the fall within one sentence per other fallow option choice, but.'), (0.658165454864502, ' evidence only fall within one sentence per other fallow option choice, required.'), (0.6680989265441895, ' the theodou by each option other options that option, No.'), (0.7341726422309875, ' evidence only fall within one sentence per other fallow option choice, but.'), (0.7349254488945007, ' the theodoum each option other options that option, No.'), (0.7366538643836975, ' the theod provided by each option other options that option, No.'), (0.7430610060691833, ' evidence only fall within one sentence per other fallow option choice, but.')]
+Time taken to update solutions:  81.28147315979004
+Intersection set size: 13
+Candidate tokens:  a suggesting about not against supporting that in for to from of based
+Time taken to get recomputed solution logits:  37.148985624313354
+Time taken to get recomputed solution logits:  44.986655950546265
+>Prompt Choice:  evidence of or evidenceencia for reasoning,, evidence and would you No. Loss: 4.609992027282715, Mistakes: 0.5999999642372131, Control Loss: 7.322550296783447, Total Loss: 0.7464509606361389
+Time taken to get recomputed solution logits:  41.05348443984985
+Time taken to get recomputed solution logits:  39.65446615219116
+>Prompt Choice:  evidence of or evidence for for reasoning,, evidence and would you No. Loss: 4.047969341278076, Mistakes: 0.7199999690055847, Control Loss: 7.62066125869751, Total Loss: 0.872413158416748
+Time taken to get recomputed solution logits:  39.88560438156128
+Time taken to get recomputed solution logits:  45.00608825683594
+>Prompt Choice:  evidence of or evidence to for reasoning,, evidence and would you No. Loss: 4.915769100189209, Mistakes: 0.7999999523162842, Control Loss: 7.714902877807617, Total Loss: 0.9542980194091797
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia for reasoning,, evidence and would you No., New Loss: 0.7464509606361389
+Current length: 14
+ evidence of or evidenceencia for reasoning,, evidence and would you No.
+Current Loss: 0.7464509606361389 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  80.73069596290588
+Intersection set size: 12
+Candidate tokens: e, evidence. the de that in for to from of
+Time taken to get recomputed solution logits:  44.55836606025696
+Time taken to get recomputed solution logits:  33.800372838974
+>Prompt Choice:  evidence of or evidenceenciae reasoning,, evidence and would you No. Loss: 4.304349899291992, Mistakes: 0.6200000047683716, Control Loss: 7.39883279800415, Total Loss: 0.7679766416549683
+Time taken to get recomputed solution logits:  33.41857552528381
+Time taken to get recomputed solution logits:  39.52311873435974
+>Prompt Choice:  evidence of or evidenceencia de reasoning,, evidence and would you No. Loss: 3.9306578636169434, Mistakes: 0.5399999618530273, Control Loss: 7.618349075317383, Total Loss: 0.6923669576644897
+Time taken to get recomputed solution logits:  36.21885418891907
+Time taken to get recomputed solution logits:  38.50836515426636
+>Prompt Choice:  evidence of or evidenceencia the reasoning,, evidence and would you No. Loss: 4.487480163574219, Mistakes: 0.6200000047683716, Control Loss: 7.439019680023193, Total Loss: 0.7687804102897644
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning,, evidence and would you No., New Loss: 0.6923669576644897
+Current length: 14
+ evidence of or evidenceencia de reasoning,, evidence and would you No.
+Current Loss: 0.6923669576644897 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  71.55902791023254
+Intersection set size: 11
+Candidate tokens:  caus a evidence un que the evid or causal that la
+Time taken to get recomputed solution logits:  33.99385643005371
+Time taken to get recomputed solution logits:  39.479814529418945
+>Prompt Choice:  evidence of or evidenceencia de reasoning,, evidence and would you No. Loss: 3.9306578636169434, Mistakes: 0.5399999618530273, Control Loss: 7.6383490562438965, Total Loss: 0.6927669048309326
+Time taken to get recomputed solution logits:  36.80178666114807
+Time taken to get recomputed solution logits:  45.027992486953735
+>Prompt Choice:  evidence of or evidenceencia de que,, evidence and would you No. Loss: 4.752984523773193, Mistakes: 0.6200000047683716, Control Loss: 7.417533874511719, Total Loss: 0.7683506608009338
+Time taken to get recomputed solution logits:  35.73452711105347
+Time taken to get recomputed solution logits:  37.09531927108765
+>Prompt Choice:  evidence of or evidenceencia de causal,, evidence and would you No. Loss: 4.360522747039795, Mistakes: 0.5999999642372131, Control Loss: 7.53045129776001, Total Loss: 0.7506089806556702
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning,, evidence and would you No., New Loss: 0.6927669048309326
+Current length: 14
+ evidence of or evidenceencia de reasoning,, evidence and would you No.
+Current Loss: 0.6927669048309326 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  71.54564881324768
+Intersection set size: 13
+Candidate tokens:  and,. fall about or that in for critical to from of
+Time taken to get recomputed solution logits:  36.0719940662384
+Time taken to get recomputed solution logits:  34.588730573654175
+>Prompt Choice:  evidence of or evidenceencia de reasoning critical evidence and would you No. Loss: 4.801487922668457, Mistakes: 0.6800000071525574, Control Loss: 7.968639373779297, Total Loss: 0.8393727540969849
+Time taken to get recomputed solution logits:  38.71036219596863
+Time taken to get recomputed solution logits:  44.9399688243866
+>Prompt Choice:  evidence of or evidenceencia de reasoning or evidence and would you No. Loss: 3.8719279766082764, Mistakes: 0.7199999690055847, Control Loss: 7.531447410583496, Total Loss: 0.8706288933753967
+Time taken to get recomputed solution logits:  44.968982458114624
+Time taken to get recomputed solution logits:  44.92959260940552
+>Prompt Choice:  evidence of or evidenceencia de reasoning of evidence and would you No. Loss: 4.521886348724365, Mistakes: 0.6399999856948853, Control Loss: 7.481085777282715, Total Loss: 0.7896217107772827
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning of evidence and would you No., New Loss: 0.7896217107772827
+Current length: 14
+ evidence of or evidenceencia de reasoning of evidence and would you No.
+Current Loss: 0.7896217107772827 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  79.17401242256165
+Intersection set size: 10
+Candidate tokens:  caus a any an evidence reasoning the this logical your
+Time taken to get recomputed solution logits:  38.52118253707886
+Time taken to get recomputed solution logits:  37.66212320327759
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your and would you No. Loss: 4.601258277893066, Mistakes: 0.6800000071525574, Control Loss: 7.2298054695129395, Total Loss: 0.824596107006073
+Time taken to get recomputed solution logits:  39.564048528671265
+Time taken to get recomputed solution logits:  42.90587854385376
+>Prompt Choice:  evidence of or evidenceencia de reasoning of reasoning and would you No. Loss: 5.511577606201172, Mistakes: 0.699999988079071, Control Loss: 6.871274948120117, Total Loss: 0.8374254703521729
+Time taken to get recomputed solution logits:  42.898815631866455
+Time taken to get recomputed solution logits:  44.989611864089966
+>Prompt Choice:  evidence of or evidenceencia de reasoning of the and would you No. Loss: 4.989511966705322, Mistakes: 0.699999988079071, Control Loss: 7.283512115478516, Total Loss: 0.845670223236084
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning of your and would you No., New Loss: 0.824596107006073
+Current length: 14
+ evidence of or evidenceencia de reasoning of your and would you No.
+Current Loss: 0.824596107006073 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  80.16684222221375
+Intersection set size: 14
+Candidate tokens:  own conclusion reasoning final arguments analysis decision response answer answers choice chosen argument responses
+Time taken to get recomputed solution logits:  37.77121877670288
+Time taken to get recomputed solution logits:  44.96001386642456
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your chosen would you No. Loss: 5.541136264801025, Mistakes: 0.6399999856948853, Control Loss: 7.481932163238525, Total Loss: 0.7896386384963989
+Time taken to get recomputed solution logits:  33.57082200050354
+Time taken to get recomputed solution logits:  32.80830144882202
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your final would you No. Loss: 5.775711536407471, Mistakes: 0.699999988079071, Control Loss: 7.661294937133789, Total Loss: 0.8532258868217468
+Time taken to get recomputed solution logits:  38.03103733062744
+Time taken to get recomputed solution logits:  38.04761743545532
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would you No. Loss: 5.180274486541748, Mistakes: 0.6399999856948853, Control Loss: 7.075017929077148, Total Loss: 0.7815003395080566
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning of your argument would you No., New Loss: 0.7815003395080566
+Current length: 14
+ evidence of or evidenceencia de reasoning of your argument would you No.
+Current Loss: 0.7815003395080566 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  72.68113780021667
+Intersection set size: 15
+Candidate tokens:  and,. about to or thatation in for is as from of based
+Time taken to get recomputed solution logits:  38.02125906944275
+Time taken to get recomputed solution logits:  38.03326439857483
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would you No. Loss: 5.180274486541748, Mistakes: 0.6399999856948853, Control Loss: 6.6221604347229, Total Loss: 0.7724431753158569
+Time taken to get recomputed solution logits:  44.954362630844116
+Time taken to get recomputed solution logits:  37.36613726615906
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument in you No. Loss: 8.0331392288208, Mistakes: 0.85999995470047, Control Loss: 7.000074863433838, Total Loss: 1.0000014305114746
+Time taken to get recomputed solution logits:  44.905028343200684
+Time taken to get recomputed solution logits:  36.292609214782715
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument that you No. Loss: 4.96351432800293, Mistakes: 0.7599999904632568, Control Loss: 6.536631107330322, Total Loss: 0.8907326459884644
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning of your argument would you No., New Loss: 0.7724431753158569
+Current length: 14
+ evidence of or evidenceencia de reasoning of your argument would you No.
+Current Loss: 0.7724431753158569 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  72.54114270210266
+Intersection set size: 13
+Candidate tokens:  be support indicate make not show provide have demonstrate help you include explain
+Time taken to get recomputed solution logits:  29.533541440963745
+Time taken to get recomputed solution logits:  35.28202939033508
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would show No. Loss: 5.891708850860596, Mistakes: 0.8199999928474426, Control Loss: 6.3901686668396, Total Loss: 0.9478033781051636
+Time taken to get recomputed solution logits:  40.47600436210632
+Time taken to get recomputed solution logits:  45.02590465545654
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would not No. Loss: 6.598549842834473, Mistakes: 0.7599999904632568, Control Loss: 6.748490810394287, Total Loss: 0.8949698209762573
+Time taken to get recomputed solution logits:  37.990378856658936
+Time taken to get recomputed solution logits:  44.98786807060242
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would support No. Loss: 5.122554779052734, Mistakes: 0.8999999761581421, Control Loss: 6.349704265594482, Total Loss: 1.0269941091537476
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning of your argument would not No., New Loss: 0.8949698209762573
+Current length: 14
+ evidence of or evidenceencia de reasoning of your argument would not No.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.8949698209762573 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  74.48946928977966
+Intersection set size: 14
+Candidate tokens:  be support suffice allow make necessarily work provide apply have change help require lead
+Time taken to get recomputed solution logits:  44.66362905502319
+Time taken to get recomputed solution logits:  41.696661710739136
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would not lead. Loss: 5.733738899230957, Mistakes: 0.7799999713897705, Control Loss: 7.219730377197266, Total Loss: 0.9243946075439453
+Time taken to get recomputed solution logits:  37.72287201881409
+Time taken to get recomputed solution logits:  43.76170015335083
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would not work. Loss: 6.182355880737305, Mistakes: 0.699999988079071, Control Loss: 6.911926746368408, Total Loss: 0.838238537311554
+Time taken to get recomputed solution logits:  37.77737832069397
+Time taken to get recomputed solution logits:  44.76399636268616
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would not have. Loss: 4.937286376953125, Mistakes: 0.7400000095367432, Control Loss: 7.178350448608398, Total Loss: 0.8835670351982117
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning of your argument would not work., New Loss: 0.838238537311554
+Current length: 14
+ evidence of or evidenceencia de reasoning of your argument would not work.
+Current Loss: 0.838238537311554 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  63.922340631484985
+Intersection set size: 13
+Candidate tokens:  well with because,. here to unless since if in for as
+Time taken to get recomputed solution logits:  37.70673680305481
+Time taken to get recomputed solution logits:  43.72420358657837
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would not work. Loss: 6.182355880737305, Mistakes: 0.699999988079071, Control Loss: 6.085766315460205, Total Loss: 0.8217152953147888
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning of your argument would not work., New Loss: 0.8217152953147888
+Current length: 14
+ evidence of or evidenceencia de reasoning of your argument would not work.
+Current Loss: 0.8217152953147888 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  64.73047208786011
+Intersection set size: 10
+Candidate tokens:  one this a only an evidence the of your specific
+Time taken to get recomputed solution logits:  37.906660079956055
+Time taken to get recomputed solution logits:  43.92174530029297
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would not work. Loss: 6.182355880737305, Mistakes: 0.699999988079071, Control Loss: 6.085766315460205, Total Loss: 0.8217152953147888
+Time taken to get recomputed solution logits:  44.927727699279785
+Time taken to get recomputed solution logits:  45.044668197631836
+>Prompt Choice:  of of or evidenceencia de reasoning of your argument would not work. Loss: 5.42708158493042, Mistakes: 0.8799999952316284, Control Loss: 6.16827917098999, Total Loss: 1.0033655166625977
+Time taken to get recomputed solution logits:  43.813384771347046
+Time taken to get recomputed solution logits:  45.06932067871094
+>Prompt Choice:  this of or evidenceencia de reasoning of your argument would not work. Loss: 5.09169340133667, Mistakes: 0.7799999713897705, Control Loss: 6.408534526824951, Total Loss: 0.9081706404685974
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning of your argument would not work., New Loss: 0.8217152953147888
+Current length: 14
+ evidence of or evidenceencia de reasoning of your argument would not work.
+Current Loss: 0.8217152953147888 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  64.25834512710571
+Intersection set size: 13
+Candidate tokens:  and,. or only that in for such to from of based
+Time taken to get recomputed solution logits:  38.40659022331238
+Time taken to get recomputed solution logits:  44.00957274436951
+>Prompt Choice:  evidence of or evidenceencia de reasoning of your argument would not work. Loss: 6.182355880737305, Mistakes: 0.699999988079071, Control Loss: 6.085766315460205, Total Loss: 0.8217152953147888
+Time taken to get recomputed solution logits:  35.61043906211853
+Time taken to get recomputed solution logits:  23.439501523971558
+>Prompt Choice:  evidence. or evidenceencia de reasoning of your argument would not work. Loss: 4.904792308807373, Mistakes: 0.7599999904632568, Control Loss: 6.790274620056152, Total Loss: 0.8958054780960083
+Time taken to get recomputed solution logits:  38.17733931541443
+Time taken to get recomputed solution logits:  37.91803288459778
+>Prompt Choice:  evidence, or evidenceencia de reasoning of your argument would not work. Loss: 6.586526870727539, Mistakes: 0.7599999904632568, Control Loss: 6.039408206939697, Total Loss: 0.8807881474494934../llm_opt/base/attack_manager.py:945: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:601: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:606: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+../llm_opt/base/attack_manager.py:1201: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of or evidenceencia de reasoning of your argument would not work., New Loss: 0.8217152953147888
+Current length: 14
+ evidence of or evidenceencia de reasoning of your argument would not work.
+Current Loss: 0.8217152953147888 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  64.38712215423584
+Intersection set size: 5
+Candidate tokens:  caus the a your other
+>>>> Topk increased to 17 <<<<
+Intersection set size: 11
+Candidate tokens:  caus a cause at an prior how the what your other
+Time taken to get recomputed solution logits:  38.01088500022888
+Time taken to get recomputed solution logits:  45.03451490402222
+>Prompt Choice:  evidence of how evidenceencia de reasoning of your argument would not work. Loss: 5.487327575683594, Mistakes: 0.8199999928474426, Control Loss: 6.640347480773926, Total Loss: 0.9528069496154785
+Time taken to get recomputed solution logits:  38.52806639671326
+Time taken to get recomputed solution logits:  44.85956311225891
+>Prompt Choice:  evidence of other evidenceencia de reasoning of your argument would not work. Loss: 6.254655838012695, Mistakes: 0.7599999904632568, Control Loss: 6.5104079246521, Total Loss: 0.8902081251144409
+Time taken to get recomputed solution logits:  37.955230474472046
+Time taken to get recomputed solution logits:  44.93665814399719
+>Prompt Choice:  evidence of an evidenceencia de reasoning of your argument would not work. Loss: 3.8599541187286377, Mistakes: 0.6800000071525574, Control Loss: 6.837141513824463, Total Loss: 0.8167428374290466
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of an evidenceencia de reasoning of your argument would not work., New Loss: 0.8167428374290466
+Current length: 14
+ evidence of an evidenceencia de reasoning of your argument would not work.
+Current Loss: 0.8167428374290466 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  81.23199820518494
+Intersection set size: 5
+Candidate tokens:  un independent alternative external event
+>>>> Topk increased to 17 <<<<
+Intersection set size: 7
+Candidate tokens:  external un independent experiment alternative actual event
+Time taken to get recomputed solution logits:  44.97218608856201
+Time taken to get recomputed solution logits:  45.02161765098572
+>Prompt Choice:  evidence of an alternativeencia de reasoning of your argument would not work. Loss: 4.600381374359131, Mistakes: 0.8399999737739563, Control Loss: 6.633151054382324, Total Loss: 0.9726629853248596
+Time taken to get recomputed solution logits:  45.66752219200134
+Time taken to get recomputed solution logits:  45.57018280029297
+>Prompt Choice:  evidence of an unencia de reasoning of your argument would not work. Loss: 5.286531925201416, Mistakes: 0.7199999690055847, Control Loss: 6.387129783630371, Total Loss: 0.8477425575256348
+Time taken to get recomputed solution logits:  38.51055026054382
+Time taken to get recomputed solution logits:  45.60893392562866
+>Prompt Choice:  evidence of an evidenceencia de reasoning of your argument would not work. Loss: 3.8599541187286377, Mistakes: 0.6800000071525574, Control Loss: 6.5103559494018555, Total Loss: 0.8102071285247803
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of an evidenceencia de reasoning of your argument would not work., New Loss: 0.8102071285247803
+Current length: 14
+ evidence of an evidenceencia de reasoning of your argument would not work.
+Current Loss: 0.8102071285247803 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Time taken to update solutions:  84.82717895507812
+Intersection set size: 13
+Candidate tokens: ,. base analysis theory gap that collection for to from of based
+Time taken to get recomputed solution logits:  30.27366280555725
+Time taken to get recomputed solution logits:  22.424570322036743
+>Prompt Choice:  evidence of an evidence, de reasoning of your argument would not work. Loss: 7.199831485748291, Mistakes: 0.8399999737739563, Control Loss: 6.315634250640869, Total Loss: 0.9663126468658447
+Time taken to get recomputed solution logits:  24.697198390960693
+Time taken to get recomputed solution logits:  29.000991821289062
+>Prompt Choice:  evidence of an evidence. de reasoning of your argument would not work. Loss: 7.032807350158691, Mistakes: 0.7999999523162842, Control Loss: 6.283310413360596, Total Loss: 0.9256661534309387
+Time taken to get recomputed solution logits:  38.49177694320679
+Time taken to get recomputed solution logits:  44.89213681221008
+>Prompt Choice:  evidence of an evidenceencia de reasoning of your argument would not work. Loss: 3.8599541187286377, Mistakes: 0.6800000071525574, Control Loss: 6.5103559494018555, Total Loss: 0.8102071285247803
+No improvement in the current position. Moving to the next position.
+New Control:  evidence of an evidenceencia de reasoning of your argument would not work., New Loss: 0.8102071285247803
+Current length: 14
+ evidence of an evidenceencia de reasoning of your argument would not work.
+Current Loss: 0.8102071285247803 Best Loss: 0.6272093653678894 Best Control:  only the information provided one sentence per other fallow option choice, but.
+Step:  105 Candidates:  [(0.6272093653678894, ' only the information provided one sentence per other fallow option choice, but.'), (0.6296447515487671, ' only the information within one sentence per other fallow option choice, but.'), (0.6316429376602173, ' only only fall within one sentence per other fallow option choice, but.'), (0.6575105786323547, ' only the fall within one sentence per other fallow option choice, but.'), (0.658165454864502, ' evidence only fall within one sentence per other fallow option choice, required.'), (0.6680989265441895, ' the theodou by each option other options that option, No.'), (0.6923669576644897, ' evidence of or evidenceencia de reasoning,, evidence and would you No.'), (0.6927669048309326, ' evidence of or evidenceencia de reasoning,, evidence and would you No.'), (0.7341726422309875, ' evidence only fall within one sentence per other fallow option choice, but.'), (0.7349254488945007, ' the theodoum each option other options that option, No.')]

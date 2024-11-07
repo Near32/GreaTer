@@ -1,0 +1,1876 @@
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: ' proper logical reasoning and think step by step. Finally give the
+  actual correct answer.'
+control_weight: 0.2
+conversation_templates:
+- llama-3
+- llama-3
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$A'' or ''$B'' or
+  ''$C'' or ''$D'' or ''$E'') is $'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: false
+  use_cache: false
+- low_cpu_mem_usage: false
+  use_cache: false
+model_paths:
+- meta-llama/Llama-3.2-1B-Instruct
+- meta-llama/Llama-3.2-1B-Instruct
+n_steps: 106
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_llama3_tracking_shuffled_objects_five_objects_fffff.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/tracking_shuffled_objects_five_objects.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+tokenizer_paths:
+- meta-llama/Llama-3.2-1B-Instruct
+- meta-llama/Llama-3.2-1B-Instruct
+topk: 40
+train_data: ../data/BBH/tracking_shuffled_objects_five_objects.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Initialized Workers...
+Started worker 1937316 for model meta-llama/Llama-3.2-1B-Instruct
+Started worker 1937515 for model meta-llama/Llama-3.2-1B-Instruct
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  63.83596634864807
+Intersection set size: 14
+Candidate tokens:  process basic a correct mathematical logic reasoning the this algebra only proof logical your
+Time taken to get recomputed solution logits:  32.5634229183197
+Time taken to get recomputed solution logits:  31.56518054008484
+>Prompt Choice:  the logical reasoning and think step by step. Finally give the actual correct answer. Loss: 23.038915634155273, Mistakes: 0.8999999761581421, Control Loss: 4.164515495300293, Total Loss: 0.9832903146743774
+Time taken to get recomputed solution logits:  32.58369541168213
+Time taken to get recomputed solution logits:  26.08625841140747
+>Prompt Choice:  proper logical reasoning and think step by step. Finally give the actual correct answer. Loss: 20.537553787231445, Mistakes: 0.7199999690055847, Control Loss: 3.538468360900879, Total Loss: 0.7907693386077881
+Time taken to get recomputed solution logits:  32.543174743652344
+Time taken to get recomputed solution logits:  24.52656078338623
+>Prompt Choice:  your logical reasoning and think step by step. Finally give the actual correct answer. Loss: 21.701757431030273, Mistakes: 0.7799999713897705, Control Loss: 3.622755527496338, Total Loss: 0.8524550795555115
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.7907693386077881
+Current length: 16
+ proper logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.7907693386077881 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  63.63378620147705
+Intersection set size: 11
+Candidate tokens:  logic mathematical grammar reasoning analysis formatting algebra proof notation logical format
+Time taken to get recomputed solution logits:  32.575984716415405
+Time taken to get recomputed solution logits:  17.922771215438843
+>Prompt Choice:  proper logic reasoning and think step by step. Finally give the actual correct answer. Loss: 24.02882957458496, Mistakes: 0.8399999737739563, Control Loss: 3.8996829986572266, Total Loss: 0.9179936647415161
+Time taken to get recomputed solution logits:  32.62826180458069
+Time taken to get recomputed solution logits:  26.097678422927856
+>Prompt Choice:  proper logical reasoning and think step by step. Finally give the actual correct answer. Loss: 20.537553787231445, Mistakes: 0.7199999690055847, Control Loss: 3.538468360900879, Total Loss: 0.7907693386077881
+Time taken to get recomputed solution logits:  33.528716802597046
+Time taken to get recomputed solution logits:  25.40625810623169
+>Prompt Choice:  proper reasoning reasoning and think step by step. Finally give the actual correct answer. Loss: 22.96510887145996, Mistakes: 0.7999999523162842, Control Loss: 4.397963523864746, Total Loss: 0.8879592418670654
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.7907693386077881
+Current length: 16
+ proper logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.7907693386077881 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.49738669395447
+Intersection set size: 12
+Candidate tokens:  and deduction steps reasoning rules arguments analysis operators statements deductions operations thinking
+Time taken to get recomputed solution logits:  33.690587282180786
+Time taken to get recomputed solution logits:  24.76332402229309
+>Prompt Choice:  proper logical operators and think step by step. Finally give the actual correct answer. Loss: 23.881357192993164, Mistakes: 0.8199999928474426, Control Loss: 3.7146239280700684, Total Loss: 0.8942924737930298
+Time taken to get recomputed solution logits:  22.85692310333252
+Time taken to get recomputed solution logits:  15.832507848739624
+>Prompt Choice:  proper logical thinking and think step by step. Finally give the actual correct answer. Loss: 24.437612533569336, Mistakes: 0.8399999737739563, Control Loss: 3.5785064697265625, Total Loss: 0.9115700721740723
+Time taken to get recomputed solution logits:  33.63970637321472
+Time taken to get recomputed solution logits:  25.479230403900146
+>Prompt Choice:  proper logical operations and think step by step. Finally give the actual correct answer. Loss: 21.227462768554688, Mistakes: 0.8199999928474426, Control Loss: 3.575446605682373, Total Loss: 0.891508936882019
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations and think step by step. Finally give the actual correct answer., New Loss: 0.891508936882019
+Current length: 16
+ proper logical operations and think step by step. Finally give the actual correct answer.
+Current Loss: 0.891508936882019 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.10521531105042
+Intersection set size: 14
+Candidate tokens:  with and on,. according to when in for such as of based
+Time taken to get recomputed solution logits:  33.32561492919922
+Time taken to get recomputed solution logits:  33.26840567588806
+>Prompt Choice:  proper logical operations to think step by step. Finally give the actual correct answer. Loss: 22.28667640686035, Mistakes: 0.8399999737739563, Control Loss: 4.289402008056641, Total Loss: 0.9257880449295044
+Time taken to get recomputed solution logits:  33.53389811515808
+Time taken to get recomputed solution logits:  34.531940937042236
+>Prompt Choice:  proper logical operations on think step by step. Finally give the actual correct answer. Loss: 23.30241584777832, Mistakes: 0.8799999952316284, Control Loss: 4.637144565582275, Total Loss: 0.9727429151535034
+Time taken to get recomputed solution logits:  32.53142166137695
+Time taken to get recomputed solution logits:  35.522708892822266
+>Prompt Choice:  proper logical operations, think step by step. Finally give the actual correct answer. Loss: 20.91546058654785, Mistakes: 0.8399999737739563, Control Loss: 3.9926857948303223, Total Loss: 0.919853687286377
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, think step by step. Finally give the actual correct answer., New Loss: 0.919853687286377
+Current length: 16
+ proper logical operations, think step by step. Finally give the actual correct answer.
+Current Loss: 0.919853687286377 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.09503602981567
+Intersection set size: 14
+Candidate tokens:  and considering combining eliminating starting i not without given specifically including such as where
+Time taken to get recomputed solution logits:  32.59631848335266
+Time taken to get recomputed solution logits:  18.968174934387207
+>Prompt Choice:  proper logical operations, considering step by step. Finally give the actual correct answer. Loss: 24.214052200317383, Mistakes: 0.8199999928474426, Control Loss: 4.408570289611816, Total Loss: 0.9081714153289795
+Time taken to get recomputed solution logits:  23.814974546432495
+Time taken to get recomputed solution logits:  32.24567437171936
+>Prompt Choice:  proper logical operations, without step by step. Finally give the actual correct answer. Loss: 25.827890396118164, Mistakes: 0.8999999761581421, Control Loss: 4.90924596786499, Total Loss: 0.9981849193572998
+Time taken to get recomputed solution logits:  24.034966468811035
+Time taken to get recomputed solution logits:  18.254740953445435
+>Prompt Choice:  proper logical operations, starting step by step. Finally give the actual correct answer. Loss: 25.5363712310791, Mistakes: 0.85999995470047, Control Loss: 4.553110599517822, Total Loss: 0.9510621428489685
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step by step. Finally give the actual correct answer., New Loss: 0.9081714153289795
+Current length: 16
+ proper logical operations, considering step by step. Finally give the actual correct answer.
+Current Loss: 0.9081714153289795 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  58.31812047958374
+Intersection set size: 13
+Candidate tokens:  which any the only all Alice that both multiple how who what each
+Time taken to get recomputed solution logits:  23.331446886062622
+Time taken to get recomputed solution logits:  25.710948705673218
+>Prompt Choice:  proper logical operations, considering that by step. Finally give the actual correct answer. Loss: 23.439559936523438, Mistakes: 0.8199999928474426, Control Loss: 5.135551452636719, Total Loss: 0.9227110147476196
+Time taken to get recomputed solution logits:  32.62769412994385
+Time taken to get recomputed solution logits:  18.984259605407715
+>Prompt Choice:  proper logical operations, considering step by step. Finally give the actual correct answer. Loss: 24.214052200317383, Mistakes: 0.8199999928474426, Control Loss: 4.087086200714111, Total Loss: 0.9017417430877686
+Time taken to get recomputed solution logits:  33.41802716255188
+Time taken to get recomputed solution logits:  18.805968284606934
+>Prompt Choice:  proper logical operations, considering how by step. Finally give the actual correct answer. Loss: 23.51197624206543, Mistakes: 0.8799999952316284, Control Loss: 5.076132774353027, Total Loss: 0.9815226793289185
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step by step. Finally give the actual correct answer., New Loss: 0.9017417430877686
+Current length: 16
+ proper logical operations, considering step by step. Finally give the actual correct answer.
+Current Loss: 0.9017417430877686 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  58.394845724105835
+Intersection set size: 13
+Candidate tokens:  one and transitions through after wise  orderwise by for to of
+Time taken to get recomputed solution logits:  32.720566749572754
+Time taken to get recomputed solution logits:  26.73504948616028
+>Prompt Choice:  proper logical operations, considering stepwise step. Finally give the actual correct answer. Loss: 23.929224014282227, Mistakes: 0.8199999928474426, Control Loss: 4.831600189208984, Total Loss: 0.9166319966316223
+Time taken to get recomputed solution logits:  23.607892274856567
+Time taken to get recomputed solution logits:  33.28924608230591
+>Prompt Choice:  proper logical operations, considering step wise step. Finally give the actual correct answer. Loss: 22.3747501373291, Mistakes: 0.7999999523162842, Control Loss: 4.572813034057617, Total Loss: 0.8914561867713928
+Time taken to get recomputed solution logits:  13.974827766418457
+Time taken to get recomputed solution logits:  33.780691623687744
+>Prompt Choice:  proper logical operations, considering step transitions step. Finally give the actual correct answer. Loss: 24.119625091552734, Mistakes: 0.9199999570846558, Control Loss: 4.818905353546143, Total Loss: 1.0163780450820923
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step wise step. Finally give the actual correct answer., New Loss: 0.8914561867713928
+Current length: 16
+ proper logical operations, considering step wise step. Finally give the actual correct answer.
+Current Loss: 0.8914561867713928 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  55.27282404899597
+Intersection set size: 9
+Candidate tokens:  progression elimination exchange process, information analysis changes sequence
+Time taken to get recomputed solution logits:  22.471047401428223
+Time taken to get recomputed solution logits:  15.603940725326538
+>Prompt Choice:  proper logical operations, considering step wise,. Finally give the actual correct answer. Loss: 25.7716007232666, Mistakes: 0.9199999570846558, Control Loss: 5.41953182220459, Total Loss: 1.028390645980835
+Time taken to get recomputed solution logits:  23.756648540496826
+Time taken to get recomputed solution logits:  29.32651948928833
+>Prompt Choice:  proper logical operations, considering step wise sequence. Finally give the actual correct answer. Loss: 26.731063842773438, Mistakes: 0.9399999976158142, Control Loss: 4.915355205535889, Total Loss: 1.0383070707321167
+Time taken to get recomputed solution logits:  14.90299916267395
+Time taken to get recomputed solution logits:  24.546688079833984
+>Prompt Choice:  proper logical operations, considering step wise information. Finally give the actual correct answer. Loss: 23.14579200744629, Mistakes: 0.8399999737739563, Control Loss: 4.808228492736816, Total Loss: 0.9361645579338074
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step wise information. Finally give the actual correct answer., New Loss: 0.9361645579338074
+Current length: 16
+ proper logical operations, considering step wise information. Finally give the actual correct answer.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.9361645579338074 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  48.13551878929138
+Intersection set size: 14
+Candidate tokens:  exchange flow and at,. provided about to given that as from of
+Time taken to get recomputed solution logits:  33.094125509262085
+Time taken to get recomputed solution logits:  25.228193998336792
+>Prompt Choice:  proper logical operations, considering step wise information about Finally give the actual correct answer. Loss: 23.10934066772461, Mistakes: 0.7999999523162842, Control Loss: 5.283470153808594, Total Loss: 0.9056693315505981
+Time taken to get recomputed solution logits:  14.106801986694336
+Time taken to get recomputed solution logits:  25.29111099243164
+>Prompt Choice:  proper logical operations, considering step wise information, Finally give the actual correct answer. Loss: 25.41142463684082, Mistakes: 0.9199999570846558, Control Loss: 4.968115329742432, Total Loss: 1.019362211227417
+Time taken to get recomputed solution logits:  32.21222400665283
+Time taken to get recomputed solution logits:  24.665963172912598
+>Prompt Choice:  proper logical operations, considering step wise information from Finally give the actual correct answer. Loss: 23.146738052368164, Mistakes: 0.85999995470047, Control Loss: 5.166797637939453, Total Loss: 0.9633358716964722
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step wise information about Finally give the actual correct answer., New Loss: 0.9056693315505981
+Current length: 16
+ proper logical operations, considering step wise information about Finally give the actual correct answer.
+Current Loss: 0.9056693315505981 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  57.97353386878967
+Intersection set size: 8
+Candidate tokens:  which their all how the who what each
+Time taken to get recomputed solution logits:  33.08154606819153
+Time taken to get recomputed solution logits:  25.07406497001648
+>Prompt Choice:  proper logical operations, considering step wise information about Finally give the actual correct answer. Loss: 23.10934066772461, Mistakes: 0.7999999523162842, Control Loss: 5.238157749176025, Total Loss: 0.9047631025314331
+Time taken to get recomputed solution logits:  24.30938458442688
+Time taken to get recomputed solution logits:  27.007968425750732
+>Prompt Choice:  proper logical operations, considering step wise information about the give the actual correct answer. Loss: 19.786569595336914, Mistakes: 0.7599999904632568, Control Loss: 5.946691513061523, Total Loss: 0.8789337873458862
+Time taken to get recomputed solution logits:  26.05600118637085
+Time taken to get recomputed solution logits:  23.89962911605835
+>Prompt Choice:  proper logical operations, considering step wise information about their give the actual correct answer. Loss: 22.947919845581055, Mistakes: 0.85999995470047, Control Loss: 5.983246803283691, Total Loss: 0.9796648621559143
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step wise information about the give the actual correct answer., New Loss: 0.8789337873458862
+Current length: 16
+ proper logical operations, considering step wise information about the give the actual correct answer.
+Current Loss: 0.8789337873458862 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  40.897762298583984
+Intersection set size: 0
+Candidate tokens: 
+>>>> Topk increased to 17 <<<<
+Intersection set size: 3
+Candidate tokens:  exchanges possible movements
+>>>> Topk increased to 19 <<<<
+Intersection set size: 3
+Candidate tokens:  exchanges possible movements
+>>>> Topk increased to 21 <<<<
+Intersection set size: 4
+Candidate tokens:  exchanges possible changes movements
+>>>> Topk increased to 23 <<<<
+Intersection set size: 10
+Candidate tokens:  exchange swaps initial movements exchanges swapping possible trading moves sequence
+Time taken to get recomputed solution logits:  33.57610630989075
+Time taken to get recomputed solution logits:  32.93002367019653
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps the actual correct answer. Loss: 22.639726638793945, Mistakes: 0.8799999952316284, Control Loss: 5.068995475769043, Total Loss: 0.9813799262046814
+Time taken to get recomputed solution logits:  33.49564337730408
+Time taken to get recomputed solution logits:  27.95918321609497
+>Prompt Choice:  proper logical operations, considering step wise information about the swapping the actual correct answer. Loss: 23.543319702148438, Mistakes: 0.8799999952316284, Control Loss: 5.082343101501465, Total Loss: 0.9816468358039856
+Time taken to get recomputed solution logits:  25.42429232597351
+Time taken to get recomputed solution logits:  33.81989026069641
+>Prompt Choice:  proper logical operations, considering step wise information about the exchanges the actual correct answer. Loss: 22.285200119018555, Mistakes: 0.9199999570846558, Control Loss: 5.106681823730469, Total Loss: 1.0221335887908936
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step wise information about the swaps the actual correct answer., New Loss: 0.9813799262046814
+Current length: 16
+ proper logical operations, considering step wise information about the swaps the actual correct answer.
+Current Loss: 0.9813799262046814 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  56.299559116363525
+Intersection set size: 13
+Candidate tokens:  and involved between, so. among to happening that in as of
+Time taken to get recomputed solution logits:  23.43079137802124
+Time taken to get recomputed solution logits:  26.53148579597473
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps among actual correct answer. Loss: 22.65894889831543, Mistakes: 0.8799999952316284, Control Loss: 5.202886581420898, Total Loss: 0.9840577244758606
+Time taken to get recomputed solution logits:  23.378464937210083
+Time taken to get recomputed solution logits:  17.767499923706055
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of actual correct answer. Loss: 22.22707748413086, Mistakes: 0.8399999737739563, Control Loss: 5.118106365203857, Total Loss: 0.9423620700836182
+Time taken to get recomputed solution logits:  14.984923362731934
+Time taken to get recomputed solution logits:  23.919775247573853
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps involved actual correct answer. Loss: 22.805952072143555, Mistakes: 0.8799999952316284, Control Loss: 5.296629905700684, Total Loss: 0.9859325885772705
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step wise information about the swaps of actual correct answer., New Loss: 0.9423620700836182
+Current length: 16
+ proper logical operations, considering step wise information about the swaps of actual correct answer.
+Current Loss: 0.9423620700836182 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  58.224305391311646
+Intersection set size: 5
+Candidate tokens:  their Alice these the each
+>>>> Topk increased to 17 <<<<
+Intersection set size: 6
+Candidate tokens:  their Alice pairs these the each
+Time taken to get recomputed solution logits:  32.70983147621155
+Time taken to get recomputed solution logits:  42.09068465232849
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of the correct answer. Loss: 22.20969581604004, Mistakes: 0.8199999928474426, Control Loss: 4.945173263549805, Total Loss: 0.9189034700393677
+Time taken to get recomputed solution logits:  33.07297682762146
+Time taken to get recomputed solution logits:  42.247085094451904
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of each correct answer. Loss: 22.228036880493164, Mistakes: 0.8399999737739563, Control Loss: 4.930201530456543, Total Loss: 0.9386039972305298
+Time taken to get recomputed solution logits:  32.37107992172241
+Time taken to get recomputed solution logits:  34.17106914520264
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of their correct answer. Loss: 22.331562042236328, Mistakes: 0.8999999761581421, Control Loss: 5.098682403564453, Total Loss: 1.0019736289978027
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step wise information about the swaps of the correct answer., New Loss: 0.9189034700393677
+Current length: 16
+ proper logical operations, considering step wise information about the swaps of the correct answer.
+Current Loss: 0.9189034700393677 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.79723167419434
+Intersection set size: 3
+Candidate tokens:  pairs different participants
+>>>> Topk increased to 17 <<<<
+Intersection set size: 4
+Candidate tokens:  first different given other
+>>>> Topk increased to 19 <<<<
+Intersection set size: 6
+Candidate tokens:  different given five four first other
+Time taken to get recomputed solution logits:  23.424039602279663
+Time taken to get recomputed solution logits:  42.32562828063965
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of the other answer. Loss: 22.15626335144043, Mistakes: 0.9199999570846558, Control Loss: 5.254438400268555, Total Loss: 1.0250886678695679
+Time taken to get recomputed solution logits:  34.96256136894226
+Time taken to get recomputed solution logits:  33.377615213394165
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of the given answer. Loss: 20.59868812561035, Mistakes: 0.85999995470047, Control Loss: 4.931380271911621, Total Loss: 0.9586275815963745
+Time taken to get recomputed solution logits:  33.5129656791687
+Time taken to get recomputed solution logits:  43.63116264343262
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of the first answer. Loss: 19.94640350341797, Mistakes: 0.8199999928474426, Control Loss: 4.883167266845703, Total Loss: 0.9176633358001709
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step wise information about the swaps of the first answer., New Loss: 0.9176633358001709
+Current length: 16
+ proper logical operations, considering step wise information about the swaps of the first answer.
+Current Loss: 0.9176633358001709 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  73.48478960990906
+Intersection set size: 10
+Candidate tokens:  and, three  set five four few six two
+Time taken to get recomputed solution logits:  32.67335510253906
+Time taken to get recomputed solution logits:  42.308414936065674
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of the first answer. Loss: 19.94640350341797, Mistakes: 0.8199999928474426, Control Loss: 4.558948516845703, Total Loss: 0.9111789464950562
+Time taken to get recomputed solution logits:  42.308162450790405
+Time taken to get recomputed solution logits:  34.406105041503906
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of the first three. Loss: 20.25312614440918, Mistakes: 0.7999999523162842, Control Loss: 4.836484909057617, Total Loss: 0.8967296481132507
+Time taken to get recomputed solution logits:  32.66533398628235
+Time taken to get recomputed solution logits:  42.32821035385132
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of the first few. Loss: 19.594640731811523, Mistakes: 0.8399999737739563, Control Loss: 4.9916863441467285, Total Loss: 0.9398337006568909
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step wise information about the swaps of the first three., New Loss: 0.8967296481132507
+Current length: 16
+ proper logical operations, considering step wise information about the swaps of the first three.
+Current Loss: 0.8967296481132507 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  82.97590208053589
+Intersection set size: 7
+Candidate tokens:  groups rounds couples swaps sets pairs steps
+Time taken to get recomputed solution logits:  42.291194915771484
+Time taken to get recomputed solution logits:  34.43215560913086
+>Prompt Choice:  proper logical operations, considering step wise information about the swaps of the first three. Loss: 20.25312614440918, Mistakes: 0.7999999523162842, Control Loss: 4.3653130531311035, Total Loss: 0.8873062133789062
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical operations, considering step wise information about the swaps of the first three., New Loss: 0.8873062133789062
+Current length: 16
+ proper logical operations, considering step wise information about the swaps of the first three.
+Current Loss: 0.8873062133789062 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  15 Candidates:  [(0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.8789337873458862, ' proper logical operations, considering step wise information about the give the actual correct answer.'), (0.8873062133789062, ' proper logical operations, considering step wise information about the swaps of the first three.'), (0.8914561867713928, ' proper logical operations, considering step wise step. Finally give the actual correct answer.'), (0.891508936882019, ' proper logical operations and think step by step. Finally give the actual correct answer.'), (0.8967296481132507, ' proper logical operations, considering step wise information about the swaps of the first three.'), (0.9017417430877686, ' proper logical operations, considering step by step. Finally give the actual correct answer.'), (0.9056693315505981, ' proper logical operations, considering step wise information about Finally give the actual correct answer.'), (0.9081714153289795, ' proper logical operations, considering step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  82.90551090240479
+Intersection set size: 13
+Candidate tokens:  process basic a correct logic mathematical reasoning the this algebra only logical your
+Time taken to get recomputed solution logits:  42.23279905319214
+Time taken to get recomputed solution logits:  42.87970328330994
+>Prompt Choice:  the logical operations, considering step wise information about the swaps of the first three. Loss: 19.04787254333496, Mistakes: 0.8199999928474426, Control Loss: 4.865361213684082, Total Loss: 0.9173071980476379
+Time taken to get recomputed solution logits:  42.259119272232056
+Time taken to get recomputed solution logits:  42.581769943237305
+>Prompt Choice:  your logical operations, considering step wise information about the swaps of the first three. Loss: 16.870969772338867, Mistakes: 0.7999999523162842, Control Loss: 4.692838668823242, Total Loss: 0.8938567042350769
+Time taken to get recomputed solution logits:  33.10622262954712
+Time taken to get recomputed solution logits:  42.28444290161133
+>Prompt Choice:  a logical operations, considering step wise information about the swaps of the first three. Loss: 20.33758544921875, Mistakes: 0.8799999952316284, Control Loss: 4.87206506729126, Total Loss: 0.9774413108825684
+No improvement in the current position. Moving to the next position.
+New Control:  your logical operations, considering step wise information about the swaps of the first three., New Loss: 0.8938567042350769
+Current length: 16
+ your logical operations, considering step wise information about the swaps of the first three.
+Current Loss: 0.8938567042350769 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  83.15372276306152
+Intersection set size: 14
+Candidate tokens:  judgment own logic mathematical reasoning knowledge discretion analysis best analytical critical logical common understanding
+Time taken to get recomputed solution logits:  32.714446783065796
+Time taken to get recomputed solution logits:  37.52906155586243
+>Prompt Choice:  your reasoning operations, considering step wise information about the swaps of the first three. Loss: 21.560863494873047, Mistakes: 0.9199999570846558, Control Loss: 5.0325212478637695, Total Loss: 1.0206503868103027
+Time taken to get recomputed solution logits:  43.041100025177
+Time taken to get recomputed solution logits:  32.380159854888916
+>Prompt Choice:  your judgment operations, considering step wise information about the swaps of the first three. Loss: 19.191862106323242, Mistakes: 0.8199999928474426, Control Loss: 5.076909065246582, Total Loss: 0.9215381741523743
+Time taken to get recomputed solution logits:  34.06855750083923
+Time taken to get recomputed solution logits:  42.2196831703186
+>Prompt Choice:  your critical operations, considering step wise information about the swaps of the first three. Loss: 19.47307014465332, Mistakes: 0.85999995470047, Control Loss: 5.196004867553711, Total Loss: 0.9639200568199158
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment operations, considering step wise information about the swaps of the first three., New Loss: 0.9215381741523743
+Current length: 16
+ your judgment operations, considering step wise information about the swaps of the first three.
+Current Loss: 0.9215381741523743 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  83.0251190662384
+Intersection set size: 13
+Candidate tokens:  and on,. about to when in for as rather of based
+Time taken to get recomputed solution logits:  32.352994441986084
+Time taken to get recomputed solution logits:  35.97273826599121
+>Prompt Choice:  your judgment when, considering step wise information about the swaps of the first three. Loss: 19.9152774810791, Mistakes: 0.7999999523162842, Control Loss: 5.957324028015137, Total Loss: 0.9191464185714722
+Time taken to get recomputed solution logits:  42.251200914382935
+Time taken to get recomputed solution logits:  42.28824281692505
+>Prompt Choice:  your judgment as, considering step wise information about the swaps of the first three. Loss: 17.74662971496582, Mistakes: 0.7999999523162842, Control Loss: 5.812199592590332, Total Loss: 0.9162439107894897
+Time taken to get recomputed solution logits:  32.702186584472656
+Time taken to get recomputed solution logits:  34.46298050880432
+>Prompt Choice:  your judgment and, considering step wise information about the swaps of the first three. Loss: 20.29573631286621, Mistakes: 0.8199999928474426, Control Loss: 5.737095832824707, Total Loss: 0.9347419142723083
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as, considering step wise information about the swaps of the first three., New Loss: 0.9162439107894897
+Current length: 16
+ your judgment as, considering step wise information about the swaps of the first three.
+Current Loss: 0.9162439107894897 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  73.1999101638794
+Intersection set size: 13
+Candidate tokens:  well a an the I if Alice needed it you to your much
+Time taken to get recomputed solution logits:  42.255210399627686
+Time taken to get recomputed solution logits:  42.30099415779114
+>Prompt Choice:  your judgment as well considering step wise information about the swaps of the first three. Loss: 17.720563888549805, Mistakes: 0.8399999737739563, Control Loss: 5.016523361206055, Total Loss: 0.940330445766449
+Time taken to get recomputed solution logits:  23.900919675827026
+Time taken to get recomputed solution logits:  32.559263706207275
+>Prompt Choice:  your judgment as Alice considering step wise information about the swaps of the first three. Loss: 17.865671157836914, Mistakes: 0.7999999523162842, Control Loss: 5.01320743560791, Total Loss: 0.9002640843391418
+Time taken to get recomputed solution logits:  33.228368282318115
+Time taken to get recomputed solution logits:  33.73375725746155
+>Prompt Choice:  your judgment as needed considering step wise information about the swaps of the first three. Loss: 17.961225509643555, Mistakes: 0.7799999713897705, Control Loss: 5.076563835144043, Total Loss: 0.8815312385559082
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed considering step wise information about the swaps of the first three., New Loss: 0.8815312385559082
+Current length: 16
+ your judgment as needed considering step wise information about the swaps of the first three.
+Current Loss: 0.8815312385559082 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  65.74621033668518
+Intersection set size: 15
+Candidate tokens:  and on,. but during about to when along throughout in for as based
+Time taken to get recomputed solution logits:  42.17463493347168
+Time taken to get recomputed solution logits:  42.24308466911316
+>Prompt Choice:  your judgment as needed throughout step wise information about the swaps of the first three. Loss: 20.071495056152344, Mistakes: 0.7999999523162842, Control Loss: 5.061326026916504, Total Loss: 0.9012264609336853
+Time taken to get recomputed solution logits:  42.22564125061035
+Time taken to get recomputed solution logits:  33.38825011253357
+>Prompt Choice:  your judgment as needed during step wise information about the swaps of the first three. Loss: 20.515005111694336, Mistakes: 0.7999999523162842, Control Loss: 5.00490665435791, Total Loss: 0.9000980854034424
+Time taken to get recomputed solution logits:  42.26771926879883
+Time taken to get recomputed solution logits:  32.78480792045593
+>Prompt Choice:  your judgment as needed on step wise information about the swaps of the first three. Loss: 19.341861724853516, Mistakes: 0.7799999713897705, Control Loss: 4.978336334228516, Total Loss: 0.8795666694641113
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on step wise information about the swaps of the first three., New Loss: 0.8795666694641113
+Current length: 16
+ your judgment as needed on step wise information about the swaps of the first three.
+Current Loss: 0.8795666694641113 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  73.88799667358398
+Intersection set size: 12
+Candidate tokens:  which your any the when this some how whether what where each
+Time taken to get recomputed solution logits:  34.980223417282104
+Time taken to get recomputed solution logits:  34.480778217315674
+>Prompt Choice:  your judgment as needed on any wise information about the swaps of the first three. Loss: 21.02565574645996, Mistakes: 0.8799999952316284, Control Loss: 5.339084148406982, Total Loss: 0.986781656742096
+Time taken to get recomputed solution logits:  42.127604484558105
+Time taken to get recomputed solution logits:  42.95757794380188
+>Prompt Choice:  your judgment as needed on each wise information about the swaps of the first three. Loss: 18.587276458740234, Mistakes: 0.8199999928474426, Control Loss: 5.735047340393066, Total Loss: 0.9347009658813477
+Time taken to get recomputed solution logits:  42.239492416381836
+Time taken to get recomputed solution logits:  34.71861028671265
+>Prompt Choice:  your judgment as needed on the wise information about the swaps of the first three. Loss: 19.635881423950195, Mistakes: 0.8199999928474426, Control Loss: 5.361806869506836, Total Loss: 0.9272361397743225
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise information about the swaps of the first three., New Loss: 0.9272361397743225
+Current length: 16
+ your judgment as needed on the wise information about the swaps of the first three.
+Current Loss: 0.9272361397743225 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  75.64072346687317
+Intersection set size: 6
+Candidate tokens:  options following reasoning final rules last
+Time taken to get recomputed solution logits:  34.52304768562317
+Time taken to get recomputed solution logits:  42.207000494003296
+>Prompt Choice:  your judgment as needed on the following information about the swaps of the first three. Loss: 19.691816329956055, Mistakes: 0.85999995470047, Control Loss: 4.718096733093262, Total Loss: 0.9543619155883789
+Time taken to get recomputed solution logits:  42.2672233581543
+Time taken to get recomputed solution logits:  34.795055866241455
+>Prompt Choice:  your judgment as needed on the wise information about the swaps of the first three. Loss: 19.635881423950195, Mistakes: 0.8199999928474426, Control Loss: 4.918915748596191, Total Loss: 0.9183782935142517
+Time taken to get recomputed solution logits:  33.49465870857239
+Time taken to get recomputed solution logits:  37.56659269332886
+>Prompt Choice:  your judgment as needed on the final information about the swaps of the first three. Loss: 20.830392837524414, Mistakes: 0.8199999928474426, Control Loss: 4.936524868011475, Total Loss: 0.9187304973602295
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise information about the swaps of the first three., New Loss: 0.9183782935142517
+Current length: 16
+ your judgment as needed on the wise information about the swaps of the first three.
+Current Loss: 0.9183782935142517 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  75.65508341789246
+Intersection set size: 9
+Candidate tokens:  and person decisions, man choice words old decision
+Time taken to get recomputed solution logits:  42.13868761062622
+Time taken to get recomputed solution logits:  42.199625968933105
+>Prompt Choice:  your judgment as needed on the wise man about the swaps of the first three. Loss: 18.6688232421875, Mistakes: 0.8399999737739563, Control Loss: 5.466049671173096, Total Loss: 0.9493209719657898
+Time taken to get recomputed solution logits:  42.309359073638916
+Time taken to get recomputed solution logits:  42.17688608169556
+>Prompt Choice:  your judgment as needed on the wise choice about the swaps of the first three. Loss: 20.95708465576172, Mistakes: 0.8799999952316284, Control Loss: 5.297659873962402, Total Loss: 0.9859532117843628
+Time taken to get recomputed solution logits:  33.61872720718384
+Time taken to get recomputed solution logits:  42.312443017959595
+>Prompt Choice:  your judgment as needed on the wise decisions about the swaps of the first three. Loss: 18.73361587524414, Mistakes: 0.7799999713897705, Control Loss: 5.000494956970215, Total Loss: 0.8800098896026611
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise decisions about the swaps of the first three., New Loss: 0.8800098896026611
+Current length: 16
+ your judgment as needed on the wise decisions about the swaps of the first three.
+Current Loss: 0.8800098896026611 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.39286828041077
+Intersection set size: 11
+Candidate tokens:  and. needed that made in for you to of based
+Time taken to get recomputed solution logits:  29.65204644203186
+Time taken to get recomputed solution logits:  34.25367450714111
+>Prompt Choice:  your judgment as needed on the wise decisions in the swaps of the first three. Loss: 20.283926010131836, Mistakes: 0.7999999523162842, Control Loss: 4.702905178070068, Total Loss: 0.8940580487251282
+Time taken to get recomputed solution logits:  42.308329820632935
+Time taken to get recomputed solution logits:  42.323713302612305
+>Prompt Choice:  your judgment as needed on the wise decisions of the swaps of the first three. Loss: 19.91160774230957, Mistakes: 0.8799999952316284, Control Loss: 4.660931587219238, Total Loss: 0.9732186198234558
+Time taken to get recomputed solution logits:  33.62264037132263
+Time taken to get recomputed solution logits:  42.31847953796387
+>Prompt Choice:  your judgment as needed on the wise decisions for the swaps of the first three. Loss: 18.019899368286133, Mistakes: 0.7599999904632568, Control Loss: 4.612994194030762, Total Loss: 0.8522598743438721
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise decisions for the swaps of the first three., New Loss: 0.8522598743438721
+Current length: 16
+ your judgment as needed on the wise decisions for the swaps of the first three.
+Current Loss: 0.8522598743438721 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  66.51751852035522
+Intersection set size: 11
+Candidate tokens:  a making an the this choosing Alice options these your each
+Time taken to get recomputed solution logits:  33.607842683792114
+Time taken to get recomputed solution logits:  42.32535266876221
+>Prompt Choice:  your judgment as needed on the wise decisions for the swaps of the first three. Loss: 18.019899368286133, Mistakes: 0.7599999904632568, Control Loss: 4.6009626388549805, Total Loss: 0.8520192503929138
+Time taken to get recomputed solution logits:  28.02878999710083
+Time taken to get recomputed solution logits:  42.33712887763977
+>Prompt Choice:  your judgment as needed on the wise decisions for a swaps of the first three. Loss: 19.937583923339844, Mistakes: 0.7999999523162842, Control Loss: 5.0623884201049805, Total Loss: 0.9012477397918701
+Time taken to get recomputed solution logits:  34.04743790626526
+Time taken to get recomputed solution logits:  34.77538514137268
+>Prompt Choice:  your judgment as needed on the wise decisions for an swaps of the first three. Loss: 23.352811813354492, Mistakes: 0.8999999761581421, Control Loss: 5.27149772644043, Total Loss: 1.005429983139038
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise decisions for the swaps of the first three., New Loss: 0.8520192503929138
+Current length: 16
+ your judgment as needed on the wise decisions for the swaps of the first three.
+Current Loss: 0.8520192503929138 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  66.5009753704071
+Intersection set size: 7
+Candidate tokens:  best remaining end options final choices last
+Time taken to get recomputed solution logits:  34.193095445632935
+Time taken to get recomputed solution logits:  42.24320030212402
+>Prompt Choice:  your judgment as needed on the wise decisions for the options of the first three. Loss: 18.373746871948242, Mistakes: 0.7599999904632568, Control Loss: 4.576373100280762, Total Loss: 0.8515274524688721
+Time taken to get recomputed solution logits:  32.87027645111084
+Time taken to get recomputed solution logits:  42.31171178817749
+>Prompt Choice:  your judgment as needed on the wise decisions for the remaining of the first three. Loss: 21.144882202148438, Mistakes: 0.85999995470047, Control Loss: 5.170283794403076, Total Loss: 0.9634056091308594
+Time taken to get recomputed solution logits:  24.76432204246521
+Time taken to get recomputed solution logits:  33.071815729141235
+>Prompt Choice:  your judgment as needed on the wise decisions for the last of the first three. Loss: 22.60945701599121, Mistakes: 0.9199999570846558, Control Loss: 4.712334156036377, Total Loss: 1.0142465829849243
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise decisions for the options of the first three., New Loss: 0.8515274524688721
+Current length: 16
+ your judgment as needed on the wise decisions for the options of the first three.
+Current Loss: 0.8515274524688721 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  75.06707167625427
+Intersection set size: 15
+Candidate tokens:  available and,. provided listed given presented that in for you to of based
+Time taken to get recomputed solution logits:  42.25267219543457
+Time taken to get recomputed solution logits:  42.29822111129761
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided the first three. Loss: 18.24315071105957, Mistakes: 0.7999999523162842, Control Loss: 5.10557746887207, Total Loss: 0.9021115303039551
+Time taken to get recomputed solution logits:  37.92474341392517
+Time taken to get recomputed solution logits:  42.30988144874573
+>Prompt Choice:  your judgment as needed on the wise decisions for the options given the first three. Loss: 19.34437370300293, Mistakes: 0.8799999952316284, Control Loss: 4.934114456176758, Total Loss: 0.978682279586792
+Time taken to get recomputed solution logits:  34.31246042251587
+Time taken to get recomputed solution logits:  28.325979471206665
+>Prompt Choice:  your judgment as needed on the wise decisions for the options that the first three. Loss: 22.268301010131836, Mistakes: 0.8399999737739563, Control Loss: 4.831233978271484, Total Loss: 0.9366246461868286
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise decisions for the options provided the first three., New Loss: 0.9021115303039551
+Current length: 16
+ your judgment as needed on the wise decisions for the options provided the first three.
+Current Loss: 0.9021115303039551 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  75.87363028526306
+Intersection set size: 13
+Candidate tokens:  and on,. to above by that in for as below based
+Time taken to get recomputed solution logits:  33.19946813583374
+Time taken to get recomputed solution logits:  35.04809594154358
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided above first three. Loss: 21.82843780517578, Mistakes: 0.7999999523162842, Control Loss: 5.706803798675537, Total Loss: 0.9141360521316528
+Time taken to get recomputed solution logits:  26.133637189865112
+Time taken to get recomputed solution logits:  34.11189270019531
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided below first three. Loss: 21.415048599243164, Mistakes: 0.7799999713897705, Control Loss: 5.694575309753418, Total Loss: 0.893891453742981
+Time taken to get recomputed solution logits:  23.770841598510742
+Time taken to get recomputed solution logits:  42.32475543022156
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided. first three. Loss: 21.457571029663086, Mistakes: 0.7999999523162842, Control Loss: 5.804351329803467, Total Loss: 0.9160869717597961
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise decisions for the options provided. first three., New Loss: 0.9160869717597961
+Current length: 16
+ your judgment as needed on the wise decisions for the options provided. first three.
+Current Loss: 0.9160869717597961 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  46.05887961387634
+Intersection set size: 12
+Candidate tokens:  You The Consider It Based This  However I Evaluate Use In
+Time taken to get recomputed solution logits:  26.030393600463867
+Time taken to get recomputed solution logits:  25.06380558013916
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided. The three. Loss: 23.06545066833496, Mistakes: 0.8199999928474426, Control Loss: 5.450370788574219, Total Loss: 0.9290074110031128
+Time taken to get recomputed solution logits:  33.15889048576355
+Time taken to get recomputed solution logits:  23.941166877746582
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided.  three. Loss: 23.027587890625, Mistakes: 0.8199999928474426, Control Loss: 5.506495475769043, Total Loss: 0.930129885673523
+Time taken to get recomputed solution logits:  14.280089855194092
+Time taken to get recomputed solution logits:  27.082011222839355
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided. You three. Loss: 25.360727310180664, Mistakes: 0.8799999952316284, Control Loss: 5.73859977722168, Total Loss: 0.9947719573974609
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise decisions for the options provided. The three., New Loss: 0.9290074110031128
+Current length: 16
+ your judgment as needed on the wise decisions for the options provided. The three.
+Current Loss: 0.9290074110031128 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  39.263091802597046
+Intersection set size: 6
+Candidate tokens:  best options correct final goal wise
+Time taken to get recomputed solution logits:  23.451841115951538
+Time taken to get recomputed solution logits:  16.494139671325684
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided. The final. Loss: 22.315881729125977, Mistakes: 0.8399999737739563, Control Loss: 5.153839588165283, Total Loss: 0.9430767297744751
+Time taken to get recomputed solution logits:  15.30463457107544
+Time taken to get recomputed solution logits:  26.572332859039307
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided. The options. Loss: 22.22647476196289, Mistakes: 0.7799999713897705, Control Loss: 4.973076820373535, Total Loss: 0.8794615268707275
+Time taken to get recomputed solution logits:  33.06751298904419
+Time taken to get recomputed solution logits:  17.526873111724854
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided. The correct. Loss: 23.742591857910156, Mistakes: 0.8199999928474426, Control Loss: 5.239784240722656, Total Loss: 0.9247956871986389
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise decisions for the options provided. The options., New Loss: 0.8794615268707275
+Current length: 16
+ your judgment as needed on the wise decisions for the options provided. The options.
+Current Loss: 0.8794615268707275 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  30 Candidates:  [(0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.8515274524688721, ' your judgment as needed on the wise decisions for the options of the first three.'), (0.8520192503929138, ' your judgment as needed on the wise decisions for the swaps of the first three.'), (0.8522598743438721, ' your judgment as needed on the wise decisions for the swaps of the first three.'), (0.8789337873458862, ' proper logical operations, considering step wise information about the give the actual correct answer.'), (0.8794615268707275, ' your judgment as needed on the wise decisions for the options provided. The options.'), (0.8795666694641113, ' your judgment as needed on step wise information about the swaps of the first three.'), (0.8800098896026611, ' your judgment as needed on the wise decisions about the swaps of the first three.'), (0.8815312385559082, ' your judgment as needed considering step wise information about the swaps of the first three.')]
+Time taken to update solutions:  30.499587535858154
+Intersection set size: 12
+Candidate tokens:  should can are provided do listed may given have for include seem
+Time taken to get recomputed solution logits:  15.280478715896606
+Time taken to get recomputed solution logits:  26.518582344055176
+>Prompt Choice:  your judgment as needed on the wise decisions for the options provided. The options. Loss: 22.22647476196289, Mistakes: 0.7799999713897705, Control Loss: 4.6966705322265625, Total Loss: 0.8739333748817444
+No improvement in the current position. Moving to the next position.
+New Control:  your judgment as needed on the wise decisions for the options provided. The options., New Loss: 0.8739333748817444
+Current length: 16
+ your judgment as needed on the wise decisions for the options provided. The options.
+Current Loss: 0.8739333748817444 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  31.098764657974243
+Intersection set size: 14
+Candidate tokens:  process basic a correct logic mathematical reasoning the this algebra only proof logical your
+Time taken to get recomputed solution logits:  33.31773662567139
+Time taken to get recomputed solution logits:  28.10362982749939
+>Prompt Choice:  process judgment as needed on the wise decisions for the options provided. The options. Loss: 23.483245849609375, Mistakes: 0.8799999952316284, Control Loss: 5.740042209625244, Total Loss: 0.9948008060455322
+Time taken to get recomputed solution logits:  42.28820538520813
+Time taken to get recomputed solution logits:  33.06472301483154
+>Prompt Choice:  reasoning judgment as needed on the wise decisions for the options provided. The options. Loss: 19.60404396057129, Mistakes: 0.7999999523162842, Control Loss: 5.284544944763184, Total Loss: 0.9056908488273621
+Time taken to get recomputed solution logits:  14.635131359100342
+Time taken to get recomputed solution logits:  35.55449819564819
+>Prompt Choice:  correct judgment as needed on the wise decisions for the options provided. The options. Loss: 21.852603912353516, Mistakes: 0.7999999523162842, Control Loss: 4.98813533782959, Total Loss: 0.8997626304626465
+No improvement in the current position. Moving to the next position.
+New Control:  correct judgment as needed on the wise decisions for the options provided. The options., New Loss: 0.8997626304626465
+Current length: 16
+ correct judgment as needed on the wise decisions for the options provided. The options.
+Current Loss: 0.8997626304626465 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  55.87850260734558
+Intersection set size: 11
+Candidate tokens:  process logic mathematical reasoning rules sequence algebra procedure notation logical format
+Time taken to get recomputed solution logits:  24.822484970092773
+Time taken to get recomputed solution logits:  42.13672733306885
+>Prompt Choice:  correct reasoning as needed on the wise decisions for the options provided. The options. Loss: 19.56972885131836, Mistakes: 0.7999999523162842, Control Loss: 5.599454879760742, Total Loss: 0.9119890332221985
+Time taken to get recomputed solution logits:  34.78026223182678
+Time taken to get recomputed solution logits:  34.10840606689453
+>Prompt Choice:  correct algebra as needed on the wise decisions for the options provided. The options. Loss: 19.267131805419922, Mistakes: 0.7799999713897705, Control Loss: 5.668766021728516, Total Loss: 0.8933752775192261
+Time taken to get recomputed solution logits:  42.21814584732056
+Time taken to get recomputed solution logits:  34.73963022232056
+>Prompt Choice:  correct logic as needed on the wise decisions for the options provided. The options. Loss: 20.68598175048828, Mistakes: 0.8199999928474426, Control Loss: 5.652582168579102, Total Loss: 0.9330516457557678
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra as needed on the wise decisions for the options provided. The options., New Loss: 0.8933752775192261
+Current length: 16
+ correct algebra as needed on the wise decisions for the options provided. The options.
+Current Loss: 0.8933752775192261 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  66.73096513748169
+Intersection set size: 14
+Candidate tokens:  with and,. rules techniques expressions expression oric in for notation to
+Time taken to get recomputed solution logits:  26.50905704498291
+Time taken to get recomputed solution logits:  33.34358286857605
+>Prompt Choice:  correct algebra expressions needed on the wise decisions for the options provided. The options. Loss: 22.041582107543945, Mistakes: 0.8799999952316284, Control Loss: 5.550196647644043, Total Loss: 0.9910039305686951
+Time taken to get recomputed solution logits:  42.092363357543945
+Time taken to get recomputed solution logits:  34.650819540023804
+>Prompt Choice:  correct algebra. needed on the wise decisions for the options provided. The options. Loss: 19.58837127685547, Mistakes: 0.8399999737739563, Control Loss: 5.9122490882873535, Total Loss: 0.9582449197769165
+Time taken to get recomputed solution logits:  42.15879726409912
+Time taken to get recomputed solution logits:  35.5370397567749
+>Prompt Choice:  correct algebra rules needed on the wise decisions for the options provided. The options. Loss: 20.6737060546875, Mistakes: 0.8399999737739563, Control Loss: 5.6104583740234375, Total Loss: 0.9522091150283813
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules needed on the wise decisions for the options provided. The options., New Loss: 0.9522091150283813
+Current length: 16
+ correct algebra rules needed on the wise decisions for the options provided. The options.
+Current Loss: 0.9522091150283813 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  68.60519194602966
+Intersection set size: 15
+Candidate tokens:  with and,. to or when if that in for such as from of
+Time taken to get recomputed solution logits:  42.20079040527344
+Time taken to get recomputed solution logits:  42.231297731399536
+>Prompt Choice:  correct algebra rules for on the wise decisions for the options provided. The options. Loss: 21.26176643371582, Mistakes: 0.8399999737739563, Control Loss: 5.706901550292969, Total Loss: 0.9541379809379578
+Time taken to get recomputed solution logits:  32.85868239402771
+Time taken to get recomputed solution logits:  42.272398710250854
+>Prompt Choice:  correct algebra rules to on the wise decisions for the options provided. The options. Loss: 18.659931182861328, Mistakes: 0.7599999904632568, Control Loss: 5.858621597290039, Total Loss: 0.8771724104881287
+Time taken to get recomputed solution logits:  42.217836141586304
+Time taken to get recomputed solution logits:  34.32917332649231
+>Prompt Choice:  correct algebra rules when on the wise decisions for the options provided. The options. Loss: 21.479188919067383, Mistakes: 0.8199999928474426, Control Loss: 5.587692737579346, Total Loss: 0.9317538738250732
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to on the wise decisions for the options provided. The options., New Loss: 0.8771724104881287
+Current length: 16
+ correct algebra rules to on the wise decisions for the options provided. The options.
+Current Loss: 0.8771724104881287 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.78514504432678
+Intersection set size: 13
+Candidate tokens:  represent derive show determine find prove solve help verify simplify analyze explain evaluate
+Time taken to get recomputed solution logits:  42.231178760528564
+Time taken to get recomputed solution logits:  35.20746374130249
+>Prompt Choice:  correct algebra rules to show the wise decisions for the options provided. The options. Loss: 19.239116668701172, Mistakes: 0.7799999713897705, Control Loss: 5.2733683586120605, Total Loss: 0.8854673504829407
+Time taken to get recomputed solution logits:  33.86255168914795
+Time taken to get recomputed solution logits:  34.12817454338074
+>Prompt Choice:  correct algebra rules to find the wise decisions for the options provided. The options. Loss: 19.11165428161621, Mistakes: 0.7999999523162842, Control Loss: 5.229917526245117, Total Loss: 0.9045982956886292
+Time taken to get recomputed solution logits:  42.61715126037598
+Time taken to get recomputed solution logits:  42.7274444103241
+>Prompt Choice:  correct algebra rules to solve the wise decisions for the options provided. The options. Loss: 18.464662551879883, Mistakes: 0.7799999713897705, Control Loss: 5.232660293579102, Total Loss: 0.8846531510353088
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve the wise decisions for the options provided. The options., New Loss: 0.8846531510353088
+Current length: 16
+ correct algebra rules to solve the wise decisions for the options provided. The options.
+Current Loss: 0.8846531510353088 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  77.7739040851593
+Intersection set size: 13
+Candidate tokens:  and a. the to this if for it these problem your each
+Time taken to get recomputed solution logits:  42.764015674591064
+Time taken to get recomputed solution logits:  26.603067636489868
+>Prompt Choice:  correct algebra rules to solve a wise decisions for the options provided. The options. Loss: 17.80571937561035, Mistakes: 0.8199999928474426, Control Loss: 4.667072296142578, Total Loss: 0.9133414626121521
+Time taken to get recomputed solution logits:  36.59524869918823
+Time taken to get recomputed solution logits:  42.68274474143982
+>Prompt Choice:  correct algebra rules to solve for wise decisions for the options provided. The options. Loss: 18.181644439697266, Mistakes: 0.7999999523162842, Control Loss: 4.465920448303223, Total Loss: 0.8893183469772339
+Time taken to get recomputed solution logits:  42.75079035758972
+Time taken to get recomputed solution logits:  42.80756378173828
+>Prompt Choice:  correct algebra rules to solve and wise decisions for the options provided. The options. Loss: 20.0466251373291, Mistakes: 0.7999999523162842, Control Loss: 4.576324462890625, Total Loss: 0.891526460647583
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for wise decisions for the options provided. The options., New Loss: 0.8893183469772339
+Current length: 16
+ correct algebra rules to solve for wise decisions for the options provided. The options.
+Current Loss: 0.8893183469772339 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  70.16277694702148
+Intersection set size: 9
+Candidate tokens:  x a any Alice the variables y your each
+Time taken to get recomputed solution logits:  42.6697301864624
+Time taken to get recomputed solution logits:  42.724971532821655
+>Prompt Choice:  correct algebra rules to solve for each decisions for the options provided. The options. Loss: 19.892553329467773, Mistakes: 0.8199999928474426, Control Loss: 5.244450569152832, Total Loss: 0.9248889684677124
+Time taken to get recomputed solution logits:  43.43934106826782
+Time taken to get recomputed solution logits:  36.74126958847046
+>Prompt Choice:  correct algebra rules to solve for the decisions for the options provided. The options. Loss: 19.937395095825195, Mistakes: 0.8799999952316284, Control Loss: 5.129733085632324, Total Loss: 0.9825946688652039
+Time taken to get recomputed solution logits:  40.01928400993347
+Time taken to get recomputed solution logits:  42.732484579086304
+>Prompt Choice:  correct algebra rules to solve for Alice decisions for the options provided. The options. Loss: 15.322182655334473, Mistakes: 0.7799999713897705, Control Loss: 5.349552631378174, Total Loss: 0.886991024017334
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for Alice decisions for the options provided. The options., New Loss: 0.886991024017334
+Current length: 16
+ correct algebra rules to solve for Alice decisions for the options provided. The options.
+Current Loss: 0.886991024017334 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  81.36004209518433
+Intersection set size: 14
+Candidate tokens:  with and on at,. after or as when if in to who
+Time taken to get recomputed solution logits:  42.707916498184204
+Time taken to get recomputed solution logits:  42.900144815444946
+>Prompt Choice:  correct algebra rules to solve for Alice or for the options provided. The options. Loss: 19.076078414916992, Mistakes: 0.8799999952316284, Control Loss: 4.692290306091309, Total Loss: 0.9738457798957825
+Time taken to get recomputed solution logits:  43.24301481246948
+Time taken to get recomputed solution logits:  34.78568887710571
+>Prompt Choice:  correct algebra rules to solve for Alice on for the options provided. The options. Loss: 19.87200355529785, Mistakes: 0.8999999761581421, Control Loss: 4.770042419433594, Total Loss: 0.9954008460044861
+Time taken to get recomputed solution logits:  42.81138801574707
+Time taken to get recomputed solution logits:  42.80214262008667
+>Prompt Choice:  correct algebra rules to solve for Alice in for the options provided. The options. Loss: 18.812089920043945, Mistakes: 0.8799999952316284, Control Loss: 4.890059471130371, Total Loss: 0.9778012037277222
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for Alice or for the options provided. The options., New Loss: 0.9738457798957825
+Current length: 16
+ correct algebra rules to solve for Alice or for the options provided. The options.
+Current Loss: 0.9738457798957825 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  84.0163025856018
+Intersection set size: 12
+Candidate tokens:  Bob any a Eve the Claire determine Alice use Dave her other
+Time taken to get recomputed solution logits:  42.60980033874512
+Time taken to get recomputed solution logits:  43.541404008865356
+>Prompt Choice:  correct algebra rules to solve for Alice or for the options provided. The options. Loss: 19.076078414916992, Mistakes: 0.8799999952316284, Control Loss: 4.051587104797363, Total Loss: 0.9610317349433899
+Time taken to get recomputed solution logits:  43.028414487838745
+Time taken to get recomputed solution logits:  42.84113049507141
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob the options provided. The options. Loss: 15.957228660583496, Mistakes: 0.7999999523162842, Control Loss: 4.510533332824707, Total Loss: 0.8902106285095215
+Time taken to get recomputed solution logits:  24.58581852912903
+Time taken to get recomputed solution logits:  42.88404560089111
+>Prompt Choice:  correct algebra rules to solve for Alice or Alice the options provided. The options. Loss: 20.6586856842041, Mistakes: 0.8799999952316284, Control Loss: 4.36445951461792, Total Loss: 0.9672892093658447
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for Alice or Bob the options provided. The options., New Loss: 0.8902106285095215
+Current length: 16
+ correct algebra rules to solve for Alice or Bob the options provided. The options.
+Current Loss: 0.8902106285095215 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  83.97349810600281
+Intersection set size: 13
+Candidate tokens:  with and,. after to or when using if in as who
+Time taken to get recomputed solution logits:  42.774842977523804
+Time taken to get recomputed solution logits:  42.86779808998108
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as options provided. The options. Loss: 13.202377319335938, Mistakes: 0.7599999904632568, Control Loss: 4.463510513305664, Total Loss: 0.849270224571228
+Time taken to get recomputed solution logits:  42.775620460510254
+Time taken to get recomputed solution logits:  42.80185794830322
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob with options provided. The options. Loss: 15.491361618041992, Mistakes: 0.7999999523162842, Control Loss: 4.152561664581299, Total Loss: 0.8830511569976807
+Time taken to get recomputed solution logits:  42.897491455078125
+Time taken to get recomputed solution logits:  42.84014010429382
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob or options provided. The options. Loss: 14.083540916442871, Mistakes: 0.7999999523162842, Control Loss: 4.423027038574219, Total Loss: 0.8884605169296265
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for Alice or Bob as options provided. The options., New Loss: 0.849270224571228
+Current length: 16
+ correct algebra rules to solve for Alice or Bob as options provided. The options.
+Current Loss: 0.849270224571228 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  83.95292639732361
+Intersection set size: 13
+Candidate tokens:  well required a an requested the if needed they you per variables your
+Time taken to get recomputed solution logits:  42.786821603775024
+Time taken to get recomputed solution logits:  42.86007308959961
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as if provided. The options. Loss: 14.965909957885742, Mistakes: 0.7999999523162842, Control Loss: 4.708853721618652, Total Loss: 0.8941770195960999
+Time taken to get recomputed solution logits:  42.834553241729736
+Time taken to get recomputed solution logits:  42.88749051094055
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as requested provided. The options. Loss: 17.18661880493164, Mistakes: 0.8399999737739563, Control Loss: 4.872864723205566, Total Loss: 0.937457263469696
+Time taken to get recomputed solution logits:  42.73396611213684
+Time taken to get recomputed solution logits:  42.74808621406555
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables provided. The options. Loss: 16.015993118286133, Mistakes: 0.7799999713897705, Control Loss: 4.488319396972656, Total Loss: 0.869766354560852
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for Alice or Bob as variables provided. The options., New Loss: 0.869766354560852
+Current length: 16
+ correct algebra rules to solve for Alice or Bob as variables provided. The options.
+Current Loss: 0.869766354560852 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  84.21194267272949
+Intersection set size: 15
+Candidate tokens:  represent and,. are to or x if that in for as representing of
+Time taken to get recomputed solution logits:  42.79554462432861
+Time taken to get recomputed solution logits:  42.84506273269653
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables in. The options. Loss: 15.910490036010742, Mistakes: 0.85999995470047, Control Loss: 4.760318756103516, Total Loss: 0.9552063345909119
+Time taken to get recomputed solution logits:  42.7848482131958
+Time taken to get recomputed solution logits:  42.75668978691101
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables x. The options. Loss: 16.138351440429688, Mistakes: 0.7999999523162842, Control Loss: 4.478579044342041, Total Loss: 0.8895715475082397
+Time taken to get recomputed solution logits:  42.77953290939331
+Time taken to get recomputed solution logits:  42.97433066368103
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables of. The options. Loss: 16.22699737548828, Mistakes: 0.7999999523162842, Control Loss: 4.657623291015625, Total Loss: 0.8931524157524109
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for Alice or Bob as variables x. The options., New Loss: 0.8895715475082397
+Current length: 16
+ correct algebra rules to solve for Alice or Bob as variables x. The options.
+Current Loss: 0.8895715475082397 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  85.0931282043457
+Intersection set size: 14
+Candidate tokens:  and,. through,  to or represents in for is as y
+Time taken to get recomputed solution logits:  42.84979271888733
+Time taken to get recomputed solution logits:  42.74678564071655
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables x, The options. Loss: 17.333921432495117, Mistakes: 0.8799999952316284, Control Loss: 4.469216346740723, Total Loss: 0.9693843126296997
+Time taken to get recomputed solution logits:  26.25538659095764
+Time taken to get recomputed solution logits:  43.08476996421814
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables x is The options. Loss: 19.118656158447266, Mistakes: 0.8799999952316284, Control Loss: 4.4614129066467285, Total Loss: 0.9692282676696777
+Time taken to get recomputed solution logits:  42.853759765625
+Time taken to get recomputed solution logits:  42.93671894073486
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables x  The options. Loss: 17.097143173217773, Mistakes: 0.8199999928474426, Control Loss: 4.114370346069336, Total Loss: 0.9022874236106873
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for Alice or Bob as variables x  The options., New Loss: 0.9022874236106873
+Current length: 16
+ correct algebra rules to solve for Alice or Bob as variables x  The options.
+Current Loss: 0.9022874236106873 Best Loss: 0.7907693386077881 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  83.88829302787781
+Intersection set size: 14
+Candidate tokens:  The and a are, the or x in for is to y where
+Time taken to get recomputed solution logits:  42.7503936290741
+Time taken to get recomputed solution logits:  42.93664741516113
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables x  x options. Loss: 12.439926147460938, Mistakes: 0.699999988079071, Control Loss: 4.063884735107422, Total Loss: 0.7812776565551758
+Time taken to get recomputed solution logits:  42.85087847709656
+Time taken to get recomputed solution logits:  42.82380032539368
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables x  The options. Loss: 17.097143173217773, Mistakes: 0.8199999928474426, Control Loss: 4.030464172363281, Total Loss: 0.9006092548370361
+Time taken to get recomputed solution logits:  42.85253167152405
+Time taken to get recomputed solution logits:  42.85218286514282
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables x  where options. Loss: 20.373451232910156, Mistakes: 0.8999999761581421, Control Loss: 4.294740676879883, Total Loss: 0.9858947992324829
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for Alice or Bob as variables x  x options., New Loss: 0.7812776565551758
+Current length: 16
+ correct algebra rules to solve for Alice or Bob as variables x  x options.
+Current Loss: 0.7812776565551758 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Step:  45 Candidates:  [(0.7812776565551758, ' correct algebra rules to solve for Alice or Bob as variables x  x options.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.849270224571228, ' correct algebra rules to solve for Alice or Bob as options provided. The options.'), (0.8515274524688721, ' your judgment as needed on the wise decisions for the options of the first three.'), (0.8520192503929138, ' your judgment as needed on the wise decisions for the swaps of the first three.'), (0.8522598743438721, ' your judgment as needed on the wise decisions for the swaps of the first three.'), (0.869766354560852, ' correct algebra rules to solve for Alice or Bob as variables provided. The options.'), (0.8739333748817444, ' your judgment as needed on the wise decisions for the options provided. The options.'), (0.8771724104881287, ' correct algebra rules to on the wise decisions for the options provided. The options.')]
+Time taken to update solutions:  83.8151798248291
+Intersection set size: 14
+Candidate tokens:    and   <|eom_id|>,.,.  or represents is to y
+Time taken to get recomputed solution logits:  42.72357749938965
+Time taken to get recomputed solution logits:  42.78677535057068
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables x  x.. Loss: 15.135557174682617, Mistakes: 0.8399999737739563, Control Loss: 4.679288864135742, Total Loss: 0.9335857629776001
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for Alice or Bob as variables x  x.., New Loss: 0.9335857629776001
+Current length: 15
+ correct algebra rules to solve for Alice or Bob as variables x  x..
+Current Loss: 0.9335857629776001 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  77.48524451255798
+Intersection set size: 13
+Candidate tokens:    and<|eom_id|>,.,.  or represents is to y
+Time taken to get recomputed solution logits:  42.67828130722046
+Time taken to get recomputed solution logits:  38.912861824035645
+>Prompt Choice:  correct algebra rules to solve for Alice or Bob as variables x  x. Loss: 18.236270904541016, Mistakes: 0.7999999523162842, Control Loss: 4.206344127655029, Total Loss: 0.8841268420219421
+No improvement in the current position. Moving to the next position.
+New Control:  correct algebra rules to solve for Alice or Bob as variables x  x., New Loss: 0.8841268420219421
+Current length: 15
+ correct algebra rules to solve for Alice or Bob as variables x  x.
+Current Loss: 0.8841268420219421 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  74.88037395477295
+Intersection set size: 14
+Candidate tokens:  process basic a an correct mathematical logic reasoning the this algebra only logical your
+Time taken to get recomputed solution logits:  33.61577224731445
+Time taken to get recomputed solution logits:  42.71396613121033
+>Prompt Choice:  only algebra rules to solve for Alice or Bob as variables x  x. Loss: 18.975860595703125, Mistakes: 0.8799999952316284, Control Loss: 3.86816143989563, Total Loss: 0.9573632478713989
+Time taken to get recomputed solution logits:  42.72900748252869
+Time taken to get recomputed solution logits:  42.74973440170288
+>Prompt Choice:  basic algebra rules to solve for Alice or Bob as variables x  x. Loss: 14.347012519836426, Mistakes: 0.8399999737739563, Control Loss: 3.4256343841552734, Total Loss: 0.9085126519203186
+Time taken to get recomputed solution logits:  42.73769474029541
+Time taken to get recomputed solution logits:  42.64903283119202
+>Prompt Choice:  algebra algebra rules to solve for Alice or Bob as variables x  x. Loss: 16.593469619750977, Mistakes: 0.8799999952316284, Control Loss: 3.9629759788513184, Total Loss: 0.9592595100402832
+No improvement in the current position. Moving to the next position.
+New Control:  basic algebra rules to solve for Alice or Bob as variables x  x., New Loss: 0.9085126519203186
+Current length: 15
+ basic algebra rules to solve for Alice or Bob as variables x  x.
+Current Loss: 0.9085126519203186 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  83.98965501785278
+Intersection set size: 12
+Candidate tokens:  counting logic mathematical concepts knowledge math algebra arithmetic comb number principles addition
+Time taken to get recomputed solution logits:  42.786508321762085
+Time taken to get recomputed solution logits:  42.8364577293396
+>Prompt Choice:  basic mathematical rules to solve for Alice or Bob as variables x  x. Loss: 12.60744857788086, Mistakes: 0.8199999928474426, Control Loss: 3.771864175796509, Total Loss: 0.8954373002052307
+Time taken to get recomputed solution logits:  42.78487706184387
+Time taken to get recomputed solution logits:  42.75504207611084
+>Prompt Choice:  basic arithmetic rules to solve for Alice or Bob as variables x  x. Loss: 14.465568542480469, Mistakes: 0.8399999737739563, Control Loss: 3.7648370265960693, Total Loss: 0.915296733379364
+Time taken to get recomputed solution logits:  42.746596813201904
+Time taken to get recomputed solution logits:  42.85374569892883
+>Prompt Choice:  basic comb rules to solve for Alice or Bob as variables x  x. Loss: 12.107314109802246, Mistakes: 0.8199999928474426, Control Loss: 4.4769182205200195, Total Loss: 0.9095383882522583
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical rules to solve for Alice or Bob as variables x  x., New Loss: 0.8954373002052307
+Current length: 15
+ basic mathematical rules to solve for Alice or Bob as variables x  x.
+Current Loss: 0.8954373002052307 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  84.00588393211365
+Intersection set size: 14
+Candidate tokens:  and probability logic reasoning concepts rules analysis equations calculations relationships principles properties operations thinking
+Time taken to get recomputed solution logits:  42.80634164810181
+Time taken to get recomputed solution logits:  42.74531841278076
+>Prompt Choice:  basic mathematical equations to solve for Alice or Bob as variables x  x. Loss: 14.552745819091797, Mistakes: 0.9399999976158142, Control Loss: 3.709810495376587, Total Loss: 1.0141961574554443
+Time taken to get recomputed solution logits:  42.686665058135986
+Time taken to get recomputed solution logits:  43.450671434402466
+>Prompt Choice:  basic mathematical properties to solve for Alice or Bob as variables x  x. Loss: 14.315571784973145, Mistakes: 0.85999995470047, Control Loss: 3.9809296131134033, Total Loss: 0.9396185278892517
+Time taken to get recomputed solution logits:  43.13287401199341
+Time taken to get recomputed solution logits:  43.40407419204712
+>Prompt Choice:  basic mathematical principles to solve for Alice or Bob as variables x  x. Loss: 13.909581184387207, Mistakes: 0.85999995470047, Control Loss: 3.8795528411865234, Total Loss: 0.937591016292572
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles to solve for Alice or Bob as variables x  x., New Loss: 0.937591016292572
+Current length: 15
+ basic mathematical principles to solve for Alice or Bob as variables x  x.
+Current Loss: 0.937591016292572 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  84.47978091239929
+Intersection set size: 14
+Candidate tokens:  and like,. to or if in for such related as from of
+Time taken to get recomputed solution logits:  34.09171414375305
+Time taken to get recomputed solution logits:  42.69096612930298
+>Prompt Choice:  basic mathematical principles. solve for Alice or Bob as variables x  x. Loss: 18.57974624633789, Mistakes: 0.85999995470047, Control Loss: 4.321680068969727, Total Loss: 0.9464335441589355
+Time taken to get recomputed solution logits:  42.7818443775177
+Time taken to get recomputed solution logits:  42.80691719055176
+>Prompt Choice:  basic mathematical principles to solve for Alice or Bob as variables x  x. Loss: 13.909581184387207, Mistakes: 0.85999995470047, Control Loss: 3.8190531730651855, Total Loss: 0.9363810420036316
+Time taken to get recomputed solution logits:  42.83721613883972
+Time taken to get recomputed solution logits:  43.03951692581177
+>Prompt Choice:  basic mathematical principles from solve for Alice or Bob as variables x  x. Loss: 18.496021270751953, Mistakes: 0.8399999737739563, Control Loss: 4.706259250640869, Total Loss: 0.9341251850128174
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from solve for Alice or Bob as variables x  x., New Loss: 0.9341251850128174
+Current length: 15
+ basic mathematical principles from solve for Alice or Bob as variables x  x.
+Current Loss: 0.9341251850128174 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  85.17517423629761
+Intersection set size: 12
+Candidate tokens:  probability a physics geometry the linear algebra comb number real calculus your
+Time taken to get recomputed solution logits:  42.70565223693848
+Time taken to get recomputed solution logits:  42.517247915267944
+>Prompt Choice:  basic mathematical principles from linear for Alice or Bob as variables x  x. Loss: 17.612783432006836, Mistakes: 0.7999999523162842, Control Loss: 5.982485294342041, Total Loss: 0.9196496605873108
+Time taken to get recomputed solution logits:  42.82870817184448
+Time taken to get recomputed solution logits:  42.76639938354492
+>Prompt Choice:  basic mathematical principles from probability for Alice or Bob as variables x  x. Loss: 11.287885665893555, Mistakes: 0.7599999904632568, Control Loss: 5.788273334503174, Total Loss: 0.8757654428482056
+Time taken to get recomputed solution logits:  38.95515465736389
+Time taken to get recomputed solution logits:  34.120166063308716
+>Prompt Choice:  basic mathematical principles from a for Alice or Bob as variables x  x. Loss: 20.59905242919922, Mistakes: 0.8199999928474426, Control Loss: 5.762676239013672, Total Loss: 0.9352535009384155
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability for Alice or Bob as variables x  x., New Loss: 0.8757654428482056
+Current length: 15
+ basic mathematical principles from probability for Alice or Bob as variables x  x.
+Current Loss: 0.8757654428482056 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  84.00299668312073
+Intersection set size: 13
+Candidate tokens:  and,. to or theory when without that in for as of
+Time taken to get recomputed solution logits:  42.67142987251282
+Time taken to get recomputed solution logits:  42.60150861740112
+>Prompt Choice:  basic mathematical principles from probability of Alice or Bob as variables x  x. Loss: 13.116374015808105, Mistakes: 0.8399999737739563, Control Loss: 4.89987325668335, Total Loss: 0.9379974603652954
+Time taken to get recomputed solution logits:  43.33703279495239
+Time taken to get recomputed solution logits:  43.024354457855225
+>Prompt Choice:  basic mathematical principles from probability when Alice or Bob as variables x  x. Loss: 12.266791343688965, Mistakes: 0.8199999928474426, Control Loss: 5.828150749206543, Total Loss: 0.9365630149841309
+Time taken to get recomputed solution logits:  42.963186264038086
+Time taken to get recomputed solution logits:  43.27296304702759
+>Prompt Choice:  basic mathematical principles from probability to Alice or Bob as variables x  x. Loss: 10.86266803741455, Mistakes: 0.8799999952316284, Control Loss: 5.70885705947876, Total Loss: 0.9941771030426025
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability when Alice or Bob as variables x  x., New Loss: 0.9365630149841309
+Current length: 15
+ basic mathematical principles from probability when Alice or Bob as variables x  x.
+Current Loss: 0.9365630149841309 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  84.39297604560852
+Intersection set size: 14
+Candidate tokens:  answering selecting analyzing evaluating approaching making deciding explaining describing choosing you solving determining calculating
+Time taken to get recomputed solution logits:  42.83653235435486
+Time taken to get recomputed solution logits:  42.66187858581543
+>Prompt Choice:  basic mathematical principles from probability when Alice or Bob as variables x  x. Loss: 12.266791343688965, Mistakes: 0.8199999928474426, Control Loss: 5.789650917053223, Total Loss: 0.9357929825782776
+Time taken to get recomputed solution logits:  42.85782217979431
+Time taken to get recomputed solution logits:  42.76498222351074
+>Prompt Choice:  basic mathematical principles from probability when you or Bob as variables x  x. Loss: 14.322765350341797, Mistakes: 0.8799999952316284, Control Loss: 6.685817241668701, Total Loss: 1.0137163400650024
+Time taken to get recomputed solution logits:  44.056729316711426
+Time taken to get recomputed solution logits:  37.387316942214966
+>Prompt Choice:  basic mathematical principles from probability when solving or Bob as variables x  x. Loss: 18.606258392333984, Mistakes: 0.8199999928474426, Control Loss: 7.065135955810547, Total Loss: 0.9613026976585388
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability when Alice or Bob as variables x  x., New Loss: 0.9357929825782776
+Current length: 15
+ basic mathematical principles from probability when Alice or Bob as variables x  x.
+Current Loss: 0.9357929825782776 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  83.86458659172058
+Intersection set size: 12
+Candidate tokens:  has and was can, goes gets moves or does is starts
+Time taken to get recomputed solution logits:  42.66478967666626
+Time taken to get recomputed solution logits:  42.80666184425354
+>Prompt Choice:  basic mathematical principles from probability when Alice can Bob as variables x  x. Loss: 12.571602821350098, Mistakes: 0.8399999737739563, Control Loss: 6.380220890045166, Total Loss: 0.967604398727417
+Time taken to get recomputed solution logits:  42.818007946014404
+Time taken to get recomputed solution logits:  42.746471881866455
+>Prompt Choice:  basic mathematical principles from probability when Alice and Bob as variables x  x. Loss: 11.593019485473633, Mistakes: 0.9399999976158142, Control Loss: 5.765541076660156, Total Loss: 1.055310845375061
+Time taken to get recomputed solution logits:  42.86243438720703
+Time taken to get recomputed solution logits:  42.829673290252686
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob as variables x  x. Loss: 12.638725280761719, Mistakes: 0.7799999713897705, Control Loss: 6.3130669593811035, Total Loss: 0.9062613248825073
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability when Alice starts Bob as variables x  x., New Loss: 0.9062613248825073
+Current length: 15
+ basic mathematical principles from probability when Alice starts Bob as variables x  x.
+Current Loss: 0.9062613248825073 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  77.8806266784668
+Intersection set size: 12
+Candidate tokens:  out with and a at,. the as this to off
+Time taken to get recomputed solution logits:  42.62117147445679
+Time taken to get recomputed solution logits:  42.79084134101868
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob as variables x  x. Loss: 12.638725280761719, Mistakes: 0.7799999713897705, Control Loss: 6.2574005126953125, Total Loss: 0.9051479697227478
+Time taken to get recomputed solution logits:  42.882216453552246
+Time taken to get recomputed solution logits:  42.82138204574585
+>Prompt Choice:  basic mathematical principles from probability when Alice starts as as variables x  x. Loss: 14.494115829467773, Mistakes: 0.8799999952316284, Control Loss: 6.8257646560668945, Total Loss: 1.0165152549743652
+Time taken to get recomputed solution logits:  42.88607335090637
+Time taken to get recomputed solution logits:  35.23818802833557
+>Prompt Choice:  basic mathematical principles from probability when Alice starts out as variables x  x. Loss: 16.465431213378906, Mistakes: 0.8999999761581421, Control Loss: 6.501228332519531, Total Loss: 1.030024528503418
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability when Alice starts Bob as variables x  x., New Loss: 0.9051479697227478
+Current length: 15
+ basic mathematical principles from probability when Alice starts Bob as variables x  x.
+Current Loss: 0.9051479697227478 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  77.90805435180664
+Intersection set size: 10
+Candidate tokens:  with as and on at,. in to 
+Time taken to get recomputed solution logits:  42.717212200164795
+Time taken to get recomputed solution logits:  42.77141523361206
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. variables x  x. Loss: 15.395339965820312, Mistakes: 0.7999999523162842, Control Loss: 6.38584566116333, Total Loss: 0.927716851234436
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability when Alice starts Bob. variables x  x., New Loss: 0.927716851234436
+Current length: 15
+ basic mathematical principles from probability when Alice starts Bob. variables x  x.
+Current Loss: 0.927716851234436 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  84.06725740432739
+Intersection set size: 11
+Candidate tokens:  Assume The Let Bob Consider We This  If What Then
+Time taken to get recomputed solution logits:  42.79136872291565
+Time taken to get recomputed solution logits:  42.795132637023926
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Let x  x. Loss: 12.853185653686523, Mistakes: 0.85999995470047, Control Loss: 6.47083854675293, Total Loss: 0.9894167184829712
+Time taken to get recomputed solution logits:  42.83836269378662
+Time taken to get recomputed solution logits:  42.68300485610962
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Then x  x. Loss: 13.617679595947266, Mistakes: 0.7999999523162842, Control Loss: 6.8441267013549805, Total Loss: 0.936882495880127
+Time taken to get recomputed solution logits:  42.7364821434021
+Time taken to get recomputed solution logits:  42.823100328445435
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume x  x. Loss: 13.606938362121582, Mistakes: 0.7799999713897705, Control Loss: 6.5240936279296875, Total Loss: 0.9104818105697632
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability when Alice starts Bob. Assume x  x., New Loss: 0.9104818105697632
+Current length: 15
+ basic mathematical principles from probability when Alice starts Bob. Assume x  x.
+Current Loss: 0.9104818105697632 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  84.08906292915344
+Intersection set size: 14
+Candidate tokens:  Bob everyone a an Eve no the all that there they both it each
+Time taken to get recomputed solution logits:  42.77111625671387
+Time taken to get recomputed solution logits:  42.696675539016724
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume everyone  x. Loss: 14.733448028564453, Mistakes: 0.8399999737739563, Control Loss: 6.674997806549072, Total Loss: 0.9734998941421509
+Time taken to get recomputed solution logits:  42.77274465560913
+Time taken to get recomputed solution logits:  42.67443060874939
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Eve  x. Loss: 13.619975090026855, Mistakes: 0.8199999928474426, Control Loss: 6.543515205383301, Total Loss: 0.9508702754974365
+Time taken to get recomputed solution logits:  42.779513359069824
+Time taken to get recomputed solution logits:  42.87495470046997
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Bob  x. Loss: 14.062710762023926, Mistakes: 0.8999999761581421, Control Loss: 6.549255847930908, Total Loss: 1.0309851169586182
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability when Alice starts Bob. Assume Eve  x., New Loss: 0.9508702754974365
+Current length: 15
+ basic mathematical principles from probability when Alice starts Bob. Assume Eve  x.
+Current Loss: 0.9508702754974365 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  84.10562944412231
+Intersection set size: 11
+Candidate tokens:  has and can, moves doesn does will is always starts
+Time taken to get recomputed solution logits:  42.674161195755005
+Time taken to get recomputed solution logits:  42.79907202720642
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Eve moves x. Loss: 12.60797119140625, Mistakes: 0.7799999713897705, Control Loss: 6.558699607849121, Total Loss: 0.911173939704895
+Time taken to get recomputed solution logits:  42.764607667922974
+Time taken to get recomputed solution logits:  42.68643593788147
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Eve starts x. Loss: 13.922435760498047, Mistakes: 0.8399999737739563, Control Loss: 6.298821449279785, Total Loss: 0.9659764170646667
+Time taken to get recomputed solution logits:  42.78303241729736
+Time taken to get recomputed solution logits:  42.85703158378601
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Eve will x. Loss: 16.26737403869629, Mistakes: 0.8799999952316284, Control Loss: 6.7090911865234375, Total Loss: 1.0141818523406982
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability when Alice starts Bob. Assume Eve moves x., New Loss: 0.911173939704895
+Current length: 15
+ basic mathematical principles from probability when Alice starts Bob. Assume Eve moves x.
+Current Loss: 0.911173939704895 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Step:  60 Candidates:  [(0.7812776565551758, ' correct algebra rules to solve for Alice or Bob as variables x  x options.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.849270224571228, ' correct algebra rules to solve for Alice or Bob as options provided. The options.'), (0.8515274524688721, ' your judgment as needed on the wise decisions for the options of the first three.'), (0.8520192503929138, ' your judgment as needed on the wise decisions for the swaps of the first three.'), (0.8522598743438721, ' your judgment as needed on the wise decisions for the swaps of the first three.'), (0.869766354560852, ' correct algebra rules to solve for Alice or Bob as variables provided. The options.'), (0.8739333748817444, ' your judgment as needed on the wise decisions for the options provided. The options.'), (0.8757654428482056, ' basic mathematical principles from probability for Alice or Bob as variables x  x.')]
+Time taken to update solutions:  84.04821705818176
+Intersection set size: 10
+Candidate tokens:  on at twice first  last only in to from
+Time taken to get recomputed solution logits:  42.762155294418335
+Time taken to get recomputed solution logits:  42.81683826446533
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Eve moves x. Loss: 12.60797119140625, Mistakes: 0.7799999713897705, Control Loss: 6.298032760620117, Total Loss: 0.9059606194496155
+Time taken to get recomputed solution logits:  35.27847361564636
+Time taken to get recomputed solution logits:  42.66583800315857
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from. Loss: 13.74703598022461, Mistakes: 0.699999988079071, Control Loss: 6.694770336151123, Total Loss: 0.8338953852653503
+Time taken to get recomputed solution logits:  42.84179902076721
+Time taken to get recomputed solution logits:  42.88224458694458
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Eve moves on. Loss: 15.712541580200195, Mistakes: 0.7999999523162842, Control Loss: 6.291199207305908, Total Loss: 0.9258239269256592
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from., New Loss: 0.8338953852653503
+Current length: 15
+ basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from.
+Current Loss: 0.8338953852653503 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  76.62211585044861
+Intersection set size: 7
+Candidate tokens:  one a Eve her the  being
+Time taken to get recomputed solution logits:  39.988160133361816
+Time taken to get recomputed solution logits:  42.8053662776947
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from a Loss: 17.360254287719727, Mistakes: 0.85999995470047, Control Loss: 6.160679340362549, Total Loss: 0.9832135438919067
+Time taken to get recomputed solution logits:  36.968905448913574
+Time taken to get recomputed solution logits:  41.47096920013428
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from the Loss: 17.03189468383789, Mistakes: 0.85999995470047, Control Loss: 6.160372734069824, Total Loss: 0.9832074046134949
+Time taken to get recomputed solution logits:  35.3295533657074
+Time taken to get recomputed solution logits:  42.78943109512329
+>Prompt Choice:  basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from. Loss: 13.74703598022461, Mistakes: 0.699999988079071, Control Loss: 6.168686866760254, Total Loss: 0.8233737349510193
+No improvement in the current position. Moving to the next position.
+New Control:  basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from., New Loss: 0.8233737349510193
+Current length: 15
+ basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from.
+Current Loss: 0.8233737349510193 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  76.56021046638489
+Intersection set size: 13
+Candidate tokens:  process basic a correct logic mathematical reasoning the this algebra only logical your
+Time taken to get recomputed solution logits:  42.772924184799194
+Time taken to get recomputed solution logits:  42.657700061798096
+>Prompt Choice:  your mathematical principles from probability when Alice starts Bob. Assume Eve moves from. Loss: 12.903671264648438, Mistakes: 0.8799999952316284, Control Loss: 6.482123374938965, Total Loss: 1.009642481803894
+Time taken to get recomputed solution logits:  42.79899859428406
+Time taken to get recomputed solution logits:  42.82849049568176
+>Prompt Choice:  the mathematical principles from probability when Alice starts Bob. Assume Eve moves from. Loss: 12.722091674804688, Mistakes: 0.7999999523162842, Control Loss: 6.585867881774902, Total Loss: 0.9317172765731812
+Time taken to get recomputed solution logits:  42.755805015563965
+Time taken to get recomputed solution logits:  42.757256269454956
+>Prompt Choice:  correct mathematical principles from probability when Alice starts Bob. Assume Eve moves from. Loss: 15.452284812927246, Mistakes: 0.85999995470047, Control Loss: 6.132928848266602, Total Loss: 0.9826585054397583
+No improvement in the current position. Moving to the next position.
+New Control:  the mathematical principles from probability when Alice starts Bob. Assume Eve moves from., New Loss: 0.9317172765731812
+Current length: 15
+ the mathematical principles from probability when Alice starts Bob. Assume Eve moves from.
+Current Loss: 0.9317172765731812 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  83.88430595397949
+Intersection set size: 11
+Candidate tokens:  process correct following steps final rules standard given principle most information
+Time taken to get recomputed solution logits:  42.66821837425232
+Time taken to get recomputed solution logits:  42.826263666152954
+>Prompt Choice:  the information principles from probability when Alice starts Bob. Assume Eve moves from. Loss: 15.515087127685547, Mistakes: 0.7199999690055847, Control Loss: 6.831954479217529, Total Loss: 0.85663902759552
+Time taken to get recomputed solution logits:  42.760719776153564
+Time taken to get recomputed solution logits:  42.84814095497131
+>Prompt Choice:  the mathematical principles from probability when Alice starts Bob. Assume Eve moves from. Loss: 12.722091674804688, Mistakes: 0.7999999523162842, Control Loss: 6.368617534637451, Total Loss: 0.9273723363876343
+Time taken to get recomputed solution logits:  42.8049521446228
+Time taken to get recomputed solution logits:  42.849894285202026
+>Prompt Choice:  the correct principles from probability when Alice starts Bob. Assume Eve moves from. Loss: 14.893073081970215, Mistakes: 0.8199999928474426, Control Loss: 6.493538856506348, Total Loss: 0.949870765209198
+No improvement in the current position. Moving to the next position.
+New Control:  the information principles from probability when Alice starts Bob. Assume Eve moves from., New Loss: 0.85663902759552
+Current length: 15
+ the information principles from probability when Alice starts Bob. Assume Eve moves from.
+Current Loss: 0.85663902759552 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  83.90667009353638
+Intersection set size: 13
+Candidate tokens:  and we provided about above given that in you to from below of
+Time taken to get recomputed solution logits:  42.740508794784546
+Time taken to get recomputed solution logits:  36.12105941772461
+>Prompt Choice:  the information provided from probability when Alice starts Bob. Assume Eve moves from. Loss: 16.88314437866211, Mistakes: 0.7999999523162842, Control Loss: 7.236883640289307, Total Loss: 0.9447376132011414
+Time taken to get recomputed solution logits:  42.80812454223633
+Time taken to get recomputed solution logits:  42.78359651565552
+>Prompt Choice:  the information you from probability when Alice starts Bob. Assume Eve moves from. Loss: 14.600828170776367, Mistakes: 0.85999995470047, Control Loss: 7.503658294677734, Total Loss: 1.0100730657577515
+Time taken to get recomputed solution logits:  42.82888174057007
+Time taken to get recomputed solution logits:  34.544368505477905
+>Prompt Choice:  the information given from probability when Alice starts Bob. Assume Eve moves from. Loss: 17.09162712097168, Mistakes: 0.8199999928474426, Control Loss: 6.952859878540039, Total Loss: 0.9590572118759155
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability when Alice starts Bob. Assume Eve moves from., New Loss: 0.9447376132011414
+Current length: 15
+ the information provided from probability when Alice starts Bob. Assume Eve moves from.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.9447376132011414 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  83.92261099815369
+Intersection set size: 14
+Candidate tokens:  and at,. about to above when by in for as from below
+Time taken to get recomputed solution logits:  42.72797727584839
+Time taken to get recomputed solution logits:  42.70990562438965
+>Prompt Choice:  the information provided. probability when Alice starts Bob. Assume Eve moves from. Loss: 14.809943199157715, Mistakes: 0.85999995470047, Control Loss: 6.142768859863281, Total Loss: 0.9828553199768066
+Time taken to get recomputed solution logits:  36.85857439041138
+Time taken to get recomputed solution logits:  42.802408933639526
+>Prompt Choice:  the information provided, probability when Alice starts Bob. Assume Eve moves from. Loss: 15.581988334655762, Mistakes: 0.85999995470047, Control Loss: 6.149986267089844, Total Loss: 0.9829996824264526
+Time taken to get recomputed solution logits:  42.77103090286255
+Time taken to get recomputed solution logits:  36.12195062637329
+>Prompt Choice:  the information provided from probability when Alice starts Bob. Assume Eve moves from. Loss: 16.88314437866211, Mistakes: 0.7999999523162842, Control Loss: 6.351133346557617, Total Loss: 0.9270226359367371
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability when Alice starts Bob. Assume Eve moves from., New Loss: 0.9270226359367371
+Current length: 15
+ the information provided from probability when Alice starts Bob. Assume Eve moves from.
+Current Loss: 0.9270226359367371 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  83.84684467315674
+Intersection set size: 13
+Candidate tokens:  a earlier step the above this their Alice all previous your Step each
+Time taken to get recomputed solution logits:  35.085469484329224
+Time taken to get recomputed solution logits:  42.79119825363159
+>Prompt Choice:  the information provided from their when Alice starts Bob. Assume Eve moves from. Loss: 20.02590560913086, Mistakes: 0.8399999737739563, Control Loss: 6.2431960105896, Total Loss: 0.9648638963699341
+Time taken to get recomputed solution logits:  42.85832762718201
+Time taken to get recomputed solution logits:  42.8181688785553
+>Prompt Choice:  the information provided from earlier when Alice starts Bob. Assume Eve moves from. Loss: 19.737167358398438, Mistakes: 0.8399999737739563, Control Loss: 6.016819477081299, Total Loss: 0.9603363275527954
+Time taken to get recomputed solution logits:  43.41766571998596
+Time taken to get recomputed solution logits:  36.12540102005005
+>Prompt Choice:  the information provided from probability when Alice starts Bob. Assume Eve moves from. Loss: 16.88314437866211, Mistakes: 0.7999999523162842, Control Loss: 6.351133346557617, Total Loss: 0.9270226359367371
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability when Alice starts Bob. Assume Eve moves from., New Loss: 0.9270226359367371
+Current length: 15
+ the information provided from probability when Alice starts Bob. Assume Eve moves from.
+Current Loss: 0.9270226359367371 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  83.88177990913391
+Intersection set size: 11
+Candidate tokens:  and, rules  or theory without statements that to of
+Time taken to get recomputed solution logits:  42.782087087631226
+Time taken to get recomputed solution logits:  35.592950105667114
+>Prompt Choice:  the information provided from probability statements Alice starts Bob. Assume Eve moves from. Loss: 16.98633575439453, Mistakes: 0.8399999737739563, Control Loss: 6.224217414855957, Total Loss: 0.9644843339920044
+Time taken to get recomputed solution logits:  34.30070662498474
+Time taken to get recomputed solution logits:  36.130512952804565
+>Prompt Choice:  the information provided from probability rules Alice starts Bob. Assume Eve moves from. Loss: 18.640417098999023, Mistakes: 0.7799999713897705, Control Loss: 6.400251388549805, Total Loss: 0.9080049991607666
+Time taken to get recomputed solution logits:  42.84713578224182
+Time taken to get recomputed solution logits:  42.647730350494385
+>Prompt Choice:  the information provided from probability theory Alice starts Bob. Assume Eve moves from. Loss: 19.71108627319336, Mistakes: 0.8399999737739563, Control Loss: 6.538642883300781, Total Loss: 0.9707728624343872
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules Alice starts Bob. Assume Eve moves from., New Loss: 0.9080049991607666
+Current length: 15
+ the information provided from probability rules Alice starts Bob. Assume Eve moves from.
+Current Loss: 0.9080049991607666 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  69.6092917919159
+Intersection set size: 14
+Candidate tokens:  and,. about to or when regarding that in for such as of
+Time taken to get recomputed solution logits:  42.744261503219604
+Time taken to get recomputed solution logits:  42.79307317733765
+>Prompt Choice:  the information provided from probability rules for starts Bob. Assume Eve moves from. Loss: 19.92207145690918, Mistakes: 0.8799999952316284, Control Loss: 6.888871192932129, Total Loss: 1.017777442932129
+Time taken to get recomputed solution logits:  34.101099252700806
+Time taken to get recomputed solution logits:  42.83129596710205
+>Prompt Choice:  the information provided from probability rules that starts Bob. Assume Eve moves from. Loss: 23.289772033691406, Mistakes: 0.85999995470047, Control Loss: 6.740843772888184, Total Loss: 0.9948168396949768
+Time taken to get recomputed solution logits:  42.81029224395752
+Time taken to get recomputed solution logits:  42.64417862892151
+>Prompt Choice:  the information provided from probability rules when starts Bob. Assume Eve moves from. Loss: 17.73752212524414, Mistakes: 0.8199999928474426, Control Loss: 6.98436164855957, Total Loss: 0.9596872329711914
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when starts Bob. Assume Eve moves from., New Loss: 0.9596872329711914
+Current length: 15
+ the information provided from probability rules when starts Bob. Assume Eve moves from.
+Current Loss: 0.9596872329711914 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  76.25034689903259
+Intersection set size: 14
+Candidate tokens:  answering selecting analyzing evaluating considering making forming deciding applying choosing you solving determining calculating
+Time taken to get recomputed solution logits:  42.834593296051025
+Time taken to get recomputed solution logits:  42.82695007324219
+>Prompt Choice:  the information provided from probability rules when you Bob. Assume Eve moves from. Loss: 17.165719985961914, Mistakes: 0.7400000095367432, Control Loss: 6.997979640960693, Total Loss: 0.8799595832824707
+Time taken to get recomputed solution logits:  42.93282341957092
+Time taken to get recomputed solution logits:  33.91605758666992
+>Prompt Choice:  the information provided from probability rules when solving Bob. Assume Eve moves from. Loss: 19.121198654174805, Mistakes: 0.8799999952316284, Control Loss: 6.773994445800781, Total Loss: 1.0154799222946167
+Time taken to get recomputed solution logits:  42.85792517662048
+Time taken to get recomputed solution logits:  42.717018127441406
+>Prompt Choice:  the information provided from probability rules when evaluating Bob. Assume Eve moves from. Loss: 17.45142364501953, Mistakes: 0.8799999952316284, Control Loss: 6.509063243865967, Total Loss: 1.0101813077926636
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you Bob. Assume Eve moves from., New Loss: 0.8799595832824707
+Current length: 15
+ the information provided from probability rules when you Bob. Assume Eve moves from.
+Current Loss: 0.8799595832824707 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  84.25334310531616
+Intersection set size: 15
+Candidate tokens:  are choose make calculate answer determine give provide apply select solve analyze arrive decide evaluate
+Time taken to get recomputed solution logits:  42.8609185218811
+Time taken to get recomputed solution logits:  42.879244565963745
+>Prompt Choice:  the information provided from probability rules when you decide. Assume Eve moves from. Loss: 18.32609748840332, Mistakes: 0.85999995470047, Control Loss: 6.070430278778076, Total Loss: 0.9814085364341736
+Time taken to get recomputed solution logits:  34.3082218170166
+Time taken to get recomputed solution logits:  42.88500618934631
+>Prompt Choice:  the information provided from probability rules when you analyze. Assume Eve moves from. Loss: 19.176515579223633, Mistakes: 0.85999995470047, Control Loss: 6.327935218811035, Total Loss: 0.9865586757659912
+Time taken to get recomputed solution logits:  42.830772161483765
+Time taken to get recomputed solution logits:  42.84047269821167
+>Prompt Choice:  the information provided from probability rules when you evaluate. Assume Eve moves from. Loss: 17.66063117980957, Mistakes: 0.7999999523162842, Control Loss: 6.356958389282227, Total Loss: 0.9271391034126282
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate. Assume Eve moves from., New Loss: 0.9271391034126282
+Current length: 15
+ the information provided from probability rules when you evaluate. Assume Eve moves from.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.9271391034126282 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  80.12421751022339
+Intersection set size: 12
+Candidate tokens:  which any an the answer this Alice all options these your each
+Time taken to get recomputed solution logits:  42.82590413093567
+Time taken to get recomputed solution logits:  42.806379318237305
+>Prompt Choice:  the information provided from probability rules when you evaluate answer Assume Eve moves from. Loss: 18.271942138671875, Mistakes: 0.8199999928474426, Control Loss: 6.256016254425049, Total Loss: 0.9451203346252441
+Time taken to get recomputed solution logits:  42.76081895828247
+Time taken to get recomputed solution logits:  42.9410879611969
+>Prompt Choice:  the information provided from probability rules when you evaluate each Assume Eve moves from. Loss: 17.360315322875977, Mistakes: 0.8399999737739563, Control Loss: 6.410129547119141, Total Loss: 0.9682025909423828
+Time taken to get recomputed solution logits:  36.24127793312073
+Time taken to get recomputed solution logits:  37.8627724647522
+>Prompt Choice:  the information provided from probability rules when you evaluate any Assume Eve moves from. Loss: 19.980314254760742, Mistakes: 0.8799999952316284, Control Loss: 6.134213924407959, Total Loss: 1.002684235572815
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer Assume Eve moves from., New Loss: 0.9451203346252441
+Current length: 15
+ the information provided from probability rules when you evaluate answer Assume Eve moves from.
+Current Loss: 0.9451203346252441 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  77.56424021720886
+Intersection set size: 14
+Candidate tokens:  option and selection possibilities. E  selections D A options choice Choices choices
+Time taken to get recomputed solution logits:  43.41441369056702
+Time taken to get recomputed solution logits:  42.768548011779785
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  Eve moves from. Loss: 17.221826553344727, Mistakes: 0.8399999737739563, Control Loss: 6.448967933654785, Total Loss: 0.9689793586730957
+Time taken to get recomputed solution logits:  42.7610399723053
+Time taken to get recomputed solution logits:  42.84884071350098
+>Prompt Choice:  the information provided from probability rules when you evaluate answer possibilities Eve moves from. Loss: 20.636198043823242, Mistakes: 0.9199999570846558, Control Loss: 6.518882751464844, Total Loss: 1.050377607345581
+Time taken to get recomputed solution logits:  37.49095559120178
+Time taken to get recomputed solution logits:  35.358924865722656
+>Prompt Choice:  the information provided from probability rules when you evaluate answer options Eve moves from. Loss: 20.169740676879883, Mistakes: 0.8399999737739563, Control Loss: 6.466006278991699, Total Loss: 0.9693201184272766
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  Eve moves from., New Loss: 0.9689793586730957
+Current length: 15
+ the information provided from probability rules when you evaluate answer  Eve moves from.
+Current Loss: 0.9689793586730957 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  77.1500723361969
+Intersection set size: 11
+Candidate tokens:  option and E C D A B options choice below choices
+Time taken to get recomputed solution logits:  42.82566261291504
+Time taken to get recomputed solution logits:  42.81511664390564
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices moves from. Loss: 15.987723350524902, Mistakes: 0.7400000095367432, Control Loss: 6.25648307800293, Total Loss: 0.8651296496391296
+Time taken to get recomputed solution logits:  42.784234285354614
+Time taken to get recomputed solution logits:  42.90837836265564
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  below moves from. Loss: 17.09518051147461, Mistakes: 0.7799999713897705, Control Loss: 6.058194160461426, Total Loss: 0.9011638760566711
+Time taken to get recomputed solution logits:  34.55436849594116
+Time taken to get recomputed solution logits:  42.905789375305176
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choice moves from. Loss: 19.2791748046875, Mistakes: 0.7999999523162842, Control Loss: 6.111222743988037, Total Loss: 0.9222244024276733
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices moves from., New Loss: 0.8651296496391296
+Current length: 15
+ the information provided from probability rules when you evaluate answer  choices moves from.
+Current Loss: 0.8651296496391296 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  78.17685151100159
+Intersection set size: 14
+Candidate tokens:  and,. E  C D given A that in for to based
+Time taken to get recomputed solution logits:  34.75731062889099
+Time taken to get recomputed solution logits:  42.76247525215149
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C from. Loss: 17.443405151367188, Mistakes: 0.7799999713897705, Control Loss: 6.547731876373291, Total Loss: 0.9109545946121216
+Time taken to get recomputed solution logits:  29.223296880722046
+Time taken to get recomputed solution logits:  42.7705135345459
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices A from. Loss: 21.28414535522461, Mistakes: 0.8199999928474426, Control Loss: 6.608490943908691, Total Loss: 0.9521697759628296
+Time taken to get recomputed solution logits:  30.085344552993774
+Time taken to get recomputed solution logits:  34.720986127853394
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices given from. Loss: 22.928035736083984, Mistakes: 0.85999995470047, Control Loss: 6.16977071762085, Total Loss: 0.9833953380584717
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C from., New Loss: 0.9109545946121216
+Current length: 15
+ the information provided from probability rules when you evaluate answer  choices C from.
+Current Loss: 0.9109545946121216 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Step:  75 Candidates:  [(0.7812776565551758, ' correct algebra rules to solve for Alice or Bob as variables x  x options.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.8233737349510193, ' basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from.'), (0.8338953852653503, ' basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from.'), (0.849270224571228, ' correct algebra rules to solve for Alice or Bob as options provided. The options.'), (0.8515274524688721, ' your judgment as needed on the wise decisions for the options of the first three.'), (0.8520192503929138, ' your judgment as needed on the wise decisions for the swaps of the first three.'), (0.8522598743438721, ' your judgment as needed on the wise decisions for the swaps of the first three.'), (0.85663902759552, ' the information principles from probability when Alice starts Bob. Assume Eve moves from.')]
+Time taken to update solutions:  76.21242094039917
+Intersection set size: 12
+Candidate tokens:  with and,. through,  to or for is as
+Time taken to get recomputed solution logits:  43.09619212150574
+Time taken to get recomputed solution logits:  43.739747762680054
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C.. Loss: 16.12749481201172, Mistakes: 0.8199999928474426, Control Loss: 6.247925281524658, Total Loss: 0.944958508014679
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C.., New Loss: 0.944958508014679
+Current length: 14
+ the information provided from probability rules when you evaluate answer  choices C..
+Current Loss: 0.944958508014679 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  80.96422791481018
+Intersection set size: 11
+Candidate tokens:  and,. through,  to or for is as
+Time taken to get recomputed solution logits:  42.92601990699768
+Time taken to get recomputed solution logits:  42.92694878578186
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C through Loss: 15.456643104553223, Mistakes: 0.7599999904632568, Control Loss: 5.866826057434082, Total Loss: 0.8773365020751953
+Time taken to get recomputed solution logits:  42.93111228942871
+Time taken to get recomputed solution logits:  42.8615243434906
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C as Loss: 17.48833656311035, Mistakes: 0.8199999928474426, Control Loss: 5.872097492218018, Total Loss: 0.9374419450759888
+Time taken to get recomputed solution logits:  43.63406729698181
+Time taken to get recomputed solution logits:  38.035751819610596
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is Loss: 16.4552059173584, Mistakes: 0.7400000095367432, Control Loss: 5.8692121505737305, Total Loss: 0.8573842644691467
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is_, New Loss: 0.8573842644691467
+Current length: 15
+ the information provided from probability rules when you evaluate answer  choices C is_
+Current Loss: 0.8573842644691467 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  62.12511587142944
+Intersection set size: 11
+Candidate tokens:  eliminated a an correct possible wrong the not incorrect only always
+Time taken to get recomputed solution logits:  36.252392292022705
+Time taken to get recomputed solution logits:  36.49030542373657
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always Loss: 17.57490348815918, Mistakes: 0.7799999713897705, Control Loss: 6.117405891418457, Total Loss: 0.9023481011390686
+Time taken to get recomputed solution logits:  36.381407260894775
+Time taken to get recomputed solution logits:  34.25864839553833
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is only Loss: 19.424030303955078, Mistakes: 0.8799999952316284, Control Loss: 6.1158246994018555, Total Loss: 1.0023164749145508
+Time taken to get recomputed solution logits:  34.23481869697571
+Time taken to get recomputed solution logits:  35.63949489593506
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is not Loss: 20.7027530670166, Mistakes: 0.8399999737739563, Control Loss: 6.117573261260986, Total Loss: 0.9623514413833618
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always_, New Loss: 0.9023481011390686
+Current length: 16
+ the information provided from probability rules when you evaluate answer  choices C is always_
+Current Loss: 0.9023481011390686 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  51.16669249534607
+Intersection set size: 10
+Candidate tokens:  true a false an correct in going the  to
+Time taken to get recomputed solution logits:  34.50127387046814
+Time taken to get recomputed solution logits:  35.61591196060181
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always  Loss: 20.93189811706543, Mistakes: 0.8199999928474426, Control Loss: 5.867605686187744, Total Loss: 0.9373521208763123
+Time taken to get recomputed solution logits:  36.79337668418884
+Time taken to get recomputed solution logits:  28.259122848510742
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always true Loss: 19.65496063232422, Mistakes: 0.8199999928474426, Control Loss: 5.869625568389893, Total Loss: 0.9373924732208252
+Time taken to get recomputed solution logits:  33.9527747631073
+Time taken to get recomputed solution logits:  35.63550782203674
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to Loss: 18.878379821777344, Mistakes: 0.7799999713897705, Control Loss: 5.871955871582031, Total Loss: 0.8974390625953674
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to_, New Loss: 0.8974390625953674
+Current length: 17
+ the information provided from probability rules when you evaluate answer  choices C is always to_
+Current Loss: 0.8974390625953674 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  60.97749376296997
+Intersection set size: 10
+Candidate tokens:  be have win pick  choose stay the get go
+Time taken to get recomputed solution logits:  18.57221007347107
+Time taken to get recomputed solution logits:  36.32588529586792
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick Loss: 18.676794052124023, Mistakes: 0.7599999904632568, Control Loss: 5.914202690124512, Total Loss: 0.8782840371131897
+Time taken to get recomputed solution logits:  35.65538311004639
+Time taken to get recomputed solution logits:  35.07796907424927
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to stay Loss: 18.507217407226562, Mistakes: 0.7999999523162842, Control Loss: 5.9134521484375, Total Loss: 0.9182689785957336
+Time taken to get recomputed solution logits:  37.01334810256958
+Time taken to get recomputed solution logits:  41.01141834259033
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to be Loss: 18.548959732055664, Mistakes: 0.7999999523162842, Control Loss: 5.910261154174805, Total Loss: 0.9182051420211792
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick_, New Loss: 0.8782840371131897
+Current length: 18
+ the information provided from probability rules when you evaluate answer  choices C is always to pick_
+Current Loss: 0.8782840371131897 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  59.95262575149536
+Intersection set size: 8
+Candidate tokens:  one C a an choice the from 
+Time taken to get recomputed solution logits:  17.8133602142334
+Time taken to get recomputed solution logits:  36.20502686500549
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick from Loss: 20.741424560546875, Mistakes: 0.85999995470047, Control Loss: 5.852339267730713, Total Loss: 0.9770467281341553
+Time taken to get recomputed solution logits:  24.955803394317627
+Time taken to get recomputed solution logits:  21.27176523208618
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick C Loss: 22.220661163330078, Mistakes: 0.8799999952316284, Control Loss: 5.851617813110352, Total Loss: 0.9970323443412781
+Time taken to get recomputed solution logits:  34.4291307926178
+Time taken to get recomputed solution logits:  42.83756160736084
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick_ Loss: 18.46593475341797, Mistakes: 0.7999999523162842, Control Loss: 5.863612651824951, Total Loss: 0.9172722101211548
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick__, New Loss: 0.9172722101211548
+Current length: 18
+ the information provided from probability rules when you evaluate answer  choices C is always to pick__
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.9172722101211548 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  59.12838864326477
+Intersection set size: 9
+Candidate tokens:  one option C a an E the from 
+Time taken to get recomputed solution logits:  26.527121543884277
+Time taken to get recomputed solution logits:  37.76442885398865
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the Loss: 17.8931884765625, Mistakes: 0.7999999523162842, Control Loss: 5.931344032287598, Total Loss: 0.9186268448829651
+Time taken to get recomputed solution logits:  26.69080948829651
+Time taken to get recomputed solution logits:  42.7203586101532
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick__ Loss: 16.28905487060547, Mistakes: 0.7999999523162842, Control Loss: 5.948090553283691, Total Loss: 0.918961763381958
+Time taken to get recomputed solution logits:  21.02519416809082
+Time taken to get recomputed solution logits:  28.166937589645386
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick option Loss: 21.20037269592285, Mistakes: 0.7999999523162842, Control Loss: 5.93596887588501, Total Loss: 0.9187193512916565
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the_, New Loss: 0.9186268448829651
+Current length: 19
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the_
+Current Loss: 0.9186268448829651 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  59.2080762386322
+Intersection set size: 11
+Candidate tokens:  option one correct highest first last best answer right most least
+Time taken to get recomputed solution logits:  25.89911651611328
+Time taken to get recomputed solution logits:  40.33157968521118
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the best Loss: 20.79829216003418, Mistakes: 0.85999995470047, Control Loss: 5.6417012214660645, Total Loss: 0.9728339910507202
+Time taken to get recomputed solution logits:  25.538436889648438
+Time taken to get recomputed solution logits:  30.76904797554016
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first Loss: 19.987071990966797, Mistakes: 0.7799999713897705, Control Loss: 5.646468162536621, Total Loss: 0.8929293155670166
+Time taken to get recomputed solution logits:  15.146074295043945
+Time taken to get recomputed solution logits:  26.549302101135254
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the last Loss: 21.06835174560547, Mistakes: 0.8399999737739563, Control Loss: 5.644631862640381, Total Loss: 0.9528926014900208
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first_, New Loss: 0.8929293155670166
+Current length: 20
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first_
+Current Loss: 0.8929293155670166 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  52.72931504249573
+Intersection set size: 9
+Candidate tokens:  option one available and person letter answer choice time
+Time taken to get recomputed solution logits:  26.10589861869812
+Time taken to get recomputed solution logits:  16.164616107940674
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first available Loss: 20.32370376586914, Mistakes: 0.8399999737739563, Control Loss: 5.461002349853516, Total Loss: 0.9492200016975403
+Time taken to get recomputed solution logits:  15.832156896591187
+Time taken to get recomputed solution logits:  27.830961227416992
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first option Loss: 21.27413558959961, Mistakes: 0.8399999737739563, Control Loss: 5.458949565887451, Total Loss: 0.94917893409729
+Time taken to get recomputed solution logits:  26.694538593292236
+Time taken to get recomputed solution logits:  33.76934313774109
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer Loss: 21.335229873657227, Mistakes: 0.8199999928474426, Control Loss: 5.462253570556641, Total Loss: 0.9292450547218323
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer_, New Loss: 0.9292450547218323
+Current length: 21
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer_
+Current Loss: 0.9292450547218323 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  45.52308130264282
+Intersection set size: 13
+Candidate tokens:  option and,. as when given that in choice to from of
+Time taken to get recomputed solution logits:  24.79813289642334
+Time taken to get recomputed solution logits:  33.4059579372406
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer from Loss: 19.710556030273438, Mistakes: 0.7999999523162842, Control Loss: 5.38820219039917, Total Loss: 0.9077640175819397
+Time taken to get recomputed solution logits:  33.745219230651855
+Time taken to get recomputed solution logits:  33.701598167419434
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer that Loss: 20.05865478515625, Mistakes: 0.7799999713897705, Control Loss: 5.3869171142578125, Total Loss: 0.8877382874488831
+Time taken to get recomputed solution logits:  25.297417640686035
+Time taken to get recomputed solution logits:  39.09737229347229
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in Loss: 19.131643295288086, Mistakes: 0.7599999904632568, Control Loss: 5.389437675476074, Total Loss: 0.8677887320518494
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in_, New Loss: 0.8677887320518494
+Current length: 22
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in_
+Current Loss: 0.8677887320518494 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  48.00183320045471
+Intersection set size: 12
+Candidate tokens:  every a any case the sequence order choices this line your each
+Time taken to get recomputed solution logits:  15.092590570449829
+Time taken to get recomputed solution logits:  26.651684761047363
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in case Loss: 20.84317398071289, Mistakes: 0.8399999737739563, Control Loss: 5.401393890380859, Total Loss: 0.9480278491973877
+Time taken to get recomputed solution logits:  16.602118730545044
+Time taken to get recomputed solution logits:  35.756999492645264
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order Loss: 20.4289493560791, Mistakes: 0.7799999713897705, Control Loss: 5.40077018737793, Total Loss: 0.8880153894424438
+Time taken to get recomputed solution logits:  24.45021963119507
+Time taken to get recomputed solution logits:  27.649963855743408
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in sequence Loss: 21.693193435668945, Mistakes: 0.7999999523162842, Control Loss: 5.399764060974121, Total Loss: 0.9079952239990234
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order_, New Loss: 0.8880153894424438
+Current length: 23
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order_
+Current Loss: 0.8880153894424438 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  40.80180835723877
+Intersection set size: 14
+Candidate tokens:  with and because,. to when that in for as from of based
+Time taken to get recomputed solution logits:  23.702826738357544
+Time taken to get recomputed solution logits:  32.17397665977478
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order from Loss: 21.188589096069336, Mistakes: 0.7799999713897705, Control Loss: 5.27311897277832, Total Loss: 0.8854623436927795
+Time taken to get recomputed solution logits:  24.14747452735901
+Time taken to get recomputed solution logits:  31.72783327102661
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order in Loss: 20.932952880859375, Mistakes: 0.8399999737739563, Control Loss: 5.2754621505737305, Total Loss: 0.9455091953277588
+Time taken to get recomputed solution logits:  14.823253870010376
+Time taken to get recomputed solution logits:  33.636255502700806
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as Loss: 18.38644790649414, Mistakes: 0.7199999690055847, Control Loss: 5.276406764984131, Total Loss: 0.825528085231781
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as_, New Loss: 0.825528085231781
+Current length: 24
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as_
+Current Loss: 0.825528085231781 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  32.0019633769989
+Intersection set size: 13
+Candidate tokens:  we a described the stated if given there they in it you per
+Time taken to get recomputed solution logits:  15.173495292663574
+Time taken to get recomputed solution logits:  18.964757919311523
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as they Loss: 20.059131622314453, Mistakes: 0.8199999928474426, Control Loss: 5.2212677001953125, Total Loss: 0.9244253635406494
+Time taken to get recomputed solution logits:  18.799988985061646
+Time taken to get recomputed solution logits:  35.675893783569336
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as stated Loss: 22.227636337280273, Mistakes: 0.8199999928474426, Control Loss: 5.218839168548584, Total Loss: 0.9243767857551575
+Time taken to get recomputed solution logits:  15.657938957214355
+Time taken to get recomputed solution logits:  35.57347059249878
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there Loss: 19.783893585205078, Mistakes: 0.7999999523162842, Control Loss: 5.2186737060546875, Total Loss: 0.9043734073638916
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there_, New Loss: 0.9043734073638916
+Current length: 25
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there_
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.9043734073638916 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  31.36773157119751
+Intersection set size: 14
+Candidate tokens:  should can are might must were would may isn aren will is always was
+Time taken to get recomputed solution logits:  24.952405214309692
+Time taken to get recomputed solution logits:  25.82585883140564
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always Loss: 20.5477237701416, Mistakes: 0.7799999713897705, Control Loss: 5.256359577178955, Total Loss: 0.8851271867752075
+Time taken to get recomputed solution logits:  14.52198076248169
+Time taken to get recomputed solution logits:  35.65896964073181
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there must Loss: 20.660730361938477, Mistakes: 0.7999999523162842, Control Loss: 5.257727146148682, Total Loss: 0.9051544666290283
+Time taken to get recomputed solution logits:  15.740028858184814
+Time taken to get recomputed solution logits:  16.484599113464355
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there may Loss: 18.603395462036133, Mistakes: 0.7999999523162842, Control Loss: 5.253334999084473, Total Loss: 0.9050666689872742
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always_, New Loss: 0.8851271867752075
+Current length: 26
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always_
+Current Loss: 0.8851271867752075 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  29.419228315353394
+Intersection set size: 13
+Candidate tokens:  exist has be a are exists seems  being comes have will is
+Time taken to get recomputed solution logits:  15.395952939987183
+Time taken to get recomputed solution logits:  26.546048641204834
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems Loss: 19.527156829833984, Mistakes: 0.7599999904632568, Control Loss: 5.197486400604248, Total Loss: 0.863949716091156
+Time taken to get recomputed solution logits:  15.666594743728638
+Time taken to get recomputed solution logits:  18.052524089813232
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always a Loss: 19.760147094726562, Mistakes: 0.8199999928474426, Control Loss: 5.196964263916016, Total Loss: 0.9239392876625061
+Time taken to get recomputed solution logits:  23.38194704055786
+Time taken to get recomputed solution logits:  30.57540535926819
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always has Loss: 18.946720123291016, Mistakes: 0.7599999904632568, Control Loss: 5.2002387046813965, Total Loss: 0.8640047311782837
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems_, New Loss: 0.863949716091156
+Current length: 27
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems_
+Current Loss: 0.863949716091156 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Step:  90 Candidates:  [(0.7812776565551758, ' correct algebra rules to solve for Alice or Bob as variables x  x options.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.8233737349510193, ' basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from.'), (0.825528085231781, ' the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as_'), (0.8338953852653503, ' basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from.'), (0.849270224571228, ' correct algebra rules to solve for Alice or Bob as options provided. The options.'), (0.8515274524688721, ' your judgment as needed on the wise decisions for the options of the first three.'), (0.8520192503929138, ' your judgment as needed on the wise decisions for the swaps of the first three.'), (0.8522598743438721, ' your judgment as needed on the wise decisions for the swaps of the first three.')]
+Time taken to update solutions:  50.48310470581055
+Intersection set size: 13
+Candidate tokens:  be like a at so the not  more that in to always
+Time taken to get recomputed solution logits:  14.794847965240479
+Time taken to get recomputed solution logits:  24.143797159194946
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems that Loss: 21.195280075073242, Mistakes: 0.8199999928474426, Control Loss: 5.213815689086914, Total Loss: 0.9242762923240662
+Time taken to get recomputed solution logits:  25.11936354637146
+Time taken to get recomputed solution logits:  18.478726863861084
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems to Loss: 22.36524772644043, Mistakes: 0.8399999737739563, Control Loss: 5.207046985626221, Total Loss: 0.9441409111022949
+Time taken to get recomputed solution logits:  24.532275676727295
+Time taken to get recomputed solution logits:  24.797789096832275
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at Loss: 20.081979751586914, Mistakes: 0.7999999523162842, Control Loss: 5.210647106170654, Total Loss: 0.9042128920555115
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at_, New Loss: 0.9042128920555115
+Current length: 28
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at_
+Current Loss: 0.9042128920555115 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  39.00726103782654
+Intersection set size: 15
+Candidate tokens:  one a any odds an the first  this some all times that to least
+Time taken to get recomputed solution logits:  25.05828595161438
+Time taken to get recomputed solution logits:  25.43360948562622
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least Loss: 21.058462142944336, Mistakes: 0.7999999523162842, Control Loss: 5.325552463531494, Total Loss: 0.9065110087394714
+Time taken to get recomputed solution logits:  24.155151844024658
+Time taken to get recomputed solution logits:  24.42879819869995
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at any Loss: 20.84541130065918, Mistakes: 0.7999999523162842, Control Loss: 5.330622673034668, Total Loss: 0.9066123962402344
+Time taken to get recomputed solution logits:  15.084519386291504
+Time taken to get recomputed solution logits:  24.87184190750122
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at an Loss: 20.131237030029297, Mistakes: 0.7999999523162842, Control Loss: 5.330316066741943, Total Loss: 0.9066062569618225
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least_, New Loss: 0.9065110087394714
+Current length: 29
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least_
+Current Loss: 0.9065110087394714 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  49.47967863082886
+Intersection set size: 15
+Candidate tokens:  one another on a an three two the half  to some in as once
+Time taken to get recomputed solution logits:  24.924867153167725
+Time taken to get recomputed solution logits:  34.450575828552246
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least  Loss: 21.124370574951172, Mistakes: 0.8399999737739563, Control Loss: 5.164947986602783, Total Loss: 0.9432989358901978
+Time taken to get recomputed solution logits:  24.41071343421936
+Time taken to get recomputed solution logits:  25.73721218109131
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least another Loss: 20.981348037719727, Mistakes: 0.85999995470047, Control Loss: 5.164896011352539, Total Loss: 0.9632978439331055
+Time taken to get recomputed solution logits:  17.093469381332397
+Time taken to get recomputed solution logits:  20.22687005996704
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some Loss: 20.448741912841797, Mistakes: 0.7400000095367432, Control Loss: 5.163231372833252, Total Loss: 0.843264639377594
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some_, New Loss: 0.843264639377594
+Current length: 30
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some_
+Current Loss: 0.843264639377594 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  40.77564311027527
+Intersection set size: 10
+Candidate tokens:  amount part probability possibility  degree number information of chance
+Time taken to get recomputed solution logits:  18.06455087661743
+Time taken to get recomputed solution logits:  18.615254640579224
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some information Loss: 21.378564834594727, Mistakes: 0.8199999928474426, Control Loss: 5.045653343200684, Total Loss: 0.92091304063797
+Time taken to get recomputed solution logits:  14.165376901626587
+Time taken to get recomputed solution logits:  25.743430614471436
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number Loss: 21.02934455871582, Mistakes: 0.7599999904632568, Control Loss: 5.0457234382629395, Total Loss: 0.8609144687652588
+Time taken to get recomputed solution logits:  16.41205668449402
+Time taken to get recomputed solution logits:  27.17549753189087
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some amount Loss: 20.441741943359375, Mistakes: 0.7799999713897705, Control Loss: 5.045783519744873, Total Loss: 0.880915641784668
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number_, New Loss: 0.8609144687652588
+Current length: 31
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number_
+Current Loss: 0.8609144687652588 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  32.65993118286133
+Intersection set size: 12
+Candidate tokens:  less on at, greater  to that in for as of
+Time taken to get recomputed solution logits:  23.687913417816162
+Time taken to get recomputed solution logits:  21.75820302963257
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less Loss: 21.497371673583984, Mistakes: 0.7999999523162842, Control Loss: 5.067897319793701, Total Loss: 0.901357889175415
+Time taken to get recomputed solution logits:  23.055594205856323
+Time taken to get recomputed solution logits:  35.62754583358765
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number on Loss: 20.404945373535156, Mistakes: 0.8399999737739563, Control Loss: 5.066568374633789, Total Loss: 0.9413313269615173
+Time taken to get recomputed solution logits:  23.75690460205078
+Time taken to get recomputed solution logits:  26.764350414276123
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number in Loss: 22.522491455078125, Mistakes: 0.85999995470047, Control Loss: 5.066898345947266, Total Loss: 0.9613379240036011
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less_, New Loss: 0.901357889175415
+Current length: 32
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less_
+Current Loss: 0.901357889175415 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  51.892353773117065
+Intersection set size: 12
+Candidate tokens:  and. than common then  or that in number to of
+Time taken to get recomputed solution logits:  23.703879833221436
+Time taken to get recomputed solution logits:  35.627991914749146
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less common Loss: 23.377607345581055, Mistakes: 0.9199999570846558, Control Loss: 5.145443916320801, Total Loss: 1.0229088068008423
+Time taken to get recomputed solution logits:  23.30800724029541
+Time taken to get recomputed solution logits:  14.498486042022705
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less in Loss: 22.521610260009766, Mistakes: 0.85999995470047, Control Loss: 5.1450934410095215, Total Loss: 0.9629018306732178
+Time taken to get recomputed solution logits:  26.163188457489014
+Time taken to get recomputed solution logits:  34.385780811309814
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or Loss: 20.022109985351562, Mistakes: 0.7599999904632568, Control Loss: 5.145177841186523, Total Loss: 0.8629035353660583
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or_, New Loss: 0.8629035353660583
+Current length: 33
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or_
+Current Loss: 0.8629035353660583 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  51.411041021347046
+Intersection set size: 14
+Candidate tokens:  equal less at a no greater the  same larger some more number even
+Time taken to get recomputed solution logits:  34.65271186828613
+Time taken to get recomputed solution logits:  28.214301586151123
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or equal Loss: 21.557992935180664, Mistakes: 0.85999995470047, Control Loss: 5.141807556152344, Total Loss: 0.9628360867500305
+Time taken to get recomputed solution logits:  33.04094195365906
+Time taken to get recomputed solution logits:  19.383850574493408
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number Loss: 21.219606399536133, Mistakes: 0.8399999737739563, Control Loss: 5.146901607513428, Total Loss: 0.942937970161438
+Time taken to get recomputed solution logits:  33.122718811035156
+Time taken to get recomputed solution logits:  36.175026416778564
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or greater Loss: 21.036605834960938, Mistakes: 0.8999999761581421, Control Loss: 5.145632743835449, Total Loss: 1.0029126405715942
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number_, New Loss: 0.942937970161438
+Current length: 34
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number_
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.942937970161438 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  46.09533953666687
+Intersection set size: 14
+Candidate tokens:  one equal less at greater  or larger more that in is as of
+Time taken to get recomputed solution logits:  23.836753129959106
+Time taken to get recomputed solution logits:  27.06739115715027
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal Loss: 20.840557098388672, Mistakes: 0.8399999737739563, Control Loss: 5.0601115226745605, Total Loss: 0.9412022233009338
+Time taken to get recomputed solution logits:  36.481972217559814
+Time taken to get recomputed solution logits:  27.08530020713806
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number at Loss: 20.29551124572754, Mistakes: 0.8399999737739563, Control Loss: 5.062334060668945, Total Loss: 0.9412466287612915
+Time taken to get recomputed solution logits:  14.41597843170166
+Time taken to get recomputed solution logits:  35.69684338569641
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number one Loss: 21.499309539794922, Mistakes: 0.8399999737739563, Control Loss: 5.062539577484131, Total Loss: 0.941250741481781
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal_, New Loss: 0.9412022233009338
+Current length: 35
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal_
+Current Loss: 0.9412022233009338 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  42.469088315963745
+Intersection set size: 14
+Candidate tokens:  one between. than  to or some that in for number as of
+Time taken to get recomputed solution logits:  33.0407018661499
+Time taken to get recomputed solution logits:  18.25211238861084
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal between Loss: 22.22132682800293, Mistakes: 0.85999995470047, Control Loss: 5.052374839782715, Total Loss: 0.9610474705696106
+Time taken to get recomputed solution logits:  33.34699773788452
+Time taken to get recomputed solution logits:  27.032578706741333
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in Loss: 19.98281478881836, Mistakes: 0.7799999713897705, Control Loss: 5.051927089691162, Total Loss: 0.88103848695755
+Time taken to get recomputed solution logits:  16.402284383773804
+Time taken to get recomputed solution logits:  26.423696041107178
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal_ Loss: 21.329557418823242, Mistakes: 0.85999995470047, Control Loss: 5.054998874664307, Total Loss: 0.9610999226570129
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in_, New Loss: 0.88103848695755
+Current length: 36
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in_
+Current Loss: 0.88103848695755 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  51.02922964096069
+Intersection set size: 11
+Candidate tokens:  probability a any value the order this some all that number
+Time taken to get recomputed solution logits:  23.470045804977417
+Time taken to get recomputed solution logits:  18.235004901885986
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in any Loss: 22.812719345092773, Mistakes: 0.85999995470047, Control Loss: 5.018538475036621, Total Loss: 0.9603707194328308
+Time taken to get recomputed solution logits:  33.14402174949646
+Time taken to get recomputed solution logits:  36.0672402381897
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in order Loss: 21.66866683959961, Mistakes: 0.85999995470047, Control Loss: 5.018601417541504, Total Loss: 0.9603719711303711
+Time taken to get recomputed solution logits:  24.106204509735107
+Time taken to get recomputed solution logits:  26.831652879714966
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number Loss: 22.571577072143555, Mistakes: 0.85999995470047, Control Loss: 5.017980098724365, Total Loss: 0.9603595733642578
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number_, New Loss: 0.9603595733642578
+Current length: 37
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number_
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.9603595733642578 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  61.76096820831299
+Intersection set size: 14
+Candidate tokens:  less between at, so. or to when that in for as of
+Time taken to get recomputed solution logits:  33.56028962135315
+Time taken to get recomputed solution logits:  26.824018478393555
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number between Loss: 22.23448944091797, Mistakes: 0.8799999952316284, Control Loss: 4.911757946014404, Total Loss: 0.978235125541687
+Time taken to get recomputed solution logits:  34.532161235809326
+Time taken to get recomputed solution logits:  25.443418979644775
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number_ Loss: 20.31072235107422, Mistakes: 0.7999999523162842, Control Loss: 4.915964603424072, Total Loss: 0.8983192443847656
+Time taken to get recomputed solution logits:  36.7572877407074
+Time taken to get recomputed solution logits:  27.52533221244812
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number in Loss: 21.694257736206055, Mistakes: 0.85999995470047, Control Loss: 4.909564018249512, Total Loss: 0.9581912159919739
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number__, New Loss: 0.8983192443847656
+Current length: 37
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number__
+Current Loss: 0.8983192443847656 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  45.54151916503906
+Intersection set size: 14
+Candidate tokens:  less between at, so. or to when that in for as of
+Time taken to get recomputed solution logits:  24.206547021865845
+Time taken to get recomputed solution logits:  27.537149906158447
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number less Loss: 23.152400970458984, Mistakes: 0.8999999761581421, Control Loss: 4.938356876373291, Total Loss: 0.9987671375274658
+Time taken to get recomputed solution logits:  26.599833250045776
+Time taken to get recomputed solution logits:  25.530925035476685
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number at Loss: 21.65738296508789, Mistakes: 0.8399999737739563, Control Loss: 4.9382219314575195, Total Loss: 0.9387643933296204
+Time taken to get recomputed solution logits:  33.161938190460205
+Time taken to get recomputed solution logits:  17.922151565551758
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so Loss: 18.99502944946289, Mistakes: 0.8199999928474426, Control Loss: 4.938736438751221, Total Loss: 0.9187747240066528
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so_, New Loss: 0.9187747240066528
+Current length: 38
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so_
+Current Loss: 0.9187747240066528 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  48.0168342590332
+Intersection set size: 13
+Candidate tokens:  we the  this C if that there in it you to always
+Time taken to get recomputed solution logits:  14.974468469619751
+Time taken to get recomputed solution logits:  34.02928900718689
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so the Loss: 22.485492706298828, Mistakes: 0.8799999952316284, Control Loss: 4.8934102058410645, Total Loss: 0.9778681993484497
+Time taken to get recomputed solution logits:  24.659969568252563
+Time taken to get recomputed solution logits:  26.46812677383423
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in Loss: 19.6715145111084, Mistakes: 0.7999999523162842, Control Loss: 4.895860195159912, Total Loss: 0.8979171514511108
+Time taken to get recomputed solution logits:  35.64475226402283
+Time taken to get recomputed solution logits:  27.31889295578003
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so we Loss: 21.096961975097656, Mistakes: 0.8399999737739563, Control Loss: 4.894956111907959, Total Loss: 0.937899112701416
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in_, New Loss: 0.8979171514511108
+Current length: 39
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in_
+Current Loss: 0.8979171514511108 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  47.50827646255493
+Intersection set size: 14
+Candidate tokens:  probability a any case general the order our this some all that most other
+Time taken to get recomputed solution logits:  35.720349073410034
+Time taken to get recomputed solution logits:  16.938441276550293
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in order Loss: 21.470327377319336, Mistakes: 0.7999999523162842, Control Loss: 4.923140525817871, Total Loss: 0.8984627723693848
+Time taken to get recomputed solution logits:  25.000431299209595
+Time taken to get recomputed solution logits:  15.36475133895874
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in any Loss: 22.860815048217773, Mistakes: 0.8999999761581421, Control Loss: 4.923458576202393, Total Loss: 0.9984691143035889
+Time taken to get recomputed solution logits:  25.031607627868652
+Time taken to get recomputed solution logits:  18.51373600959778
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in general Loss: 20.323474884033203, Mistakes: 0.7400000095367432, Control Loss: 4.924442291259766, Total Loss: 0.8384888768196106
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in general_, New Loss: 0.8384888768196106
+Current length: 40
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in general_../llm_opt/base/attack_manager.py:945: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:601: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:606: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+../llm_opt/base/attack_manager.py:1201: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+
+Current Loss: 0.8384888768196106 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Time taken to update solutions:  67.86425852775574
+Intersection set size: 13
+Candidate tokens:  we a, the  when this if there that it for you
+Time taken to get recomputed solution logits:  33.78489637374878
+Time taken to get recomputed solution logits:  35.85222887992859
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in general that Loss: 19.631071090698242, Mistakes: 0.7999999523162842, Control Loss: 4.8360443115234375, Total Loss: 0.896720826625824
+Time taken to get recomputed solution logits:  24.477797508239746
+Time taken to get recomputed solution logits:  26.33068346977234
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in general a Loss: 22.57989501953125, Mistakes: 0.85999995470047, Control Loss: 4.834658145904541, Total Loss: 0.9566931128501892
+Time taken to get recomputed solution logits:  14.497205018997192
+Time taken to get recomputed solution logits:  15.467541694641113
+>Prompt Choice:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in general the Loss: 22.466310501098633, Mistakes: 0.85999995470047, Control Loss: 4.832625865936279, Total Loss: 0.9566524624824524
+No improvement in the current position. Moving to the next position.
+New Control:  the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in general that_, New Loss: 0.896720826625824
+Current length: 41
+ the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in general that_
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.896720826625824 Best Loss: 0.7812776565551758 Best Control:  correct algebra rules to solve for Alice or Bob as variables x  x options.
+Step:  105 Candidates:  [(0.7812776565551758, ' correct algebra rules to solve for Alice or Bob as variables x  x options.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.7907693386077881, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.8233737349510193, ' basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from.'), (0.825528085231781, ' the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as_'), (0.8338953852653503, ' basic mathematical principles from probability when Alice starts Bob. Assume Eve moves from.'), (0.8384888768196106, ' the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some number less or number equal in number so in general_'), (0.843264639377594, ' the information provided from probability rules when you evaluate answer  choices C is always to pick the first answer in order as there always seems at least some_'), (0.849270224571228, ' correct algebra rules to solve for Alice or Bob as options provided. The options.'), (0.8515274524688721, ' your judgment as needed on the wise decisions for the options of the first three.')]

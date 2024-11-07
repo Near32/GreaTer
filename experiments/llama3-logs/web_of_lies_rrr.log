@@ -1,0 +1,862 @@
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: ' proper logical reasoning and think step by step. Finally give the
+  actual correct answer.'
+control_weight: 0.2
+conversation_templates:
+- llama-3
+- llama-3
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ Yes'' or ''$ No'')
+  is $ '
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_llama3_web_of_lies_ffrf.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/web_of_lies.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+tokenizer_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+topk: 40
+train_data: ../data/BBH/web_of_lies.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.53it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.25it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.43it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  2.01it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.72it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.66it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.67it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.67it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.28it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.01it/s]Initialized Workers...
+
+Started worker 2096709 for model meta-llama/Meta-Llama-3-8B-Instruct
+Started worker 2097216 for model meta-llama/Meta-Llama-3-8B-Instruct
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  81.04749774932861
+Intersection set size: 4
+Candidate tokens:  a only truth the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  a only truth logic logical the boolean
+Time taken to get recomputed solution logits:  57.50667142868042
+Time taken to get recomputed solution logits:  33.95659875869751
+>Prompt Choice:  only logical reasoning and think step by step. Finally give the actual correct answer. Loss: 6.033237934112549, Mistakes: 0.29999998211860657, Control Loss: 4.234430313110352, Total Loss: 0.3846885859966278
+Time taken to get recomputed solution logits:  30.61109972000122
+Time taken to get recomputed solution logits:  30.774290084838867
+>Prompt Choice:  truth logical reasoning and think step by step. Finally give the actual correct answer. Loss: 6.502346038818359, Mistakes: 0.29999998211860657, Control Loss: 4.8861799240112305, Total Loss: 0.39772358536720276
+Time taken to get recomputed solution logits:  45.66820979118347
+Time taken to get recomputed solution logits:  33.98006534576416
+>Prompt Choice:  logical logical reasoning and think step by step. Finally give the actual correct answer. Loss: 5.7726593017578125, Mistakes: 0.25999999046325684, Control Loss: 4.369804382324219, Total Loss: 0.3473960757255554
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.3473960757255554
+Current length: 16
+ logical logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.3473960757255554 Best Loss: 0.3473960757255554 Best Control:  logical logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.3473960757255554, ' logical logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  61.849520444869995
+Intersection set size: 4
+Candidate tokens:  deduction steps reasoning deductions
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  deduction steps arguments reasoning rules deductions analysis
+Time taken to get recomputed solution logits:  47.32158851623535
+Time taken to get recomputed solution logits:  36.912092208862305
+>Prompt Choice:  logical logical reasoning and think step by step. Finally give the actual correct answer. Loss: 5.7726593017578125, Mistakes: 0.25999999046325684, Control Loss: 4.0567626953125, Total Loss: 0.3411352336406708
+Time taken to get recomputed solution logits:  42.35887384414673
+Time taken to get recomputed solution logits:  42.790754318237305
+>Prompt Choice:  logical deduction reasoning and think step by step. Finally give the actual correct answer. Loss: 6.347658157348633, Mistakes: 0.2800000011920929, Control Loss: 4.8628692626953125, Total Loss: 0.377257376909256
+Time taken to get recomputed solution logits:  42.85236120223999
+Time taken to get recomputed solution logits:  42.8541419506073
+>Prompt Choice:  logical deductions reasoning and think step by step. Finally give the actual correct answer. Loss: 5.185159683227539, Mistakes: 0.25999999046325684, Control Loss: 4.79237174987793, Total Loss: 0.35584741830825806
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.3411352336406708
+Current length: 16
+ logical logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.3411352336406708 Best Loss: 0.3411352336406708 Best Control:  logical logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.28140926361084
+Intersection set size: 5
+Candidate tokens:  deduction steps reasoning deductions thinking
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  deduction steps arguments reasoning deductions analysis thinking
+Time taken to get recomputed solution logits:  45.224995613098145
+Time taken to get recomputed solution logits:  45.177213191986084
+>Prompt Choice:  logical logical deduction and think step by step. Finally give the actual correct answer. Loss: 6.690647602081299, Mistakes: 0.3400000035762787, Control Loss: 4.162562370300293, Total Loss: 0.4232512414455414
+Time taken to get recomputed solution logits:  42.67657804489136
+Time taken to get recomputed solution logits:  51.827340841293335
+>Prompt Choice:  logical logical arguments and think step by step. Finally give the actual correct answer. Loss: 5.818756103515625, Mistakes: 0.29999998211860657, Control Loss: 4.142393112182617, Total Loss: 0.3828478455543518
+Time taken to get recomputed solution logits:  45.596837759017944
+Time taken to get recomputed solution logits:  31.24976420402527
+>Prompt Choice:  logical logical thinking and think step by step. Finally give the actual correct answer. Loss: 5.429746627807617, Mistakes: 0.25999999046325684, Control Loss: 4.095456600189209, Total Loss: 0.34190911054611206
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking and think step by step. Finally give the actual correct answer., New Loss: 0.34190911054611206
+Current length: 16
+ logical logical thinking and think step by step. Finally give the actual correct answer.
+Current Loss: 0.34190911054611206 Best Loss: 0.3411352336406708 Best Control:  logical logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  64.48649644851685
+Intersection set size: 5
+Candidate tokens: ! and,. to
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: ! and only,. alone to
+Time taken to get recomputed solution logits:  36.12689566612244
+Time taken to get recomputed solution logits:  30.243006944656372
+>Prompt Choice:  logical logical thinking, think step by step. Finally give the actual correct answer. Loss: 8.758993148803711, Mistakes: 0.2800000011920929, Control Loss: 4.159626007080078, Total Loss: 0.36319252848625183
+Time taken to get recomputed solution logits:  33.012104749679565
+Time taken to get recomputed solution logits:  34.04826354980469
+>Prompt Choice:  logical logical thinking. think step by step. Finally give the actual correct answer. Loss: 7.699728965759277, Mistakes: 0.3199999928474426, Control Loss: 4.760024547576904, Total Loss: 0.41520047187805176
+Time taken to get recomputed solution logits:  33.806169509887695
+Time taken to get recomputed solution logits:  30.503989219665527
+>Prompt Choice:  logical logical thinking! think step by step. Finally give the actual correct answer. Loss: 6.976421356201172, Mistakes: 0.29999998211860657, Control Loss: 4.655593395233154, Total Loss: 0.39311185479164124
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, think step by step. Finally give the actual correct answer., New Loss: 0.36319252848625183
+Current length: 16
+ logical logical thinking, think step by step. Finally give the actual correct answer.
+Current Loss: 0.36319252848625183 Best Loss: 0.3411352336406708 Best Control:  logical logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  57.86008143424988
+Intersection set size: 3
+Candidate tokens:  no and not
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  and without don no not
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  and don without no break not
+Time taken to get recomputed solution logits:  36.5466411113739
+Time taken to get recomputed solution logits:  30.88982605934143
+>Prompt Choice:  logical logical thinking, no step by step. Finally give the actual correct answer. Loss: 11.19729232788086, Mistakes: 0.3799999952316284, Control Loss: 4.752519607543945, Total Loss: 0.4750503897666931
+Time taken to get recomputed solution logits:  40.55854082107544
+Time taken to get recomputed solution logits:  33.219733238220215
+>Prompt Choice:  logical logical thinking, and step by step. Finally give the actual correct answer. Loss: 10.644243240356445, Mistakes: 0.25999999046325684, Control Loss: 4.510805130004883, Total Loss: 0.3502160906791687
+Time taken to get recomputed solution logits:  33.43590593338013
+Time taken to get recomputed solution logits:  44.762850284576416
+>Prompt Choice:  logical logical thinking, not step by step. Finally give the actual correct answer. Loss: 12.040698051452637, Mistakes: 0.3799999952316284, Control Loss: 4.858588218688965, Total Loss: 0.47717174887657166
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and step by step. Finally give the actual correct answer., New Loss: 0.3502160906791687
+Current length: 16
+ logical logical thinking, and step by step. Finally give the actual correct answer.
+Current Loss: 0.3502160906791687 Best Loss: 0.3411352336406708 Best Control:  logical logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.570557594299316
+Intersection set size: 4
+Candidate tokens:  don do no explain
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  don avoid do no explain assume
+Time taken to get recomputed solution logits:  54.20500683784485
+Time taken to get recomputed solution logits:  33.59381818771362
+>Prompt Choice:  logical logical thinking, and assume by step. Finally give the actual correct answer. Loss: 4.921095371246338, Mistakes: 0.2199999988079071, Control Loss: 5.574000835418701, Total Loss: 0.3314800262451172
+Time taken to get recomputed solution logits:  48.80472159385681
+Time taken to get recomputed solution logits:  46.60977816581726
+>Prompt Choice:  logical logical thinking, and explain by step. Finally give the actual correct answer. Loss: 4.597664833068848, Mistakes: 0.2800000011920929, Control Loss: 5.225677967071533, Total Loss: 0.3845135569572449
+Time taken to get recomputed solution logits:  36.58170461654663
+Time taken to get recomputed solution logits:  33.52001118659973
+>Prompt Choice:  logical logical thinking, and don by step. Finally give the actual correct answer. Loss: 5.31796932220459, Mistakes: 0.25999999046325684, Control Loss: 5.440147399902344, Total Loss: 0.368802934885025
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume by step. Finally give the actual correct answer., New Loss: 0.3314800262451172
+Current length: 16
+ logical logical thinking, and assume by step. Finally give the actual correct answer.
+Current Loss: 0.3314800262451172 Best Loss: 0.3314800262451172 Best Control:  logical logical thinking, and assume by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.22601008415222
+Intersection set size: 4
+Candidate tokens:  the all that each
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  everyone all that the each
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  everyone all that no nothing the each
+Time taken to get recomputed solution logits:  35.88297414779663
+Time taken to get recomputed solution logits:  36.41463351249695
+>Prompt Choice:  logical logical thinking, and assume all step. Finally give the actual correct answer. Loss: 8.55391788482666, Mistakes: 0.2800000011920929, Control Loss: 5.488075256347656, Total Loss: 0.3897615075111389
+Time taken to get recomputed solution logits:  48.53447937965393
+Time taken to get recomputed solution logits:  33.73196983337402
+>Prompt Choice:  logical logical thinking, and assume that step. Finally give the actual correct answer. Loss: 11.03987979888916, Mistakes: 0.4599999785423279, Control Loss: 5.461618423461914, Total Loss: 0.5692323446273804
+Time taken to get recomputed solution logits:  28.289085388183594
+Time taken to get recomputed solution logits:  33.248629093170166
+>Prompt Choice:  logical logical thinking, and assume nothing step. Finally give the actual correct answer. Loss: 7.218754768371582, Mistakes: 0.23999999463558197, Control Loss: 5.955654144287109, Total Loss: 0.35911306738853455
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Finally give the actual correct answer., New Loss: 0.35911306738853455
+Current length: 16
+ logical logical thinking, and assume nothing step. Finally give the actual correct answer.
+Current Loss: 0.35911306738853455 Best Loss: 0.3314800262451172 Best Control:  logical logical thinking, and assume by step. Finally give the actual correct answer.
+Time taken to update solutions:  61.91297364234924
+Intersection set size: 5
+Candidate tokens:  else but beyond except about
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  else but beyond except about
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  else that but beyond except about
+Time taken to get recomputed solution logits:  28.135732412338257
+Time taken to get recomputed solution logits:  24.95816469192505
+>Prompt Choice:  logical logical thinking, and assume nothing else. Finally give the actual correct answer. Loss: 14.852439880371094, Mistakes: 0.3400000035762787, Control Loss: 5.713104248046875, Total Loss: 0.4542620778083801
+Time taken to get recomputed solution logits:  32.20352602005005
+Time taken to get recomputed solution logits:  25.449392318725586
+>Prompt Choice:  logical logical thinking, and assume nothing but. Finally give the actual correct answer. Loss: 16.397945404052734, Mistakes: 0.3199999928474426, Control Loss: 6.059939861297607, Total Loss: 0.44119879603385925
+Time taken to get recomputed solution logits:  28.5870361328125
+Time taken to get recomputed solution logits:  33.4114716053009
+>Prompt Choice:  logical logical thinking, and assume nothing step. Finally give the actual correct answer. Loss: 13.565784454345703, Mistakes: 0.29999998211860657, Control Loss: 5.544541358947754, Total Loss: 0.4108908176422119
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Finally give the actual correct answer., New Loss: 0.4108908176422119
+Current length: 16
+ logical logical thinking, and assume nothing step. Finally give the actual correct answer.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.4108908176422119 Best Loss: 0.3314800262451172 Best Control:  logical logical thinking, and assume by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.22365069389343
+Intersection set size: 4
+Candidate tokens: wise by of 
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  one wisewise by for of 
+Time taken to get recomputed solution logits:  32.59650802612305
+Time taken to get recomputed solution logits:  31.483351230621338
+>Prompt Choice:  logical logical thinking, and assume nothing step  Finally give the actual correct answer. Loss: 14.47705078125, Mistakes: 0.3400000035762787, Control Loss: 6.221203804016113, Total Loss: 0.4644240736961365
+Time taken to get recomputed solution logits:  28.48603129386902
+Time taken to get recomputed solution logits:  33.72016191482544
+>Prompt Choice:  logical logical thinking, and assume nothing step. Finally give the actual correct answer. Loss: 13.565784454345703, Mistakes: 0.29999998211860657, Control Loss: 5.544541358947754, Total Loss: 0.4108908176422119
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Finally give the actual correct answer., New Loss: 0.4108908176422119
+Current length: 16
+ logical logical thinking, and assume nothing step. Finally give the actual correct answer.
+Current Loss: 0.4108908176422119 Best Loss: 0.3314800262451172 Best Control:  logical logical thinking, and assume by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.765458822250366
+Intersection set size: 5
+Candidate tokens:  By by One step 
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  By by One step  Step
+Time taken to get recomputed solution logits:  26.972221851348877
+Time taken to get recomputed solution logits:  26.784908533096313
+>Prompt Choice:  logical logical thinking, and assume nothing step.  give the actual correct answer. Loss: 15.644489288330078, Mistakes: 0.35999998450279236, Control Loss: 6.560501575469971, Total Loss: 0.491210013628006
+Time taken to get recomputed solution logits:  24.86913228034973
+Time taken to get recomputed solution logits:  23.404472589492798
+>Prompt Choice:  logical logical thinking, and assume nothing step. One give the actual correct answer. Loss: 18.044721603393555, Mistakes: 0.3799999952316284, Control Loss: 6.101157188415527, Total Loss: 0.5020231604576111
+Time taken to get recomputed solution logits:  28.388243198394775
+Time taken to get recomputed solution logits:  34.2648720741272
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step give the actual correct answer. Loss: 15.579051971435547, Mistakes: 0.3400000035762787, Control Loss: 5.821563243865967, Total Loss: 0.4564312696456909
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Step give the actual correct answer., New Loss: 0.4564312696456909
+Current length: 16
+ logical logical thinking, and assume nothing step. Step give the actual correct answer.
+Current Loss: 0.4564312696456909 Best Loss: 0.3314800262451172 Best Control:  logical logical thinking, and assume by step. Finally give the actual correct answer.
+Time taken to update solutions:  63.21722960472107
+Intersection set size: 5
+Candidate tokens: , by. explain 
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  guide by,. through explain 
+Time taken to get recomputed solution logits:  46.37290930747986
+Time taken to get recomputed solution logits:  29.239765644073486
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step through the actual correct answer. Loss: 5.279688835144043, Mistakes: 0.23999999463558197, Control Loss: 5.704689025878906, Total Loss: 0.3540937900543213
+Time taken to get recomputed solution logits:  30.179323434829712
+Time taken to get recomputed solution logits:  35.29436469078064
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step give the actual correct answer. Loss: 6.180469989776611, Mistakes: 0.25999999046325684, Control Loss: 5.5825300216674805, Total Loss: 0.3716505765914917
+Time taken to get recomputed solution logits:  27.09904384613037
+Time taken to get recomputed solution logits:  34.51259636878967
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. the actual correct answer. Loss: 6.454689025878906, Mistakes: 0.29999998211860657, Control Loss: 6.084785461425781, Total Loss: 0.42169567942619324
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Step. the actual correct answer., New Loss: 0.42169567942619324
+Current length: 16
+ logical logical thinking, and assume nothing step. Step. the actual correct answer.
+Current Loss: 0.42169567942619324 Best Loss: 0.3314800262451172 Best Control:  logical logical thinking, and assume by step. Finally give the actual correct answer.
+Time taken to update solutions:  62.19754123687744
+Intersection set size: 4
+Candidate tokens:  Assume No  Step
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  Assume Let The No  Step
+Time taken to get recomputed solution logits:  30.08283495903015
+Time taken to get recomputed solution logits:  30.365707397460938
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. Step actual correct answer. Loss: 4.555485725402832, Mistakes: 0.19999998807907104, Control Loss: 6.1311116218566895, Total Loss: 0.3226222097873688
+Time taken to get recomputed solution logits:  28.573536157608032
+Time taken to get recomputed solution logits:  25.347965002059937
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step.  actual correct answer. Loss: 7.235939979553223, Mistakes: 0.3199999928474426, Control Loss: 6.34079647064209, Total Loss: 0.4468159079551697
+Time taken to get recomputed solution logits:  27.112031936645508
+Time taken to get recomputed solution logits:  34.39125847816467
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. the actual correct answer. Loss: 6.454689025878906, Mistakes: 0.29999998211860657, Control Loss: 5.674062728881836, Total Loss: 0.4134812355041504
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Step. Step actual correct answer., New Loss: 0.3226222097873688
+Current length: 16
+ logical logical thinking, and assume nothing step. Step. Step actual correct answer.
+Current Loss: 0.3226222097873688 Best Loss: 0.3226222097873688 Best Control:  logical logical thinking, and assume nothing step. Step. Step actual correct answer.
+Time taken to update solutions:  61.454100608825684
+Intersection set size: 5
+Candidate tokens: !, by. 
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: !, by. is 
+Time taken to get recomputed solution logits:  30.62571883201599
+Time taken to get recomputed solution logits:  29.593916416168213
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. Step. correct answer. Loss: 3.8140642642974854, Mistakes: 0.17999999225139618, Control Loss: 6.308823585510254, Total Loss: 0.30617645382881165
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Step. Step. correct answer., New Loss: 0.30617645382881165
+Current length: 16
+ logical logical thinking, and assume nothing step. Step. Step. correct answer.
+Current Loss: 0.30617645382881165 Best Loss: 0.30617645382881165 Best Control:  logical logical thinking, and assume nothing step. Step. Step. correct answer.
+Time taken to update solutions:  58.209545850753784
+Intersection set size: 3
+Candidate tokens:  No  Step
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  Let Think No  Step Follow
+Time taken to get recomputed solution logits:  25.484067916870117
+Time taken to get recomputed solution logits:  28.510859727859497
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. Step.  answer. Loss: 4.159377574920654, Mistakes: 0.19999998807907104, Control Loss: 6.419132232666016, Total Loss: 0.32838261127471924
+Time taken to get recomputed solution logits:  30.587432384490967
+Time taken to get recomputed solution logits:  29.620598316192627
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. Step. correct answer. Loss: 3.8140642642974854, Mistakes: 0.17999999225139618, Control Loss: 5.4970703125, Total Loss: 0.2899414002895355
+Time taken to get recomputed solution logits:  28.326558351516724
+Time taken to get recomputed solution logits:  30.35956597328186
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. Step. Let answer. Loss: 4.136719226837158, Mistakes: 0.17999999225139618, Control Loss: 5.950578689575195, Total Loss: 0.29901155829429626
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Step. Step. correct answer., New Loss: 0.2899414002895355
+Current length: 16
+ logical logical thinking, and assume nothing step. Step. Step. correct answer.
+Current Loss: 0.2899414002895355 Best Loss: 0.2899414002895355 Best Control:  logical logical thinking, and assume nothing step. Step. Step. correct answer.
+Time taken to update solutions:  58.10796356201172
+Intersection set size: 5
+Candidate tokens:  answer your. me or
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  answer or. me the your
+Time taken to get recomputed solution logits:  26.392335176467896
+Time taken to get recomputed solution logits:  30.912108898162842
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. Step. correct or. Loss: 3.663283109664917, Mistakes: 0.1599999964237213, Control Loss: 6.054666519165039, Total Loss: 0.2810933291912079
+Time taken to get recomputed solution logits:  29.338518381118774
+Time taken to get recomputed solution logits:  33.16574454307556
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. Step. correct the. Loss: 4.994532585144043, Mistakes: 0.2199999988079071, Control Loss: 5.923377990722656, Total Loss: 0.338467538356781
+Time taken to get recomputed solution logits:  28.409454822540283
+Time taken to get recomputed solution logits:  31.996816635131836
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. Step. correct.. Loss: 4.310939311981201, Mistakes: 0.19999998807907104, Control Loss: 6.542446136474609, Total Loss: 0.33084890246391296
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Step. Step. correct.., New Loss: 0.33084890246391296
+Current length: 15
+ logical logical thinking, and assume nothing step. Step. Step. correct..
+Current Loss: 0.33084890246391296 Best Loss: 0.2899414002895355 Best Control:  logical logical thinking, and assume nothing step. Step. Step. correct answer.
+Time taken to update solutions:  57.82905697822571
+Intersection set size: 5
+Candidate tokens:  answer or. me your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  answer your. me the or
+Time taken to get recomputed solution logits:  28.74227261543274
+Time taken to get recomputed solution logits:  30.354164838790894
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. Step. correct.. Loss: 3.9796886444091797, Mistakes: 0.19999998807907104, Control Loss: 6.272796154022217, Total Loss: 0.325455904006958
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Step. Step. correct.., New Loss: 0.325455904006958
+Current length: 15
+ logical logical thinking, and assume nothing step. Step. Step. correct..
+Current Loss: 0.325455904006958 Best Loss: 0.2899414002895355 Best Control:  logical logical thinking, and assume nothing step. Step. Step. correct answer.
+Step:  15 Candidates:  [(0.2899414002895355, ' logical logical thinking, and assume nothing step. Step. Step. correct answer.'), (0.30617645382881165, ' logical logical thinking, and assume nothing step. Step. Step. correct answer.'), (0.3226222097873688, ' logical logical thinking, and assume nothing step. Step. Step actual correct answer.'), (0.325455904006958, ' logical logical thinking, and assume nothing step. Step. Step. correct..'), (0.33084890246391296, ' logical logical thinking, and assume nothing step. Step. Step. correct..'), (0.3314800262451172, ' logical logical thinking, and assume by step. Finally give the actual correct answer.'), (0.3411352336406708, ' logical logical reasoning and think step by step. Finally give the actual correct answer.'), (0.34190911054611206, ' logical logical thinking and think step by step. Finally give the actual correct answer.'), (0.3473960757255554, ' logical logical reasoning and think step by step. Finally give the actual correct answer.'), (0.3502160906791687, ' logical logical thinking, and step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  58.275126934051514
+Intersection set size: 5
+Candidate tokens:  a only truth logical the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  a only truth logic logical the boolean
+Time taken to get recomputed solution logits:  35.58990240097046
+Time taken to get recomputed solution logits:  40.4808509349823
+>Prompt Choice:  boolean logical thinking, and assume nothing step. Step. Step. correct.. Loss: 5.252345561981201, Mistakes: 0.25999999046325684, Control Loss: 6.554337978363037, Total Loss: 0.39108675718307495
+Time taken to get recomputed solution logits:  41.18814754486084
+Time taken to get recomputed solution logits:  40.50711989402771
+>Prompt Choice:  logic logical thinking, and assume nothing step. Step. Step. correct.. Loss: 6.71281623840332, Mistakes: 0.3400000035762787, Control Loss: 6.486484527587891, Total Loss: 0.4697296917438507
+Time taken to get recomputed solution logits:  28.736883878707886
+Time taken to get recomputed solution logits:  30.370365142822266
+>Prompt Choice:  logical logical thinking, and assume nothing step. Step. Step. correct.. Loss: 3.9796886444091797, Mistakes: 0.19999998807907104, Control Loss: 6.272796154022217, Total Loss: 0.325455904006958
+No improvement in the current position. Moving to the next position.
+New Control:  logical logical thinking, and assume nothing step. Step. Step. correct.., New Loss: 0.325455904006958
+Current length: 15
+ logical logical thinking, and assume nothing step. Step. Step. correct..
+Current Loss: 0.325455904006958 Best Loss: 0.2899414002895355 Best Control:  logical logical thinking, and assume nothing step. Step. Step. correct answer.
+Time taken to update solutions:  58.17307949066162
+Intersection set size: 5
+Candidate tokens:  deduction steps reasoning deductions analysis
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  deduction steps arguments reasoning rules deductions analysis
+Time taken to get recomputed solution logits:  30.25060510635376
+Time taken to get recomputed solution logits:  26.7812442779541
+>Prompt Choice:  logical steps thinking, and assume nothing step. Step. Step. correct.. Loss: 5.005469799041748, Mistakes: 0.2199999988079071, Control Loss: 7.072006702423096, Total Loss: 0.36144012212753296
+Time taken to get recomputed solution logits:  34.51522183418274
+Time taken to get recomputed solution logits:  29.460612297058105
+>Prompt Choice:  logical rules thinking, and assume nothing step. Step. Step. correct.. Loss: 6.33828592300415, Mistakes: 0.29999998211860657, Control Loss: 7.145294666290283, Total Loss: 0.44290587306022644
+Time taken to get recomputed solution logits:  42.96998691558838
+Time taken to get recomputed solution logits:  37.5843403339386
+>Prompt Choice:  logical arguments thinking, and assume nothing step. Step. Step. correct.. Loss: 4.179691314697266, Mistakes: 0.19999998807907104, Control Loss: 7.515501976013184, Total Loss: 0.3503100275993347
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments thinking, and assume nothing step. Step. Step. correct.., New Loss: 0.3503100275993347
+Current length: 15
+ logical arguments thinking, and assume nothing step. Step. Step. correct..
+Current Loss: 0.3503100275993347 Best Loss: 0.2899414002895355 Best Control:  logical logical thinking, and assume nothing step. Step. Step. correct answer.
+Time taken to update solutions:  80.99817132949829
+Intersection set size: 5
+Candidate tokens:  and only,. to
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  and only,. to or
+Time taken to get recomputed solution logits:  55.56309485435486
+Time taken to get recomputed solution logits:  34.37460803985596
+>Prompt Choice:  logical arguments only, and assume nothing step. Step. Step. correct.. Loss: 5.0679755210876465, Mistakes: 0.23999999463558197, Control Loss: 6.540788173675537, Total Loss: 0.3708157539367676
+Time taken to get recomputed solution logits:  42.83293175697327
+Time taken to get recomputed solution logits:  39.686797857284546
+>Prompt Choice:  logical arguments and, and assume nothing step. Step. Step. correct.. Loss: 3.670316696166992, Mistakes: 0.17999999225139618, Control Loss: 7.792497634887695, Total Loss: 0.33584994077682495
+Time taken to get recomputed solution logits:  40.13312387466431
+Time taken to get recomputed solution logits:  42.29324388504028
+>Prompt Choice:  logical arguments,, and assume nothing step. Step. Step. correct.. Loss: 5.283597469329834, Mistakes: 0.25999999046325684, Control Loss: 7.929474353790283, Total Loss: 0.4185894727706909
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, and assume nothing step. Step. Step. correct.., New Loss: 0.33584994077682495
+Current length: 15
+ logical arguments and, and assume nothing step. Step. Step. correct..
+Current Loss: 0.33584994077682495 Best Loss: 0.2899414002895355 Best Control:  logical logical thinking, and assume nothing step. Step. Step. correct answer.
+Time taken to update solutions:  79.85506343841553
+Intersection set size: 3
+Candidate tokens:  rules diagrams not
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  diagram rules diagrams deductions not
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  diagram avoid rules diagrams deductions not
+Time taken to get recomputed solution logits:  37.80007791519165
+Time taken to get recomputed solution logits:  41.13369917869568
+>Prompt Choice:  logical arguments and not and assume nothing step. Step. Step. correct.. Loss: 3.753129482269287, Mistakes: 0.17999999225139618, Control Loss: 7.080924034118652, Total Loss: 0.3216184675693512
+Time taken to get recomputed solution logits:  42.43732285499573
+Time taken to get recomputed solution logits:  39.42811179161072
+>Prompt Choice:  logical arguments and, and assume nothing step. Step. Step. correct.. Loss: 3.670316696166992, Mistakes: 0.17999999225139618, Control Loss: 6.826557636260986, Total Loss: 0.31653112173080444
+Time taken to get recomputed solution logits:  44.04578375816345
+Time taken to get recomputed solution logits:  48.163456439971924
+>Prompt Choice:  logical arguments and diagrams and assume nothing step. Step. Step. correct.. Loss: 3.7320494651794434, Mistakes: 0.2199999988079071, Control Loss: 7.121537685394287, Total Loss: 0.36243075132369995
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, and assume nothing step. Step. Step. correct.., New Loss: 0.31653112173080444
+Current length: 15
+ logical arguments and, and assume nothing step. Step. Step. correct..
+Current Loss: 0.31653112173080444 Best Loss: 0.2899414002895355 Best Control:  logical logical thinking, and assume nothing step. Step. Step. correct answer.
+Time taken to update solutions:  79.07535719871521
+Intersection set size: 5
+Candidate tokens:  or if ideally preferably where
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  or optionally if ideally preferably where
+Time taken to get recomputed solution logits:  42.90949749946594
+Time taken to get recomputed solution logits:  35.37693691253662
+>Prompt Choice:  logical arguments and, or assume nothing step. Step. Step. correct.. Loss: 3.496095895767212, Mistakes: 0.1599999964237213, Control Loss: 7.221569061279297, Total Loss: 0.30443137884140015
+Time taken to get recomputed solution logits:  40.51650881767273
+Time taken to get recomputed solution logits:  48.76919865608215
+>Prompt Choice:  logical arguments and, ideally assume nothing step. Step. Step. correct.. Loss: 4.7422003746032715, Mistakes: 0.2199999988079071, Control Loss: 7.57249641418457, Total Loss: 0.37144991755485535
+Time taken to get recomputed solution logits:  40.56158518791199
+Time taken to get recomputed solution logits:  43.90601325035095
+>Prompt Choice:  logical arguments and, if assume nothing step. Step. Step. correct.. Loss: 2.369295597076416, Mistakes: 0.11999999731779099, Control Loss: 7.383727550506592, Total Loss: 0.2676745355129242
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if assume nothing step. Step. Step. correct.., New Loss: 0.2676745355129242
+Current length: 15
+ logical arguments and, if assume nothing step. Step. Step. correct..
+Current Loss: 0.2676745355129242 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  81.74235844612122
+Intersection set size: 5
+Candidate tokens:  so necessary needed you possible
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  applicable necessary so needed you possible not
+Time taken to get recomputed solution logits:  34.94211530685425
+Time taken to get recomputed solution logits:  41.59716582298279
+>Prompt Choice:  logical arguments and, if needed nothing step. Step. Step. correct.. Loss: 3.732039451599121, Mistakes: 0.17999999225139618, Control Loss: 7.3173980712890625, Total Loss: 0.3263479471206665
+Time taken to get recomputed solution logits:  29.491041660308838
+Time taken to get recomputed solution logits:  35.64226412773132
+>Prompt Choice:  logical arguments and, if possible nothing step. Step. Step. correct.. Loss: 4.926564693450928, Mistakes: 0.23999999463558197, Control Loss: 7.241124629974365, Total Loss: 0.3848224878311157
+Time taken to get recomputed solution logits:  31.736058712005615
+Time taken to get recomputed solution logits:  34.09519147872925
+>Prompt Choice:  logical arguments and, if so nothing step. Step. Step. correct.. Loss: 5.547676086425781, Mistakes: 0.23999999463558197, Control Loss: 7.4604902267456055, Total Loss: 0.3892098069190979
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed nothing step. Step. Step. correct.., New Loss: 0.3263479471206665
+Current length: 15
+ logical arguments and, if needed nothing step. Step. Step. correct..
+Current Loss: 0.3263479471206665 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  75.62352180480957
+Intersection set size: 4
+Candidate tokens:  diagrams explain, use
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  additional, use logical diagrams explain
+Time taken to get recomputed solution logits:  43.61487913131714
+Time taken to get recomputed solution logits:  34.942968130111694
+>Prompt Choice:  logical arguments and, if needed use step. Step. Step. correct.. Loss: 5.80235481262207, Mistakes: 0.2800000011920929, Control Loss: 6.612721920013428, Total Loss: 0.4122544527053833
+Time taken to get recomputed solution logits:  28.826098203659058
+Time taken to get recomputed solution logits:  34.353994369506836
+>Prompt Choice:  logical arguments and, if needed additional step. Step. Step. correct.. Loss: 5.745328426361084, Mistakes: 0.25999999046325684, Control Loss: 6.692268371582031, Total Loss: 0.3938453495502472
+Time taken to get recomputed solution logits:  41.65766644477844
+Time taken to get recomputed solution logits:  41.329795598983765
+>Prompt Choice:  logical arguments and, if needed explain step. Step. Step. correct.. Loss: 5.138284206390381, Mistakes: 0.25999999046325684, Control Loss: 6.841065883636475, Total Loss: 0.3968213200569153
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional step. Step. Step. correct.., New Loss: 0.3938453495502472
+Current length: 15
+ logical arguments and, if needed additional step. Step. Step. correct..
+Current Loss: 0.3938453495502472 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  60.853358030319214
+Intersection set size: 5
+Candidate tokens:  statements premises assumptions information variables
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  statements info premises assumptions facts information variables
+Time taken to get recomputed solution logits:  29.372390031814575
+Time taken to get recomputed solution logits:  35.17454957962036
+>Prompt Choice:  logical arguments and, if needed additional step. Step. Step. correct.. Loss: 5.745328426361084, Mistakes: 0.25999999046325684, Control Loss: 6.054147720336914, Total Loss: 0.3810829520225525
+Time taken to get recomputed solution logits:  39.0298273563385
+Time taken to get recomputed solution logits:  38.98667931556702
+>Prompt Choice:  logical arguments and, if needed additional assumptions. Step. Step. correct.. Loss: 5.026301860809326, Mistakes: 0.25999999046325684, Control Loss: 7.365986347198486, Total Loss: 0.40731972455978394
+Time taken to get recomputed solution logits:  39.743749380111694
+Time taken to get recomputed solution logits:  29.02832269668579
+>Prompt Choice:  logical arguments and, if needed additional premises. Step. Step. correct.. Loss: 2.8984389305114746, Mistakes: 0.14000000059604645, Control Loss: 7.301242351531982, Total Loss: 0.2860248386859894
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises. Step. Step. correct.., New Loss: 0.2860248386859894
+Current length: 15
+ logical arguments and, if needed additional premises. Step. Step. correct..
+Current Loss: 0.2860248386859894 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  67.24754691123962
+Intersection set size: 5
+Candidate tokens:  and,. to or
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  and,. to about or
+Time taken to get recomputed solution logits:  38.871243953704834
+Time taken to get recomputed solution logits:  37.48677968978882
+>Prompt Choice:  logical arguments and, if needed additional premises and Step. Step. correct.. Loss: 5.788849353790283, Mistakes: 0.25999999046325684, Control Loss: 6.143627166748047, Total Loss: 0.3828725218772888
+Time taken to get recomputed solution logits:  41.72731876373291
+Time taken to get recomputed solution logits:  42.448761224746704
+>Prompt Choice:  logical arguments and, if needed additional premises or Step. Step. correct.. Loss: 6.251348972320557, Mistakes: 0.2800000011920929, Control Loss: 6.165640354156494, Total Loss: 0.4033128023147583
+Time taken to get recomputed solution logits:  39.22041869163513
+Time taken to get recomputed solution logits:  39.78991746902466
+>Prompt Choice:  logical arguments and, if needed additional premises to Step. Step. correct.. Loss: 5.661733150482178, Mistakes: 0.2800000011920929, Control Loss: 6.553802490234375, Total Loss: 0.41107606887817383
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and Step. Step. correct.., New Loss: 0.3828725218772888
+Current length: 15
+ logical arguments and, if needed additional premises and Step. Step. correct..
+Current Loss: 0.3828725218772888 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  76.51773285865784
+Intersection set size: 5
+Candidate tokens:  definitions conclusions in assumptions rules
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  definitions conclusions in assumptions rules logical
+Time taken to get recomputed solution logits:  40.174938440322876
+Time taken to get recomputed solution logits:  42.42085576057434
+>Prompt Choice:  logical arguments and, if needed additional premises and in. Step. correct.. Loss: 4.95547342300415, Mistakes: 0.23999999463558197, Control Loss: 7.637611389160156, Total Loss: 0.3927522301673889
+Time taken to get recomputed solution logits:  35.49276518821716
+Time taken to get recomputed solution logits:  39.350738763809204
+>Prompt Choice:  logical arguments and, if needed additional premises and rules. Step. correct.. Loss: 5.560473918914795, Mistakes: 0.29999998211860657, Control Loss: 7.739708423614502, Total Loss: 0.45479416847229004
+Time taken to get recomputed solution logits:  65.15584301948547
+Time taken to get recomputed solution logits:  36.568493127822876
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions. Step. correct.. Loss: 3.5367348194122314, Mistakes: 0.19999998807907104, Control Loss: 7.581932067871094, Total Loss: 0.3516386151313782
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions. Step. correct.., New Loss: 0.3516386151313782
+Current length: 15
+ logical arguments and, if needed additional premises and conclusions. Step. correct..
+Current Loss: 0.3516386151313782 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  99.4291160106659
+Intersection set size: 5
+Candidate tokens:  can,. to based
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  drawn can,. to from based
+Time taken to get recomputed solution logits:  37.895127296447754
+Time taken to get recomputed solution logits:  37.693079471588135
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions drawn Step. correct.. Loss: 5.532229900360107, Mistakes: 0.2800000011920929, Control Loss: 6.691318035125732, Total Loss: 0.4138263463973999
+Time taken to get recomputed solution logits:  42.85099220275879
+Time taken to get recomputed solution logits:  38.60258626937866
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based Step. correct.. Loss: 4.49143648147583, Mistakes: 0.2199999988079071, Control Loss: 6.782322883605957, Total Loss: 0.35564643144607544
+Time taken to get recomputed solution logits:  50.758854150772095
+Time taken to get recomputed solution logits:  39.79264283180237
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions can Step. correct.. Loss: 5.868537425994873, Mistakes: 0.29999998211860657, Control Loss: 6.828567028045654, Total Loss: 0.43657130002975464
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based Step. correct.., New Loss: 0.35564643144607544
+Current length: 15
+ logical arguments and, if needed additional premises and conclusions based Step. correct..
+Current Loss: 0.35564643144607544 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  80.23640155792236
+Intersection set size: 5
+Candidate tokens:  on only solely there upon
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  on only solely there in upon off
+Time taken to get recomputed solution logits:  44.41228222846985
+Time taken to get recomputed solution logits:  38.640690088272095
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. correct.. Loss: 4.4281325340271, Mistakes: 0.23999999463558197, Control Loss: 7.310647964477539, Total Loss: 0.38621294498443604
+Time taken to get recomputed solution logits:  32.61704707145691
+Time taken to get recomputed solution logits:  30.07610511779785
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based upon. correct.. Loss: 6.205474853515625, Mistakes: 0.3400000035762787, Control Loss: 7.231154918670654, Total Loss: 0.48462310433387756
+Time taken to get recomputed solution logits:  30.771625518798828
+Time taken to get recomputed solution logits:  30.973349809646606
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based only. correct.. Loss: 4.968782901763916, Mistakes: 0.23999999463558197, Control Loss: 7.8119683265686035, Total Loss: 0.39623934030532837
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based off. correct.., New Loss: 0.38621294498443604
+Current length: 15
+ logical arguments and, if needed additional premises and conclusions based off. correct..
+Current Loss: 0.38621294498443604 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  80.58248662948608
+Intersection set size: 4
+Candidate tokens:  these the of those
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  this that these the of those
+Time taken to get recomputed solution logits:  44.36115574836731
+Time taken to get recomputed solution logits:  38.669917821884155
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. correct.. Loss: 4.4281325340271, Mistakes: 0.23999999463558197, Control Loss: 6.4586663246154785, Total Loss: 0.3691733181476593
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based off. correct.., New Loss: 0.3691733181476593
+Current length: 15
+ logical arguments and, if needed additional premises and conclusions based off. correct..
+Current Loss: 0.3691733181476593 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  80.54834222793579
+Intersection set size: 4
+Candidate tokens:  The Let Given We
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  If The Let Given We
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  If Let Given The We This
+Time taken to get recomputed solution logits:  45.79312515258789
+Time taken to get recomputed solution logits:  35.92718529701233
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If.. Loss: 5.017946243286133, Mistakes: 0.2800000011920929, Control Loss: 6.621952533721924, Total Loss: 0.4124390482902527
+Time taken to get recomputed solution logits:  34.515915632247925
+Time taken to get recomputed solution logits:  36.766108989715576
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. Let.. Loss: 5.254708290100098, Mistakes: 0.29999998211860657, Control Loss: 6.769824504852295, Total Loss: 0.4353964626789093
+Time taken to get recomputed solution logits:  42.50481557846069
+Time taken to get recomputed solution logits:  37.78232955932617
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. Given.. Loss: 5.596110820770264, Mistakes: 0.29999998211860657, Control Loss: 6.594341278076172, Total Loss: 0.43188679218292236
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based off. If.., New Loss: 0.4124390482902527
+Current length: 15
+ logical arguments and, if needed additional premises and conclusions based off. If..
+Current Loss: 0.4124390482902527 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  85.51616525650024
+Intersection set size: 3
+Candidate tokens:  you the not
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  needed you the not
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  we so needed necessary you possible the not
+Time taken to get recomputed solution logits:  29.165470838546753
+Time taken to get recomputed solution logits:  34.663955211639404
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not Loss: 3.9078752994537354, Mistakes: 0.23999999463558197, Control Loss: 5.922426223754883, Total Loss: 0.35844850540161133
+Time taken to get recomputed solution logits:  35.915053606033325
+Time taken to get recomputed solution logits:  29.21093201637268
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If you Loss: 6.314901828765869, Mistakes: 0.35999998450279236, Control Loss: 5.921884536743164, Total Loss: 0.4784376621246338
+Time taken to get recomputed solution logits:  34.85651159286499
+Time taken to get recomputed solution logits:  44.6414852142334
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If needed Loss: 6.696109294891357, Mistakes: 0.3400000035762787, Control Loss: 5.922920227050781, Total Loss: 0.45845842361450195
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based off. If not_, New Loss: 0.35844850540161133
+Current length: 16
+ logical arguments and, if needed additional premises and conclusions based off. If not_
+Current Loss: 0.35844850540161133 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Step:  30 Candidates:  [(0.2676745355129242, ' logical arguments and, if assume nothing step. Step. Step. correct..'), (0.2860248386859894, ' logical arguments and, if needed additional premises. Step. Step. correct..'), (0.2899414002895355, ' logical logical thinking, and assume nothing step. Step. Step. correct answer.'), (0.30617645382881165, ' logical logical thinking, and assume nothing step. Step. Step. correct answer.'), (0.31653112173080444, ' logical arguments and, and assume nothing step. Step. Step. correct..'), (0.3226222097873688, ' logical logical thinking, and assume nothing step. Step. Step actual correct answer.'), (0.325455904006958, ' logical logical thinking, and assume nothing step. Step. Step. correct..'), (0.325455904006958, ' logical logical thinking, and assume nothing step. Step. Step. correct..'), (0.3263479471206665, ' logical arguments and, if needed nothing step. Step. Step. correct..'), (0.33084890246391296, ' logical logical thinking, and assume nothing step. Step. Step. correct..')]
+Time taken to update solutions:  61.31079936027527
+Intersection set size: 4
+Candidate tokens:  true enough, possible
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  true, enough possible what
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  true sufficient, enough possible what
+Time taken to get recomputed solution logits:  36.78840160369873
+Time taken to get recomputed solution logits:  38.10483145713806
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not, Loss: 4.657855033874512, Mistakes: 0.25999999046325684, Control Loss: 5.803160667419434, Total Loss: 0.37606319785118103
+Time taken to get recomputed solution logits:  29.66841959953308
+Time taken to get recomputed solution logits:  34.42907667160034
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not_ Loss: 6.141419410705566, Mistakes: 0.3199999928474426, Control Loss: 5.824323654174805, Total Loss: 0.43648645281791687
+Time taken to get recomputed solution logits:  27.821216821670532
+Time taken to get recomputed solution logits:  34.29690742492676
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not true Loss: 5.7694268226623535, Mistakes: 0.2800000011920929, Control Loss: 5.805707931518555, Total Loss: 0.39611417055130005
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based off. If not,_, New Loss: 0.37606319785118103
+Current length: 16
+ logical arguments and, if needed additional premises and conclusions based off. If not,_
+Current Loss: 0.37606319785118103 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  64.46665740013123
+Intersection set size: 4
+Candidate tokens:  possible true, enough
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  true enough, possible
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  true sufficient enough, what possible based
+Time taken to get recomputed solution logits:  41.76674795150757
+Time taken to get recomputed solution logits:  34.55237317085266
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not sufficient Loss: 5.530879497528076, Mistakes: 0.23999999463558197, Control Loss: 5.795695781707764, Total Loss: 0.355913907289505
+Time taken to get recomputed solution logits:  30.689617156982422
+Time taken to get recomputed solution logits:  35.47113537788391
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not based Loss: 7.30103874206543, Mistakes: 0.2800000011920929, Control Loss: 5.796012878417969, Total Loss: 0.3959202468395233
+Time taken to get recomputed solution logits:  40.85875701904297
+Time taken to get recomputed solution logits:  38.488609313964844
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough Loss: 5.922682762145996, Mistakes: 0.2199999988079071, Control Loss: 5.793952941894531, Total Loss: 0.33587905764579773
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based off. If not enough_, New Loss: 0.33587905764579773../llm_opt/base/attack_manager.py:942: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:540: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:545: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+../llm_opt/base/attack_manager.py:1168: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+
+Current length: 17
+ logical arguments and, if needed additional premises and conclusions based off. If not enough_
+Current Loss: 0.33587905764579773 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  59.294256925582886
+Intersection set size: 5
+Candidate tokens: , premises info information to
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: , premises info information to
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  given, context premises info space information to
+Time taken to get recomputed solution logits:  42.13989186286926
+Time taken to get recomputed solution logits:  42.884252309799194
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough premises Loss: 7.923141956329346, Mistakes: 0.3400000035762787, Control Loss: 5.644834041595459, Total Loss: 0.45289668440818787
+Time taken to get recomputed solution logits:  28.100555896759033
+Time taken to get recomputed solution logits:  35.688772439956665
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough to Loss: 6.937164783477783, Mistakes: 0.2800000011920929, Control Loss: 5.647345066070557, Total Loss: 0.39294689893722534
+Time taken to get recomputed solution logits:  38.218650817871094
+Time taken to get recomputed solution logits:  38.46577262878418
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough info Loss: 6.425368309020996, Mistakes: 0.23999999463558197, Control Loss: 5.646742820739746, Total Loss: 0.3529348373413086
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based off. If not enough info_, New Loss: 0.3529348373413086
+Current length: 18
+ logical arguments and, if needed additional premises and conclusions based off. If not enough info_
+Current Loss: 0.3529348373413086 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  65.00895428657532
+Intersection set size: 5
+Candidate tokens:  given, provided is to
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  provide given,. provided is to
+Time taken to get recomputed solution logits:  38.06624698638916
+Time taken to get recomputed solution logits:  34.37306022644043
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough info to Loss: 6.364068508148193, Mistakes: 0.3199999928474426, Control Loss: 5.548656940460205, Total Loss: 0.4309731125831604
+Time taken to get recomputed solution logits:  38.719465017318726
+Time taken to get recomputed solution logits:  31.529497623443604
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough info provided Loss: 5.680485248565674, Mistakes: 0.29999998211860657, Control Loss: 5.549869537353516, Total Loss: 0.4109973609447479
+Time taken to get recomputed solution logits:  34.19431829452515
+Time taken to get recomputed solution logits:  32.48854923248291
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough info given Loss: 5.1726603507995605, Mistakes: 0.25999999046325684, Control Loss: 5.549136638641357, Total Loss: 0.37098270654678345
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based off. If not enough info given_, New Loss: 0.37098270654678345
+Current length: 19
+ logical arguments and, if needed additional premises and conclusions based off. If not enough info given_
+Current Loss: 0.37098270654678345 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  72.65115666389465
+Intersection set size: 4
+Candidate tokens:  in to,.
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  can,. in to then
+Time taken to get recomputed solution logits:  37.91907811164856
+Time taken to get recomputed solution logits:  36.17903399467468
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough info given can Loss: 8.202281951904297, Mistakes: 0.3799999952316284, Control Loss: 5.434499263763428, Total Loss: 0.48868998885154724
+Time taken to get recomputed solution logits:  36.77729368209839
+Time taken to get recomputed solution logits:  35.113128423690796
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough info given in Loss: 6.750721454620361, Mistakes: 0.29999998211860657, Control Loss: 5.434335708618164, Total Loss: 0.40868669748306274
+Time taken to get recomputed solution logits:  42.03846836090088
+Time taken to get recomputed solution logits:  35.48845934867859
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough info given to Loss: 8.76602840423584, Mistakes: 0.3400000035762787, Control Loss: 5.433268070220947, Total Loss: 0.4486653804779053
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based off. If not enough info given in_, New Loss: 0.40868669748306274
+Current length: 20
+ logical arguments and, if needed additional premises and conclusions based off. If not enough info given in_
+Current Loss: 0.40868669748306274 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  69.49302506446838
+Intersection set size: 4
+Candidate tokens:  question this original the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  question this initial original problem the your
+Time taken to get recomputed solution logits:  35.91910266876221
+Time taken to get recomputed solution logits:  43.056750535964966
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough info given in this Loss: 9.257834434509277, Mistakes: 0.3999999761581421, Control Loss: 5.443948268890381, Total Loss: 0.5088789463043213
+Time taken to get recomputed solution logits:  39.5960853099823
+Time taken to get recomputed solution logits:  39.03195595741272
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough info given in your Loss: 9.111733436584473, Mistakes: 0.3999999761581421, Control Loss: 5.445899963378906, Total Loss: 0.5089179873466492
+Time taken to get recomputed solution logits:  38.11070656776428
+Time taken to get recomputed solution logits:  38.23689007759094
+>Prompt Choice:  logical arguments and, if needed additional premises and conclusions based off. If not enough info given in original Loss: 7.914269924163818, Mistakes: 0.3999999761581421, Control Loss: 5.444816589355469, Total Loss: 0.5088962912559509
+No improvement in the current position. Moving to the next position.
+New Control:  logical arguments and, if needed additional premises and conclusions based off. If not enough info given in this_, New Loss: 0.5088789463043213
+Current length: 21
+ logical arguments and, if needed additional premises and conclusions based off. If not enough info given in this_
+Current Loss: 0.5088789463043213 Best Loss: 0.2676745355129242 Best Control:  logical arguments and, if assume nothing step. Step. Step. correct..
+Time taken to update solutions:  72.89922165870667
+Intersection set size: 5
+Candidate tokens:  question scenario statement puzzle problem
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  question scenario statement puzzle story problem
+Time taken to get recomputed solution logits:  40.98789191246033
+Traceback (most recent call last):
+  File "main.py", line 103, in <module>
+    app.run(main)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 308, in run
+    _run_main(main, args)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 254, in _run_main
+    sys.exit(main(argv))
+  File "main.py", line 83, in main
+    attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1964, in run
+    control, loss, inner_steps = attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1604, in run
+    control, loss = self.step(
+  File "../llm_opt/gcg/gcg_attack.py", line 537, in step
+    _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=5, accumulate=True)
+  File "../llm_opt/gcg/gcg_attack.py", line 396, in morph_control
+    loss_new, mist_perc, control_loss = self.prompts[k].selection_loss(logits[0], target_slice_starts[0],
+  File "../llm_opt/base/attack_manager.py", line 1340, in selection_loss
+    l1, l2, l3 = prompt.selection_loss(_logits[i], target_slice_start, target_id)
+  File "../llm_opt/base/attack_manager.py", line 714, in selection_loss
+    focused_loss = nn.CrossEntropyLoss(reduction='none')(logits[focused_loss_slice, :], target_ids[self._focused_target_slice.start-self._target_slice.start: self._focused_target_slice.start-self._target_slice.start+window_size])
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/loss.py", line 1185, in forward
+    return F.cross_entropy(input, target, weight=self.weight,
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/functional.py", line 3086, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+ValueError: Expected input batch_size (1) to match target batch_size (0).

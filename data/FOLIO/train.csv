@@ -1,0 +1,1631 @@
+goal,target,final_target
+"Premise:
+All people who regularly drink coffee are dependent on caffeine.
+People regularly drink coffee, or they don't want to be addicted to caffeine, or both.
+No one who doesn't want to be addicted to caffeine is unaware that caffeine is a drug.
+Rina is either a student who is unaware that caffeine is a drug, or she is not a student and is she aware that caffeine is a drug.
+Rina  is either a student who is dependent on caffeine, or she is not a student and not dependent on caffeine.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Rina doesn't want to be addicted to caffeine or is unaware that caffeine is a drug.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All people who regularly drink coffee are dependent on caffeine.
+People regularly drink coffee, or they don't want to be addicted to caffeine, or both.
+No one who doesn't want to be addicted to caffeine is unaware that caffeine is a drug.
+Rina is either a student who is unaware that caffeine is a drug, or she is not a student and is she aware that caffeine is a drug.
+Rina  is either a student who is dependent on caffeine, or she is not a student and not dependent on caffeine.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Rina eith doesn't want to be addicted to caffeine or is unaware that caffeine is a drug.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All people who regularly drink coffee are dependent on caffeine.
+People regularly drink coffee, or they don't want to be addicted to caffeine, or both.
+No one who doesn't want to be addicted to caffeine is unaware that caffeine is a drug.
+Rina is either a student who is unaware that caffeine is a drug, or she is not a student and is she aware that caffeine is a drug.
+Rina  is either a student who is dependent on caffeine, or she is not a student and not dependent on caffeine.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Rina either regularly drinks coffee or is unaware that caffeine is a drug.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All people who regularly drink coffee are dependent on caffeine.
+People regularly drink coffee, or they don't want to be addicted to caffeine, or both.
+No one who doesn't want to be addicted to caffeine is unaware that caffeine is a drug.
+Rina is either a student who is unaware that caffeine is a drug, or she is not a student and is she aware that caffeine is a drug.
+Rina  is either a student who is dependent on caffeine, or she is not a student and not dependent on caffeine.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Rina either doesn't want to be addicted to caffeine and is unaware that caffeine is a drug, or neither doesn't want to be addicted to caffeine nor is unaware that caffeine is a drug, then Rina doesn't want to be addicted to caffeine and regularly drinks coffee.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Miroslav Venhoda was a Czech choral conductor who specialized in the performance of Renaissance and Baroque music.
+Any choral conductor is a musician.
+Some musicians love music.
+Miroslav Venhoda published a book in 1946 called Method of Studying Gregorian Chant.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Miroslav Venhoda loved music.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Miroslav Venhoda was a Czech choral conductor who specialized in the performance of Renaissance and Baroque music.
+Any choral conductor is a musician.
+Some musicians love music.
+Miroslav Venhoda published a book in 1946 called Method of Studying Gregorian Chant.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A Czech published a book in 1946.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Miroslav Venhoda was a Czech choral conductor who specialized in the performance of Renaissance and Baroque music.
+Any choral conductor is a musician.
+Some musicians love music.
+Miroslav Venhoda published a book in 1946 called Method of Studying Gregorian Chant.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: No choral conductor specialized in the performance of Renaissance.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All eels are fish. 
+No fish are plants. 
+Everything displayed in the collection is either a plant or an animal.
+All multicellular animals are not bacteria.
+All animals displayed in the collection are multicellular.
+A sea eel is displayed in the collection.
+The sea eel is an eel or an animal or not a plant.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The sea eel is an eel.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All eels are fish. 
+No fish are plants. 
+Everything displayed in the collection is either a plant or an animal.
+All multicellular animals are not bacteria.
+All animals displayed in the collection are multicellular.
+A sea eel is displayed in the collection.
+The sea eel is an eel or an animal or not a plant.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The sea eel is bacteria.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All eels are fish. 
+No fish are plants. 
+Everything displayed in the collection is either a plant or an animal.
+All multicellular animals are not bacteria.
+All animals displayed in the collection are multicellular.
+A sea eel is displayed in the collection.
+The sea eel is an eel or an animal or not a plant.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The sea eel is multicellular or is bacteria.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+The Blake McFall Company Building is a building added to the National Register of Historic Places in 1990.
+The Emmet Building is a five-story building in Portland, Oregon.
+The Emmet Building was built in 1915.
+The Emmet Building is another name for the Blake McFall Company Building.
+John works at the Emmet Building.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A five-story building is built in 1915.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+The Blake McFall Company Building is a building added to the National Register of Historic Places in 1990.
+The Emmet Building is a five-story building in Portland, Oregon.
+The Emmet Building was built in 1915.
+The Emmet Building is another name for the Blake McFall Company Building.
+John works at the Emmet Building.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The Blake McFall Company Building is located in Portland, Oregon.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+The Blake McFall Company Building is a building added to the National Register of Historic Places in 1990.
+The Emmet Building is a five-story building in Portland, Oregon.
+The Emmet Building was built in 1915.
+The Emmet Building is another name for the Blake McFall Company Building.
+John works at the Emmet Building.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: John started his current job in 1990.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+William Dickinson was a British politician who sat in the House of Commons
+William Dickinson attended Westminster school for high school and then the University of Edinburgh.
+The University of Edinburgh is a university located in the United Kingdom.
+William Dickinson supported the Portland Whigs.
+People who supported the Portland Whigs did not get a seat in the Parliament.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: William Dickinson did not get a seat in Parliament.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+William Dickinson was a British politician who sat in the House of Commons
+William Dickinson attended Westminster school for high school and then the University of Edinburgh.
+The University of Edinburgh is a university located in the United Kingdom.
+William Dickinson supported the Portland Whigs.
+People who supported the Portland Whigs did not get a seat in the Parliament.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: William Dickinson went to schools located in the United Kingdom for both high school and university.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+William Dickinson was a British politician who sat in the House of Commons
+William Dickinson attended Westminster school for high school and then the University of Edinburgh.
+The University of Edinburgh is a university located in the United Kingdom.
+William Dickinson supported the Portland Whigs.
+People who supported the Portland Whigs did not get a seat in the Parliament.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: William Dickinson attended university in the United Kingdom.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+William Dickinson was a British politician who sat in the House of Commons
+William Dickinson attended Westminster school for high school and then the University of Edinburgh.
+The University of Edinburgh is a university located in the United Kingdom.
+William Dickinson supported the Portland Whigs.
+People who supported the Portland Whigs did not get a seat in the Parliament.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: William Dickinson sat in the House of Commons.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+LanguageA is a universal language
+If a universal language exists, then for every two people if they both know the same universal language they can communicate.
+Katya cannot communicate with Danil.
+Katya knows LanguageA. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Danil knows LanguageA.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All customers in James' family who subscribe to AMC A-List are eligible to watch three movies every week without any additional fees. 
+Some of the customers in James' family go to the cinema every week.
+Customers in James' family subscribe to AMC A-List or HBO service. 
+Customers in James' family who prefer TV series will not watch TV series in cinemas.
+All customers in James' family who subscribe to HBO services prefer TV series to movies. 
+Lily is in James' family; she watches TV series in cinemas. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Lily goes to cinemas every week.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All customers in James' family who subscribe to AMC A-List are eligible to watch three movies every week without any additional fees. 
+Some of the customers in James' family go to the cinema every week.
+Customers in James' family subscribe to AMC A-List or HBO service. 
+Customers in James' family who prefer TV series will not watch TV series in cinemas.
+All customers in James' family who subscribe to HBO services prefer TV series to movies. 
+Lily is in James' family; she watches TV series in cinemas. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Lily does not go to cinemas every week.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All customers in James' family who subscribe to AMC A-List are eligible to watch three movies every week without any additional fees. 
+Some of the customers in James' family go to the cinema every week.
+Customers in James' family subscribe to AMC A-List or HBO service. 
+Customers in James' family who prefer TV series will not watch TV series in cinemas.
+All customers in James' family who subscribe to HBO services prefer TV series to movies. 
+Lily is in James' family; she watches TV series in cinemas. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Lily goes to cinemas every week or watches 3 movies every week without any additional fees.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All customers in James' family who subscribe to AMC A-List are eligible to watch three movies every week without any additional fees. 
+Some of the customers in James' family go to the cinema every week.
+Customers in James' family subscribe to AMC A-List or HBO service. 
+Customers in James' family who prefer TV series will not watch TV series in cinemas.
+All customers in James' family who subscribe to HBO services prefer TV series to movies. 
+Lily is in James' family; she watches TV series in cinemas. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Lily does not both go to cinemas every week and subscribe to HBO service, then Lily is either available to watch 3 movies every week without any additional fees or she prefers TV more.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All customers in James' family who subscribe to AMC A-List are eligible to watch three movies every week without any additional fees. 
+Some of the customers in James' family go to the cinema every week.
+Customers in James' family subscribe to AMC A-List or HBO service. 
+Customers in James' family who prefer TV series will not watch TV series in cinemas.
+All customers in James' family who subscribe to HBO services prefer TV series to movies. 
+Lily is in James' family; she watches TV series in cinemas. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Lily is available to watch 3 movies every week without any additional fees and she watches TV series in cinemas, then she goes to cinemas every week and prefers TV series more.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+A La Liga soccer team ranks higher than another La Liga soccer team if it receives more points.
+If there are two La Liga soccer teams and neither has more points than the other, then the team which receives more points from the games between the two teams ranks higher.
+Real Madrid and Barcelona are both La Liga soccer teams.
+Real Madrid received more points than Barcelona.
+Neither Real Madrid nor Barcelona received more points from the games between them.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Real Madrid ranks higher than Barcelona.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+A La Liga soccer team ranks higher than another La Liga soccer team if it receives more points.
+If there are two La Liga soccer teams and neither has more points than the other, then the team which receives more points from the games between the two teams ranks higher.
+Real Madrid and Barcelona are both La Liga soccer teams.
+Real Madrid received more points than Barcelona.
+Neither Real Madrid nor Barcelona received more points from the games between them.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Barcelona ranks higher than Real Madrid.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Lawton Park is a neighborhood in Seattle. 
+All citizens of Lawton Park use the zip code 98199. 
+Tom is a citizen of Lawton Park.
+Daniel uses the zip code 98199. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tom uses the zip code 98199.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Lawton Park is a neighborhood in Seattle. 
+All citizens of Lawton Park use the zip code 98199. 
+Tom is a citizen of Lawton Park.
+Daniel uses the zip code 98199. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tom doesn't use the zip code 98199.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Lawton Park is a neighborhood in Seattle. 
+All citizens of Lawton Park use the zip code 98199. 
+Tom is a citizen of Lawton Park.
+Daniel uses the zip code 98199. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tom is a citizen of Washington.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Lawton Park is a neighborhood in Seattle. 
+All citizens of Lawton Park use the zip code 98199. 
+Tom is a citizen of Lawton Park.
+Daniel uses the zip code 98199. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Daniel is a citizen of Lawton Park.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+If a legislator is found guilty of stealing government funds, they will be suspended from office.
+Tiffany T. Alston was a legislator in Maryland's House of Delegates from 2011 to 2013.
+Tiffany T. Alston was found guilty of stealing government funds in 2012.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tiffany T. Alston was suspended from the Maryland House of Delegates.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If a legislator is found guilty of stealing government funds, they will be suspended from office.
+Tiffany T. Alston was a legislator in Maryland's House of Delegates from 2011 to 2013.
+Tiffany T. Alston was found guilty of stealing government funds in 2012.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tiffany T. Alston was not suspended from the Maryland House of Delegates.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If a legislator is found guilty of stealing government funds, they will be suspended from office.
+Tiffany T. Alston was a legislator in Maryland's House of Delegates from 2011 to 2013.
+Tiffany T. Alston was found guilty of stealing government funds in 2012.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Tiffany T. Alston went to prison for stealing government funds.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Some fish stings people.
+Stonefish is a fish.
+Stonefish stings when stepped on. 
+If a stonefish stings someone and they are not treated, it can cause death to them.
+To treat stonefish stings, apply heat to the affected area or use an antivenom.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If a stonefish stings you and you don’t use an antivenom, it can cause death to you.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Some fish stings people.
+Stonefish is a fish.
+Stonefish stings when stepped on. 
+If a stonefish stings someone and they are not treated, it can cause death to them.
+To treat stonefish stings, apply heat to the affected area or use an antivenom.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Stings of some fish can cause death if not treated.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Some fish stings people.
+Stonefish is a fish.
+Stonefish stings when stepped on. 
+If a stonefish stings someone and they are not treated, it can cause death to them.
+To treat stonefish stings, apply heat to the affected area or use an antivenom.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If you step on a stonefish and apply heat to the affected area, it can cause death to you.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Some monitors made by LG have a type-c port.
+Monitors that have a type-c port were not made before 2010.
+All monitors in the library are made before 2010. 
+The L-2021 monitor is either used in the library or has a type-c port.
+The L-2021 monitor is either both produced before 2010 and made by LG, or neither is true.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The monitor L-2021 is in the library.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Some monitors made by LG have a type-c port.
+Monitors that have a type-c port were not made before 2010.
+All monitors in the library are made before 2010. 
+The L-2021 monitor is either used in the library or has a type-c port.
+The L-2021 monitor is either both produced before 2010 and made by LG, or neither is true.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The monitor L-2021 is either in the library or produced by LG.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Some monitors made by LG have a type-c port.
+Monitors that have a type-c port were not made before 2010.
+All monitors in the library are made before 2010. 
+The L-2021 monitor is either used in the library or has a type-c port.
+The L-2021 monitor is either both produced before 2010 and made by LG, or neither is true.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The L-2021 monitor either has a type-c port or is produced by LG.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Some monitors made by LG have a type-c port.
+Monitors that have a type-c port were not made before 2010.
+All monitors in the library are made before 2010. 
+The L-2021 monitor is either used in the library or has a type-c port.
+The L-2021 monitor is either both produced before 2010 and made by LG, or neither is true.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If the L-2021 monitor is either in the library and produced by LG, or neither in the library nor produced by LG,  then L-2021 neither has a type-c port nor is produced by LG.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Some monitors made by LG have a type-c port.
+Monitors that have a type-c port were not made before 2010.
+All monitors in the library are made before 2010. 
+The L-2021 monitor is either used in the library or has a type-c port.
+The L-2021 monitor is either both produced before 2010 and made by LG, or neither is true.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If the monitor L-2021 is either produced by LG and produced before 2010 or neither produced by LG nor produced before 2010,  then L-2021 is either in the library or produced by LG.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Everything is either outside the solar system or in the solar system. 
+Nothing outside the solar system has the Sun as its star.
+Everything in the solar system is gravitationally bound by the Sun.
+No planets gravitationally bound by the Sun are rogue planets. 
+All orphan planets are rogue planets.
+If PSO J318.5−22 is not both a rogue planet and a planet gravitationally bound by the Sun, then it is a rogue planet.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: PSO J318.5−22 is an orphan planet.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Everything is either outside the solar system or in the solar system. 
+Nothing outside the solar system has the Sun as its star.
+Everything in the solar system is gravitationally bound by the Sun.
+No planets gravitationally bound by the Sun are rogue planets. 
+All orphan planets are rogue planets.
+If PSO J318.5−22 is not both a rogue planet and a planet gravitationally bound by the Sun, then it is a rogue planet.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: PSO J318.5−22 is an orphan planet or it does not have the Sun as its star, or both.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Everything is either outside the solar system or in the solar system. 
+Nothing outside the solar system has the Sun as its star.
+Everything in the solar system is gravitationally bound by the Sun.
+No planets gravitationally bound by the Sun are rogue planets. 
+All orphan planets are rogue planets.
+If PSO J318.5−22 is not both a rogue planet and a planet gravitationally bound by the Sun, then it is a rogue planet.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If PSO J318.5−22 is an orphan planet or it does not have the Sun as the star, or both, then PSO J318.5−22 neither is an orphan planet nor does it have the Sun as the star.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Sam is doing a project.
+A project is written either in C++ or Python.
+If Sam does a project written in Python, he will not use a Mac.
+Sam is using a Mac.
+If Sam uses a Mac, he will play a song.
+If a song is not titled ""Perfect,"" Sam will never play it.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The project Sam is doing is written in C++.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Sam is doing a project.
+A project is written either in C++ or Python.
+If Sam does a project written in Python, he will not use a Mac.
+Sam is using a Mac.
+If Sam uses a Mac, he will play a song.
+If a song is not titled ""Perfect,"" Sam will never play it.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The song Sam is playing is titled ""Perfect"".
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Sam is doing a project.
+A project is written either in C++ or Python.
+If Sam does a project written in Python, he will not use a Mac.
+Sam is using a Mac.
+If Sam uses a Mac, he will play a song.
+If a song is not titled ""Perfect,"" Sam will never play it.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If a song is titled ""Perfect"", Sam will play it.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All rabbits have fur
+Some pets are rabbits.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some pets do not have fur.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All social media applications containing chat features are software. 
+All social media applications that allow users to send messages to each other have chat features. 
+All social media applications have chat features or video features. 
+All social media applications that have video features allow users to upload videos. 
+All software that is social media applications are computer programs. 
+All social media applications that have high engagement metrics are addictive. 
+If a social media application is addictive, then it is not ideal for preteens. 
+TikTok is a social media application, and it is not ideal for preteens. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: TikTok is a computer program.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All social media applications containing chat features are software. 
+All social media applications that allow users to send messages to each other have chat features. 
+All social media applications have chat features or video features. 
+All social media applications that have video features allow users to upload videos. 
+All software that is social media applications are computer programs. 
+All social media applications that have high engagement metrics are addictive. 
+If a social media application is addictive, then it is not ideal for preteens. 
+TikTok is a social media application, and it is not ideal for preteens. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: TikTok is either ideal for preteens or a computer program.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All social media applications containing chat features are software. 
+All social media applications that allow users to send messages to each other have chat features. 
+All social media applications have chat features or video features. 
+All social media applications that have video features allow users to upload videos. 
+All software that is social media applications are computer programs. 
+All social media applications that have high engagement metrics are addictive. 
+If a social media application is addictive, then it is not ideal for preteens. 
+TikTok is a social media application, and it is not ideal for preteens. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: TikTok is does not have chat features or it is not a computer program.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All social media applications containing chat features are software. 
+All social media applications that allow users to send messages to each other have chat features. 
+All social media applications have chat features or video features. 
+All social media applications that have video features allow users to upload videos. 
+All software that is social media applications are computer programs. 
+All social media applications that have high engagement metrics are addictive. 
+If a social media application is addictive, then it is not ideal for preteens. 
+TikTok is a social media application, and it is not ideal for preteens. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: TikTok either has chat features or is a computer program.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Ordinary is an unincorporated community.
+Located within Elliot County, Ordinary is on Kentucky Route 32.
+Ordinary is located northwest of Sandy Hook.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: There are no unincorporated communities along Kentucky Route 32.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Ordinary is an unincorporated community.
+Located within Elliot County, Ordinary is on Kentucky Route 32.
+Ordinary is located northwest of Sandy Hook.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: There is an unincorporated community located in Elliot County.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All young adults at the event like independence.
+All college students at the event are young adults.
+All Yale students at the event are college students.
+Everyone at the event is a Yale student or a Harvard student.
+All Harvard students at the event are diligent.
+Susan is at the event, and if Susan is a Harvard student, then she is a young adult.
+If Susan is a Yale student, then she does not like independence.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Susan is a college student.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All young adults at the event like independence.
+All college students at the event are young adults.
+All Yale students at the event are college students.
+Everyone at the event is a Yale student or a Harvard student.
+All Harvard students at the event are diligent.
+Susan is at the event, and if Susan is a Harvard student, then she is a young adult.
+If Susan is a Yale student, then she does not like independence.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Susan likes independence and is diligent.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All young adults at the event like independence.
+All college students at the event are young adults.
+All Yale students at the event are college students.
+Everyone at the event is a Yale student or a Harvard student.
+All Harvard students at the event are diligent.
+Susan is at the event, and if Susan is a Harvard student, then she is a young adult.
+If Susan is a Yale student, then she does not like independence.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Susan is not both diligent and likes independence.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Vic DiCara plays guitar and bass.
+The only style of music Vic DiCara plays is punk music.
+Vic DiCara played in the band Inside Out.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Inside Out was a punk band.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Vic DiCara plays guitar and bass.
+The only style of music Vic DiCara plays is punk music.
+Vic DiCara played in the band Inside Out.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: A musician from Inside Out plays bass.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All professional athletes spend most of their time on sports.
+All Olympic gold medal winners are professional athletes.
+No full-time scientists spend the majority of their time on sports.
+All Nobel physics laureates are full-time scientists.
+Amy spends the most time on sports, or Amy is an Olympic gold medal winner.
+If Amy is not a Nobel physics laureate, then Amy is not an Olympic gold medal winner.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Amy is a professional athlete.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All professional athletes spend most of their time on sports.
+All Olympic gold medal winners are professional athletes.
+No full-time scientists spend the majority of their time on sports.
+All Nobel physics laureates are full-time scientists.
+Amy spends the most time on sports, or Amy is an Olympic gold medal winner.
+If Amy is not a Nobel physics laureate, then Amy is not an Olympic gold medal winner.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Amy is neither a full-time scientist nor an Olympic gold medal winner.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All professional athletes spend most of their time on sports.
+All Olympic gold medal winners are professional athletes.
+No full-time scientists spend the majority of their time on sports.
+All Nobel physics laureates are full-time scientists.
+Amy spends the most time on sports, or Amy is an Olympic gold medal winner.
+If Amy is not a Nobel physics laureate, then Amy is not an Olympic gold medal winner.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If Amy is not an Olympic gold medal winner, then Amy is a Nobel physics laureate.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All red fruits that grow in Ben's yard contain some Vitamin C.
+All apples that grow in Ben's yard are red fruits.
+All fruits that grow in Ben's yard and contain some Vitamin C are healthy. 
+No fruits that grow in Ben's yard and are healthy are on a warning list.
+The cherries grow in Ben's yard.
+If cherries are not apples and are not healthy, then they are red fruits.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The cherries are apples.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All red fruits that grow in Ben's yard contain some Vitamin C.
+All apples that grow in Ben's yard are red fruits.
+All fruits that grow in Ben's yard and contain some Vitamin C are healthy. 
+No fruits that grow in Ben's yard and are healthy are on a warning list.
+The cherries grow in Ben's yard.
+If cherries are not apples and are not healthy, then they are red fruits.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The cherries either contain some amount of vitamin C or are on a warning list.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All red fruits that grow in Ben's yard contain some Vitamin C.
+All apples that grow in Ben's yard are red fruits.
+All fruits that grow in Ben's yard and contain some Vitamin C are healthy. 
+No fruits that grow in Ben's yard and are healthy are on a warning list.
+The cherries grow in Ben's yard.
+If cherries are not apples and are not healthy, then they are red fruits.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: The cherries are either on a warning list or are red.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All red fruits that grow in Ben's yard contain some Vitamin C.
+All apples that grow in Ben's yard are red fruits.
+All fruits that grow in Ben's yard and contain some Vitamin C are healthy. 
+No fruits that grow in Ben's yard and are healthy are on a warning list.
+The cherries grow in Ben's yard.
+If cherries are not apples and are not healthy, then they are red fruits.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If the cherries are either healthy or are on a warning list, then they are not red.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All red fruits that grow in Ben's yard contain some Vitamin C.
+All apples that grow in Ben's yard are red fruits.
+All fruits that grow in Ben's yard and contain some Vitamin C are healthy. 
+No fruits that grow in Ben's yard and are healthy are on a warning list.
+The cherries grow in Ben's yard.
+If cherries are not apples and are not healthy, then they are red fruits.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If the cherries are either on a warning list or are red, then they are not healthy and do not contain any amount of vitamin C.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Everyone working at Meta has a high income. 
+A person with a high income will not take a bus to their destination.
+People will either take a bus or drive to their destination. 
+Everyone who has a car will choose to drive to their destination. 
+No students drive to their destination. 
+James has a car or works at Meta.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James has a high income.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Everyone working at Meta has a high income. 
+A person with a high income will not take a bus to their destination.
+People will either take a bus or drive to their destination. 
+Everyone who has a car will choose to drive to their destination. 
+No students drive to their destination. 
+James has a car or works at Meta.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James does not have a high income.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Everyone working at Meta has a high income. 
+A person with a high income will not take a bus to their destination.
+People will either take a bus or drive to their destination. 
+Everyone who has a car will choose to drive to their destination. 
+No students drive to their destination. 
+James has a car or works at Meta.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James is a student.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Everyone working at Meta has a high income. 
+A person with a high income will not take a bus to their destination.
+People will either take a bus or drive to their destination. 
+Everyone who has a car will choose to drive to their destination. 
+No students drive to their destination. 
+James has a car or works at Meta.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James drives to his destination or he is a student.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Everyone working at Meta has a high income. 
+A person with a high income will not take a bus to their destination.
+People will either take a bus or drive to their destination. 
+Everyone who has a car will choose to drive to their destination. 
+No students drive to their destination. 
+James has a car or works at Meta.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James either drives to their destination or is a student.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+Everyone working at Meta has a high income. 
+A person with a high income will not take a bus to their destination.
+People will either take a bus or drive to their destination. 
+Everyone who has a car will choose to drive to their destination. 
+No students drive to their destination. 
+James has a car or works at Meta.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If James either drives to his destination or is a student, then he has a high income and is a student.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Everyone at the business conference is either an investor or an entrepreneur.
+None of those at the business conference who enjoy the opportunity of starting a business prefer a planned economy. 
+All entrepreneurs at the business conference enjoy the opportunity of starting a business. 
+Everyone at the business conference who enjoys state ownership of means of production prefers a planned economy. 
+Everyone at the business conference who is an ardent communist prefers state ownership of the means of production.
+Ho is at the business conference and prefers state ownership of the means of production. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ho is not an ardent communist.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Everyone at the business conference is either an investor or an entrepreneur.
+None of those at the business conference who enjoy the opportunity of starting a business prefer a planned economy. 
+All entrepreneurs at the business conference enjoy the opportunity of starting a business. 
+Everyone at the business conference who enjoys state ownership of means of production prefers a planned economy. 
+Everyone at the business conference who is an ardent communist prefers state ownership of the means of production.
+Ho is at the business conference and prefers state ownership of the means of production. 
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Ho is an investor or is not an ardent communist.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No television stars are certified public accountants.
+All certified public accountants have good business sense.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: All television stars have good business sense.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Some students in the class who are good at math are also good at chemistry.
+All students in the class who are good at chemistry enjoy conducting experiments. 
+All students in the class that enjoy conducting experiments are good at planning. 
+None of the students who are good at planning failed the class.
+James is a student in the class; he is either good at chemistry and failed the class, or bad at chemistry and passed the class.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James is good at planning.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+Some students in the class who are good at math are also good at chemistry.
+All students in the class who are good at chemistry enjoy conducting experiments. 
+All students in the class that enjoy conducting experiments are good at planning. 
+None of the students who are good at planning failed the class.
+James is a student in the class; he is either good at chemistry and failed the class, or bad at chemistry and passed the class.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James is good at math and chemistry.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Some students in the class who are good at math are also good at chemistry.
+All students in the class who are good at chemistry enjoy conducting experiments. 
+All students in the class that enjoy conducting experiments are good at planning. 
+None of the students who are good at planning failed the class.
+James is a student in the class; he is either good at chemistry and failed the class, or bad at chemistry and passed the class.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: James failed the class and is good at math.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Some students in the class who are good at math are also good at chemistry.
+All students in the class who are good at chemistry enjoy conducting experiments. 
+All students in the class that enjoy conducting experiments are good at planning. 
+None of the students who are good at planning failed the class.
+James is a student in the class; he is either good at chemistry and failed the class, or bad at chemistry and passed the class.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If James is good at Chemistry or failed the class, then James is either good at planning or good at math.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If a Leetcode problem is at the easy level, then its AC rate is lower than 20 percent. 
+All Leetcode problems that are recommended to novices are easy. 
+A Leetode problem is either easy or hard.
+Leetcode problems that are starred by more than one thousand users are hard.
+2Sum is recommended to novices. 
+4Sum is starred by more than 1,000 users.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: 2Sum is a Leetcode problem at the easy level.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+If a Leetcode problem is at the easy level, then its AC rate is lower than 20 percent. 
+All Leetcode problems that are recommended to novices are easy. 
+A Leetode problem is either easy or hard.
+Leetcode problems that are starred by more than one thousand users are hard.
+2Sum is recommended to novices. 
+4Sum is starred by more than 1,000 users.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: 4Sum is a Leetcode problem recommended to the novice.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+If a Leetcode problem is at the easy level, then its AC rate is lower than 20 percent. 
+All Leetcode problems that are recommended to novices are easy. 
+A Leetode problem is either easy or hard.
+Leetcode problems that are starred by more than one thousand users are hard.
+2Sum is recommended to novices. 
+4Sum is starred by more than 1,000 users.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: 2Sum has an AC rate higher than 20 percent.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+Everyone who rents a car spends money.
+Whenever Sarah goes to Vermont, Sarah drives there.
+Someone who does not own a car to drive somewhere must either borrow a car or rent a car.
+Sarah doesn’t own a car.
+Sarah never borrows a car to go camping.
+Sarah is going to go camping in Vermont.
+To go camping somewhere, you must go to that place.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Sarah will spend money this weekend.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All people who attend weddings are getting married or know the people who are getting married.
+No preteens or young children are getting married or know the people who are getting married.
+People who enjoy celebrating life milestone events with other people attend weddings.
+People who are fond of large group functions enjoy celebrating life milestone events with other people.
+All people who are outgoing and spirited are fond of large group functions.
+If Carol is not both a pre-teen or young child and attends a wedding, then Carol is not getting married or knows the people who are getting married.  
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Carol is outgoing and very spirited.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All people who attend weddings are getting married or know the people who are getting married.
+No preteens or young children are getting married or know the people who are getting married.
+People who enjoy celebrating life milestone events with other people attend weddings.
+People who are fond of large group functions enjoy celebrating life milestone events with other people.
+All people who are outgoing and spirited are fond of large group functions.
+If Carol is not both a pre-teen or young child and attends a wedding, then Carol is not getting married or knows the people who are getting married.  
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Carol is a preteen or a young child.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All people who attend weddings are getting married or know the people who are getting married.
+No preteens or young children are getting married or know the people who are getting married.
+People who enjoy celebrating life milestone events with other people attend weddings.
+People who are fond of large group functions enjoy celebrating life milestone events with other people.
+All people who are outgoing and spirited are fond of large group functions.
+If Carol is not both a pre-teen or young child and attends a wedding, then Carol is not getting married or knows the people who are getting married.  
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Carol neither enjoys celebrating life milestone events with other people nor is outgoing and very spirited.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All velvet-finish lipsticks in the Rouge Dior set, Lunar New Year Limited Edition are refillable.
+Lipsticks in the Rouge Dior set, Lunar New Year Limited Edition have either a velvet-finish or a satin-finish.
+No satin-finish lipsticks in the set do not have ""rosewood"" in its offical description. 
+Lipstcks in the Rouge Dior set, Lunar New Year Limited Edition either does not have ""rosewood"" in its offical description or it has ""rosewood"" in its official description. 
+ROUGE Dior Colored Lip Balm 999 is a lipstick in the set, and it either has ""rosewood"" in its official description or has a velvet finish.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: ROUGE Dior Colored Lip Balm 999 has a satin finish.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All velvet-finish lipsticks in the Rouge Dior set, Lunar New Year Limited Edition are refillable.
+Lipsticks in the Rouge Dior set, Lunar New Year Limited Edition have either a velvet-finish or a satin-finish.
+No satin-finish lipsticks in the set do not have ""rosewood"" in its offical description. 
+Lipstcks in the Rouge Dior set, Lunar New Year Limited Edition either does not have ""rosewood"" in its offical description or it has ""rosewood"" in its official description. 
+ROUGE Dior Colored Lip Balm 999 is a lipstick in the set, and it either has ""rosewood"" in its official description or has a velvet finish.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: ROUGE Dior Colored Lip Balm 999 has a satin finish and has ""rosewood"" in its official description.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All velvet-finish lipsticks in the Rouge Dior set, Lunar New Year Limited Edition are refillable.
+Lipsticks in the Rouge Dior set, Lunar New Year Limited Edition have either a velvet-finish or a satin-finish.
+No satin-finish lipsticks in the set do not have ""rosewood"" in its offical description. 
+Lipstcks in the Rouge Dior set, Lunar New Year Limited Edition either does not have ""rosewood"" in its offical description or it has ""rosewood"" in its official description. 
+ROUGE Dior Colored Lip Balm 999 is a lipstick in the set, and it either has ""rosewood"" in its official description or has a velvet finish.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: ROUGE Dior Colored Lip Balm 999 either is refillable or has ""rosewood"" in its official description.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All velvet-finish lipsticks in the Rouge Dior set, Lunar New Year Limited Edition are refillable.
+Lipsticks in the Rouge Dior set, Lunar New Year Limited Edition have either a velvet-finish or a satin-finish.
+No satin-finish lipsticks in the set do not have ""rosewood"" in its offical description. 
+Lipstcks in the Rouge Dior set, Lunar New Year Limited Edition either does not have ""rosewood"" in its offical description or it has ""rosewood"" in its official description. 
+ROUGE Dior Colored Lip Balm 999 is a lipstick in the set, and it either has ""rosewood"" in its official description or has a velvet finish.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If ROUGE Dior Colored Lip Balm 999 is not both a velvet finish ipstick in the set and refillable, then it neither is refillable nor has ""rosewood"" in its official description.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+All velvet-finish lipsticks in the Rouge Dior set, Lunar New Year Limited Edition are refillable.
+Lipsticks in the Rouge Dior set, Lunar New Year Limited Edition have either a velvet-finish or a satin-finish.
+No satin-finish lipsticks in the set do not have ""rosewood"" in its offical description. 
+Lipstcks in the Rouge Dior set, Lunar New Year Limited Edition either does not have ""rosewood"" in its offical description or it has ""rosewood"" in its official description. 
+ROUGE Dior Colored Lip Balm 999 is a lipstick in the set, and it either has ""rosewood"" in its official description or has a velvet finish.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If ROUGE Dior Colored Lip Balm 999 is refillable and has ""rosewood"" in its official description, then it either has a velvet-finish or has ""rosewood"" in its official description.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All velvet-finish lipsticks in the Rouge Dior set, Lunar New Year Limited Edition are refillable.
+Lipsticks in the Rouge Dior set, Lunar New Year Limited Edition have either a velvet-finish or a satin-finish.
+No satin-finish lipsticks in the set do not have ""rosewood"" in its offical description. 
+Lipstcks in the Rouge Dior set, Lunar New Year Limited Edition either does not have ""rosewood"" in its offical description or it has ""rosewood"" in its official description. 
+ROUGE Dior Colored Lip Balm 999 is a lipstick in the set, and it either has ""rosewood"" in its official description or has a velvet finish.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If ROUGE Dior Colored Lip Balm 999 either does not have ""rosewood"" in its official description or is refillable, then it has ""rosewood"" in its official description.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All velvet-finish lipsticks in the Rouge Dior set, Lunar New Year Limited Edition are refillable.
+Lipsticks in the Rouge Dior set, Lunar New Year Limited Edition have either a velvet-finish or a satin-finish.
+No satin-finish lipsticks in the set do not have ""rosewood"" in its offical description. 
+Lipstcks in the Rouge Dior set, Lunar New Year Limited Edition either does not have ""rosewood"" in its offical description or it has ""rosewood"" in its official description. 
+ROUGE Dior Colored Lip Balm 999 is a lipstick in the set, and it either has ""rosewood"" in its official description or has a velvet finish.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If ROUGE Dior Colored Lip Balm 999 either does not have ""rosewood"" in its official description or is refillable, then it neither has a satin-finish nor has ""rosewood"" in its official description.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All velvet-finish lipsticks in the Rouge Dior set, Lunar New Year Limited Edition are refillable.
+Lipsticks in the Rouge Dior set, Lunar New Year Limited Edition have either a velvet-finish or a satin-finish.
+No satin-finish lipsticks in the set do not have ""rosewood"" in its offical description. 
+Lipstcks in the Rouge Dior set, Lunar New Year Limited Edition either does not have ""rosewood"" in its offical description or it has ""rosewood"" in its official description. 
+ROUGE Dior Colored Lip Balm 999 is a lipstick in the set, and it either has ""rosewood"" in its official description or has a velvet finish.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: If ROUGE Dior Colored Lip Balm 999 is refillable or has ""rosewood"" in its official description, then it either is refillable or has ""rosewood"" in its official description..
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+All Senate Republicans are elected officials.
+Some elected officials are not conservatives.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Some conservatives are not Senate Republicans.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+No athletes never exercise.
+All professional basketball players are athletes. 
+All NBA players are professional basketball players. 
+All Knicks players are NBA players. 
+Either John is a professional basketball player and he never exercises, or he is not a professional basketball player and he sometimes exercises.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jim is a Knicks player.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)
+"Premise:
+No athletes never exercise.
+All professional basketball players are athletes. 
+All NBA players are professional basketball players. 
+All Knicks players are NBA players. 
+Either John is a professional basketball player and he never exercises, or he is not a professional basketball player and he sometimes exercises.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jim is not a Knicks player.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(A),(A)
+"Premise:
+No athletes never exercise.
+All professional basketball players are athletes. 
+All NBA players are professional basketball players. 
+All Knicks players are NBA players. 
+Either John is a professional basketball player and he never exercises, or he is not a professional basketball player and he sometimes exercises.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Jim is an athlete.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All kids are young.
+All toddlers are kids.
+If someone is young, then they are not elderly.
+All pirates are seafarers.
+If Nancy is not a pirate, then Nancy is young.
+If Nancy is not a toddler, then Nancy is a seafarer.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Nancy is a pirate.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(C),(C)
+"Premise:
+All kids are young.
+All toddlers are kids.
+If someone is young, then they are not elderly.
+All pirates are seafarers.
+If Nancy is not a pirate, then Nancy is young.
+If Nancy is not a toddler, then Nancy is a seafarer.
+
+Question:
+Given the premise above, is the following statement true, false, or uncertain?
+
+Statement: Nancy is either both a pirate and a toddler, or neither a pirate nor a toddler.
+
+Options:
+(A) True
+(B) False
+(C) Uncertain",(B),(B)

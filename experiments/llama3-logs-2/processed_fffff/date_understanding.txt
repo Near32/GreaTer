@@ -1,0 +1,10 @@
+. Use the date today  which will not would return true. This was solution is based off of date calculations using the current data and the current month and year to get to previous and current month of year to determine what the current data will look.
+. Use the date today  which will not would return true. This was solution is based off of date calculations using the current data and the current month and year to get to previous and current month of year to determine what the current data will look.
+. Use a computer programming to verify if it would return true. This was solution is based off of date calculations using the current data and the current month and year to get to previous and current month
+. Use a computer programming to verify if it would return true. This was solution is based off of date calculations using the current data and the current
+. Use the date today  which will not would give us an error. solution is given as answer date is correct the option data and the current month and year to get to previous and current month of year to determine what the current data will look.
+. Use the date today  which will not would give us an error. solution is given as answer date is correct the option data and the current month and year to get to previous and current month of year to determine what the current data will look.
+. Use a computer programming to verify if it would return true. This was solution is based off of date calculations using the
+. Use a computer programming to verify if it would return true. This was solution is based off of date calculations using
+. Use a computer programming to verify if it would return true. This was solution is based off of date
+. Use a computer programming to verify if it would return true. This was solution is based off of

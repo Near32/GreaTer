@@ -1,0 +1,101 @@
+goal,target
+Sentence 1: A notice of sale. Sentence 2: An obituary notice. Word: notice,same
+Sentence 1: He checked the point on his compass. Sentence 2: A row of points. Word: point,not the same
+Sentence 1: I'll hold you by your promise. Sentence 2: He's held by a contract. Word: hold,same
+"Sentence 1: Pull a bank robbery. Sentence 2: He regularly pulls 12-hour days, sometimes 14. Word: pull",same
+Sentence 1: Baby rabbits. Sentence 2: When is your baby due? Word: baby,same
+Sentence 1: Check your luggage before boarding. Sentence 2: She checked for an instant and missed a step. Word: check,not the same
+Sentence 1: Hang a door. Sentence 2: Hang the venison for a few days. Word: hang,not the same
+Sentence 1: Drop me a line when you get there. Sentence 2: They attacked the enemy's line. Word: line,not the same
+Sentence 1: He managed to wash out the stains. Sentence 2: Can you wash away the spots on the windows? Word: wash,same
+Sentence 1: The Moon is a natural satellite of the Earth. Sentence 2: Many telecommunication satellites orbit at 36000 km above the equator. Word: satellite,not the same
+Sentence 1: A peach stone. Sentence 2: You should remove the stones from prunes before cooking. Word: stone,same
+Sentence 1: He studied the score of the sonata. Sentence 2: A score were sent out but only one returned. Word: score,not the same
+Sentence 1: There is a constant hum of military preparation. Sentence 2: The hum of distant traffic. Word: hum,not the same
+Sentence 1: Clothes make the man. Sentence 2: This makes the third infraction. Word: make,same
+Sentence 1: The cooling touch of the night air. Sentence 2: This piano has a wonderful touch. Word: touch,not the same
+Sentence 1: Fortunately she had the good sense to run away. Sentence 2: He hasn't got the sense God gave little green apples. Word: sense,same
+"Sentence 1: The piece has a fast rhythm. Sentence 2: We walked with a quick, even rhythm. Word: rhythm",same
+Sentence 1: She threw the invitation away. Sentence 2: She was an invitation to trouble. Word: invitation,not the same
+Sentence 1: Treat an oil spill. Sentence 2: Treat the lawn with chemicals. Word: treat,same
+Sentence 1: Go easy on him: he is but a child. Sentence 2: She writes books for children. Word: child,same
+Sentence 1: There is no use for your invention. Sentence 2: He warned against the use of narcotic drugs. Word: use,same
+Sentence 1: Hit a ball. Sentence 2: He hit a home run. Word: hit,not the same
+Sentence 1: I'll meet you at the foot of the stairs. Sentence 2: The foot of the page. Word: foot,not the same
+Sentence 1: These pipes carry waste water into the river. Sentence 2: This paper carries a restaurant review. Word: carry,not the same
+Sentence 1: Bear a resemblance. Sentence 2: Bear a signature. Word: bear,same
+Sentence 1: Moral bankruptcy. Sentence 2: Intellectual bankruptcy. Word: bankruptcy,same
+Sentence 1: We had a feast to celebrate the harvest. Sentence 2: The Thanksgiving feast. Word: feast,not the same
+Sentence 1: His best finish in a major tournament was third. Sentence 2: Excitement grew as the finish neared. Word: finish,not the same
+Sentence 1: She preferred the black nylon number. Sentence 2: This sweater is an all-wool number. Word: number,same
+Sentence 1: There is not a drop of pity in that man. Sentence 2: Put three drops of oil into the mixture. Word: drop,same
+Sentence 1: Drop him from the Republican ticket. Sentence 2: The cow dropped her calf this morning. Word: drop,not the same
+Sentence 1: A patch of clouds. Sentence 2: Patches of thin ice. Word: patch,same
+Sentence 1: Strike 'z' on the keyboard. Sentence 2: The horse finally struck a pace. Word: strike,not the same
+Sentence 1: She loaded her shopping into the car. Sentence 2: I carried three heavy bags of shopping up the stairs. Word: shopping,same
+Sentence 1: May God keep you. Sentence 2: The student was kept after school. Word: keep,not the same
+Sentence 1: The institution of slavery. Sentence 2: The institution of marriage. Word: institution,same
+Sentence 1: He doesn't care about how / whether she comes. Sentence 2: I really care about my work. Word: care,same
+Sentence 1: I try to avoid the company of gamblers. Sentence 2: He avoided going to the area. Word: avoid,same
+Sentence 1: She didn't get to Chicago until after midnight. Sentence 2: The blow got him in the back. Word: get,not the same
+Sentence 1: The collar has a tab with a button hole. Sentence 2: The filing cards were organized by cards having indexed tabs. Word: tab,same
+Sentence 1: Can I buy you a drink? Sentence 2: I asked for a hot drink. Word: drink,same
+Sentence 1: You drive nails into wood with a hammer. Sentence 2: We drive the turnpike to work. Word: drive,not the same
+Sentence 1: Why the sad face? Sentence 2: He washed his face. Word: face,not the same
+Sentence 1: We congratulated him on his performance at the rehearsal. Sentence 2: The play ran for 100 performances. Word: performance,not the same
+Sentence 1: Pick meat from a bone. Sentence 2: Pick up the tab. Word: pick,not the same
+Sentence 1: Fall into a trap. Sentence 2: The estate fell to the oldest daughter. Word: fall,not the same
+Sentence 1: Play the stock market. Sentence 2: They played games on their opponents. Word: play,same
+Sentence 1: It is time to board the aircraft. Sentence 2: The old lady is boarding three men. Word: board,not the same
+Sentence 1: Can you advance me some money? Sentence 2: To advance one's interests. Word: advance,not the same
+Sentence 1: His friendship was a comfort. Sentence 2: A padded chair was one of the room's few comforts. Word: comfort,same
+"Sentence 1: The maths problem is a real snorter, isn't it? Sentence 2: The problem was a real snorter. Word: snorter",same
+Sentence 1: Carry the suitcases to the car. Sentence 2: Amanda carried the package from home to New York. Word: carry,same
+Sentence 1: Arrogance and lack of taste contributed to his rapid success. Sentence 2: She enjoyed her brief taste of independence. Word: taste,not the same
+Sentence 1: Sign language. Sentence 2: He didn't have the language to express his feelings. Word: language,not the same
+Sentence 1: You had better pack your swollen ankle with ice. Sentence 2: Pack the books into the boxes. Word: pack,not the same
+Sentence 1: The reflex motion of his eyebrows revealed his surprise. Sentence 2: He made a motion to adjourn. Word: motion,not the same
+Sentence 1: I see that you have been promoted. Sentence 2: Did you know that she is seeing an older man? Word: see,not the same
+Sentence 1: He always puts a smile on my face. Sentence 2: She's got a perfect smile. Word: smile,same
+Sentence 1: He was arrested on a charge of larceny. Sentence 2: The charges against the estate. Word: charge,not the same
+Sentence 1: Strike an arc. Sentence 2: The bullet struck her thigh. Word: strike,not the same
+Sentence 1: Run a new program on the Mac. Sentence 2: Our coach had us running plays for the whole practice. Word: run,same
+Sentence 1: Make a move. Sentence 2: Make advances. Word: make,same
+Sentence 1: Strike a medal. Sentence 2: The teacher struck the child. Word: strike,not the same
+Sentence 1: Emotion caused a constriction of his throat. Sentence 2: He felt a constriction in her chest. Word: constriction,same
+Sentence 1: They accused the paper of biased coverage of race relations. Sentence 2: There are overlapping coverages on your insurance policies. Word: coverage,not the same
+Sentence 1: Pay attention to. Sentence 2: Pay an obligation. Word: pay,not the same
+Sentence 1: In England they call a slowpoke a slowcoach. Sentence 2: Hey you slowcoaches in the back! Get a move on! Word: slowcoach,same
+Sentence 1: You really have to empathize with them. Sentence 2: You've really got to empathize with what they want. Word: empathize,same
+Sentence 1: To raise your walking stick to defend yourself. Sentence 2: A few important questions were raised after the attack. Word: raise,not the same
+Sentence 1: His grandfather was in the Pacific theater during the war. Sentence 2: He served in the Vietnam theater for three years. Word: theater,same
+Sentence 1: The flock of birds took to the air. Sentence 2: A smell of chemicals in the air. Word: air,same
+Sentence 1: To snap a fastener. Sentence 2: The lock snapped shut. Word: snap,not the same
+Sentence 1: To allow a servant his liberty. Sentence 2: Mandela was allowed few visitors in prison. Word: allow,not the same
+"Sentence 1: Confidence is always borrowed, never owned. Sentence 2: Everyone trusted him with their confidences. Word: confidence",not the same
+Sentence 1: He cherished the faith of a good woman. Sentence 2: A member of his own faith contradicted him. Word: faith,not the same
+Sentence 1: A stretch of clear water. Sentence 2: He did a stretch in the federal penitentiary. Word: stretch,not the same
+Sentence 1: Fire a bullet. Sentence 2: Fire a gun. Word: fire,same
+Sentence 1: I can count my colleagues in the opposition. Sentence 2: Each answer counts as three points. Word: count,not the same
+Sentence 1: The bill shed 50 pages of pork-barrel addons. Sentence 2: Our dog sheds every Spring. Word: shed,not the same
+Sentence 1: A set of teeth. Sentence 2: A set of books. Word: set,same
+Sentence 1: He shivered from the cold. Sentence 2: The cold helped clear his head. Word: cold,same
+"Sentence 1: When he lectures, I can not follow. Sentence 2: Follow the trail. Word: follow",not the same
+Sentence 1: A leak in a gas pipe. Sentence 2: He had to clean up the leak. Word: leak,same
+Sentence 1: This dough does not work easily. Sentence 2: My wife never worked. Word: work,not the same
+Sentence 1: There's a $15 cover tonight. Sentence 2: Artillery provided cover fire for the withdrawal. Word: cover,not the same
+Sentence 1: A chair is furniture. Sofas are also furniture. Sentence 2: There was only one piece of furniture in the room. Word: furniture,same
+Sentence 1: He walked to school every morning. Sentence 2: A school of small glittering fish swam by. Word: school,not the same
+Sentence 1: Don't run that software unless you have permission. Sentence 2: The dogs are running deer. Word: run,not the same
+Sentence 1: Check into the rumor. Sentence 2: Check the brakes. Word: check,not the same
+Sentence 1: Cut class. Sentence 2: Cut a caper. Word: cut,not the same
+Sentence 1: The pull of the current. Sentence 2: Iron fillings drawn by the pull of a magnet. Word: pull,same
+Sentence 1: An achievement that puts everything else in the shade. Sentence 2: His brother's success left him in the shade. Word: shade,same
+Sentence 1: Plug the hole. Sentence 2: He attempted to plug the leaks with some caulk. Word: plug,same
+Sentence 1: Has a large repertory of dialects and characters. Sentence 2: The repertory of the supposed feats of mesmerism. Word: repertory,same
+Sentence 1: Immediate demobilization of the reserves. Sentence 2: Demobilization of factories. Word: demobilization,same
+Sentence 1: The piano had a very stiff action. Sentence 2: Recent federal action undermined the segregationist position. Word: action,not the same
+"Sentence 1: You can use paper krona (i.e., bills, banknotes). Sentence 2: The book costs five krona. Word: krona",same
+Sentence 1: These pages don't belong. Sentence 2: The uniform looks like it belonged to a museum collection. Word: belong,same
+"Sentence 1: Draw a line. Sentence 2: To draw a memorial, a deed, or bill of exchange. Word: draw",not the same
+Sentence 1: As they say in the trade. Sentence 2: They are accused of conspiring to constrain trade. Word: trade,not the same

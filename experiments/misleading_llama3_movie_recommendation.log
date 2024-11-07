@@ -1,0 +1,173 @@
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: ' no thinking just feeling.'
+control_weight: 0.2
+conversation_templates:
+- llama-3
+- llama-3
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$A'' or ''$B'' or
+  ''$C'' or ''$D'') is $'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+n_steps: 106
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_llama3_movie_recommendation.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/movie_recommendation.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+tokenizer_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+topk: 40
+train_data: ../data/BBH/movie_recommendation.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.35it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.49it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.56it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  2.18it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.75it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.66it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.67it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.29it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.02it/s]Initialized Workers...
+
+Started worker 3071056 for model meta-llama/Meta-Llama-3-8B-Instruct
+Process Process-1:
+Traceback (most recent call last):
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "../llm_opt/base/attack_manager.py", line 2467, in run
+    results.put(ob.grad(*args, **kwargs))
+  File "../llm_opt/base/attack_manager.py", line 1020, in grad
+    return sum([prompt.grad(model, current_pos, valid_tokens) for prompt in self._prompts])
+  File "../llm_opt/base/attack_manager.py", line 1020, in <listcomp>
+    return sum([prompt.grad(model, current_pos, valid_tokens) for prompt in self._prompts])
+  File "../llm_opt/gcg/gcg_attack.py", line 122, in grad
+    return token_gradients(
+  File "../llm_opt/gcg/gcg_attack.py", line 109, in token_gradients
+    loss.backward()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/_tensor.py", line 525, in backward
+    torch.autograd.backward(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 182.00 MiB. GPU 
+[W CudaIPCTypes.cpp:16] Producer process has been terminated before all shared CUDA tensors released. See Note [Sharing CUDA tensors]
+../llm_opt/base/attack_manager.py:943: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:540: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:545: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+../llm_opt/base/attack_manager.py:1169: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+Started worker 3071370 for model meta-llama/Meta-Llama-3-8B-Instruct
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  44.00443720817566
+Intersection set size: 11
+Candidate tokens:  one a context logic the  this only logical movie your
+Time taken to get recomputed solution logits:  26.170661211013794
+Time taken to get recomputed solution logits:  23.98792839050293
+>Prompt Choice:  one thinking just feeling. Loss: 22.084375381469727, Mistakes: 0.4399999976158142, Control Loss: 9.771888732910156, Total Loss: 0.6354377865791321
+Time taken to get recomputed solution logits:  22.823005437850952
+Time taken to get recomputed solution logits:  20.163214683532715
+>Prompt Choice:  no thinking just feeling. Loss: 18.706249237060547, Mistakes: 0.3400000035762787, Control Loss: 7.156883239746094, Total Loss: 0.48313766717910767
+Time taken to get recomputed solution logits:  32.2057740688324
+Time taken to get recomputed solution logits:  32.621702671051025
+>Prompt Choice:  movie thinking just feeling. Loss: 23.736719131469727, Mistakes: 0.4399999976158142, Control Loss: 10.431741714477539, Total Loss: 0.6486347913742065
+No improvement in the current position. Moving to the next position.
+New Control:  no thinking just feeling., New Loss: 0.48313766717910767
+Current length: 5
+ no thinking just feeling.
+Current Loss: 0.48313766717910767 Best Loss: 0.48313766717910767 Best Control:  no thinking just feeling.
+Step:  0 Candidates:  [(0.48313766717910767, ' no thinking just feeling.')]
+Time taken to update solutions:  42.62773013114929
+Intersection set size: 1
+Candidate tokens:  other
+>>>> Topk increased to 17 <<<<
+Intersection set size: 2
+Candidate tokens:  movie recommendation
+>>>> Topk increased to 19 <<<<
+Intersection set size: 2
+Candidate tokens:  movie other
+>>>> Topk increased to 21 <<<<
+Intersection set size: 10
+Candidate tokens:  movies similarity combination recommendation similar single common movie specific other
+Process Process-2:
+Traceback (most recent call last):
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "../llm_opt/base/attack_manager.py", line 2452, in run
+    task = tasks.get()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/queues.py", line 97, in get
+    res = self._recv_bytes()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/connection.py", line 216, in recv_bytes
+    buf = self._recv_bytes(maxlength)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/connection.py", line 414, in _recv_bytes
+    buf = self._recv(4)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/connection.py", line 379, in _recv
+    chunk = read(handle, remaining)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "main.py", line 103, in <module>
+    app.run(main)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 308, in run
+    _run_main(main, args)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 254, in _run_main
+    sys.exit(main(argv))
+  File "main.py", line 83, in main
+    attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1965, in run
+    control, loss, inner_steps = attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1605, in run
+    control, loss = self.step(
+  File "../llm_opt/gcg/gcg_attack.py", line 537, in step
+    _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=15, accumulate=True)
+  File "../llm_opt/gcg/gcg_attack.py", line 347, in morph_control
+    grad = self.get_grads(main_device, pos, top_indices)
+  File "../llm_opt/gcg/gcg_attack.py", line 212, in get_grads
+    new_grad = worker.results.get().to(main_device)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/queues.py", line 97, in get
+    res = self._recv_bytes()
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/connection.py", line 216, in recv_bytes
+    buf = self._recv_bytes(maxlength)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/connection.py", line 414, in _recv_bytes
+    buf = self._recv(4)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/multiprocessing/connection.py", line 379, in _recv
+    chunk = read(handle, remaining)
+KeyboardInterrupt

@@ -1,0 +1,234 @@
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: proper logical reasoning and think step by step. Finally give the actual
+  correct answer.
+control_weight: 0.2
+conversation_templates:
+- gemma-2
+- gemma-2
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ A'' or ''$ B''
+  or ''$ C'' or ''$ D'' or ''$ E'') is $'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_gemma2_tracking_shuffled_objects_five_objects_formal_fallacies.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/tracking_shuffled_objects_five_objects.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  use_fast: false
+- add_bos_token: false
+  use_fast: false
+tokenizer_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+topk: 40
+train_data: ../data/BBH/tracking_shuffled_objects_five_objects.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.64it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.76it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.79it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.92it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.77it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.86it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.82it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.93it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.89it/s]Initialized Workers...
+
+Started worker 2064692 for model google/gemma-2-9b-it
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Started worker 2065276 for model google/gemma-2-9b-it
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  65.04235887527466
+Intersection set size: 4
+Candidate tokens:  process reasoning a the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  process only elimination reasoning a the
+Time taken to get recomputed solution logits:  63.620036125183105
+>Prompt Choice:  reasoning logical reasoning and think step by step. Finally give the actual correct answer. Loss: 12.675393104553223, Mistakes: 0.2800000011920929, Control Loss: 4.999179840087891, Total Loss: 0.3799836039543152
+Time taken to get recomputed solution logits:  63.61690330505371
+>Prompt Choice:  only logical reasoning and think step by step. Finally give the actual correct answer. Loss: 11.045732498168945, Mistakes: 0.23999999463558197, Control Loss: 4.520647048950195, Total Loss: 0.33041292428970337
+Time taken to get recomputed solution logits:  64.24585723876953
+>Prompt Choice:  a logical reasoning and think step by step. Finally give the actual correct answer. Loss: 12.714484214782715, Mistakes: 0.2800000011920929, Control Loss: 4.820555686950684, Total Loss: 0.376411110162735
+No improvement in the current position. Moving to the next position.
+New Control:  only logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.33041292428970337
+Current length: 15
+ only logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.33041292428970337 Best Loss: 0.33041292428970337 Best Control:  only logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.33041292428970337, ' only logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  63.94950270652771
+Intersection set size: 4
+Candidate tokens:  information logic given the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  information logic given the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  information logical logic given reasoning what the dedu
+Time taken to get recomputed solution logits:  62.97368931770325
+>Prompt Choice:  only the reasoning and think step by step. Finally give the actual correct answer. Loss: 14.717477798461914, Mistakes: 0.3199999928474426, Control Loss: 4.608941078186035, Total Loss: 0.41217881441116333
+Time taken to get recomputed solution logits:  63.241363525390625
+>Prompt Choice:  only logical reasoning and think step by step. Finally give the actual correct answer. Loss: 11.045732498168945, Mistakes: 0.23999999463558197, Control Loss: 4.143957614898682, Total Loss: 0.3228791356086731
+Time taken to get recomputed solution logits:  63.285964250564575
+>Prompt Choice:  only reasoning reasoning and think step by step. Finally give the actual correct answer. Loss: 9.169126510620117, Mistakes: 0.19999998807907104, Control Loss: 4.823928356170654, Total Loss: 0.2964785695075989
+No improvement in the current position. Moving to the next position.
+New Control:  only reasoning reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.2964785695075989
+Current length: 15
+ only reasoning reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.2964785695075989 Best Loss: 0.2964785695075989 Best Control:  only reasoning reasoning and think step by step. Finally give the actual correct answer.
+Loss below loss_threshold. Moving to next objective.
+Time taken to update solutions:  126.10063815116882
+Intersection set size: 4
+Candidate tokens:  process reasoning a the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  process your elimination reasoning a the
+Time taken to get recomputed solution logits:  121.74634051322937
+>Prompt Choice:  your reasoning reasoning and think step by step. Finally give the actual correct answer. Loss: 12.628579139709473, Mistakes: 0.2800000011920929, Control Loss: 4.321712970733643, Total Loss: 0.3664342761039734
+Time taken to get recomputed solution logits:  126.54432559013367
+>Prompt Choice:  a reasoning reasoning and think step by step. Finally give the actual correct answer. Loss: 12.861345291137695, Mistakes: 0.2800000011920929, Control Loss: 5.157645225524902, Total Loss: 0.38315290212631226
+Time taken to get recomputed solution logits:  124.42480754852295
+>Prompt Choice:  the reasoning reasoning and think step by step. Finally give the actual correct answer. Loss: 10.840252876281738, Mistakes: 0.23999999463558197, Control Loss: 4.940186500549316, Total Loss: 0.3388037085533142
+No improvement in the current position. Moving to the next position.
+New Control:  the reasoning reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.3388037085533142
+Current length: 15
+ the reasoning reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.3388037085533142 Best Loss: 0.3388037085533142 Best Control:  the reasoning reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.3388037085533142, ' the reasoning reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  124.36802649497986
+Intersection set size: 3
+Candidate tokens:  step steps following
+>>>> Topk increased to 7 <<<<
+Intersection set size: 3
+Candidate tokens:  step steps following
+>>>> Topk increased to 9 <<<<
+Intersection set size: 4
+Candidate tokens:  step process following steps
+>>>> Topk increased to 11 <<<<
+Intersection set size: 5
+Candidate tokens:  step list process following steps
+>>>> Topk increased to 13 <<<<
+Intersection set size: 6
+Candidate tokens:  step list process following steps chart
+Time taken to get recomputed solution logits:  119.753671169281
+>Prompt Choice:  the following reasoning and think step by step. Finally give the actual correct answer. Loss: 13.273049354553223, Mistakes: 0.29999998211860657, Control Loss: 4.1236491203308105, Total Loss: 0.382472962141037
+Time taken to get recomputed solution logits:  122.2891492843628
+>Prompt Choice:  the list reasoning and think step by step. Finally give the actual correct answer. Loss: 13.807560920715332, Mistakes: 0.29999998211860657, Control Loss: 4.596077919006348, Total Loss: 0.3919215202331543
+Time taken to get recomputed solution logits:  121.73145842552185
+>Prompt Choice:  the process reasoning and think step by step. Finally give the actual correct answer. Loss: 13.572206497192383, Mistakes: 0.29999998211860657, Control Loss: 4.664951801300049, Total Loss: 0.39329901337623596
+No improvement in the current position. Moving to the next position.
+New Control:  the following reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.382472962141037
+Current length: 15
+ the following reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.382472962141037 Best Loss: 0.3388037085533142 Best Control:  the reasoning reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  121.89794611930847
+Intersection set size: 3
+Candidate tokens:  steps chart table
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  diagram logic process steps chart table
+Time taken to get recomputed solution logits:  122.0790798664093
+>Prompt Choice:  the following steps and think step by step. Finally give the actual correct answer. Loss: 9.518301010131836, Mistakes: 0.2199999988079071, Control Loss: 4.021618366241455, Total Loss: 0.30043235421180725
+Time taken to get recomputed solution logits:  116.80294275283813
+>Prompt Choice:  the following diagram and think step by step. Finally give the actual correct answer. Loss: 12.991710662841797, Mistakes: 0.29999998211860657, Control Loss: 3.7337450981140137, Total Loss: 0.37467488646507263
+Time taken to get recomputed solution logits:  117.58885550498962
+>Prompt Choice:  the following table and think step by step. Finally give the actual correct answer. Loss: 8.51427936553955, Mistakes: 0.19999998807907104, Control Loss: 3.888925790786743, Total Loss: 0.2777785062789917normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+../llm_opt/base/attack_manager.py:939: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+../llm_opt/base/attack_manager.py:1141: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+
+No improvement in the current position. Moving to the next position.
+New Control:  the following table and think step by step. Finally give the actual correct answer., New Loss: 0.2777785062789917
+Current length: 15
+ the following table and think step by step. Finally give the actual correct answer.
+Current Loss: 0.2777785062789917 Best Loss: 0.2777785062789917 Best Control:  the following table and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  120.07660388946533
+Intersection set size: 5
+Candidate tokens:  to and, as for
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  to and, as for
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  format to and of that, as for
+Time taken to get recomputed solution logits:  187.72315287590027
+>Prompt Choice:  the following table as think step by step. Finally give the actual correct answer. Loss: 11.365867614746094, Mistakes: 0.25999999046325684, Control Loss: 4.407015800476074, Total Loss: 0.34814029932022095
+Traceback (most recent call last):
+  File "main.py", line 103, in <module>
+    app.run(main)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 308, in run
+    _run_main(main, args)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 254, in _run_main
+    sys.exit(main(argv))
+  File "main.py", line 83, in main
+    attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1933, in run
+    control, loss, inner_steps = attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1574, in run
+    control, loss = self.step(
+  File "../llm_opt/gcg/gcg_attack.py", line 509, in step
+    _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=5, accumulate=True)
+  File "../llm_opt/gcg/gcg_attack.py", line 378, in morph_control
+    logits, target_slice_starts, targets_ids_list = self.prompts[0].logits_batched_gen(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "../llm_opt/base/attack_manager.py", line 1197, in logits_batched_gen
+    outputs_final = model(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/models/gemma2/modeling_gemma2.py", line 1089, in forward
+    logits = logits / self.config.final_logit_softcapping
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.71 GiB. GPU  has a total capacity of 79.14 GiB of which 2.62 GiB is free. Including non-PyTorch memory, this process has 76.10 GiB memory in use. Process 2065276 has 414.00 MiB memory in use. Of the allocated memory 72.86 GiB is allocated by PyTorch, and 2.75 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

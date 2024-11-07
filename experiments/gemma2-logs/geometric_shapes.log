@@ -1,0 +1,161 @@
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: proper logical reasoning and think step by step. Finally give the actual
+  correct answer.
+control_weight: 0.2
+conversation_templates:
+- gemma-2
+- gemma-2
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ A'' or ''$ B''
+  or ''$ C'' or ''$ D'' or ''$ E'' or ''$ F'' or ''$ G'' or ''$ H'' or ''$ I'' or
+  ''$ J'') is $'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_gemma2_gcg_bbh_geometric_shapes.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/geometric_shapes.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  use_fast: false
+- add_bos_token: false
+  use_fast: false
+tokenizer_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+topk: 40
+train_data: ../data/BBH/geometric_shapes.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.49it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.25it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.38it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.48it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.43it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.68it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.75it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.73it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.85it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.81it/s]Initialized Workers...
+
+Started worker 1483706 for model google/gemma-2-9b-it
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+../llm_opt/base/attack_manager.py:939: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+../llm_opt/base/attack_manager.py:1141: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+Started worker 1484364 for model google/gemma-2-9b-it
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  84.6583640575409
+Intersection set size: 5
+Candidate tokens:  the SVG a your an
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  the  only a your an
+Time taken to get recomputed solution logits:  80.20473098754883
+>Prompt Choice:  your logical reasoning and think step by step. Finally give the actual correct answer. Loss: 23.948226928710938, Mistakes: 0.5199999809265137, Control Loss: 4.286607265472412, Total Loss: 24.8055477142334
+Time taken to get recomputed solution logits:  89.75734567642212
+>Prompt Choice:  an logical reasoning and think step by step. Finally give the actual correct answer. Loss: 19.614055633544922, Mistakes: 0.47999998927116394, Control Loss: 5.05311393737793, Total Loss: 20.624677658081055
+Time taken to get recomputed solution logits:  87.04367303848267
+>Prompt Choice:  a logical reasoning and think step by step. Finally give the actual correct answer. Loss: 19.914081573486328, Mistakes: 0.4399999976158142, Control Loss: 4.55449104309082, Total Loss: 20.824979782104492
+No improvement in the current position. Moving to the next position.
+New Control:  an logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 20.624677658081055
+Current length: 15
+ an logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 20.624677658081055 Best Loss: 20.624677658081055 Best Control:  an logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(20.624677658081055, ' an logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  87.09649872779846
+Intersection set size: 2
+Candidate tokens:  online SVG
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  image online understanding SVG
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  online explanation external SVG image understanding appropriate
+Time taken to get recomputed solution logits:  80.08883357048035
+>Prompt Choice:  an external reasoning and think step by step. Finally give the actual correct answer. Loss: 24.87897491455078, Mistakes: 0.5999999642372131, Control Loss: 5.653299808502197, Total Loss: 26.009634017944336
+Time taken to get recomputed solution logits:  91.91574478149414
+>Prompt Choice:  an online reasoning and think step by step. Finally give the actual correct answer. Loss: 27.450918197631836, Mistakes: 0.6399999856948853, Control Loss: 5.8564019203186035, Total Loss: 28.6221981048584
+Time taken to get recomputed solution logits:  80.28866696357727
+>Prompt Choice:  an understanding reasoning and think step by step. Finally give the actual correct answer. Loss: 24.981151580810547, Mistakes: 0.5600000023841858, Control Loss: 5.904344081878662, Total Loss: 26.162019729614258
+No improvement in the current position. Moving to the next position.
+New Control:  an external reasoning and think step by step. Finally give the actual correct answer., New Loss: 26.009634017944336
+Current length: 15
+ an external reasoning and think step by step. Finally give the actual correct answer.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 26.009634017944336 Best Loss: 20.624677658081055 Best Control:  an logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  78.4255998134613
+Intersection set size: 4
+Candidate tokens:  tool resource library SVG
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  website resource library SVG image tool
+Time taken to get recomputed solution logits:  77.65360856056213
+>Prompt Choice:  an external tool and think step by step. Finally give the actual correct answer. Loss: 34.74419403076172, Mistakes: 0.7599999904632568, Control Loss: 5.27797794342041, Total Loss: 35.79978942871094
+Time taken to get recomputed solution logits:  85.4663655757904
+>Prompt Choice:  an external resource and think step by step. Finally give the actual correct answer. Loss: 25.99704360961914, Mistakes: 0.6800000071525574, Control Loss: 5.395060062408447, Total Loss: 27.0760555267334
+Traceback (most recent call last):
+  File "main.py", line 103, in <module>
+    app.run(main)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 308, in run
+    _run_main(main, args)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 254, in _run_main
+    sys.exit(main(argv))
+  File "main.py", line 83, in main
+    attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1925, in run
+    control, loss, inner_steps = attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1566, in run
+    control, loss = self.step(
+  File "../llm_opt/gcg/gcg_attack.py", line 506, in step
+    _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=5, accumulate=True)
+  File "../llm_opt/gcg/gcg_attack.py", line 378, in morph_control
+    logits, target_slice_starts, targets_ids_list = self.prompts[0].logits_batched_gen(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "../llm_opt/base/attack_manager.py", line 1194, in logits_batched_gen
+    outputs_final = model(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/models/gemma2/modeling_gemma2.py", line 1093, in forward
+    logits = logits.float()
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 9.58 GiB. GPU  has a total capacity of 79.14 GiB of which 8.61 GiB is free. Including non-PyTorch memory, this process has 70.11 GiB memory in use. Process 1484364 has 414.00 MiB memory in use. Of the allocated memory 56.14 GiB is allocated by PyTorch, and 13.47 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

@@ -1,0 +1,101 @@
+goal,target
+Sentence 1: The boy is stuck in the door of the doghouse. Sentence 2: A child is stuck in a dog house.,4 - almost perfectly
+Sentence 1: A boy is riding a bike on a gate. Sentence 2: A woman is riding a horse.,1 - probably not
+Sentence 1: A school bus is driving uphill on a rural road. Sentence 2: A race care driving along a dirt road.,1 - probably not
+"Sentence 1: 9 dead, 11 hurt, 4 missing in Mont Blanc avalanche Sentence 2: 6 dead, several missing in Mont Blanc avalanche",2 - possibly
+Sentence 1: Two French journalists killed in Mali Sentence 2: France confirms two French journalists killed in Mali,5 - perfectly
+"Sentence 1: Mall attackers used 'less is more' strategy Sentence 2: In Kenya, attackers used 'less is more' strategy",3 - probably
+Sentence 1: Some men are fighting. Sentence 2: Two men are fighting.,4 - almost perfectly
+Sentence 1: Polling stations open at Ukrainian presidential election Sentence 2: Nominations open for e.TV Ghana Most Influential Awards,0 - definitely not
+Sentence 1: Hamas mixed sex schools ban takes effect Sentence 2: Hamas in mixed-sex school 'ban',4 - almost perfectly
+Sentence 1: That is not direct responsibilty to the constituents. Sentence 2: Aye but they ARE responsible to their constituents.,3 - probably
+Sentence 1: A man and a woman are riding on their bicycles. Sentence 2: A man and woman are riding a motorcycle.,2 - possibly
+Sentence 1: A woman is eating something. Sentence 2: A woman is eating meat.,3 - probably
+Sentence 1: Russian parliament allows Putin to use military in Ukraine Sentence 2: Russia has no intention to incorporate southeastern Ukraine: FM,2 - possibly
+Sentence 1: Teenager and father killed in crash Sentence 2: Three killed in horror crash are named,2 - possibly
+Sentence 1: Earthquake of 6.3 magnitude strikes off Indonesia island Sentence 2: Earthquake of 6 magnitude strikes Thailand,2 - possibly
+Sentence 1: Quake of 6.2 magnitude strikes off Indonesia's Sumatra - USGS Sentence 2: Earthquake of 6.9 magnitude strikes off Indonesia island,3 - probably
+"Sentence 1: Pak: 20 dead in anti-Islam film protests Sentence 2: 25 injured in anti-Islam film protest in Islamabad, Pakistan",2 - possibly
+Sentence 1: Egypt protesters defy cabinet threat to end sit-ins Sentence 2: Egypt protesters defy cabinet threat,4 - almost perfectly
+"Sentence 1: Iran, atomic agency in first talks since Rowhani election Sentence 2: IAEA, Iran to hold first nuclear talks since Rohani election",5 - perfectly
+Sentence 1: Israel's Peres urges return to peace talks Sentence 2: Gonsalves keeps up pressure on Dom Rep,0 - definitely not
+Sentence 1: Some is grating onion into water. Sentence 2: A person grates a potato into a bowl.,2 - possibly
+Sentence 1: A young boy is riding a bike. Sentence 2: A young girl laying on a blue inflatable toy,0 - definitely not
+Sentence 1: Wave of bombings kills 15 in Iraq Sentence 2: Car bombs kill at least 49 in Iraq,2 - possibly
+Sentence 1: A female applies something to he hair with her hands. Sentence 2: A cat is eating a slice of watermelon.,0 - definitely not
+Sentence 1: The men are performing on stage. Sentence 2: The comedic mimes performed on stage.,3 - probably
+Sentence 1: lugar and nunn are senators. Sentence 2: lugar and nunn awarded the prime minister a medal.,2 - possibly
+Sentence 1: A sheep stands on a hillside. Sentence 2: A large sheep standing on a hill.,4 - almost perfectly
+Sentence 1: NYPD Twitter Outreach Backfires Badly Sentence 2: NYPD's twitter campaign backfires,5 - perfectly
+Sentence 1: A man is playing a flute. Sentence 2: A man is playing a guitar.,2 - possibly
+Sentence 1: Ukraine's jailed opposition icon Tymoshenko walks free Sentence 2: Ukraine's opposition chief wants more protests,2 - possibly
+Sentence 1: A large black bird is sitting in the water. Sentence 2: The birds are swimming in the water.,3 - probably
+Sentence 1: Mali hunts jihadist nightclub killers Sentence 2: Militants attack UN as Mali hunts jihadist nightclub killers,3 - probably
+Sentence 1: General Electric posts 9% profit drop for third quarter Sentence 2: GE posts 9% profit drop for third quarter,5 - perfectly
+Sentence 1: India Ink: Image of the Day: January 27 Sentence 2: India Ink: Image of the Day: March 20,1 - probably not
+Sentence 1: A person is doing pencil tricks with his hand. Sentence 2: A person is slicing carrots in half.,0 - definitely not
+Sentence 1: Table with blue table cloth in kitchen. Sentence 2: Wooden cabinets in kitchen.,2 - possibly
+Sentence 1: A man is slicing a carrot by a machine. Sentence 2: A man is climbing a rope.,0 - definitely not
+Sentence 1: Israel detains 37 Palestinians as arrest operation continues Sentence 2: Israel criticizes Palestinian stance on settlers,1 - probably not
+Sentence 1: Someone is frying meat. Sentence 2: Someone is playing paino.,0 - definitely not
+Sentence 1: Death toll from Egypt protests rises to 49 Sentence 2: Death toll from Egypt violence rises to 638,3 - probably
+Sentence 1: A man is slam dunking a ball. Sentence 2: A woman is slicing some onions.,0 - definitely not
+Sentence 1: 'Israeli' arrested in Yemen Mossad spy Sentence 2: Israeli forces detain 2 in Hebron arrest raid,2 - possibly
+Sentence 1: Three boys are dancing. Sentence 2: Kids are dancing.,3 - probably
+Sentence 1: A man is climbing a rope. Sentence 2: A man climbs up a rope.,5 - perfectly
+Sentence 1: Sensex down 193 points on budget blues Sentence 2: Romney won't volunteer budget differences,1 - probably not
+"Sentence 1: JetBlue pilot who disrupted flight declared insane, not guilty Sentence 2: JetBlue pilot who caused disruption on flight not guilty",4 - almost perfectly
+Sentence 1: South Africa mine clash kills at least 30 Sentence 2: South Africa train crash kills 26,1 - probably not
+Sentence 1: A woman is cracking eggs into a bowl. Sentence 2: A woman is cracking eggs.,4 - almost perfectly
+Sentence 1: Massive Hurricane Sandy bears down on U.S. East Coast Sentence 2: Hurricane Sandy takes aim at US East Coast,4 - almost perfectly
+Sentence 1: Three dogs are playing in the water. Sentence 2: Three dogs run in the snow.,1 - probably not
+Sentence 1: I don't like flavored beers. Sentence 2: I don't like many flavored drinks.,3 - probably
+Sentence 1: Indian rape accused face verdicts Sentence 2: Indian rape accused found guilty,4 - almost perfectly
+Sentence 1: US gov't officially designates Haqqani network as terrorists Sentence 2: US designates Haqqani network as terrorists,4 - almost perfectly
+Sentence 1: Govt. to hold talks with FTII students Sentence 2: Cameron to hold talks with Sturgeon on UK future,0 - definitely not
+Sentence 1: It's a common sense/deductive reasoning thing. Sentence 2: Hilited your common sense/deductive reasoning thing.,2 - possibly
+"Sentence 1: Israelis, Palestinians resume talks in US Sentence 2: Israelis, Palestinians begin talks",4 - almost perfectly
+Sentence 1: Egypt braces for 'Friday of anger' after carnage Sentence 2: Egypt braces for Friday of anger after bloody crackdown,4 - almost perfectly
+Sentence 1: A group of people dance on a hill. Sentence 2: A group of people are dancing.,3 - probably
+Sentence 1: A man does floor exercises. Sentence 2: A man is exercising.,4 - almost perfectly
+Sentence 1: A young boy sings and plays a guitar. Sentence 2: A kid plays the guitar.,3 - probably
+Sentence 1: A dog is jumping on a trampoline. Sentence 2: A boy is playing a guitar.,0 - definitely not
+"Sentence 1: 'Whitey' Bulger given two consecutive life terms Sentence 2: Whitey Bulger gets life for racketeering, killings",3 - probably
+Sentence 1: A woman slices a lemon. Sentence 2: A man is talking into a microphone.,0 - definitely not
+Sentence 1: Police: Explosion in Belfast Cathedral Quarter Sentence 2: Explosion in Kabul a suicide attack in diplomatic area,2 - possibly
+Sentence 1: A badger is digging in the dirt. Sentence 2: A man is moving large rocks.,0 - definitely not
+Sentence 1: A person on a bmx bike. Sentence 2: A man on a bike in mid-air,3 - probably
+"Sentence 1: Iran's Rouhani warns of Talibanisation in Syria Sentence 2: Russia, China Concerned About Israeli Airstrikes in Syria",1 - probably not
+Sentence 1: An animal run in circles. Sentence 2: A squirrel runs in circles.,4 - almost perfectly
+Sentence 1: Anti-government protesters storm the streets of Kyiv Sentence 2: Ukraine protesters topple Lenin statue,1 - probably not
+Sentence 1: US delays missile test as tensions rise Sentence 2: William Hague: US decision to halt missile test 'sensible',3 - probably
+Sentence 1: Egyptians vote on Islamist-backed constitution Sentence 2: 'Judge at polls directs voters on Egypt constitution vote',1 - probably not
+Sentence 1: Two dogs swim in a pool. Sentence 2: Dogs are swimming in a pool.,4 - almost perfectly
+Sentence 1: Relief in Boston as second suspect captured Sentence 2: Police confirm how suspect was captured,2 - possibly
+"Sentence 1: Nixon, Ford and Carter shut down the oilfields? Sentence 2: No has has shut down the oil fields.",2 - possibly
+Sentence 1: A man riding a white horse in an arena. Sentence 2: A domestic animal stands in a pen.,1 - probably not
+Sentence 1: Italian Foreign Minister confers with Ghana VP Sentence 2: Belgian Prime Minister sends condolences to victims,0 - definitely not
+Sentence 1: Twelve killed in bomb blast on Pakistani train Sentence 2: Five killed by bomb blast in East India,1 - probably not
+Sentence 1: 5 aid workers freed in operation in Afghanistan Sentence 2: Suicide bomber kills 37 at mosque in Afghanistan,1 - probably not
+"Sentence 1: Bush gets zero credit for the budget under him. Sentence 2: And, Obama gets zero credit for the budget under him.",2 - possibly
+Sentence 1: Key says marae visit a lost opportunity Sentence 2: Key wants Waitangi marae visit to stay,2 - possibly
+Sentence 1: A subway train pulling into the station. Sentence 2: A white train pulling into a station.,4 - almost perfectly
+Sentence 1: US military presence in East Asia Sentence 2: NATO ups military presence amid Russian threat,1 - probably not
+Sentence 1: A brown dog in running on grass. Sentence 2: A brown dog runs through the grass.,5 - perfectly
+Sentence 1: A woman is slipping in the water-tub. Sentence 2: A woman is lying in a raft.,1 - probably not
+Sentence 1: 12 killed in bus accident in Pakistan Sentence 2: 10 killed in road accident in NW Pakistan,3 - probably
+Sentence 1: Supreme Court takes on affirmative action in Michigan ban case Sentence 2: Supreme Court to hear Michigan affirmative action case,4 - almost perfectly
+Sentence 1: Winter Storm Ion: State-By-State... Sentence 2: Winter Storm Janus: State-by-State...,3 - probably
+Sentence 1: Runners race around a track. Sentence 2: Runners compete in a race.,3 - probably
+Sentence 1: A girl is singing and playing a guitar. Sentence 2: A young man is singing while playing the guitar.,2 - possibly
+Sentence 1: Tell me exactly which system isn't working right now? Sentence 2: So which system isn't working for us?,4 - almost perfectly
+"Sentence 1: What isn't how what was sold? Sentence 2: It's not how it was sold, gb.",2 - possibly
+Sentence 1: A man is drawing some figures. Sentence 2: A man is drawing on a digital dry erase board.,3 - probably
+Sentence 1: Another rocket hits Eshkol; no injuries Sentence 2: 2 rockets hit Eshkol; none injured,3 - probably
+Sentence 1: A woman is dancing. Sentence 2: The man is dancing.,3 - probably
+Sentence 1: Israel Carrying Out Ground Offensive In Gaza Sentence 2: Israel Launches Ground Offensive In Gaza,5 - perfectly
+Sentence 1: the drug is also known as ice or shabu. Sentence 2: methamphetamine is also known as ice.,3 - probably
+Sentence 1: Three dogs playing in the snow. Sentence 2: Three dogs are playing in the water.,3 - probably
+Sentence 1: Someone is carving a statue. Sentence 2: A man is carving a statue.,4 - almost perfectly
+"Sentence 1: Israel kills Hamas commander, bombs Gaza targets Sentence 2: Israel airstrikes kill Hamas commander, 5 others",3 - probably
+Sentence 1: Philippe becomes king of Belgium Sentence 2: Philippe ascends throne of divided Belgium,4 - almost perfectly

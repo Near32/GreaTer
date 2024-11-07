@@ -1,0 +1,153 @@
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: ' proper logical reasoning and think step by step. Finally give the
+  actual correct answer.'
+control_weight: 0.2
+conversation_templates:
+- llama-3
+- llama-3
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ Yes'' or ''$ No'')
+  is $ '
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_llama3_navigate_ffrf.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/navigate.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+- add_bos_token: false
+  pad_token: <|end_of_text|>
+  use_fast: false
+tokenizer_paths:
+- meta-llama/Meta-Llama-3-8B-Instruct
+- meta-llama/Meta-Llama-3-8B-Instruct
+topk: 40
+train_data: ../data/BBH/navigate.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.39it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:03<00:04,  2.13s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:04<00:01,  1.47s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.03it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.18s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.59it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.53it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.63it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  2.25it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.95it/s]Initialized Workers...
+
+Started worker 1592191 for model meta-llama/Meta-Llama-3-8B-Instruct
+../llm_opt/base/attack_manager.py:942: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:540: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/generation/configuration_utils.py:545: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+../llm_opt/base/attack_manager.py:1168: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+Started worker 1592951 for model meta-llama/Meta-Llama-3-8B-Instruct
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  75.33334374427795
+Intersection set size: 4
+Candidate tokens:  a logic the your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  one a logic logical the your
+Time taken to get recomputed solution logits:  43.29492712020874
+Time taken to get recomputed solution logits:  45.659481048583984
+>Prompt Choice:  logical logical reasoning and think step by step. Finally give the actual correct answer. Loss: 25.920917510986328, Mistakes: 0.47999998927116394, Control Loss: 4.286384582519531, Total Loss: 0.565727710723877
+Time taken to get recomputed solution logits:  42.22985243797302
+Time taken to get recomputed solution logits:  42.012617349624634
+>Prompt Choice:  a logical reasoning and think step by step. Finally give the actual correct answer. Loss: 25.13928985595703, Mistakes: 0.4599999785423279, Control Loss: 4.131438255310059, Total Loss: 0.5426287651062012
+Time taken to get recomputed solution logits:  39.150625228881836
+Time taken to get recomputed solution logits:  39.525482177734375
+>Prompt Choice:  the logical reasoning and think step by step. Finally give the actual correct answer. Loss: 23.76804542541504, Mistakes: 0.3999999761581421, Control Loss: 3.9698777198791504, Total Loss: 0.4793975353240967
+No improvement in the current position. Moving to the next position.
+New Control:  the logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.4793975353240967
+Current length: 16
+ the logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.4793975353240967 Best Loss: 0.4793975353240967 Best Control:  the logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.4793975353240967, ' the logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  66.70295453071594
+Intersection set size: 3
+Candidate tokens:  following diagram grid
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  coordinate diagram graph following number grid
+Time taken to get recomputed solution logits:  36.876619815826416
+Time taken to get recomputed solution logits:  42.091365337371826
+>Prompt Choice:  the logical reasoning and think step by step. Finally give the actual correct answer. Loss: 20.767602920532227, Mistakes: 0.3999999761581421, Control Loss: 3.438910961151123, Total Loss: 0.46877819299697876
+Time taken to get recomputed solution logits:  45.95763421058655
+Time taken to get recomputed solution logits:  38.50532555580139
+>Prompt Choice:  the grid reasoning and think step by step. Finally give the actual correct answer. Loss: 16.069610595703125, Mistakes: 0.2800000011920929, Control Loss: 4.407773971557617, Total Loss: 0.36815547943115234
+Time taken to get recomputed solution logits:  33.247549295425415
+Time taken to get recomputed solution logits:  35.903573751449585
+>Prompt Choice:  the number reasoning and think step by step. Finally give the actual correct answer. Loss: 17.959434509277344, Mistakes: 0.3400000035762787, Control Loss: 4.644437789916992, Total Loss: 0.4328887462615967
+No improvement in the current position. Moving to the next position.
+New Control:  the grid reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.36815547943115234
+Current length: 16
+ the grid reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.36815547943115234 Best Loss: 0.36815547943115234 Best Control:  the grid reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.17862057685852
+Intersection set size: 5
+Candidate tokens:  shown as below to system
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  shown method as below to system
+Time taken to get recomputed solution logits:  45.618772745132446
+Traceback (most recent call last):
+  File "main.py", line 103, in <module>
+    app.run(main)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 308, in run
+    _run_main(main, args)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 254, in _run_main
+    sys.exit(main(argv))
+  File "main.py", line 83, in main
+    attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1964, in run
+    control, loss, inner_steps = attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1604, in run
+    control, loss = self.step(
+  File "../llm_opt/gcg/gcg_attack.py", line 537, in step
+    _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=5, accumulate=True)
+  File "../llm_opt/gcg/gcg_attack.py", line 396, in morph_control
+    loss_new, mist_perc, control_loss = self.prompts[k].selection_loss(logits[0], target_slice_starts[0],
+  File "../llm_opt/base/attack_manager.py", line 1340, in selection_loss
+    l1, l2, l3 = prompt.selection_loss(_logits[i], target_slice_start, target_id)
+  File "../llm_opt/base/attack_manager.py", line 714, in selection_loss
+    focused_loss = nn.CrossEntropyLoss(reduction='none')(logits[focused_loss_slice, :], target_ids[self._focused_target_slice.start-self._target_slice.start: self._focused_target_slice.start-self._target_slice.start+window_size])
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/loss.py", line 1185, in forward
+    return F.cross_entropy(input, target, weight=self.weight,
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/functional.py", line 3086, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+ValueError: Expected input batch_size (1) to match target batch_size (0).

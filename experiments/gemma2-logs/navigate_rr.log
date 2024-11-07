@@ -1,0 +1,1346 @@
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+allow_non_ascii: false
+anneal: true
+attack: gcg
+batch_size: 64
+control_init: proper logical reasoning and think step by step. Finally give the actual
+  correct answer.
+control_weight: 0.2
+conversation_templates:
+- gemma-2
+- gemma-2
+data_offset: 0
+devices:
+- cuda:0
+- cuda:1
+extractor_text: 'Therefore, the final answer (use exact format: ''$ Yes'' or ''$ No'')
+  is $'
+filter_cand: true
+gbda_deterministic: true
+incr_control: false
+logfile: ''
+lr: 0.01
+model_kwargs:
+- low_cpu_mem_usage: true
+  use_cache: false
+- low_cpu_mem_usage: true
+  use_cache: false
+model_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+n_steps: 125
+n_test_data: 50
+n_train_data: 50
+num_train_models: 1
+progressive_goals: true
+progressive_models: false
+result_prefix: results/transfer_gemma2_navigate_ffr.json
+stop_on_success: false
+target_weight: 1.0
+temp: 1
+test_data: ../data/BBH/navigate.json
+test_steps: 500
+tokenizer_kwargs:
+- add_bos_token: false
+  use_fast: false
+- add_bos_token: false
+  use_fast: false
+tokenizer_paths:
+- google/gemma-2-9b-it
+- google/gemma-2-9b-it
+topk: 40
+train_data: ../data/BBH/navigate.json
+transfer: true
+verbose: true
+
+Loaded 50 train goals
+Loaded 50 test goals
+Loaded 2 tokenizers
+Loaded 2 conversation templates
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.72it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.76it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.73it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.88it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.82it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.74it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.77it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.90it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.84it/s]Initialized Workers...
+
+Started worker 3110823 for model google/gemma-2-9b-it
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Started worker 3111140 for model google/gemma-2-9b-it
+Loaded 1 train models
+Loaded 1 test models
+Time taken to update solutions:  80.3573911190033
+Intersection set size: 4
+Candidate tokens:  the a your an
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this the a your an
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  this the explanation these  a your an
+Time taken to get recomputed solution logits:  44.173054456710815
+>Prompt Choice:  this logical reasoning and think step by step. Finally give the actual correct answer. Loss: 8.623969078063965, Mistakes: 0.23999999463558197, Control Loss: 4.938839435577393, Total Loss: 0.33877676725387573
+Time taken to get recomputed solution logits:  56.744510650634766
+>Prompt Choice:  proper logical reasoning and think step by step. Finally give the actual correct answer. Loss: 4.320552349090576, Mistakes: 0.09677419066429138, Control Loss: 4.9500837326049805, Total Loss: 0.1957758665084839
+Time taken to get recomputed solution logits:  42.12750577926636
+>Prompt Choice:  these logical reasoning and think step by step. Finally give the actual correct answer. Loss: 5.008171081542969, Mistakes: 0.11538462340831757, Control Loss: 4.989551544189453, Total Loss: 0.21517565846443176
+No improvement in the current position. Moving to the next position.
+New Control:  proper logical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.1957758665084839
+Current length: 15
+ proper logical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.1957758665084839 Best Loss: 0.1957758665084839 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Step:  0 Candidates:  [(0.1957758665084839, ' proper logical reasoning and think step by step. Finally give the actual correct answer.')]
+Time taken to update solutions:  79.90384697914124
+Intersection set size: 2
+Candidate tokens:  formatting grammar
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  explanation units English mathematical formatting grammar instructions
+Time taken to get recomputed solution logits:  58.656277656555176
+>Prompt Choice:  proper English reasoning and think step by step. Finally give the actual correct answer. Loss: 14.32407283782959, Mistakes: 0.32258063554763794, Control Loss: 5.573067665100098, Total Loss: 0.43404197692871094
+Time taken to get recomputed solution logits:  44.65446949005127
+>Prompt Choice:  proper units reasoning and think step by step. Finally give the actual correct answer. Loss: 16.47992706298828, Mistakes: 0.37037038803100586, Control Loss: 6.193270683288574, Total Loss: 0.4942358136177063
+Time taken to get recomputed solution logits:  43.21040344238281
+>Prompt Choice:  proper mathematical reasoning and think step by step. Finally give the actual correct answer. Loss: 9.197569847106934, Mistakes: 0.2083333432674408, Control Loss: 5.204498291015625, Total Loss: 0.3124232888221741
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical reasoning and think step by step. Finally give the actual correct answer., New Loss: 0.3124232888221741
+Current length: 15
+ proper mathematical reasoning and think step by step. Finally give the actual correct answer.
+Current Loss: 0.3124232888221741 Best Loss: 0.1957758665084839 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  86.85814094543457
+Intersection set size: 2
+Candidate tokens:  reasoning notation
+>>>> Topk increased to 7 <<<<
+Intersection set size: 3
+Candidate tokens:  or notation reasoning
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  notation operations logic language reasoning
+>>>> Topk increased to 11 <<<<
+Intersection set size: 5
+Candidate tokens:  notation explanation operations calculations reasoning
+>>>> Topk increased to 13 <<<<
+Intersection set size: 10
+Candidate tokens:  and expressions notation explanation operations logic language calculations or reasoning
+Time taken to get recomputed solution logits:  40.64923167228699
+>Prompt Choice:  proper mathematical operations and think step by step. Finally give the actual correct answer. Loss: 11.781637191772461, Mistakes: 0.260869562625885, Control Loss: 4.702731609344482, Total Loss: 0.35492420196533203
+Time taken to get recomputed solution logits:  39.75213670730591
+>Prompt Choice:  proper mathematical logic and think step by step. Finally give the actual correct answer. Loss: 7.233041286468506, Mistakes: 0.1666666716337204, Control Loss: 4.655084609985352, Total Loss: 0.25976836681365967
+Time taken to get recomputed solution logits:  53.31468605995178
+>Prompt Choice:  proper mathematical calculations and think step by step. Finally give the actual correct answer. Loss: 10.081019401550293, Mistakes: 0.2142857313156128, Control Loss: 4.809103965759277, Total Loss: 0.31046780943870544
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic and think step by step. Finally give the actual correct answer., New Loss: 0.25976836681365967
+Current length: 15
+ proper mathematical logic and think step by step. Finally give the actual correct answer.
+Current Loss: 0.25976836681365967 Best Loss: 0.1957758665084839 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  86.31506538391113
+Intersection set size: 4
+Candidate tokens:  to and. or
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  to and., or reasoning for
+Time taken to get recomputed solution logits:  32.916850090026855
+>Prompt Choice:  proper mathematical logic, think step by step. Finally give the actual correct answer. Loss: 5.474344730377197, Mistakes: 0.11764705926179886, Control Loss: 4.788729667663574, Total Loss: 0.21342164278030396
+Time taken to get recomputed solution logits:  36.647366762161255
+>Prompt Choice:  proper mathematical logic to think step by step. Finally give the actual correct answer. Loss: 7.3493123054504395, Mistakes: 0.15789473056793213, Control Loss: 5.156498908996582, Total Loss: 0.26102471351623535
+Time taken to get recomputed solution logits:  38.11796736717224
+>Prompt Choice:  proper mathematical logic. think step by step. Finally give the actual correct answer. Loss: 9.429682731628418, Mistakes: 0.2083333432674408, Control Loss: 5.096386909484863, Total Loss: 0.310261070728302
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, think step by step. Finally give the actual correct answer., New Loss: 0.21342164278030396
+Current length: 15
+ proper mathematical logic, think step by step. Finally give the actual correct answer.
+Current Loss: 0.21342164278030396 Best Loss: 0.1957758665084839 Best Control:  proper logical reasoning and think step by step. Finally give the actual correct answer.
+Time taken to update solutions:  86.17200326919556
+Intersection set size: 5
+Candidate tokens:  to and not explain please
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  to and not explain explaining please
+Time taken to get recomputed solution logits:  43.48290801048279
+>Prompt Choice:  proper mathematical logic, think step by step. Finally give the actual correct answer. Loss: 8.183053016662598, Mistakes: 0.1818181872367859, Control Loss: 4.984956741333008, Total Loss: 0.2815173268318176
+Time taken to get recomputed solution logits:  43.4589159488678
+>Prompt Choice:  proper mathematical logic, and step by step. Finally give the actual correct answer. Loss: 6.578129291534424, Mistakes: 0.1428571492433548, Control Loss: 5.559112071990967, Total Loss: 0.2540394067764282
+Time taken to get recomputed solution logits:  43.99801969528198
+>Prompt Choice:  proper mathematical logic, explaining step by step. Finally give the actual correct answer. Loss: 0.0032414214219897985, Mistakes: 0.0, Control Loss: 5.376771926879883, Total Loss: 0.10753543674945831
+No improvement in the current position. Moving to the next position.normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+New Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer., New Loss: 0.10753543674945831
+Current length: 15
+ proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Current Loss: 0.10753543674945831 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  93.1283507347107
+Intersection set size: 5
+Candidate tokens:  the each your how why
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  the each your clearly how why
+Time taken to get recomputed solution logits:  41.42795968055725
+>Prompt Choice:  proper mathematical logic, explaining step by step. Finally give the actual correct answer. Loss: 3.4382686614990234, Mistakes: 0.07407407462596893, Control Loss: 4.993947982788086, Total Loss: 0.17395302653312683
+Time taken to get recomputed solution logits:  41.27034831047058
+>Prompt Choice:  proper mathematical logic, explaining each by step. Finally give the actual correct answer. Loss: 8.767923355102539, Mistakes: 0.1818181872367859, Control Loss: 5.842374324798584, Total Loss: 0.2986656725406647
+Time taken to get recomputed solution logits:  39.43447279930115
+>Prompt Choice:  proper mathematical logic, explaining your by step. Finally give the actual correct answer. Loss: 8.683873176574707, Mistakes: 0.19230769574642181, Control Loss: 5.871136665344238, Total Loss: 0.3097304105758667
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer., New Loss: 0.17395302653312683
+Current length: 15
+ proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Current Loss: 0.17395302653312683 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  92.90672254562378
+Intersection set size: 2
+Candidate tokens:   by
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . wiseby  by for
+Time taken to get recomputed solution logits:  33.44238042831421
+>Prompt Choice:  proper mathematical logic, explaining step by step. Finally give the actual correct answer. Loss: 5.231042385101318, Mistakes: 0.11764705926179886, Control Loss: 5.010828018188477, Total Loss: 0.21786361932754517
+Time taken to get recomputed solution logits:  46.25727963447571
+>Prompt Choice:  proper mathematical logic, explaining step for step. Finally give the actual correct answer. Loss: 4.1045451164245605, Mistakes: 0.09090909361839294, Control Loss: 4.993008613586426, Total Loss: 0.1907692551612854
+Time taken to get recomputed solution logits:  46.90610933303833
+>Prompt Choice:  proper mathematical logic, explaining step. step. Finally give the actual correct answer. Loss: 9.487298965454102, Mistakes: 0.20689654350280762, Control Loss: 5.041822910308838, Total Loss: 0.3077329993247986
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step for step. Finally give the actual correct answer., New Loss: 0.1907692551612854
+Current length: 15
+ proper mathematical logic, explaining step for step. Finally give the actual correct answer.
+Current Loss: 0.1907692551612854 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  85.70663785934448
+Intersection set size: 4
+Candidate tokens:  step steps each the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  step example steps a each
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  step each example steps a the every
+Time taken to get recomputed solution logits:  44.38023591041565
+>Prompt Choice:  proper mathematical logic, explaining step for step. Finally give the actual correct answer. Loss: 11.911523818969727, Mistakes: 0.25925925374031067, Control Loss: 5.472467422485352, Total Loss: 0.36870861053466797
+Time taken to get recomputed solution logits:  40.82313942909241
+>Prompt Choice:  proper mathematical logic, explaining step for steps. Finally give the actual correct answer. Loss: 7.824065208435059, Mistakes: 0.2083333432674408, Control Loss: 5.367453575134277, Total Loss: 0.31568241119384766
+Time taken to get recomputed solution logits:  42.74829125404358
+>Prompt Choice:  proper mathematical logic, explaining step for every. Finally give the actual correct answer. Loss: 5.361083984375, Mistakes: 0.11538462340831757, Control Loss: 5.713167667388916, Total Loss: 0.22964796423912048
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step for every. Finally give the actual correct answer., New Loss: 0.22964796423912048
+Current length: 15
+ proper mathematical logic, explaining step for every. Finally give the actual correct answer.
+!!!!Rejecting new control originally, changed !!!!
+Current Loss: 0.22964796423912048 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  92.35058641433716
+Intersection set size: 2
+Candidate tokens:  step single
+>>>> Topk increased to 7 <<<<
+Intersection set size: 2
+Candidate tokens:  step single
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  step action single move instruction
+>>>> Topk increased to 11 <<<<
+Intersection set size: 6
+Candidate tokens:  step action calculation single move instruction
+Time taken to get recomputed solution logits:  42.16332507133484
+>Prompt Choice:  proper mathematical logic, explaining step for every. Finally give the actual correct answer. Loss: 7.185642242431641, Mistakes: 0.19230769574642181, Control Loss: 6.308643341064453, Total Loss: 0.31848055124282837
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step for every. Finally give the actual correct answer., New Loss: 0.31848055124282837
+Current length: 15
+ proper mathematical logic, explaining step for every. Finally give the actual correct answer.
+Current Loss: 0.31848055124282837 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  92.22664332389832
+Intersection set size: 4
+Candidate tokens:  stepstep  Step
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  step Herestep  Let Step
+Time taken to get recomputed solution logits:  37.894840717315674
+>Prompt Choice:  proper mathematical logic, explaining step for every. step give the actual correct answer. Loss: 8.973937034606934, Mistakes: 0.20000000298023224, Control Loss: 7.094325065612793, Total Loss: 0.3418865203857422
+Time taken to get recomputed solution logits:  44.38007688522339
+>Prompt Choice:  proper mathematical logic, explaining step for every.step give the actual correct answer. Loss: 8.401065826416016, Mistakes: 0.19999998807907104, Control Loss: 7.048144817352295, Total Loss: 0.34096288681030273
+Time taken to get recomputed solution logits:  45.704283475875854
+>Prompt Choice:  proper mathematical logic, explaining step for every.  give the actual correct answer. Loss: 8.003087043762207, Mistakes: 0.2083333432674408, Control Loss: 7.3996734619140625, Total Loss: 0.3563268184661865
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step for every.step give the actual correct answer., New Loss: 0.34096288681030273
+Current length: 15
+ proper mathematical logic, explaining step for every.step give the actual correct answer.
+Current Loss: 0.34096288681030273 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  90.28444337844849
+Intersection set size: 5normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Candidate tokens:  to. and, in
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  of to. and,  in
+Time taken to get recomputed solution logits:  44.63648509979248
+>Prompt Choice:  proper mathematical logic, explaining step for every.step  the actual correct answer. Loss: 7.8609619140625, Mistakes: 0.2222222238779068, Control Loss: 7.0567779541015625, Total Loss: 0.3633577823638916
+Time taken to get recomputed solution logits:  46.58132553100586
+>Prompt Choice:  proper mathematical logic, explaining step for every.step, the actual correct answer. Loss: 6.731452465057373, Mistakes: 0.1538461595773697, Control Loss: 6.322359085083008, Total Loss: 0.280293345451355
+Time taken to get recomputed solution logits:  61.10923433303833
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the actual correct answer. Loss: 6.489887237548828, Mistakes: 0.1515151560306549, Control Loss: 6.734410285949707, Total Loss: 0.2862033545970917
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step for every.step. the actual correct answer., New Loss: 0.2862033545970917
+Current length: 15
+ proper mathematical logic, explaining step for every.step. the actual correct answer.
+Current Loss: 0.2862033545970917 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  97.86317467689514
+Intersection set size: 3
+Candidate tokens:   Lets
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:   Letsstep
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  to Westep  LetLets
+Time taken to get recomputed solution logits:  48.3862419128418
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the actual correct answer. Loss: 1.535698652267456, Mistakes: 0.09090909361839294, Control Loss: 5.903951168060303, Total Loss: 0.20898811519145966
+Time taken to get recomputed solution logits:  57.548890829086304
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. to actual correct answer. Loss: 7.709957122802734, Mistakes: 0.17241379618644714, Control Loss: 6.284756660461426, Total Loss: 0.29810893535614014
+Time taken to get recomputed solution logits:  56.142881870269775
+>Prompt Choice:  proper mathematical logic, explaining step for every.step.step actual correct answer. Loss: 5.5124735832214355, Mistakes: 0.1428571492433548, Control Loss: 6.361207962036133, Total Loss: 0.2700813114643097
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step for every.step. the actual correct answer., New Loss: 0.20898811519145966
+Current length: 15
+ proper mathematical logic, explaining step for every.step. the actual correct answer.
+Current Loss: 0.20898811519145966 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  99.03187918663025
+Intersection set size: 2
+Candidate tokens:  reasoning solution
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  logic process solution answer steps reasoning
+Time taken to get recomputed solution logits:  44.56077551841736
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the steps correct answer. Loss: 4.110936164855957, Mistakes: 0.09090909361839294, Control Loss: 6.168998718261719, Total Loss: 0.21428906917572021
+Time taken to get recomputed solution logits:  40.18545126914978
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the process correct answer. Loss: 6.111647605895996, Mistakes: 0.1538461595773697, Control Loss: 6.339727878570557, Total Loss: 0.28064072132110596
+Time taken to get recomputed solution logits:  62.95049786567688
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the answer correct answer. Loss: 5.675235748291016, Mistakes: 0.12903225421905518, Control Loss: 6.132165908813477, Total Loss: 0.2516755759716034
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step for every.step. the steps correct answer., New Loss: 0.21428906917572021
+Current length: 15
+ proper mathematical logic, explaining step for every.step. the steps correct answer.
+Current Loss: 0.21428906917572021 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  96.59869027137756
+Intersection set size: 5
+Candidate tokens:  to. and taken you
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  to. and are taken you
+Time taken to get recomputed solution logits:  64.45171284675598
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the steps to answer. Loss: 8.155987739562988, Mistakes: 0.19354838132858276, Control Loss: 6.000016212463379, Total Loss: 0.3135487139225006
+Time taken to get recomputed solution logits:  64.9844388961792
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the steps correct answer. Loss: 8.640912055969238, Mistakes: 0.20000001788139343, Control Loss: 5.782109260559082, Total Loss: 0.31564220786094666
+Time taken to get recomputed solution logits:  47.541436195373535
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the steps and answer. Loss: 8.101197242736816, Mistakes: 0.18518519401550293, Control Loss: 5.967383861541748, Total Loss: 0.30453288555145264
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step for every.step. the steps and answer., New Loss: 0.30453288555145264
+Current length: 15
+ proper mathematical logic, explaining step for every.step. the steps and answer.
+Current Loss: 0.30453288555145264 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  95.45380735397339
+Intersection set size: 4
+Candidate tokens:  their the how why
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  their the how why
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  their the direction directions how why
+Time taken to get recomputed solution logits:  52.96941304206848
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the steps and the. Loss: 6.398116588592529, Mistakes: 0.1428571492433548, Control Loss: 6.005755424499512, Total Loss: 0.26297226548194885
+Time taken to get recomputed solution logits:  44.60445690155029
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the steps and their. Loss: 13.01707935333252, Mistakes: 0.30434784293174744, Control Loss: 5.957740783691406, Total Loss: 0.423502653837204
+Time taken to get recomputed solution logits:  43.652050495147705
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the steps and how. Loss: 8.700104713439941, Mistakes: 0.19999998807907104, Control Loss: 5.9231977462768555, Total Loss: 0.3184639513492584
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step for every.step. the steps and the., New Loss: 0.26297226548194885
+Current length: 15
+ proper mathematical logic, explaining step for every.step. the steps and the.
+Current Loss: 0.26297226548194885 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  94.23241519927979
+Intersection set size: 3
+Candidate tokens:  final resulting direction
+>>>> Topk increased to 7 <<<<
+Intersection set size: 3
+Candidate tokens:  final direction resulting
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  final logic resulting direction directions reasoning
+Time taken to get recomputed solution logits: normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+ 45.29860544204712
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the steps and the logic Loss: 9.235309600830078, Mistakes: 0.21739131212234497, Control Loss: 5.694699764251709, Total Loss: 0.331285297870636
+Time taken to get recomputed solution logits:  44.99856519699097
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the steps and the reasoning Loss: 9.440387725830078, Mistakes: 0.21739131212234497, Control Loss: 5.717169761657715, Total Loss: 0.33173471689224243
+Time taken to get recomputed solution logits:  47.15798878669739
+>Prompt Choice:  proper mathematical logic, explaining step for every.step. the steps and the. Loss: 6.83668327331543, Mistakes: 0.1599999964237213, Control Loss: 5.712628364562988, Total Loss: 0.2742525637149811
+No improvement in the current position. Moving to the next position.
+New Control:  proper mathematical logic, explaining step for every.step. the steps and the., New Loss: 0.2742525637149811
+Current length: 15
+ proper mathematical logic, explaining step for every.step. the steps and the.
+Current Loss: 0.2742525637149811 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Step:  15 Candidates:  [(0.10753543674945831, ' proper mathematical logic, explaining step by step. Finally give the actual correct answer.'), (0.17395302653312683, ' proper mathematical logic, explaining step by step. Finally give the actual correct answer.'), (0.1907692551612854, ' proper mathematical logic, explaining step for step. Finally give the actual correct answer.'), (0.1957758665084839, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.20898811519145966, ' proper mathematical logic, explaining step for every.step. the actual correct answer.'), (0.21342164278030396, ' proper mathematical logic, think step by step. Finally give the actual correct answer.'), (0.21428906917572021, ' proper mathematical logic, explaining step for every.step. the steps correct answer.'), (0.22964796423912048, ' proper mathematical logic, explaining step for every. Finally give the actual correct answer.'), (0.25976836681365967, ' proper mathematical logic and think step by step. Finally give the actual correct answer.'), (0.26297226548194885, ' proper mathematical logic, explaining step for every.step. the steps and the.')]
+Time taken to update solutions:  94.17081665992737
+Intersection set size: 5
+Candidate tokens:  this the a your an
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this the a your an
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  this the explanation these  a your an
+Time taken to get recomputed solution logits:  42.31123208999634
+>Prompt Choice:  the mathematical logic, explaining step for every.step. the steps and the. Loss: 10.060632705688477, Mistakes: 0.26923078298568726, Control Loss: 6.157900810241699, Total Loss: 0.39238879084587097
+Time taken to get recomputed solution logits:  49.216171979904175
+>Prompt Choice:  this mathematical logic, explaining step for every.step. the steps and the. Loss: 10.13970947265625, Mistakes: 0.3076923191547394, Control Loss: 6.153302192687988, Total Loss: 0.43075835704803467
+Time taken to get recomputed solution logits:  42.47965335845947
+>Prompt Choice:  your mathematical logic, explaining step for every.step. the steps and the. Loss: 5.935111045837402, Mistakes: 0.1428571492433548, Control Loss: 6.083556175231934, Total Loss: 0.2645282745361328
+No improvement in the current position. Moving to the next position.
+New Control:  your mathematical logic, explaining step for every.step. the steps and the., New Loss: 0.2645282745361328
+Current length: 15
+ your mathematical logic, explaining step for every.step. the steps and the.
+Current Loss: 0.2645282745361328 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  91.41720771789551
+Intersection set size: 3
+Candidate tokens:  logic answer reasoning
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  words explanation logic imagination answer reasoning
+Time taken to get recomputed solution logits:  23.93639087677002
+>Prompt Choice:  your answer logic, explaining step for every.step. the steps and the. Loss: 13.130562782287598, Mistakes: 0.3571428656578064, Control Loss: 5.943513870239258, Total Loss: 0.4760131239891052
+Time taken to get recomputed solution logits:  52.69034433364868
+>Prompt Choice:  your words logic, explaining step for every.step. the steps and the. Loss: 14.370868682861328, Mistakes: 0.40000003576278687, Control Loss: 6.451125144958496, Total Loss: 0.5290225148200989
+Time taken to get recomputed solution logits:  47.61586809158325
+>Prompt Choice:  your reasoning logic, explaining step for every.step. the steps and the. Loss: 8.231844902038574, Mistakes: 0.23999999463558197, Control Loss: 6.071436405181885, Total Loss: 0.36142873764038086
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning logic, explaining step for every.step. the steps and the., New Loss: 0.36142873764038086
+Current length: 15
+ your reasoning logic, explaining step for every.step. the steps and the.
+Current Loss: 0.36142873764038086 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  89.1822395324707
+Intersection set size: 4
+Candidate tokens:  to.  below
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  to.  for below
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  to. and here  for below in
+Time taken to get recomputed solution logits:  35.77709984779358
+>Prompt Choice:  your reasoning for, explaining step for every.step. the steps and the. Loss: 11.594910621643066, Mistakes: 0.3181818127632141, Control Loss: 5.742260456085205, Total Loss: 0.4330270290374756
+Time taken to get recomputed solution logits:  27.171455144882202
+>Prompt Choice:  your reasoning below, explaining step for every.step. the steps and the. Loss: 10.965081214904785, Mistakes: 0.3529411852359772, Control Loss: 6.122485637664795, Total Loss: 0.4753909111022949
+Time taken to get recomputed solution logits:  40.14378118515015
+>Prompt Choice:  your reasoning in, explaining step for every.step. the steps and the. Loss: 7.744209289550781, Mistakes: 0.2916666865348816, Control Loss: 5.860993385314941, Total Loss: 0.40888655185699463
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in, explaining step for every.step. the steps and the., New Loss: 0.40888655185699463
+Current length: 15
+ your reasoning in, explaining step for every.step. the steps and the.
+Current Loss: 0.40888655185699463 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  85.95345163345337
+Intersection set size: 4
+Candidate tokens:  the  a your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  the  explaining a your an
+Time taken to get recomputed solution logits:  53.0209743976593
+>Prompt Choice:  your reasoning in your explaining step for every.step. the steps and the. Loss: 11.64330005645752, Mistakes: 0.2857142984867096, Control Loss: 5.971705436706543, Total Loss: 0.40514838695526123
+Time taken to get recomputed solution logits:  41.83508777618408
+>Prompt Choice:  your reasoning in the explaining step for every.step. the steps and the. Loss: 10.716642379760742, Mistakes: 0.2800000011920929, Control Loss: 5.80615234375, Total Loss: 0.3961230516433716
+Time taken to get recomputed solution logits:  44.52440094947815
+>Prompt Choice:  your reasoning in explaining explaining step for every.step. the steps and the. Loss: 11.224910736083984, Mistakes: 0.38461539149284363, Control Loss: 6.689601898193359, Total Loss: 0.51840740442276
+No improvement in the current position. Moving to the next position.normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+New Control:  your reasoning in the explaining step for every.step. the steps and the., New Loss: 0.3961230516433716
+Current length: 15
+ your reasoning in the explaining step for every.step. the steps and the.
+Current Loss: 0.3961230516433716 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  79.77789688110352
+Intersection set size: 3
+Candidate tokens:  explanation answer net
+>>>> Topk increased to 7 <<<<
+Intersection set size: 3
+Candidate tokens:  explanation answer net
+>>>> Topk increased to 9 <<<<
+Intersection set size: 4
+Candidate tokens:  explanation answer following net
+>>>> Topk increased to 11 <<<<
+Intersection set size: 6
+Candidate tokens:  step explanation following net explain answer
+Time taken to get recomputed solution logits:  38.84374451637268
+>Prompt Choice:  your reasoning in the step step for every.step. the steps and the. Loss: 9.493997573852539, Mistakes: 0.23076924681663513, Control Loss: 5.120638847351074, Total Loss: 0.33318203687667847
+Time taken to get recomputed solution logits:  50.676881074905396
+>Prompt Choice:  your reasoning in the answer step for every.step. the steps and the. Loss: 11.576462745666504, Mistakes: 0.27586206793785095, Control Loss: 5.347745895385742, Total Loss: 0.38281697034835815
+Time taken to get recomputed solution logits:  31.82052516937256
+>Prompt Choice:  your reasoning in the following step for every.step. the steps and the. Loss: 13.881457328796387, Mistakes: 0.3333333432674408, Control Loss: 5.035120964050293, Total Loss: 0.4340357780456543
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step step for every.step. the steps and the., New Loss: 0.33318203687667847
+Current length: 15
+ your reasoning in the step step for every.step. the steps and the.
+Current Loss: 0.33318203687667847 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  85.12765789031982
+Intersection set size: 5
+Candidate tokens: . explanation  by below
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: . explanation  by below
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens: . explanation response  by below
+Time taken to get recomputed solution logits:  50.4045512676239
+>Prompt Choice:  your reasoning in the step. for every.step. the steps and the. Loss: 9.428301811218262, Mistakes: 0.2857142984867096, Control Loss: 5.094345569610596, Total Loss: 0.38760119676589966
+Time taken to get recomputed solution logits:  47.60171675682068
+>Prompt Choice:  your reasoning in the step response for every.step. the steps and the. Loss: 7.101468563079834, Mistakes: 0.19999998807907104, Control Loss: 5.056255340576172, Total Loss: 0.30112510919570923
+Time taken to get recomputed solution logits:  49.29432392120361
+>Prompt Choice:  your reasoning in the step step for every.step. the steps and the. Loss: 7.667254447937012, Mistakes: 0.20588235557079315, Control Loss: 4.9497833251953125, Total Loss: 0.30487802624702454
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every.step. the steps and the., New Loss: 0.30112510919570923
+Current length: 15
+ your reasoning in the step response for every.step. the steps and the.
+Current Loss: 0.30112510919570923 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  87.46120476722717
+Intersection set size: 4
+Candidate tokens:   to. below
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  to.  box below
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  to. field,  area box below
+Time taken to get recomputed solution logits:  36.80312705039978
+>Prompt Choice:  your reasoning in the step response for every.step. the steps and the. Loss: 6.1825103759765625, Mistakes: 0.1818181872367859, Control Loss: 4.798805236816406, Total Loss: 0.2777943015098572
+Time taken to get recomputed solution logits:  49.88101410865784
+>Prompt Choice:  your reasoning in the step response to every.step. the steps and the. Loss: 6.782589912414551, Mistakes: 0.21875, Control Loss: 5.169266700744629, Total Loss: 0.322135329246521
+Time taken to get recomputed solution logits:  45.17801260948181
+>Prompt Choice:  your reasoning in the step response field every.step. the steps and the. Loss: 8.752219200134277, Mistakes: 0.260869562625885, Control Loss: 5.249931812286377, Total Loss: 0.3658682107925415
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every.step. the steps and the., New Loss: 0.2777943015098572
+Current length: 15
+ your reasoning in the step response for every.step. the steps and the.
+Current Loss: 0.2777943015098572 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  87.32546854019165
+Intersection set size: 4
+Candidate tokens:  your why a the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  explanation clarification each your why a the
+Time taken to get recomputed solution logits:  49.711036920547485
+>Prompt Choice:  your reasoning in the step response for every.step. the steps and the. Loss: 7.635532379150391, Mistakes: 0.20689654350280762, Control Loss: 4.801272392272949, Total Loss: 0.30292198061943054
+Time taken to get recomputed solution logits:  37.08785653114319
+>Prompt Choice:  your reasoning in the step response for the.step. the steps and the. Loss: 10.690131187438965, Mistakes: 0.30434784293174744, Control Loss: 4.961137771606445, Total Loss: 0.40357059240341187
+Time taken to get recomputed solution logits:  30.453531503677368
+>Prompt Choice:  your reasoning in the step response for clarification.step. the steps and the. Loss: 13.791519165039062, Mistakes: 0.3636363744735718, Control Loss: 5.101110458374023, Total Loss: 0.465658575296402
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every.step. the steps and the., New Loss: 0.30292198061943054
+Current length: 15
+ your reasoning in the step response for every.step. the steps and the.
+Current Loss: 0.30292198061943054 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  87.18969225883484
+Intersection set size: 4
+Candidate tokens:  step question answer option
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  step choice answer option question case instruction
+Time taken to get recomputed solution logits:  60.125795125961304
+>Prompt Choice:  your reasoning in the step response for every.step. the steps and the. Loss: 5.8563151359558105, Mistakes: 0.16129031777381897, Control Loss: 4.84119987487793, Total Loss: 0.2581143081188202
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every.step. the steps and the., New Loss: 0.2581143081188202
+Current length: 15
+ your reasoning in the step response for every.step. the steps and the.
+Current Loss: 0.2581143081188202 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  87.4422538280487
+Intersection set size: 2
+Candidate tokens:   step
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  step single Istep  Step
+Time taken to get recomputed solution logits:  40.09899353981018
+>Prompt Choice:  your reasoning in the step response for every. . the steps and the. Loss: 10.27364730834961, Mistakes: 0.30434784293174744, Control Loss: 5.399615287780762, Total Loss: 0.4123401641845703
+Time taken to get recomputed solution logits: normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+ 53.561606884002686
+>Prompt Choice:  your reasoning in the step response for every. single. the steps and the. Loss: 9.570210456848145, Mistakes: 0.22727273404598236, Control Loss: 4.977673053741455, Total Loss: 0.32682618498802185
+Time taken to get recomputed solution logits:  53.586063385009766
+>Prompt Choice:  your reasoning in the step response for every. I. the steps and the. Loss: 13.655959129333496, Mistakes: 0.3870967626571655, Control Loss: 4.904091835021973, Total Loss: 0.4851785898208618
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every. single. the steps and the., New Loss: 0.32682618498802185
+Current length: 15
+ your reasoning in the step response for every. single. the steps and the.
+Current Loss: 0.32682618498802185 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  100.9877119064331
+Intersection set size: 5
+Candidate tokens: . step option one instruction
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: . step one question option instruction
+Time taken to get recomputed solution logits:  55.47363066673279
+>Prompt Choice:  your reasoning in the step response for every. single one the steps and the. Loss: 11.730321884155273, Mistakes: 0.2857142984867096, Control Loss: 4.612937927246094, Total Loss: 0.3779730498790741
+Time taken to get recomputed solution logits:  47.162517070770264
+>Prompt Choice:  your reasoning in the step response for every. single step the steps and the. Loss: 3.794890880584717, Mistakes: 0.11999999731779099, Control Loss: 4.635665416717529, Total Loss: 0.2127133011817932
+Time taken to get recomputed solution logits:  35.421608209609985
+>Prompt Choice:  your reasoning in the step response for every. single question the steps and the. Loss: 15.957996368408203, Mistakes: 0.4285714328289032, Control Loss: 4.677103519439697, Total Loss: 0.5221135020256042
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every. single step the steps and the., New Loss: 0.2127133011817932
+Current length: 15
+ your reasoning in the step response for every. single step the steps and the.
+Current Loss: 0.2127133011817932 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  93.54482293128967
+Intersection set size: 4
+Candidate tokens:  of. you,
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  of. and, taken you
+Time taken to get recomputed solution logits:  52.65371537208557
+>Prompt Choice:  your reasoning in the step response for every. single step taken steps and the. Loss: 12.40645980834961, Mistakes: 0.3478260934352875, Control Loss: 5.207420349121094, Total Loss: 0.4519745111465454
+Time taken to get recomputed solution logits:  48.66451120376587
+>Prompt Choice:  your reasoning in the step response for every. single step. steps and the. Loss: 7.697474479675293, Mistakes: 0.1818181872367859, Control Loss: 5.336172103881836, Total Loss: 0.28854161500930786
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every. single step. steps and the., New Loss: 0.28854161500930786
+Current length: 15
+ your reasoning in the step response for every. single step. steps and the.
+Current Loss: 0.28854161500930786 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  99.03787350654602
+Intersection set size: 4
+Candidate tokens:   stepStep I
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: Step step Istep  Step
+Time taken to get recomputed solution logits:  45.90970015525818
+>Prompt Choice:  your reasoning in the step response for every. single step. I and the. Loss: 15.016451835632324, Mistakes: 0.3499999940395355, Control Loss: 5.414392948150635, Total Loss: 0.4582878351211548
+Time taken to get recomputed solution logits:  44.335052251815796
+>Prompt Choice:  your reasoning in the step response for every. single step.  and the. Loss: 7.560667037963867, Mistakes: 0.17391304671764374, Control Loss: 5.920958995819092, Total Loss: 0.2923322319984436
+Time taken to get recomputed solution logits:  55.2483184337616
+>Prompt Choice:  your reasoning in the step response for every. single step. Step and the. Loss: 13.463302612304688, Mistakes: 0.3478260934352875, Control Loss: 5.084773540496826, Total Loss: 0.44952157139778137
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every. single step.  and the., New Loss: 0.2923322319984436
+Current length: 15
+ your reasoning in the step response for every. single step.  and the.
+Current Loss: 0.2923322319984436 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  103.84048581123352
+Intersection set size: 5
+Candidate tokens: NoIExplainExplanationYou
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: NoIExplainExplanationYou
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens: youNoIExplainExplanationYou
+Time taken to get recomputed solution logits:  51.46658253669739
+>Prompt Choice:  your reasoning in the step response for every. single step.▁▁No the. Loss: 8.096375465393066, Mistakes: 0.20000000298023224, Control Loss: 5.001216888427734, Total Loss: 0.3000243306159973
+Time taken to get recomputed solution logits:  47.68712854385376
+>Prompt Choice:  your reasoning in the step response for every. single step.▁▁You the. Loss: 7.723992824554443, Mistakes: 0.1818181872367859, Control Loss: 5.232993125915527, Total Loss: 0.28647804260253906
+Time taken to get recomputed solution logits:  50.085726499557495
+>Prompt Choice:  your reasoning in the step response for every. single step.▁▁I the. Loss: 8.361672401428223, Mistakes: 0.19999998807907104, Control Loss: 5.2351975440979, Total Loss: 0.304703950881958
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every. single step.▁▁You the., New Loss: 0.28647804260253906
+Current length: 15
+ your reasoning in the step response for every. single step.▁▁You the.
+Current Loss: 0.28647804260253906 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  96.86052823066711
+Intersection set size: 2
+Candidate tokens:  are can
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  need are don have can
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  need are don will have can
+Time taken to get recomputed solution logits:  48.600852966308594
+>Prompt Choice:  your reasoning in the step response for every. single step.▁▁You the. Loss: 8.317787170410156, Mistakes: 0.23999999463558197, Control Loss: 5.172967433929443, Total Loss: 0.3434593379497528
+Time taken to get recomputed solution logits:  51.24018740653992
+>Prompt Choice:  your reasoning in the step response for every. single step.▁▁You have. Loss: 10.240519523620605, Mistakes: 0.23999999463558197, Control Loss: 5.261981010437012, Total Loss: 0.3452396094799042
+Time taken to get recomputed solution logits:  50.069764614105225
+>Prompt Choice:  your reasoning in the step response for every. single step.▁▁You don. Loss: 4.335307598114014, Mistakes: 0.1304347813129425, Control Loss: 5.506439208984375, Total Loss: 0.24056357145309448
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every. single step.▁▁You don., New Loss: 0.24056357145309448
+Current length: 15
+ your reasoning in the step response for every. single step.▁▁You don.
+Current Loss:normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+ 0.24056357145309448 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Step:  30 Candidates:  [(0.10753543674945831, ' proper mathematical logic, explaining step by step. Finally give the actual correct answer.'), (0.17395302653312683, ' proper mathematical logic, explaining step by step. Finally give the actual correct answer.'), (0.1907692551612854, ' proper mathematical logic, explaining step for step. Finally give the actual correct answer.'), (0.1957758665084839, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.20898811519145966, ' proper mathematical logic, explaining step for every.step. the actual correct answer.'), (0.2127133011817932, ' your reasoning in the step response for every. single step the steps and the.'), (0.21342164278030396, ' proper mathematical logic, think step by step. Finally give the actual correct answer.'), (0.21428906917572021, ' proper mathematical logic, explaining step for every.step. the steps correct answer.'), (0.22964796423912048, ' proper mathematical logic, explaining step for every. Finally give the actual correct answer.'), (0.24056357145309448, ' your reasoning in the step response for every. single step.▁▁You don.')]
+Time taken to update solutions:  97.20128154754639
+Intersection set size: 5
+Candidate tokens: .,t set t
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: ., t set t
+Time taken to get recomputed solution logits:  43.82962512969971
+>Prompt Choice:  your reasoning in the step response for every. single step.▁▁You don. Loss: 5.992574214935303, Mistakes: 0.1666666716337204, Control Loss: 4.957319736480713, Total Loss: 0.26581305265426636
+No improvement in the current position. Moving to the next position.
+New Control:  your reasoning in the step response for every. single step.▁▁You don., New Loss: 0.26581305265426636
+Current length: 15
+ your reasoning in the step response for every. single step.▁▁You don.
+Current Loss: 0.26581305265426636 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  98.48476791381836
+Intersection set size: 4
+Candidate tokens:  the a your an
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this the a your an
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  this the explanation these  a your an
+Time taken to get recomputed solution logits:  46.40545129776001
+>Prompt Choice:  the reasoning in the step response for every. single step.▁▁You don. Loss: 11.278543472290039, Mistakes: 0.3214285969734192, Control Loss: 5.301231384277344, Total Loss: 0.4274532198905945
+Time taken to get recomputed solution logits:  57.553927183151245
+>Prompt Choice:  this reasoning in the step response for every. single step.▁▁You don. Loss: 10.88770866394043, Mistakes: 0.3076923191547394, Control Loss: 5.227963447570801, Total Loss: 0.4122515916824341
+Time taken to get recomputed solution logits:  25.32980751991272
+>Prompt Choice:  these reasoning in the step response for every. single step.▁▁You don. Loss: 6.6802263259887695, Mistakes: 0.2142857313156128, Control Loss: 5.501532554626465, Total Loss: 0.3243163824081421
+No improvement in the current position. Moving to the next position.
+New Control:  these reasoning in the step response for every. single step.▁▁You don., New Loss: 0.3243163824081421
+Current length: 15
+ these reasoning in the step response for every. single step.▁▁You don.
+Current Loss: 0.3243163824081421 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  97.58061075210571
+Intersection set size: 3
+Candidate tokens:  directions steps instructions
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  words calculations directions steps instructions
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  explanations to words calculations options directions steps instructions
+Time taken to get recomputed solution logits:  42.65473985671997
+>Prompt Choice:  these directions in the step response for every. single step.▁▁You don. Loss: 10.168889999389648, Mistakes: 0.2857142984867096, Control Loss: 5.402085304260254, Total Loss: 0.3937560021877289
+Time taken to get recomputed solution logits:  33.38126540184021
+>Prompt Choice:  these instructions in the step response for every. single step.▁▁You don. Loss: 18.8746280670166, Mistakes: 0.523809552192688, Control Loss: 5.385758876800537, Total Loss: 0.6315247416496277
+Time taken to get recomputed solution logits:  57.15089988708496
+>Prompt Choice:  these steps in the step response for every. single step.▁▁You don. Loss: 9.727071762084961, Mistakes: 0.27586206793785095, Control Loss: 5.28577995300293, Total Loss: 0.38157767057418823
+No improvement in the current position. Moving to the next position.
+New Control:  these steps in the step response for every. single step.▁▁You don., New Loss: 0.38157767057418823
+Current length: 15
+ these steps in the step response for every. single step.▁▁You don.
+Current Loss: 0.38157767057418823 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  84.57470154762268
+Intersection set size: 5
+Candidate tokens:  to and., as
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  to and., as for in
+Time taken to get recomputed solution logits:  45.943605184555054
+>Prompt Choice:  these steps as the step response for every. single step.▁▁You don. Loss: 10.219568252563477, Mistakes: 0.28125, Control Loss: 5.176259517669678, Total Loss: 0.38477519154548645
+Time taken to get recomputed solution logits:  41.157084703445435
+>Prompt Choice:  these steps for the step response for every. single step.▁▁You don. Loss: 13.7127103805542, Mistakes: 0.3913043439388275, Control Loss: 5.1724395751953125, Total Loss: 0.4947531223297119
+Time taken to get recomputed solution logits:  41.73263955116272
+>Prompt Choice:  these steps and the step response for every. single step.▁▁You don. Loss: 12.028703689575195, Mistakes: 0.3199999928474426, Control Loss: 5.078192234039307, Total Loss: 0.4215638339519501
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as the step response for every. single step.▁▁You don., New Loss: 0.38477519154548645
+Current length: 15
+ these steps as the step response for every. single step.▁▁You don.
+Current Loss: 0.38477519154548645 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  75.6037425994873
+Intersection set size: 4
+Candidate tokens:  instructions a the an
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  the instructions a your an
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  input the context instructions a your an
+Time taken to get recomputed solution logits:  38.46908497810364
+>Prompt Choice:  these steps as input step response for every. single step.▁▁You don. Loss: 11.604658126831055, Mistakes: 0.30434784293174744, Control Loss: 5.376941680908203, Total Loss: 0.41188669204711914
+Time taken to get recomputed solution logits:  38.18205761909485
+>Prompt Choice:  these steps as instructions step response for every. single step.▁▁You don. Loss: 13.635446548461914, Mistakes: 0.5, Control Loss: 5.5220489501953125, Total Loss: 0.6104409694671631
+Time taken to get recomputed solution logits:  33.70284461975098
+>Prompt Choice:  these steps as context step response for every. single step.▁▁You don. Loss: 12.648529052734375, Mistakes: 0.3461538553237915, Control Loss: 5.687485694885254, Total Loss: 0.4599035680294037
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input step response for every. single step.▁▁You don., New Loss: 0.41188669204711914normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Current length: 15
+ these steps as input step response for every. single step.▁▁You don.
+Current Loss: 0.41188669204711914 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  84.99288821220398
+Intersection set size: 5
+Candidate tokens:  to and., for
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  into to and., for in
+Time taken to get recomputed solution logits:  31.481862783432007
+>Prompt Choice:  these steps as input into response for every. single step.▁▁You don. Loss: 13.91663646697998, Mistakes: 0.52173912525177, Control Loss: 5.8389892578125, Total Loss: 0.6385189294815063
+Time taken to get recomputed solution logits:  34.46104907989502
+>Prompt Choice:  these steps as input in response for every. single step.▁▁You don. Loss: 6.747709274291992, Mistakes: 0.25, Control Loss: 5.574820518493652, Total Loss: 0.3614964187145233
+Time taken to get recomputed solution logits:  38.443089723587036
+>Prompt Choice:  these steps as input. response for every. single step.▁▁You don. Loss: 8.429056167602539, Mistakes: 0.23999999463558197, Control Loss: 5.8095831871032715, Total Loss: 0.3561916649341583
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. response for every. single step.▁▁You don., New Loss: 0.3561916649341583
+Current length: 15
+ these steps as input. response for every. single step.▁▁You don.
+Current Loss: 0.3561916649341583 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  76.07446098327637
+Intersection set size: 5
+Candidate tokens:  I  Use Let Calculate
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  I  Use Let Calculate
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  I  Use Let Please Calculate
+Time taken to get recomputed solution logits:  37.140111684799194
+>Prompt Choice:  these steps as input. Please for every. single step.▁▁You don. Loss: 11.566547393798828, Mistakes: 0.3333333432674408, Control Loss: 6.2559614181518555, Total Loss: 0.45845258235931396
+Time taken to get recomputed solution logits:  41.257380962371826
+>Prompt Choice:  these steps as input. Use for every. single step.▁▁You don. Loss: 9.67844295501709, Mistakes: 0.392857164144516, Control Loss: 5.558150291442871, Total Loss: 0.5040201544761658
+Time taken to get recomputed solution logits:  44.546712160110474
+>Prompt Choice:  these steps as input. Let for every. single step.▁▁You don. Loss: 11.507844924926758, Mistakes: 0.3571428656578064, Control Loss: 6.128257751464844, Total Loss: 0.4797080159187317
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please for every. single step.▁▁You don., New Loss: 0.45845258235931396
+Current length: 15
+ these steps as input. Please for every. single step.▁▁You don.
+Current Loss: 0.45845258235931396 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  85.857501745224
+Intersection set size: 3
+Candidate tokens:  specify tell provide
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens:  tell provide specify clarify explain describe
+Time taken to get recomputed solution logits:  74.6751139163971
+>Prompt Choice:  these steps as input. Please explain every. single step.▁▁You don. Loss: 16.09609603881836, Mistakes: 0.4193548262119293, Control Loss: 5.569977760314941, Total Loss: 0.5307543873786926
+Time taken to get recomputed solution logits:  33.17210364341736
+>Prompt Choice:  these steps as input. Please for every. single step.▁▁You don. Loss: 13.438243865966797, Mistakes: 0.42105263471603394, Control Loss: 5.430807113647461, Total Loss: 0.5296688079833984
+Time taken to get recomputed solution logits:  48.42294478416443
+>Prompt Choice:  these steps as input. Please specify every. single step.▁▁You don. Loss: 9.811049461364746, Mistakes: 0.25925925374031067, Control Loss: 5.359856605529785, Total Loss: 0.36645638942718506
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify every. single step.▁▁You don., New Loss: 0.36645638942718506
+Current length: 15
+ these steps as input. Please specify every. single step.▁▁You don.
+Current Loss: 0.36645638942718506 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  94.0697615146637
+Intersection set size: 4
+Candidate tokens:  the a what your
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  where the what which how a your
+Time taken to get recomputed solution logits:  38.45625972747803
+>Prompt Choice:  these steps as input. Please specify how. single step.▁▁You don. Loss: 7.710450172424316, Mistakes: 0.2222222238779068, Control Loss: 5.863110542297363, Total Loss: 0.33948442339897156
+Time taken to get recomputed solution logits:  39.761582136154175
+>Prompt Choice:  these steps as input. Please specify where. single step.▁▁You don. Loss: 7.6457929611206055, Mistakes: 0.26923078298568726, Control Loss: 5.794247627258301, Total Loss: 0.38511574268341064
+Time taken to get recomputed solution logits:  20.65666174888611
+>Prompt Choice:  these steps as input. Please specify a. single step.▁▁You don. Loss: 20.135671615600586, Mistakes: 0.5833333730697632, Control Loss: 5.36762809753418, Total Loss: 0.6906859278678894
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify how. single step.▁▁You don., New Loss: 0.33948442339897156
+Current length: 15
+ these steps as input. Please specify how. single step.▁▁You don.
+Current Loss: 0.33948442339897156 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  84.38708138465881
+Intersection set size: 4
+Candidate tokens:  to many you far
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  to many I much you far the
+Time taken to get recomputed solution logits:  44.19641613960266
+>Prompt Choice:  these steps as input. Please specify how I single step.▁▁You don. Loss: 17.812925338745117, Mistakes: 0.5416666865348816, Control Loss: 5.22730827331543, Total Loss: 0.6462128162384033
+Time taken to get recomputed solution logits:  38.5711944103241
+>Prompt Choice:  these steps as input. Please specify how much single step.▁▁You don. Loss: 10.833348274230957, Mistakes: 0.35999998450279236, Control Loss: 5.056783676147461, Total Loss: 0.4611356556415558
+Time taken to get recomputed solution logits:  40.0753276348114
+>Prompt Choice:  these steps as input. Please specify how many single step.▁▁You don. Loss: 13.095335960388184, Mistakes: 0.4000000059604645, Control Loss: 5.366533279418945, Total Loss: 0.5073306560516357
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify how much single step.▁▁You don., New Loss: 0.4611356556415558
+Current length: 15
+ these steps as input. Please specify how much single step.▁▁You don.
+Current Loss: 0.4611356556415558 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.15642166137695
+Intersection set size: 3
+Candidate tokens:  to you distance
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  to I you further distance
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  to I you further space distance
+Time taken to get recomputed solution logits:  72.2200288772583
+>Prompt Choice:  these steps as input. Please specify how much I step.▁▁You don. Loss: 9.8536376953125, Mistakes: 0.40625, Control Loss: 5.204431533813477, Total Loss: 0.5103386044502258normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to get recomputed solution logits:  87.25811409950256
+>Prompt Choice:  these steps as input. Please specify how much you step.▁▁You don. Loss: 11.212648391723633, Mistakes: 0.3333333432674408, Control Loss: 5.2603349685668945, Total Loss: 0.4385400414466858
+Time taken to get recomputed solution logits:  91.20104002952576
+>Prompt Choice:  these steps as input. Please specify how much to step.▁▁You don. Loss: 16.017072677612305, Mistakes: 0.5416666865348816, Control Loss: 4.9730634689331055, Total Loss: 0.6411279439926147
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify how much you step.▁▁You don., New Loss: 0.4385400414466858
+Current length: 15
+ these steps as input. Please specify how much you step.▁▁You don.
+Current Loss: 0.4385400414466858 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  181.90894985198975
+Intersection set size: 4
+Candidate tokens:  move have moved would
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  will would move have moved
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  need are will would move have moved
+Time taken to get recomputed solution logits:  49.48256993293762
+>Prompt Choice:  these steps as input. Please specify how much you move.▁▁You don. Loss: 12.67879581451416, Mistakes: 0.3181818127632141, Control Loss: 4.379995346069336, Total Loss: 0.40578171610832214
+Time taken to get recomputed solution logits:  29.719865560531616
+>Prompt Choice:  these steps as input. Please specify how much you will.▁▁You don. Loss: 12.777273178100586, Mistakes: 0.3684210479259491, Control Loss: 4.868725299835205, Total Loss: 0.4657955467700958
+Time taken to get recomputed solution logits:  37.39680051803589
+>Prompt Choice:  these steps as input. Please specify how much you are.▁▁You don. Loss: 16.144006729125977, Mistakes: 0.5, Control Loss: 4.5685529708862305, Total Loss: 0.5913710594177246
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify how much you move.▁▁You don., New Loss: 0.40578171610832214
+Current length: 15
+ these steps as input. Please specify how much you move.▁▁You don.
+Current Loss: 0.40578171610832214 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  75.10172033309937
+Intersection set size: 2
+Candidate tokens:  forward in
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens: . from overall forward in
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens: . from overall forward in
+>>>> Topk increased to 11 <<<<
+Intersection set size: 8
+Candidate tokens: . and from left horizontally overall forward in
+Time taken to get recomputed solution logits:  44.119773149490356
+>Prompt Choice:  these steps as input. Please specify how much you move horizontally▁▁You don. Loss: 7.98926305770874, Mistakes: 0.3333333432674408, Control Loss: 4.411053657531738, Total Loss: 0.42155441641807556
+Time taken to get recomputed solution logits:  37.797874450683594
+>Prompt Choice:  these steps as input. Please specify how much you move left▁▁You don. Loss: 7.710933208465576, Mistakes: 0.2800000011920929, Control Loss: 4.413352966308594, Total Loss: 0.3682670593261719
+Time taken to get recomputed solution logits:  36.95075607299805
+>Prompt Choice:  these steps as input. Please specify how much you move overall▁▁You don. Loss: 8.67650032043457, Mistakes: 0.2800000011920929, Control Loss: 4.219387054443359, Total Loss: 0.36438775062561035
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify how much you move overall▁▁You don., New Loss: 0.36438775062561035
+Current length: 15
+ these steps as input. Please specify how much you move overall▁▁You don.
+Current Loss: 0.36438775062561035 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  71.3825216293335
+Intersection set size: 4
+Candidate tokens: . and, in
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens: . and, in
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens: . and to, from in
+Time taken to get recomputed solution logits:  35.0562686920166
+>Prompt Choice:  these steps as input. Please specify how much you move overall inYou don. Loss: 9.19935131072998, Mistakes: 0.2916666865348816, Control Loss: 5.180477142333984, Total Loss: 0.3952762186527252
+Time taken to get recomputed solution logits:  35.203954219818115
+>Prompt Choice:  these steps as input. Please specify how much you move overall fromYou don. Loss: 11.411521911621094, Mistakes: 0.3333333432674408, Control Loss: 5.13513708114624, Total Loss: 0.436036080121994
+Time taken to get recomputed solution logits:  32.68086218833923
+>Prompt Choice:  these steps as input. Please specify how much you move overall toYou don. Loss: 7.57334566116333, Mistakes: 0.27272728085517883, Control Loss: 5.014875411987305, Total Loss: 0.3730247914791107
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify how much you move overall toYou don., New Loss: 0.3730247914791107
+Current length: 15
+ these steps as input. Please specify how much you move overall toYou don.
+Current Loss: 0.3730247914791107 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  70.6128625869751
+Intersection set size: 4
+Candidate tokens:  reach determine get the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  reach determine get the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  calculate arrive reach determine get the
+Time taken to get recomputed solution logits:  37.59364557266235
+>Prompt Choice:  these steps as input. Please specify how much you move overall toYou don. Loss: 12.594528198242188, Mistakes: 0.3636363744735718, Control Loss: 4.938880443572998, Total Loss: 0.4624139666557312
+Time taken to get recomputed solution logits:  31.51250386238098
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the don. Loss: 7.964015960693359, Mistakes: 0.19999998807907104, Control Loss: 5.496824264526367, Total Loss: 0.3099364638328552
+Time taken to get recomputed solution logits:  46.63070893287659
+>Prompt Choice:  these steps as input. Please specify how much you move overall to calculate don. Loss: 6.2151360511779785, Mistakes: 0.2857142984867096, Control Loss: 5.429452419281006, Total Loss: 0.3943033516407013
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify how much you move overall to the don., New Loss: 0.3099364638328552
+Current length: 15
+ these steps as input. Please specify how much you move overall to the don.
+Current Loss: 0.3099364638328552 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Step:  45 Candidates:  [(0.10753543674945831, ' proper mathematical logic, explaining step by step. Finally give the actual correct answer.'), (0.17395302653312683, ' proper mathematical logic, explaining step by step. Finally give the actual correct answer.'), (0.1907692551612854, ' proper mathematical logic, explaining step for step. Finally give the actual correct answer.'), (0.1957758665084839, ' proper logical reasoning and think step by step. Finally give the actual correct answer.'), (0.20898811519145966, ' proper mathematical logic, explaining step for every.step. the actual correct answer.'), (0.2127133011817932, ' your reasoning in the step response for every. single step the steps and the.'), (0.21342164278030396, ' proper mathematical logic, think step by step. Finally give the actual correct answer.'), (0.21428906917572021, ' proper mathematical logic, explaining step for every.step. the steps correct answer.'), (0.22964796423912048, ' proper mathematical logic, explaining step for every. Finally give the actual correct answer.'), (0.24056357145309448, ' your reasoning in the step response for every. single step.▁▁You don.')]normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+
+Time taken to update solutions:  74.08472776412964
+Intersection set size: 2
+Candidate tokens:  final end
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  final starting right end net
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  final starting right left end net
+Time taken to get recomputed solution logits:  35.734872579574585
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the net. Loss: 7.615660190582275, Mistakes: 0.2222222238779068, Control Loss: 4.130209922790527, Total Loss: 0.30482643842697144
+Time taken to get recomputed solution logits:  34.85201072692871
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the don. Loss: 2.3415048122406006, Mistakes: 0.05263157933950424, Control Loss: 4.397407054901123, Total Loss: 0.1405797153711319
+Time taken to get recomputed solution logits:  39.837278604507446
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the final. Loss: 3.0564608573913574, Mistakes: 0.07999999821186066, Control Loss: 4.558419227600098, Total Loss: 0.17116838693618774
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify how much you move overall to the don., New Loss: 0.1405797153711319
+Current length: 15
+ these steps as input. Please specify how much you move overall to the don.
+Current Loss: 0.1405797153711319 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.29283738136292
+Intersection set size: 4
+Candidate tokens: otwnw the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens: .wotwnenesser the
+Time taken to get recomputed solution logits:  51.61319947242737
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the doner Loss: 5.955583095550537, Mistakes: 0.23333334922790527, Control Loss: 4.374340534210205, Total Loss: 0.320820152759552
+Time taken to get recomputed solution logits:  33.11393451690674
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the donw Loss: 7.266475200653076, Mistakes: 0.23076924681663513, Control Loss: 4.362245559692383, Total Loss: 0.31801414489746094
+Time taken to get recomputed solution logits:  46.704052209854126
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the don the Loss: 9.654422760009766, Mistakes: 0.24137930572032928, Control Loss: 4.359737873077393, Total Loss: 0.3285740613937378
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify how much you move overall to the donw_, New Loss: 0.31801414489746094
+Current length: 16
+ these steps as input. Please specify how much you move overall to the donw_
+Current Loss: 0.31801414489746094 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.78675389289856
+Intersection set size: 2
+Candidate tokens: streamward
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens: wardsstream directionward
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens: .wardwardsstream position
+>>>> Topk increased to 11 <<<<
+Intersection set size: 8
+Candidate tokens: .wardwardsstream position directionside the
+Time taken to get recomputed solution logits:  53.790276765823364
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the donw position Loss: 7.042675971984863, Mistakes: 0.2142857313156128, Control Loss: 4.40238618850708, Total Loss: 0.30233344435691833
+Time taken to get recomputed solution logits:  49.50829839706421
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the donw the Loss: 6.733237266540527, Mistakes: 0.17241379618644714, Control Loss: 4.392779350280762, Total Loss: 0.2602693736553192
+Time taken to get recomputed solution logits:  40.141600370407104
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the donw. Loss: 7.191681385040283, Mistakes: 0.19999998807907104, Control Loss: 4.405661582946777, Total Loss: 0.28811320662498474
+No improvement in the current position. Moving to the next position.
+New Control:  these steps as input. Please specify how much you move overall to the donw., New Loss: 0.28811320662498474
+Current length: 16
+ these steps as input. Please specify how much you move overall to the donw.
+Current Loss: 0.28811320662498474 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  76.32822585105896
+Intersection set size: 4
+Candidate tokens:  the a your an
+>>>> Topk increased to 7 <<<<
+Intersection set size: 5
+Candidate tokens:  this the a your an
+>>>> Topk increased to 9 <<<<
+Intersection set size: 8
+Candidate tokens:  this the explanation these  a your an
+Time taken to get recomputed solution logits:  42.638349771499634
+>Prompt Choice:  this steps as input. Please specify how much you move overall to the donw. Loss: 3.9050917625427246, Mistakes: 0.22727273404598236, Control Loss: 4.528621673583984, Total Loss: 0.3178451657295227
+Time taken to get recomputed solution logits:  38.85522150993347
+>Prompt Choice:  explanation steps as input. Please specify how much you move overall to the donw. Loss: 9.178625106811523, Mistakes: 0.30000001192092896, Control Loss: 5.207237720489502, Total Loss: 0.4041447639465332
+Time taken to get recomputed solution logits:  50.953152894973755
+>Prompt Choice:  these steps as input. Please specify how much you move overall to the donw. Loss: 6.166194915771484, Mistakes: 0.2666666805744171, Control Loss: 4.153873920440674, Total Loss: 0.34974414110183716
+No improvement in the current position. Moving to the next position.
+New Control:  this steps as input. Please specify how much you move overall to the donw., New Loss: 0.3178451657295227
+Current length: 16
+ this steps as input. Please specify how much you move overall to the donw.
+Current Loss: 0.3178451657295227 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  79.89511346817017
+Intersection set size: 3
+Candidate tokens:  to explanation space
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  to information explanation space
+>>>> Topk increased to 9 <<<<
+Intersection set size: 7
+Candidate tokens:  to information explanation text answer space reasoning
+Time taken to get recomputed solution logits:  45.75209403038025
+>Prompt Choice:  this information as input. Please specify how much you move overall to the donw. Loss: 4.4990973472595215, Mistakes: 0.25806450843811035, Control Loss: 4.7405853271484375, Total Loss: 0.352876216173172
+Time taken to get recomputed solution logits:  40.149165391922
+>Prompt Choice:  this reasoning as input. Please specify how much you move overall to the donw. Loss: 5.379177093505859, Mistakes: 0.17391304671764374, Control Loss: 5.15770959854126, Total Loss: 0.27706724405288696
+Time taken to get recomputed solution logits:  40.41755390167236
+>Prompt Choice:  this explanation as input. Please specify how much you move overall to the donw. Loss: 3.5032589435577393, Mistakes: 0.1538461595773697, Control Loss: 5.069512844085693, Total Loss: 0.25523641705513
+No improvement in the current position. Moving to the next position.
+New Control:  this explanation as input. Please specify how much you move overall to the donw., New Loss: 0.25523641705513
+Current length: 16
+ this explanation as input. Please specify how much you move overall to the donw.
+Current Loss: 0.25523641705513 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  74.12613677978516
+Intersection set size: 5
+Candidate tokens:  to.  for belownormalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+../llm_opt/base/attack_manager.py:942: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+../llm_opt/base/attack_manager.py:1162: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+
+>>>> Topk increased to 7 <<<<
+Intersection set size: 7
+Candidate tokens:  to. and as  for below
+Time taken to get recomputed solution logits:  41.267414569854736
+>Prompt Choice:  this explanation and input. Please specify how much you move overall to the donw. Loss: 4.090357780456543, Mistakes: 0.13636364042758942, Control Loss: 4.655569076538086, Total Loss: 0.2294750213623047
+Time taken to get recomputed solution logits:  37.089025020599365
+>Prompt Choice:  this explanation. input. Please specify how much you move overall to the donw. Loss: 5.916142463684082, Mistakes: 0.17391304671764374, Control Loss: 5.216298580169678, Total Loss: 0.27823901176452637
+Time taken to get recomputed solution logits:  49.23878622055054
+>Prompt Choice:  this explanation to input. Please specify how much you move overall to the donw. Loss: 3.769760847091675, Mistakes: 0.13793103396892548, Control Loss: 5.091296672821045, Total Loss: 0.2397569715976715
+No improvement in the current position. Moving to the next position.
+New Control:  this explanation and input. Please specify how much you move overall to the donw., New Loss: 0.2294750213623047
+Current length: 16
+ this explanation and input. Please specify how much you move overall to the donw.
+Current Loss: 0.2294750213623047 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  77.47952914237976
+Intersection set size: 3
+Candidate tokens:  provide a the
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  your provide a the
+>>>> Topk increased to 9 <<<<
+Intersection set size: 5
+Candidate tokens:  provide your answer a the
+>>>> Topk increased to 11 <<<<
+Intersection set size: 6
+Candidate tokens:  the provide answer reasoning a your
+Time taken to get recomputed solution logits:  36.03066086769104
+>Prompt Choice:  this explanation and the. Please specify how much you move overall to the donw. Loss: 10.938404083251953, Mistakes: 0.3076923191547394, Control Loss: 5.02069091796875, Total Loss: 0.40810614824295044
+Time taken to get recomputed solution logits:  57.78538370132446
+>Prompt Choice:  this explanation and provide. Please specify how much you move overall to the donw. Loss: 11.61134147644043, Mistakes: 0.3571428656578064, Control Loss: 5.126121997833252, Total Loss: 0.45966529846191406
+Time taken to get recomputed solution logits:  64.44590139389038
+>Prompt Choice:  this explanation and a. Please specify how much you move overall to the donw. Loss: 8.099520683288574, Mistakes: 0.27586206793785095, Control Loss: 5.128166675567627, Total Loss: 0.37842538952827454
+No improvement in the current position. Moving to the next position.
+New Control:  this explanation and a. Please specify how much you move overall to the donw., New Loss: 0.37842538952827454
+Current length: 16
+ this explanation and a. Please specify how much you move overall to the donw.
+Current Loss: 0.37842538952827454 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  77.08323693275452
+Intersection set size: 4
+Candidate tokens:  simple diagram visual drawing
+>>>> Topk increased to 7 <<<<
+Intersection set size: 4
+Candidate tokens:  diagram visual drawing simple
+>>>> Topk increased to 9 <<<<
+Intersection set size: 6
+Candidate tokens:  clear visual diagram visualization drawing simple
+Time taken to get recomputed solution logits:  39.763113260269165
+>Prompt Choice:  this explanation and a visualization Please specify how much you move overall to the donw. Loss: 13.311158180236816, Mistakes: 0.4117647111415863, Control Loss: 6.029118061065674, Total Loss: 0.5323470830917358
+Time taken to get recomputed solution logits:  46.96531057357788
+>Prompt Choice:  this explanation and a simple Please specify how much you move overall to the donw. Loss: 12.657719612121582, Mistakes: 0.4399999976158142, Control Loss: 5.861362934112549, Total Loss: 0.5572272539138794
+Time taken to get recomputed solution logits:  37.86145830154419
+>Prompt Choice:  this explanation and a clear Please specify how much you move overall to the donw. Loss: 9.773585319519043, Mistakes: 0.2857142984867096, Control Loss: 5.579731464385986, Total Loss: 0.39730891585350037
+No improvement in the current position. Moving to the next position.
+New Control:  this explanation and a clear Please specify how much you move overall to the donw., New Loss: 0.39730891585350037
+Current length: 16
+ this explanation and a clear Please specify how much you move overall to the donw.
+Current Loss: 0.39730891585350037 Best Loss: 0.10753543674945831 Best Control:  proper mathematical logic, explaining step by step. Finally give the actual correct answer.
+Time taken to update solutions:  68.71921825408936
+Intersection set size: 4
+Candidate tokens:  illustration diagram visual drawing
+>>>> Topk increased to 7 <<<<
+Intersection set size: 6
+Candidate tokens: , diagram visual visualization drawing illustration
+Time taken to get recomputed solution logits:  61.97355937957764
+>Prompt Choice:  this explanation and a clear Please specify how much you move overall to the donw. Loss: 11.835049629211426, Mistakes: 0.3529411852359772, Control Loss: 5.241118431091309, Total Loss: 0.45776355266571045
+Time taken to get recomputed solution logits:  59.684818744659424
+>Prompt Choice:  this explanation and a clear, specify how much you move overall to the donw. Loss: 10.780247688293457, Mistakes: 0.36666667461395264, Control Loss: 6.0802226066589355, Total Loss: 0.4882711172103882
+Traceback (most recent call last):
+  File "main.py", line 103, in <module>
+    app.run(main)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 308, in run
+    _run_main(main, args)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/absl/app.py", line 254, in _run_main
+    sys.exit(main(argv))
+  File "main.py", line 83, in main
+    attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1958, in run
+    control, loss, inner_steps = attack.run(
+  File "../llm_opt/base/attack_manager.py", line 1599, in run
+    control, loss = self.step(
+  File "../llm_opt/gcg/gcg_attack.py", line 525, in step
+    _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=20, accumulate=True)
+  File "../llm_opt/gcg/gcg_attack.py", line 384, in morph_control
+    logits, target_slice_starts, targets_ids_list, _prompts_obj_list = self.prompts[0].logits_batched_gen(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "../llm_opt/base/attack_manager.py", line 1219, in logits_batched_gen
+    outputs_final = model(
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nlp/sfd5525/anaconda3/envs/torch_cloned/lib/python3.8/site-packages/transformers/models/gemma2/modeling_gemma2.py", line 1089, in forward
+    logits = logits / self.config.final_logit_softcapping
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.23 GiB. GPU  has a total capacity of 79.14 GiB of which 1.37 GiB is free. Including non-PyTorch memory, this process has 44.07 GiB memory in use. Process 3111140 has 414.00 MiB memory in use. Process 3235665 has 32.86 GiB memory in use. Process 3236876 has 414.00 MiB memory in use. Of the allocated memory 41.07 GiB is allocated by PyTorch, and 2.51 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
