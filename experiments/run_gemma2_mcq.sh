@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create the logs directory if it doesn't exist
-mkdir -p gemma2-2b-logs
+mkdir -p gemma2-9b-logs
 
 # Number of GPUs needed per task
 NUM_GPUS_PER_TASK=2
@@ -65,6 +65,7 @@ start_task() {
         --config.anneal=True \
         --config.batch_size=64 \
         --config.topk=40 \
+        --config.topq=6 \
         --config.control_init="proper logical reasoning and think step by step. Finally give the actual correct answer." \
         --config.extractor_text="${extractor_texts[$task_name]}" \
         --config.control_weight=0.20 \
