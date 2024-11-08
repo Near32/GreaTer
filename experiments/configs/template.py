@@ -40,13 +40,15 @@ def get_config():
     # attack-related parameters
     config.attack = 'gcg'
     config.control_init = "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
-    config.n_steps = 700
+    config.n_steps = 105
     config.test_steps = 100
     config.batch_size = 100
     config.lr = 0.01
-    config.topk = 30
+    config.topk = 10
+    config.topq = 5
     config.temp = 1
     config.filter_cand = True
+
 
     # Extraction parameter
     config.extractor_text = "Therefore, the final answer option is  $ "

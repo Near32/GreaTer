@@ -1,6 +1,6 @@
-from .gcg_attack import GCGAttackPrompt as AttackPrompt
-from .gcg_attack import GCGPromptManager as PromptManager
-from .gcg_attack import GCGMultiPromptAttack as MultiPromptAttack
+from .greater_opt import GCGPrompter as Prompter
+from .greater_opt import GCGPromptManager as PromptManager
+from .greater_opt import GCGMultiPrompter as MultiPrompter
 
-from llm_opt import ProgressiveMultiPromptAttack
-from llm_opt import IndividualPromptAttack
+
+from llm_opt import ProgressiveMultiPrompter

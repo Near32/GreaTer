@@ -36,14 +36,14 @@ def main(_):
     workers, test_workers = get_workers(params)
 
     managers = {
-        "AP": attack_lib.AttackPrompt,
+        "AP": attack_lib.Prompter,
         "PM": attack_lib.PromptManager,
-        "MPA": attack_lib.MultiPromptAttack,
+        "MPA": attack_lib.MultiPrompter,
     }
 
     timestamp = time.strftime("%Y%m%d-%H:%M:%S")
     if params.transfer:
-        attack = attack_lib.ProgressiveMultiPromptAttack(
+        prompt_optimizer = attack_lib.ProgressiveMultiPrompter(
             train_goals,
             train_targets,
             workers,
@@ -62,28 +62,13 @@ def main(_):
             train_final_target=train_final_target,
             test_final_target =  test_final_target
         )
-    else:
-        attack = attack_lib.IndividualPromptAttack(
-            train_goals,
-            train_targets,
-            workers,
-            control_init=params.control_init,
-            logfile=f"{params.result_prefix}_{timestamp}.json",
-            managers=managers,
-            test_goals=getattr(params, 'test_goals', []),
-            test_targets=getattr(params, 'test_targets', []),
-            test_workers=test_workers,
-            mpa_deterministic=params.gbda_deterministic,
-            mpa_lr=params.lr,
-            mpa_batch_size=params.batch_size,
-            mpa_n_steps=params.n_steps,
-        )
 
-    attack.run(
+    prompt_optimizer.run(
         n_steps=params.n_steps,
         batch_size=params.batch_size, 
         topk=params.topk,
         temp=params.temp,
+        topq=params.topq,
         target_weight=params.target_weight,
         control_weight=params.control_weight,
         test_steps=getattr(params, 'test_steps', 1),

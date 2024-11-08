@@ -19,7 +19,7 @@ import torch.nn.functional as F
 import sys
 
 sys.path.append('..')
-from llm_opt.base.attack_manager import AttackPrompt, MultiPromptAttack, PromptManager, get_embeddings, \
+from llm_opt.base.attack_manager import Prompter, MultiPrompter, PromptManager, get_embeddings, \
     get_embedding_matrix
 
 
@@ -113,7 +113,7 @@ def token_gradients(model, input_ids, goal_slice, input_slice, target_slice, los
     return one_hot.grad.clone()
 
 
-class GCGAttackPrompt(AttackPrompt):
+class GCGPrompter(Prompter):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -191,7 +191,7 @@ def find_top_p(logits_softmaxed_currpos, top_p, min_keep=10):
     return sorted_indices[sorted_indices_to_keep], sorted_logits[sorted_indices_to_keep]
 
 
-class GCGMultiPromptAttack(MultiPromptAttack):
+class GCGMultiPrompter(MultiPrompter):
 
     def __init__(self, *args, **kwargs):
 
@@ -221,7 +221,6 @@ class GCGMultiPromptAttack(MultiPromptAttack):
         # only true for a single model
         # take the lm probs for the single aforementioned model
         # accumulate is a flag to determine whether to accumulate the lm probs across the batch of samples or not
-
 
         # Stage 1: Some initial Preprocessing
 
@@ -514,6 +513,7 @@ class GCGMultiPromptAttack(MultiPromptAttack):
              batch_size=1024,
              topk=256,
              temp=1,
+             topq=5,
              allow_non_ascii=True,
              target_weight=1,
              control_weight=0.2,
@@ -533,7 +533,7 @@ class GCGMultiPromptAttack(MultiPromptAttack):
 
         # ****either this, our new implementation
         with torch.no_grad():
-            _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=15, accumulate=True)
+            _, next_control, cand_loss = self.morph_control(self.workers, top_p=None, top_k=topk, num_intersections=topq ,accumulate=True)
             # del grad;
             gc.collect()
 
