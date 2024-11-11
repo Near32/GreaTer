@@ -1,0 +1,4 @@
+torch~=2.3.1
+transformers~=4.45.2
+ml_collections
+fschat==0.2.20
