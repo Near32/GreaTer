@@ -16,7 +16,7 @@ hf_token = "YOUR_HUGGING_FACE_TOKEN"  # I can provide my personal token, if requ
 login(token=hf_token)
 ```
 *Note:
-This is an early unoptimized version of the code. This implementation is built on top of [llm attacks](https://github.com/llm-attacks/llm-attacks) codebase. In the next version, we will incorporate KV-cache to ensure the whole forward pipeline can be effectively done in one single call, which will make this substantially faster.*
+This implementation is built on top of [llm attacks](https://github.com/llm-attacks/llm-attacks) codebase. Wwe will update by incorporating KV-cache to ensure the whole forward pipeline can be effectively done in one single call, which will make this faster.*
 - Follow ``run_llama3_all.sh`` or ``run_gemma2_mcq.sh`` to find out the running command for different BBH tasks.
 - You can change ``top_k`` and ``top_q`` as required, which may impact performance.
 - In ``experiments/configs``, configs for ``transfer_llama3`` and ``transfer_gemma2`` exists. The gpus need to be changed to assign which gpu you want to use. Yes we are using two gpus for each run. Realistically we dont even need one full gpu, but this is to slighly do the experiments faster.
