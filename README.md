@@ -36,7 +36,7 @@ ___
 ```
 python main.py --config="./configs/transfer_gemma2_2b.py" --config.train_data="../data/BBH/tracking_shuffled_objects_five_objects.json" --config.test_data="../data/BBH/tracking_shuffled_objects_five_objects.json" --config.result_prefix="results/transfer_llama32_1b_tracking_shuffled_objects_five_objects.json" --config.progressive_goals=True --config.stop_on_success=False --config.allow_non_ascii=False --config.num_train_models=1 --config.n_train_data=50 --config.n_test_data=50 --config.n_steps=100 --config.test_steps=500 --config.anneal=True --config.topk=11 --config.topq=6 --config.control_init=" proper logical reasoning and think step by step. Finally give the actual correct answer." --config.extractor_text="Therefore, the final answer (use exact format: '\$A' or '\$B' or '\$C' or '\$D' or '\$E') is $" --config.control_weight=0.20 --config.target_weight=1.0
 ```
-- Depending on the task to optimize, you need to change the ```extractor_text``` so that you can extract the correct answer properly, which is fundamental in calculation of the loss.
+- Depending on the task to optimize, you need to change the ```extractor_text``` so that you can extract the correct answer properly, which is fundamental in calculation of the loss. In ``run_llama3_all.sh`` or ``run_gemma2_mcq.sh``, we have provided all the extractor texts required for different BBH tasks. For other tasks you can follow the format to create a similar extractor text. The target is to use an extractor text that will generate the answer in the same format as the ground truth, to facilitate in generating the final correct answer.
 
 - You can change ``top_k`` and ``top_q`` as required, which may impact performance.
 - In ``experiments/configs``, configs for ``transfer_llama3`` and ``transfer_gemma2`` exists. The gpus need to be changed to assign which gpu you want to use. Yes we are using two gpus for each run. Realistically we don't even need one full gpu, but this is to slighly do the experiments faster.
@@ -46,6 +46,10 @@ ___
 ![example](src/img_1.png)
 From the table, we can observe that GReaTer prompt substantially outperforms other baselines offering notable performance gain. Compared to other baselines, GReaTer prompts shows more consistent performance demonstrating the potency of this prompt optimization approach.
 
+![example](src/img_2.png)
+From this table, we see that GReaTer optimized prompts also show good transferability to other language models. Compared to other baselines, GReaTer shows notably improved transferability performance, indicating the potential of using a small language model to optimize the prompt while transferring to a larger one.
+
+
 ## Notes
 ___
 - This implementation is built on top of [llm attacks](https://github.com/llm-attacks/llm-attacks) codebase. 
@@ -53,3 +57,4 @@ ___
 
 ## Citation
 ___
+(coming)
