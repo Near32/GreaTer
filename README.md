@@ -1,5 +1,4 @@
 # GReaTer - Gradient Over Reasoning makes Smaller Language Models Strong Prompt Optimizers
-___
 
 Source code and scripts for ["GReaTer - Gradient Over Reasoning makes Smaller Language Models Strong Prompt Optimizers"]()
 
