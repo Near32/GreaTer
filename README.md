@@ -4,7 +4,6 @@ ___
 Source code and scripts for ["GReaTer - Gradient Over Reasoning makes Smaller Language Models Strong Prompt Optimizers"]()
 
 ## Overview
-___
 In this paper, we propose a new technique of prompt optimization with smaller language models, called GReaTer that leverages gradient information over task-specific reasoning. Compared to text-based prompt optimization methods that usually require closed source optimizer models with strong capabilities, GReaTer allows prompt optimization with lightweight open-source language models by calculating gradients over the reasoning chain
 
 ![example](src/img.png)
@@ -12,7 +11,6 @@ In this paper, we propose a new technique of prompt optimization with smaller la
 As shown in this figure, GReaTer uses a small amount of task samples to calculate token gradients over the reasoning steps and therefore refine token selections. Consequently, GReaTer leverages a stronger signal to pick the prompt, leading to better prompt optimization even when using lightweight language models.
 
 ## Setting Environment
-___
 - Install requirements with ```pip install requirements.txt```. You might face some errors due to the mismatch with fschat version. Feel free to ignore them. You may also want to update the transformers to the latest version available.
 - Get access from huggingface-hub
 ```
@@ -26,7 +24,6 @@ hf_token = "YOUR_HUGGING_FACE_TOKEN"
 login(token=hf_token)
 ```
 ## Running GReaTer
-___
 
 - Clone the Repository
 - Change directory to ```prompt_optimization/experiments/```
@@ -42,7 +39,7 @@ python main.py --config="./configs/transfer_gemma2_2b.py" --config.train_data=".
 - In ``experiments/configs``, configs for ``transfer_llama3`` and ``transfer_gemma2`` exists. The gpus need to be changed to assign which gpu you want to use. Yes we are using two gpus for each run. Realistically we don't even need one full gpu, but this is to slighly do the experiments faster.
 
 ## Performance Highlights
-___
+
 ![example](src/img_1.png)
 From the table, we can observe that GReaTer prompt substantially outperforms other baselines offering notable performance gain. Compared to other baselines, GReaTer prompts shows more consistent performance demonstrating the potency of this prompt optimization approach.
 
@@ -51,10 +48,10 @@ From this table, we see that GReaTer optimized prompts also show good transferab
 
 
 ## Notes
-___
+
 - This implementation is built on top of [llm attacks](https://github.com/llm-attacks/llm-attacks) codebase. 
 - TODO: update by incorporating KV-cache to ensure the whole forward pipeline can be effectively done in one single call, which will make this faster.
 
 ## Citation
-___
+
 (coming)
