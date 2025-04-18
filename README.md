@@ -1,6 +1,6 @@
 # GReaTer - Gradient Over Reasoning makes Smaller Language Models Strong Prompt Optimizers
 
-Source code and scripts for ICLR 2025 paper ["GReaTer - Gradient Over Reasoning makes Smaller Language Models Strong Prompt Optimizers"]()
+Source code for ICLR 2025 paper [GReaTer - Gradient Over Reasoning makes Smaller Language Models Strong Prompt Optimizers](https://openreview.net/pdf?id=fWRBheSJth)
 
 ## Overview
 In this paper, we propose a new technique of prompt optimization with smaller language models, called GReaTer that leverages gradient information over task-specific reasoning. Compared to text-based prompt optimization methods that usually require closed source optimizer models with strong capabilities, GReaTer allows prompt optimization with lightweight open-source language models by calculating gradients over the reasoning chain
