@@ -477,6 +477,8 @@ class Prompter(object):
             else:
                 self._focused_target_slice = None
                 # self._focused_target_slice = 0
+        else:
+            raise NotImplementedError
 
         self.input_ids = torch.tensor(toks[:self._target_slice.stop], device='cpu')
         self.conv_template.messages = []
@@ -790,13 +792,13 @@ class PromptManager(object):
 
         self._prompts = [
             managers['AP'](
-                goal,
-                target,
-                tokenizer,
-                conv_template,
-                control_init,
-                test_prefixes,
-                final_target
+                goal=goal,
+                target=target,
+                tokenizer=tokenizer,
+                conv_template=conv_template,
+                control_init=control_init,
+                test_prefixes=test_prefixes,
+                final_target=final_target,
             )
             for goal, target, final_target in zip(goals, targets, final_targets)
         ]
@@ -1797,7 +1799,14 @@ class ProgressiveMultiPrompter(object):
 
 class ModelWorker(object):
 
-    def __init__(self, model_path, model_kwargs, tokenizer, conv_template, device):
+    def __init__(
+        self,
+        model_path,
+        model_kwargs,
+        tokenizer,
+        conv_template,
+        device,
+    ):
         if type(model_path) == type("sample string"):
             # os.environ["CUDA_VISIBLE_DEVICES"] = device
             # self.model = AutoModelForCausalLM.from_pretrained(
@@ -1811,11 +1820,11 @@ class ModelWorker(object):
                 model_path,
                 torch_dtype='auto',
                 trust_remote_code=True,
-                cache_dir='/scratch2/share/model_files/huggingface',
+                #cache_dir='/scratch2/share/model_files/huggingface',
                 # device_map = 'auto',
                 **model_kwargs
             ).to(device).eval()
-
+            self.model.share_memory()
             # devices = ast.literal_eval(device)
             # self.model = nn.DataParallel(self.model, device_ids=devices)
             # .cuda(device=devices[0])
@@ -1929,7 +1938,7 @@ def get_workers(params, eval=False):
         tokenizer = AutoTokenizer.from_pretrained(
             params.tokenizer_paths[i],
             trust_remote_code=True,
-            cache_dir='/scratch2/share/model_files/huggingface',
+            #cache_dir='/scratch2/share/model_files/huggingface',
             **params.tokenizer_kwargs[i]
         )
         if 'oasst-sft-6-llama-30b' in params.tokenizer_paths[i]:
@@ -2057,24 +2066,36 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
     if params.train_data:
         if params.train_data.endswith('.tsv'):
             train_data = pd.read_csv(params.train_data, sep='\t', dtype=str)
+        elif params.train_data.endswith('.jsonl'):
+            # Read JSONL file line by line and convert to DataFrame
+            with open(params.train_data, 'r') as f:
+                lines = f.readlines()
+                data = [json.loads(line) for line in lines]
+            train_data = pd.DataFrame(data)
         else:
             train_data = pd.read_csv(params.train_data, dtype=str)
+            
         #train_targets = train_data['target'].astype(str).tolist()[offset:offset + params.n_train_data]
-        train_targets = train_data['final_target'].astype(str).tolist()[offset:offset + params.n_train_data]
+        target_entry = 'final_target'
+        if target_entry not in train_data.columns:
+            target_entry = 'answer'    
+        train_targets = train_data[target_entry].astype(str).tolist()[offset:offset + params.n_train_data]
         if len(addition2) > 0:
             train_targets = [addition2 + remove_parentheses_if_single_char(target) for target in train_targets]
 
-        if 'goal' in train_data.columns:
-            train_goals = train_data['goal'].astype(str).tolist()[offset:offset + params.n_train_data]
+        goal_entry = 'goal'
+        if goal_entry not in train_data.columns:
+            goal_entry = 'question' 
+        if goal_entry in train_data.columns:
+            train_goals = train_data[goal_entry].astype(str).tolist()[offset:offset + params.n_train_data]
             if len(addition) > 0:
                 train_goals = [goal + addition for goal in train_goals]
-
         else:
             train_goals = [""] * len(train_targets)
 
         # Most datasets won't have it. Just the ones we are curating for this feature
-        if 'final_target' in train_data.columns:
-            train_final_targets = train_data['final_target'].astype(str).tolist()[offset:offset + params.n_train_data]
+        if target_entry in train_data.columns:
+            train_final_targets = train_data[target_entry].astype(str).tolist()[offset:offset + params.n_train_data]
             if len(addition3) >= 0 and "llama-3" in params.conversation_templates:
                 train_final_targets = [addition3 + remove_parentheses_if_single_char(target) for target in train_final_targets]
             elif "llama-2" in params.conversation_templates or "gemma-2" in params.conversation_templates:
@@ -2087,13 +2108,19 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
         if params.test_data and params.n_test_data > 0:
             if params.test_data.endswith('.tsv'):
                 test_data = pd.read_csv(params.test_data, sep='\t', dtype=str)
+            elif params.test_data.endswith('.jsonl'):
+                # Read JSONL file line by line and convert to DataFrame
+                with open(params.test_data, 'r') as f:
+                    lines = f.readlines()
+                    data = [json.loads(line) for line in lines]
+                test_data = pd.DataFrame(data)
             else:
                 test_data = pd.read_csv(params.test_data)
             #test_targets = test_data['target'].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
-            test_targets = test_data['final_target'].astype(str).tolist()[
+            test_targets = test_data[target_entry].astype(str).tolist()[
                            offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
-            if 'goal' in test_data.columns:
-                test_goals = test_data['goal'].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
+            if goal_entry in test_data.columns:
+                test_goals = test_data[goal_entry].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
                 if len(addition) > 0:
                     test_goals = [goal + addition for goal in test_goals]
                 if len(addition2) > 0:
@@ -2102,8 +2129,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
                 test_goals = [""] * len(test_targets)
 
             # Again, Most datasets won't have it. Just the ones we are curating for this feature
-            if 'final_target' in test_data.columns:
-                test_final_targets = test_data['final_target'].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
+            if target_entry in test_data.columns:
+                test_final_targets = test_data[target_entry].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
                 if len(addition3) >= 0 and "llama-3" in params.conversation_templates:
                     test_final_targets = [addition3 + remove_parentheses_if_single_char(target) for target in test_final_targets]
                 elif "llama-2" in params.conversation_templates or "gemma-2" in params.conversation_templates:
@@ -2114,10 +2141,10 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
 
         elif params.n_test_data > 0:
 
-            test_targets = train_data['target'].astype(str).tolist()[
+            test_targets = train_data[target_entry].astype(str).tolist()[
                            offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
-            if 'goal' in train_data.columns:
-                test_goals = train_data['goal'].astype(str).tolist()[
+            if goal_entry in train_data.columns:
+                test_goals = train_data[goal_entry].astype(str).tolist()[
                              offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
                 if len(addition) > 0:
                     test_goals = [goal + addition for goal in test_goals]

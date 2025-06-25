@@ -5,7 +5,9 @@ mkdir -p sdlm_distilgpt2_logs
 mkdir -p results
 
 # Set paths - using a small subset of data for quick testing
+#TRAIN_DATA="../data/grade_school_math/train.csv"
 TRAIN_DATA="../data/grade_school_math/train.jsonl"
+#TEST_DATA="../data/grade_school_math/test.csv"
 TEST_DATA="../data/grade_school_math/test.jsonl"
 LOG_FILE="sdlm_distilgpt2_logs/gsm8k_optimization.log"
 RESULT_PREFIX="results/sdlm_distilgpt2_cpu_gsm8k"
@@ -51,8 +53,8 @@ python -m ipdb -c c main.py \
     --config.control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer." \
     --config.extractor_text="$extractor_text" \
     --config.control_weight=0.4 \
-    --config.target_weight=1.0 \
-    > "$LOG_FILE" 2>&1
+    --config.target_weight=1.0 #\
+    #> "$LOG_FILE" 2>&1
 
 # Print completion message
 echo "========================================"

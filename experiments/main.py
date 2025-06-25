@@ -42,26 +42,26 @@ def main(_):
     }
 
     timestamp = time.strftime("%Y%m%d-%H:%M:%S")
-    if params.transfer:
-        prompt_optimizer = attack_lib.ProgressiveMultiPrompter(
-            train_goals,
-            train_targets,
-            workers,
-            progressive_models=params.progressive_models,
-            progressive_goals=params.progressive_goals,
-            control_init=params.control_init,
-            logfile=f"{params.result_prefix}_{timestamp}.json",
-            managers=managers,
-            test_goals=test_goals,
-            test_targets=test_targets,
-            test_workers=test_workers,
-            mpa_deterministic=params.gbda_deterministic,
-            mpa_lr=params.lr,
-            mpa_batch_size=params.batch_size,
-            mpa_n_steps=params.n_steps,
-            train_final_target=train_final_target,
-            test_final_target =  test_final_target
-        )
+    #if params.transfer:
+    prompt_optimizer = attack_lib.ProgressiveMultiPrompter(
+        train_goals,
+        train_targets,
+        workers,
+        progressive_models=params.progressive_models,
+        progressive_goals=params.progressive_goals,
+        control_init=params.control_init,
+        logfile=f"{params.result_prefix}_{timestamp}.json",
+        managers=managers,
+        test_goals=test_goals,
+        test_targets=test_targets,
+        test_workers=test_workers,
+        mpa_deterministic=params.gbda_deterministic,
+        mpa_lr=params.lr,
+        mpa_batch_size=params.batch_size,
+        mpa_n_steps=params.n_steps,
+        train_final_target=train_final_target,
+        test_final_target =  test_final_target
+    )
 
     prompt_optimizer.run(
         n_steps=params.n_steps,
@@ -84,4 +84,5 @@ def main(_):
         worker.stop()
 
 if __name__ == '__main__':
+    __spec__ = None
     app.run(main)

@@ -11,11 +11,18 @@ def get_config():
     config.attack = 'sdlm_opt'
     
     # Use DistilGPT2 model (much smaller and faster)
-    config.model_paths = ['distilbert/distilgpt2', 'distilbert/distilgpt2']
-    config.tokenizer_paths = ['distilbert/distilgpt2', 'distilbert/distilgpt2']
-    config.conversation_templates = ['gpt-2', 'gpt-2']
-    config.devices = ['cpu', 'cpu']
-    
+    # With 2 :
+    #config.model_kwargs *= 2
+    #config.model_paths = ['distilbert/distilgpt2', 'distilbert/distilgpt2']
+    #config.tokenizer_kwargs *= 2
+    #config.tokenizer_paths = ['distilbert/distilgpt2', 'distilbert/distilgpt2']
+    #config.conversation_templates = ['gpt-2', 'gpt-2']
+    #config.devices = ['cpu', 'cpu']
+    # Or with only one:
+    config.model_paths = ['distilbert/distilgpt2']
+    config.tokenizer_paths = ['distilbert/distilgpt2']
+    config.conversation_templates = ['gemma'] #['gpt-2']
+    config.devices = ['cpu']
     # Force CPU usage and optimize for CPU
     config.torch_dtype = 'float32'  # More stable on CPU
     
