@@ -21,6 +21,8 @@ def get_config():
     # Or with only one:
     config.model_paths = ['distilbert/distilgpt2']
     config.tokenizer_paths = ['distilbert/distilgpt2']
+    #config.model_paths = ['distil]
+    #config.tokenizer_paths = ['distilbert/distilgpt2']
     config.conversation_templates = ['gemma'] #['gpt-2']
     config.devices = ['cpu']
     # Force CPU usage and optimize for CPU

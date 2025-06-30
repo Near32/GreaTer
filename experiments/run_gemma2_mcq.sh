@@ -7,7 +7,7 @@ mkdir -p gemma2-9b-logs
 NUM_GPUS_PER_TASK=2
 
 # Total number of GPUs
-TOTAL_GPUS=6
+TOTAL_GPUS=2
 
 # Array to keep track of active jobs and their associated GPUs
 declare -A active_jobs
@@ -49,7 +49,7 @@ start_task() {
     local gpu2=$3
     local gpu_string="$gpu1,$gpu2"
     echo "Starting task: $task_name on GPUs: $gpu_string"
-    CUDA_VISIBLE_DEVICES=$gpu_string python main.py \
+    CUDA_VISIBLE_DEVICES=$gpu_string HF_HOME=./hf_cache python main.py \
         --config="./configs/transfer_gemma2_2b.py" \
         --config.train_data="../data/BBH/${task_name}.json" \
         --config.test_data="../data/BBH/${task_name}.json" \
@@ -70,7 +70,8 @@ start_task() {
         --config.extractor_text="${extractor_texts[$task_name]}" \
         --config.control_weight=0.20 \
         --config.target_weight=1.0 \
-        > "gemma2-2b-logs/${task_name}_rr.log" 2>&1 &
+        > "gemma2-2b-logs/${task_name}_rr.log" 
+	    #2>&1 &
 
     # Store the PID and associated GPUs
     active_jobs[$!]="$gpu1 $gpu2"
@@ -81,7 +82,7 @@ for task_name in "${selected_tasks[@]}"; do
     while true; do
         # Check how many GPUs are available
         available_gpus=()
-        for i in $(seq 1 $((TOTAL_GPUS))); do
+        for i in $(seq 0 $((TOTAL_GPUS-1))); do
             gpu_in_use=false
             for pid in "${!active_jobs[@]}"; do
                 if [[ ${active_jobs[$pid]} =~ (^|[[:space:]])$i($|[[:space:]]) ]]; then

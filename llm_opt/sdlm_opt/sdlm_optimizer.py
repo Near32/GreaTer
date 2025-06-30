@@ -5,6 +5,7 @@ import numpy as np
 from typing import List, Optional, Dict, Any, Tuple
 import sys
 import os
+import gc
 
 # Add SDLM to the path
 #sdlm_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'sdlm')
@@ -21,6 +22,22 @@ from llm_opt.base.attack_manager import (
     get_embeddings,
     get_embedding_matrix,
 )
+
+import sys
+import pdb
+
+class ForkedPdb(pdb.Pdb):
+    """A Pdb subclass that may be used
+    from a forked multiprocessing child
+
+    """
+    def interaction(self, *args, **kwargs):
+        _stdin = sys.stdin
+        try:
+            sys.stdin = open('/dev/stdin')
+            pdb.Pdb.interaction(self, *args, **kwargs)
+        finally:
+            sys.stdin = _stdin
 
 class SDLMPrompter(BasePrompter):
     """
@@ -53,6 +70,7 @@ class SDLMPrompter(BasePrompter):
         self.variable_init_temperature = variable_init_temperature
         self.gradient_comp_batch_size = gradient_comp_batch_size
         self.stgs_kwargs = stgs_kwargs
+        
         self.sdlm_model = None
         self.sdlm_variable = None
         
@@ -119,13 +137,14 @@ class SDLMPrompter(BasePrompter):
             )
             
             # Compute loss (you can customize this based on your needs)
-            stgs_logits = outputs.stgs_logits
+            #logits = outputs.stgs_logits
+            logits = outputs.logits
             #goals = self.input_ids[self._goal_slice]
             targets = input_ids[self._target_slice].repeat(self.gradient_comp_batch_size, 1)
             loss_crit = nn.CrossEntropyLoss(reduction='mean')
-            import ipdb; ipdb.set_trace()
+            
             loss = loss_crit(
-                stgs_logits[:, self._loss_slice, :], 
+                logits[:, self._loss_slice, :].transpose(1,2), 
                 targets.detach(),
             )
 
@@ -134,7 +153,7 @@ class SDLMPrompter(BasePrompter):
             control_target_slice = slice(self._control_slice.start, self._control_slice.stop)
             control_targets = input_ids[control_target_slice].repeat(self.gradient_comp_batch_size, 1)
             control_loss = loss_crit(
-                stgs_logits[:, control_output_slice, :], 
+                logits[:, control_output_slice, :].transpose(1,2), 
                 control_targets.detach(),
             )
 
@@ -144,7 +163,7 @@ class SDLMPrompter(BasePrompter):
                 focused_targets = input_ids[self._focused_target_slice]
                 focused_targets = focused_targets.repeat(self.gradient_comp_batch_size, 1)
                 focused_loss = loss_crit(
-                    stgs_logits[:, focused_loss_slice, :] / temperature, 
+                    logits[:, focused_loss_slice, :].transpose(1,2) / temperature, 
                     focused_targets.detach()
                 )
                 loss = focused_loss+control_weight*control_loss
@@ -153,12 +172,15 @@ class SDLMPrompter(BasePrompter):
             
             # Backward pass
             loss.backward()
-            
+            del input_one_hots, logits; gc.collect()
+            torch.cuda.empty_cache()
+
             # Get gradients from the SDLM variable
-            grads = self.sdlm_variable.logits.grad
-            
+            grads = self.sdlm_variable.logits.grad.clone()
+            # seq_len x vocab_size
+
             # Only return gradients for the current position
-            return grads[0, current_pos].cpu().numpy()
+            return grads[current_pos]
 
 
 class SDLMPromptManager(BasePromptManager):
@@ -226,7 +248,7 @@ class SDLMPromptManager(BasePromptManager):
             # Update logits with gradient
             lr = kwargs.get('lr', self.learning_rate)
             for prompt in self._prompts:
-                prompt.sdlm_variable.logits.data.add_(prompt.sdlm_variable._grad * lr)
+                prompt.sdlm_variable.logits.data.add_(prompt.sdlm_variable.logits.grad * lr)
             
             # Sample new tokens
             new_tokens = [
