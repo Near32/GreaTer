@@ -509,6 +509,8 @@ class Prompter(object):
             gen_config = model.generation_config
             gen_config.max_new_tokens = 512
         gen_config.skip_special_tokens = True
+        import ipdb; ipdb.set_trace()
+        print(f"Generating reasoning/solution for {self}")
         gen_str = self.generate_str(model, gen_config).strip()
         self.current_solution = gen_str
 
@@ -1266,6 +1268,10 @@ class MultiPrompter(object):
         self.test_final_targets = test_final_targets
 
     @property
+    def prompt_managers(self):
+        return self.prompts
+
+    @property
     def control_str(self):
         return self.prompts[0].control_str
 
@@ -1435,6 +1441,7 @@ class MultiPrompter(object):
                 break
 
             if self.logfile is not None and (i + 1 + anneal_from) % test_steps == 0:
+                import ipdb; ipdb.set_trace()
                 last_control = self.control_str
                 self.control_str = best_control
 
@@ -1449,16 +1456,30 @@ class MultiPrompter(object):
         return self.control_str, loss, steps
 
     def test(self, workers, prompts, include_loss=False):
-        for j, worker in enumerate(workers):
-            worker(prompts[j], "test", worker.model)
-        model_tests = np.array([worker.results.get() for worker in workers])
+        if workers[0].spawned:
+            for j, worker in enumerate(workers):
+                worker(prompts[j], "test", worker.model)
+            model_tests = np.array([worker.results.get() for worker in workers])
+        else:
+            results = []
+            for j, worker in enumerate(workers):
+                result = prompts[j].test(worker.model)
+                results.append(result)
+            model_tests = np.array(results)
         model_tests_jb = model_tests[..., 0].tolist()
         model_tests_mb = model_tests[..., 1].tolist()
         model_tests_loss = []
         if include_loss:
-            for j, worker in enumerate(workers):
-                worker(prompts[j], "test_loss", worker.model)
-            model_tests_loss = [worker.results.get() for worker in workers]
+            if workers[0].spawned:
+                for j, worker in enumerate(workers):
+                    worker(prompts[j], "test_loss", worker.model)
+                model_tests_loss = [worker.results.get() for worker in workers]
+            else:
+                results = []
+                for j, worker in enumerate(workers):
+                    result = prompts[j].test_loss(worker.model)
+                    results.append(result)
+                model_tests_loss = results
 
         return model_tests_jb, model_tests_mb, model_tests_loss
 
@@ -1512,6 +1533,8 @@ class MultiPrompter(object):
         tests['n_loss'] = n_loss
         tests['total'] = total_tests
 
+        # Load log file
+        import ipdb; ipdb.set_trace()
         with open(self.logfile, 'r') as f:
             log = json.load(f)
 
@@ -1520,6 +1543,8 @@ class MultiPrompter(object):
         log['runtimes'].append(runtime)
         log['tests'].append(tests)
 
+        # Save log file
+        print(f"Saving log file to {self.logfile}")
         with open(self.logfile, 'w') as f:
             json.dump(log, f, indent=4, cls=NpEncoder)
 
@@ -1833,6 +1858,7 @@ class ModelWorker(object):
         else:
             self.model = model_path
 
+        self.spawned = False 
         self.tokenizer = tokenizer
         self.conv_template = conv_template
         self.tasks = mp.JoinableQueue()
@@ -1897,6 +1923,7 @@ class ModelWorker(object):
         #     args=(self.model, self.tasks, self.results)
         # )
 
+        self.spawned = True
         self.process = mp.Process(
             target=ModelWorker.run,
             #args=(dill.dumps(self.model), (self.tasks), (self.results))  # uncomment and comment the next one
@@ -2010,6 +2037,8 @@ def get_workers(params, eval=False):
     if not eval:
         for worker in workers:
             worker.start()
+    else:
+        print("Workers not started in eval mode")
 
     num_train_models = getattr(params, 'num_train_models', len(workers))
     print('Loaded {} train models'.format(num_train_models))

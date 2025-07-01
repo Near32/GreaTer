@@ -10,6 +10,9 @@ import gc
 # Add SDLM to the path
 #sdlm_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'sdlm')
 #sys.path.append(sdlm_path)
+import transformers
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
 import sdlm
 from sdlm.stgs_diff_model import STGSDiffModel
 from sdlm.textgrad.variables import Variable
@@ -45,60 +48,136 @@ class SDLMPrompter(BasePrompter):
     """
     def __init__(
         self, 
-        variable_init_temperature: float = 1.0,
-        gradient_comp_batch_size: int = 1,
-        stgs_kwargs: Dict[str, Any] = {
-            "stgs_hard": False,
-            "init_temperature": 1.0,
-            "learnable_temperature": True,
-            "hidden_state_conditioning": True,
-        },
-        *args, 
+        goal: str,
+        target: str,
+        tokenizer: AutoTokenizer,
+        conv_template: str,
+        control_init: str = "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+        test_prefixes: List[str] = ["I'm sorry", "I apologize", "As an", "I'm just", "I'm an", "I cannot", "Hello!"],
+        final_target: List[str] = [],
         **kwargs,
     ):
         """
         Initialize the SDLM prompter.
 
         Args:
-            variable_init_temperature: Initial temperature for the SDLM variable
-            gradient_comp_batch_size: Batch size for gradient computation
-            stgs_kwargs: Keyword arguments for the STGS model
-            *args: Additional arguments
+            goal: The goal of the prompter
+            target: The target of the prompter
+            tokenizer: The tokenizer to use for tokenization
+            conv_template: The conversation template to use
+            control_init: The initial control string
+            test_prefixes: The test prefixes to use
+            final_target: The final target to use
             **kwargs: Additional keyword arguments
         """
-        super().__init__(*args, **kwargs)
-        self.variable_init_temperature = variable_init_temperature
-        self.gradient_comp_batch_size = gradient_comp_batch_size
-        self.stgs_kwargs = stgs_kwargs
-        
-        self.sdlm_model = None
-        self.sdlm_variable = None
-        
-    def init_sdlm(self, model, tokenizer):
-        """Initialize the SDLM model and variable."""
-        self.sdlm_model = STGSDiffModel(
-            model=model,
+        super().__init__(
+            goal=goal,
+            target=target,
             tokenizer=tokenizer,
-            stgs_kwargs=self.stgs_kwargs,
-            device=model.device
+            conv_template=conv_template,
+            control_init=control_init,
+            test_prefixes=test_prefixes,
+            final_target=final_target,
+            **kwargs,
         )
         
-        # Initialize the prompt variable
-        self.sdlm_variable = Variable(
-            initial_string=self.control_str,
-            tokenizer=tokenizer,
-            temperature=self.variable_init_temperature,
-            learnable_temperature=True,
-            device=model.device
-        )
     
+    def compute_loss(
+        self, 
+        sdlm_model, 
+        sdlm_variable: Variable,
+        gradient_comp_batch_size: int = 1,
+        current_pos: Optional[int] = None, 
+        valid_tokens: Optional[List[int]] = None, 
+        temperature: Optional[float] = 1, 
+        control_weight: Optional[float] = 0.2,
+        **kwargs
+    ):
+        """
+        Compute loss using SDLM's differentiable text generation.
+        
+        Args:
+            sdlm_model: The target SDLM model
+            sdlm_variable: The SDLM variable
+            gradient_comp_batch_size: Batch size for gradient computation
+            current_pos: Current position in the prompt for which gradients are computed
+            valid_tokens: List of valid token indices
+            temperature: Temperature for the focused loss computation
+            control_weight: Weight for the control loss
+        Returns:
+            Loss for the current position
+        """
+        #if self.sdlm_model is None:
+        #    self.init_sdlm_model(model, self.tokenizer)
+            
+        # Get the current control tokens
+        control_tokens = self.control_toks
+        
+        # Create input for SDLM
+        input_ids = self.input_ids.to(device=sdlm_model.device)
+        # Set SDLM variable to current control tokens:
+        #TODO: check that sdlm_variable is corerctly sync:
+        # self.sdlm_variable.reset(input_ids=control_tokens)
+        input_one_hots = F.one_hot(input_ids, num_classes=sdlm_model.config.vocab_size).float()
+        input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1)
+        for bidx in range(gradient_comp_batch_size):
+            diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
+            input_one_hots[bidx, self._control_slice] = diff_one_hot
+
+        # Forward pass through SDLM
+        with torch.enable_grad():
+            #outputs = self.sdlm_model(
+            outputs = sdlm_model(
+                input_one_hots=input_one_hots,
+                output_hidden_states=True
+            )
+            
+            # Compute loss (you can customize this based on your needs)
+            #logits = outputs.stgs_logits
+            logits = outputs.logits
+            #TODO: consider using stgs_logits instead
+            # or partially over the reasoning slice when ground-truth reasoning are not provided.
+
+            #goals = self.input_ids[self._goal_slice]
+            targets = input_ids[self._target_slice].repeat(gradient_comp_batch_size, 1)
+            loss_crit = nn.CrossEntropyLoss(reduction='mean')
+            
+            loss = loss_crit(
+                logits[:, self._loss_slice, :].transpose(1,2), 
+                targets.detach(),
+            )
+
+            # Compute control loss, i.e. perplexity:
+            control_output_slice = slice(self._control_slice.start - 1, self._control_slice.stop - 1)
+            control_target_slice = slice(self._control_slice.start, self._control_slice.stop)
+            control_targets = input_ids[control_target_slice].repeat(gradient_comp_batch_size, 1)
+            control_loss = loss_crit(
+                logits[:, control_output_slice, :].transpose(1,2), 
+                control_targets.detach(),
+            )
+
+            if self._focused_target_slice:
+                # loss computation requires shifted slices:
+                focused_loss_slice = slice(self._focused_target_slice.start - 1, self._focused_target_slice.stop - 1)
+                focused_targets = input_ids[self._focused_target_slice]
+                focused_targets = focused_targets.repeat(gradient_comp_batch_size, 1)
+                focused_loss = loss_crit(
+                    logits[:, focused_loss_slice, :].transpose(1,2) / temperature, 
+                    focused_targets.detach()
+                )
+                loss = focused_loss+control_weight*control_loss
+            else:
+                loss = loss+control_weight*control_loss
+            
+            return loss
+            
     def grad(
         self, 
         model, 
-        current_pos, 
-        valid_tokens, 
-        temperature=1, 
-        control_weight=0.2,
+        current_pos: Optional[int] = None, 
+        valid_tokens: Optional[List[int]] = None, 
+        temperature: Optional[float] = 1, 
+        control_weight: Optional[float] = 0.2,
         **kwargs
     ):
         """
@@ -106,7 +185,7 @@ class SDLMPrompter(BasePrompter):
         
         Args:
             model: The target model
-            current_pos: Current position in the prompt
+            current_pos: Current position in the prompt for which gradients are computed
             valid_tokens: List of valid token indices
             temperature: Temperature for the focused loss computation
             control_weight: Weight for the control loss
@@ -114,20 +193,20 @@ class SDLMPrompter(BasePrompter):
             Gradients for the current position
         """
         if self.sdlm_model is None:
-            self.init_sdlm(model, self.tokenizer)
+            self.init_sdlm_model(model, self.tokenizer)
             
         # Get the current control tokens
         control_tokens = self.control_toks
         
         # Create input for SDLM
         input_ids = self.input_ids.to(device=model.device)
-        # Set SDLM variable to current input:
-        self.sdlm_variable.reset(initial_ids=input_ids)
-        input_one_hots = []
+        # Set SDLM variable to current control tokens:
+        self.sdlm_variable.reset(input_ids=control_tokens)
+        input_one_hots = F.one_hot(input_ids, num_classes=model.config.vocab_size)
+        input_one_hots = input_one_hots.repeat(self.gradient_comp_batch_size, 1, 1)
         for bidx in range(self.gradient_comp_batch_size):
             diff_input_ids, diff_one_hot, decoded_string = self.sdlm_variable.forward()
-            input_one_hots.append(diff_one_hot)
-        input_one_hots = torch.stack(input_one_hots)
+            input_one_hots[bidx, self._control_slice] = diff_one_hot
 
         # Forward pass through SDLM
         with torch.enable_grad():
@@ -179,8 +258,10 @@ class SDLMPrompter(BasePrompter):
             grads = self.sdlm_variable.logits.grad.clone()
             # seq_len x vocab_size
 
-            # Only return gradients for the current position
-            return grads[current_pos]
+            # Return gradients for the whole current control positions unless current_pos is specified
+            if current_pos is not None:
+                grads = grads[current_pos]
+            return grads
 
 
 class SDLMPromptManager(BasePromptManager):
@@ -189,23 +270,96 @@ class SDLMPromptManager(BasePromptManager):
     """
     def __init__(
         self, 
-        #learning_rate: float = 0.1,
-        *args, 
+        goals,
+        targets,
+        tokenizer,
+        conv_template,
+        control_init="! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+        test_prefixes=["I'm sorry", "I apologize", "As an", "I'm just", "I'm an", "I cannot", "Hello!"],
+        managers=None,
+        final_targets=[],
+        learning_rate: float = 0.1,
+        variable_init_temperature: float = 1.0,
+        gradient_comp_batch_size: int = 1,
+        stgs_kwargs: Dict[str, Any] = {
+            "stgs_hard": False,
+            "init_temperature": 1.0,
+            "learnable_temperature": True,
+            "hidden_state_conditioning": True,
+        },
         **kwargs,
     ):
-        super().__init__(*args, **kwargs)
-        self.learning_rate = 0.1 #learning_rate
+        super().__init__(
+            goals=goals,
+            targets=targets,
+            tokenizer=tokenizer,
+            conv_template=conv_template,
+            control_init=control_init,
+            test_prefixes=test_prefixes,
+            managers=managers,
+            final_targets=final_targets,
+            **kwargs,
+        )
+        self.learning_rate = learning_rate
         self.current_pos = 0
     
+        self.variable_init_temperature = variable_init_temperature
+        self.gradient_comp_batch_size = gradient_comp_batch_size
+        self.stgs_kwargs = stgs_kwargs
+        
+        self.sdlm_model = None
+        self.init_sdlm_variable(initial_string=self.control_str)
+        
+    def init_sdlm_model(self, model, tokenizer):
+        """
+        Initialize the SDLM model.
+        
+        Args:
+            model: The target model
+            tokenizer: The tokenizer to use for tokenization
+        """
+        self.sdlm_model = STGSDiffModel(
+            model=model,
+            tokenizer=tokenizer,
+            stgs_kwargs=self.stgs_kwargs,
+            device=model.device
+        )
+    
+    def init_sdlm_variable(
+        self, 
+        initial_ids: Optional[torch.Tensor] = None,
+        initial_string: Optional[str] = None,
+        device: Optional[str] = 'cpu',
+    ):
+        """
+        Initialize the SDLM variable.
+        
+        Args:
+            initial_ids: Initial token IDs
+            initial_string: Initial text content
+            device: Device to use (cuda/cpu)
+        """
+        assert initial_ids is not None or initial_string is not None
+        if initial_ids is None:
+            initial_ids = self.tokenizer(initial_string, return_tensors="pt").input_ids
+
+        self.sdlm_variable = Variable(
+            initial_ids=initial_ids,
+            tokenizer=self.tokenizer,
+            temperature=self.variable_init_temperature,
+            learnable_temperature=True,
+            device=device,
+        )
+
     def grad(
         self, 
-        model, 
-        current_pos, 
-        valid_tokens,
-        control_weight=0.2,
+        model: AutoModelForCausalLM, 
+        current_pos: Optional[int] = None, 
+        valid_tokens: Optional[List[int]] = None, 
+        control_weight: Optional[float] = 0.2,
         **kwargs,
     ):
-        rsum = sum([
+        sum_grads = sum([
             prompt.grad(
                 model, 
                 current_pos, 
@@ -215,7 +369,8 @@ class SDLMPromptManager(BasePromptManager):
             ) for prompt in self._prompts
         ])
 
-        return rsum
+        # [vocab_size] if current_pos is not None else [control_len, vocab_size]
+        return sum_grads
 
     def sample_control(
         self, 
@@ -228,6 +383,9 @@ class SDLMPromptManager(BasePromptManager):
     ):
         """
         Sample new controls based on gradients using SDLM.
+
+        It does not care about self.current_pos. 
+        The update is performed over the whole control string.
         
         Args:
             grad: Gradient tensor
@@ -239,37 +397,49 @@ class SDLMPromptManager(BasePromptManager):
         Returns:
             Tensor of shape (batch_size, seq_len)
         """
-        current_pos = self.current_pos
-        original_control_toks = self.control_toks.to(grad.device)
-        current_control_toks = original_control_toks.repeat(batch_size, 1)
+        raise NotImplementedError("Sampling control tokens not yet implemented")
+
+    def update(
+        self, 
+        grad,
+        **kwargs,
+    ):
+        """
+        Update the control string using SDLM.
+        
+        Args:
+            grad: Gradient tensor of shape [control_len x vocab_size]
+            lr: Learning rate for the update
+            
+        Returns:
+            Loss value
+        """
+        raise NotImplementedError("Update not yet implemented")
 
         # Apply gradient update to the SDLM variable
         with torch.no_grad():
             # Update logits with gradient
             lr = kwargs.get('lr', self.learning_rate)
             for prompt in self._prompts:
-                prompt.sdlm_variable.logits.data.add_(prompt.sdlm_variable.logits.grad * lr)
+                if not hasattr(prompt, 'sdlm_variable'):
+                    prompt.init_sdlm_variable(init_ids=original_control_toks)
+                prompt.sdlm_variable.update(lr*grad)
             
             # Sample new tokens
-            new_tokens = [
+            new_control_toks = [
                 prompt.sdlm_variable.sample() 
                 for prompt in self._prompts
             ]
             
             # Convert to list of tokens
-            new_control = [
+            new_list_control_toks = [
                 new_token.tolist() 
-                for new_token in new_tokens
+                for new_token in new_control_toks
             ]
 
-        mixed_new_control_toks = [
-            current_control_toks[i,:current_pos].tolist() + new_control[i][current_pos:] 
-            for i in range(batch_size)
-        ]
+        # Compute loss with candidate control:
 
-        self.current_pos = (self.current_pos + 1) % len(original_control_toks)
-        return torch.tensor(mixed_new_control_toks, device=grad.device)
-
+        return torch.stack(new_control_toks, dim=0), min_loss
 
 class SDLMMultiPrompter(BaseMultiPrompter):
     """
@@ -277,41 +447,92 @@ class SDLMMultiPrompter(BaseMultiPrompter):
     """
     def __init__(
         self, 
-        #learning_rate: float = 0.1,
-        *args, 
+        goals,
+        targets,
+        workers,
+        control_init="! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+        test_prefixes=["I'm sorry", "I apologize", "As an", "I'm just", "I'm an", "I cannot", "Hello!"],
+        logfile=None,
+        managers=None,
+        test_goals=[],
+        test_targets=[],
+        test_workers=[],
+        train_final_targets=[],
+        test_final_targets=[],
+        learning_rate: float = 0.1,
         **kwargs,
     ):
-        super().__init__(*args, **kwargs)
-        self.learning_rate = 0.1 #learning_rate
+        super().__init__(
+            goals=goals,
+            targets=targets,
+            workers=workers,
+            control_init=control_init,
+            test_prefixes=test_prefixes,
+            logfile=logfile,
+            managers=managers,
+            test_goals=test_goals,
+            test_targets=test_targets,
+            test_workers=test_workers,
+            train_final_targets=train_final_targets,
+            test_final_targets=test_final_targets,
+            **kwargs,
+        )
+        self.learning_rate = learning_rate
         self.loss_cache = {}
-        self.initial_length = len(self.prompts[0].control_toks)
+        self.initial_length = len(self.prompt_managers[0].control_toks)
+        parameters = [param for name, param in self.current_pm.sdlm_variable.named_parameters()]
+        #TODO: debug why does not regist STGS params: .. parameters = self.current_pm.sdlm_variable.parameters()
+        self.optimizer = torch.optim.Adam(parameters, lr=self.learning_rate)
+    
+    @property
+    def current_pm(self):
+        return self.prompt_managers[0]
+    
+    @property
+    def current_prompt(self):
+        return self.prompt_managers[0]._prompts[0]
     
     def get_grads(
         self,
         main_device,
-        current_pos,
-        valid_tokens,
-        control_weight=0.2,
+        current_pos: Optional[int] = None,
+        valid_tokens: Optional[List[int]] = None,
+        control_weight: Optional[float] = 0.2,
     ):
-        for j, worker in enumerate(self.workers):
-            worker(
-                self.prompts[j], 
-                "grad", 
-                worker.model, 
-                current_pos, 
-                valid_tokens,
-                control_weight=control_weight,
-            )
+        new_grads = []
+        if self.workers[0].spawned:
+            for j, worker in enumerate(self.workers):
+                worker(
+                    self.prompts[j], 
+                    "grad", 
+                    model=worker.model, 
+                    current_pos=current_pos, 
+                    valid_tokens=valid_tokens,
+                    control_weight=control_weight,
+                )
+            for j, worker in enumerate(self.workers):
+                new_grads.append(worker.results.get().to(main_device))
+                # [vocab_size] if current_pos is not None else [control_len, vocab_size]
+                new_grads[j] = new_grads[j] / new_grads[j].norm(dim=-1, keepdim=True)
+        else:
+            for j, worker in enumerate(self.workers):
+                new_grad = self.prompt_managers[j].grad(
+                    model=worker.model, 
+                    current_pos=current_pos, 
+                    valid_tokens=valid_tokens,
+                    control_weight=control_weight,
+                ).to(main_device)
+                # [vocab_size] if current_pos is not None else [control_len, vocab_size]
+                new_grad = new_grad / new_grad.norm(dim=-1, keepdim=True)
+                new_grads.append(new_grad)
 
-        # Aggregate gradients
+        # Aggregate gradients (per position)
         grad = None
-        for j, worker in enumerate(self.workers):
-            new_grad = worker.results.get().to(main_device)
-            new_grad = new_grad / new_grad.norm(dim=-1, keepdim=True)
+        for j, new_grad in enumerate(new_grads):
             if grad is None:
                 grad = torch.zeros_like(new_grad)
             grad += new_grad
-
+        # [vocab_size] if current_pos is not None else [control_len, vocab_size]
         return grad
     
     def step(
@@ -331,6 +552,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
     ):
         """
         Perform a single optimization step using SDLM.
+
+        It does not care about self.current_pos. 
+        The update is performed over the whole control string.
         
         Args:
             batch_size: Number of candidates to generate
@@ -349,42 +573,67 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         """
         # Get the main device
         main_device = self.models[0].device
-        
+
+        """ 
         # Get gradients using SDLM
         grads = self.get_grads(
             main_device=main_device,
-            current_pos=self.prompts[0].current_pos,
+            current_pos=None, # instead of self.prompts[0].current_pos,
             valid_tokens=None,  # valid_tokens not needed for SDLM
             control_weight=control_weight,
         )
+        # [control_len x vocab_size]
         
-        # Sample new controls
-        control_cands = self.prompts[0].sample_control(
-            grads,
-            batch_size,
-            topk=topk,
-            temp=temp,
-            allow_non_ascii=allow_non_ascii,
-            lr=self.learning_rate  # Learning rate for SDLM updates
-        )
+        # Update prompts:
+        cand_losses = []
+        for prompt in self.prompts:
+            new_control, cand_loss = prompt.update(grads)
+            cand_losses.append(cand_loss)
         
-        # Filter candidates if needed
-        if filter_cand and not opt_only:
-            control_cands = self.prompts[0].get_filtered_cands(
-                0,  # worker_index
-                control_cands,
-                filter_cand=True,
-                curr_control=self.control_str(temperature=1.0)
-            )
+        # Return the best candidate
+        min_idx = np.argmin(cand_losses)
+        next_control = self.prompts[min_idx].control_str()
+        """
+        # online implementation:
+        ## Compute losses like in get_grads:
+        pm_losses = []
+        for pmidx, prompt_manager in enumerate(self.prompt_managers):
+            if prompt_manager.sdlm_model is None:
+                prompt_manager.init_sdlm_model(model=self.models[pmidx], tokenizer=prompt_manager.tokenizer)
+            batch_loss = []
+            for bidx, prompt in enumerate(prompt_manager._prompts):
+                loss = prompt.compute_loss(
+                    sdlm_model=prompt_manager.sdlm_model,
+                    sdlm_variable=prompt_manager.sdlm_variable,
+                    current_pos=prompt_manager.current_pos,
+                    valid_tokens=None, 
+                    control_weight=control_weight,
+                )
+                batch_loss.append(loss)
+            batch_loss = torch.stack(batch_loss).mean(dim=0)
+            pm_losses.append(batch_loss)
         
-        # Update control with the best candidate
-        if control_cands:
-            self.control_str = control_cands[0]
+        ## Backward:
+        for pmidx, pm_loss in enumerate(pm_losses):
+            pm_loss.backward()
+        mean_loss = torch.stack(pm_losses).mean(dim=0).item()
 
-        next_control = self.control_str()
+        ## Variable updates:
+        self.optimizer.step()
+        self.optimizer.zero_grad()
+        
+        # Update input_ids by updating control_toks:
+        _, _, self.current_pm.control_str = self.current_pm.sdlm_variable.forward(temperature=temp)
+        for prompt_manager in self.prompt_managers:
+            for prompt in prompt_manager._prompts:
+                prompt.control_toks = self.current_pm.control_toks
+                # which performs: prompt._update_ids()
+                # TODO: update the reasoning/target of each prompt based on their control_toks
+        next_control = self.current_pm.control_str
+        
         print('Current length:', len(self.workers[0].tokenizer(next_control).input_ids[1:]))
         print('Current control:', next_control)
-        return next_control, cand_loss.item()
+        return next_control, mean_loss
     
     def deprecated_run(
         self, 

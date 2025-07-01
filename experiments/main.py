@@ -33,7 +33,7 @@ def main(_):
 
     train_goals, train_targets, test_goals, test_targets, train_final_target, test_final_target = get_goals_and_targets(params)
 
-    workers, test_workers = get_workers(params)
+    workers, test_workers = get_workers(params, eval=(params.attack == 'sdlm_opt'))
 
     managers = {
         "AP": attack_lib.Prompter,

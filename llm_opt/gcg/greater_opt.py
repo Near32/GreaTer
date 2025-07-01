@@ -140,6 +140,20 @@ class GCGPromptManager(PromptManager):
         self.current_pos = 0
 
     def sample_control(self, grad, batch_size, topk=256, temp=1, allow_non_ascii=True):
+        """
+        Sample new control tokens based on gradients.
+        
+        Args:
+            grad: Gradient tensor
+            batch_size: Number of candidates to generate
+            topk: Top-k sampling parameter
+            temp: Temperature for sampling
+            allow_non_ascii: Whether to allow non-ASCII tokens
+            
+        Returns:
+            Tensor of shape (batch_size, seq_len)
+        """
+
         if not allow_non_ascii:
             grad[:, self._nonascii_toks.to(grad.device)] = np.infty
         top_indices = (-grad).topk(topk, dim=1).indices
@@ -217,7 +231,19 @@ class GCGMultiPrompter(MultiPrompter):
 
         return grad
 
-    def morph_control(self, workers, top_k=10, top_p=None, accumulate=False, allow_non_ascii=False,sequentially_increasing=True, intersection_across_examples=5, sequential_patience_limit=2, num_intersections=3, control_weight=0.2):
+    def morph_control(
+        self, 
+        workers, 
+        top_k=10, 
+        top_p=None, 
+        accumulate=False, 
+        allow_non_ascii=False,
+        sequentially_increasing=True, 
+        intersection_across_examples=5, 
+        sequential_patience_limit=2, 
+        num_intersections=3, 
+        control_weight=0.2,
+    ):
         # only true for a single model
         # take the lm probs for the single aforementioned model
         # accumulate is a flag to determine whether to accumulate the lm probs across the batch of samples or not
