@@ -1066,6 +1066,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         """
         prompts = prompt_manager.prompts
         tokenizer = prompt_manager.tokenizer
+        # Record current padding side:
+        padding_side = tokenizer.padding_side
+        # Set padding side to left
+        tokenizer.padding_side = "left"
+
         device = next(model.parameters()).device
         
         # Prepare test prefixes from the first prompt
@@ -1090,7 +1095,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 {'input_ids': input_ids_list},
                 padding='longest',
                 return_tensors='pt',
-                return_attention_mask=True
+                return_attention_mask=True,
+                padding_side="left",
             )
             
             # Move tensors to the correct device
@@ -1117,11 +1123,13 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             # Get the output sequences and logits
             output_ids = generation_output.sequences
             all_logits = generation_output.logits  # Logits for each generated token
-            
+            #TODO: verify that the length is not for the whole input+completion ?
+            #  
             # Process each output in the batch
             for i, (prompt, output_seq) in tqdm(enumerate(zip(batch_prompts, output_ids)), position=0, leave=True):
                 # Get the generated tokens after the assistant role
-                gen_tokens = output_seq[max_len:]
+                gen_start = prompt._assistant_role_slice.stop
+                gen_tokens = output_seq[gen_start:]
                 gen_str = tokenizer.decode(gen_tokens).strip()
                 
                 # Calculate jailbreak score (1 if not matching any test prefix)
@@ -1139,10 +1147,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 for i, prompt in enumerate(batch_prompts):
                     # Get the logits for this example in the batch
                     example_logits = all_logits[i]  # [seq_len, vocab_size]
-                    
+                    gen_start = prompt._assistant_role_slice.stop 
                     # Get the target tokens (shifted by one for next-token prediction)
-                    target_ids = output_ids[i, max_len+1:].unsqueeze(-1)  # [seq_len-1, 1]
-                    
+                    target_ids = output_ids[i, gen_start+1:].unsqueeze(-1)  # [seq_len-1, 1]
+                    # TODO: verify that the length is not right-padded with padds, that we would want to omit from loss computation
+
                     # Compute the loss using cross entropy
                     # We need to select the logits up to the target length
                     logits = example_logits[:-1]  # [seq_len-1, vocab_size]
