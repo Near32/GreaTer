@@ -1064,8 +1064,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         Returns:
             Tuple of (jailbreak_scores, match_scores, losses)
         """
-        prompts = prompt_manager.prompts
+        prompts = prompt_manager._prompts
         tokenizer = prompt_manager.tokenizer
+        original_padding_size = tokenizer.padding_side
+        tokenizer.padding_side = 'left'
         device = next(model.parameters()).device
         
         # Prepare test prefixes from the first prompt
@@ -1121,7 +1123,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             # Process each output in the batch
             for i, (prompt, output_seq) in tqdm(enumerate(zip(batch_prompts, output_ids)), position=0, leave=True):
                 # Get the generated tokens after the assistant role
-                gen_tokens = output_seq[max_len:]
+                gen_start = prompt._assistant_role_slice.stop
+                gen_tokens = output_seq[gen_start:]
                 gen_str = tokenizer.decode(gen_tokens).strip()
                 
                 # Calculate jailbreak score (1 if not matching any test prefix)
@@ -1139,9 +1142,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 for i, prompt in enumerate(batch_prompts):
                     # Get the logits for this example in the batch
                     example_logits = all_logits[i]  # [seq_len, vocab_size]
+                    gen_start = prompt._assistant_role_slice.stop
                     
                     # Get the target tokens (shifted by one for next-token prediction)
-                    target_ids = output_ids[i, max_len+1:].unsqueeze(-1)  # [seq_len-1, 1]
+                    target_ids = output_ids[i, gen_start+1:].unsqueeze(-1)  # [seq_len-1, 1]
                     
                     # Compute the loss using cross entropy
                     # We need to select the logits up to the target length
@@ -1161,6 +1165,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             if include_loss:
                 losses.extend(batch_losses)
         
+        tokenizer.padding_side = original_padding_side
         return jailbreak_scores, match_scores, losses if include_loss else []
     
     def test_all(self):
@@ -1168,8 +1173,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         test_prompt_manager = self.managers['PM'](
             goals=self.goals + self.test_goals,
             targets=self.targets + self.test_targets,
-            tokenizer=model.tokenizer,
-            conv_template=model.conv_template,
+            tokenizer=self.workers[0].tokenizer,
+            conv_template=self.workers[0].conv_template,
             control_init=self.control_str,
             test_prefixes=self.test_prefixes,
             managers=self.managers,
