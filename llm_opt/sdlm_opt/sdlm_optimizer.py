@@ -7,6 +7,7 @@ import time
 import sys
 import os
 import gc
+from tqdm import tqdm
 
 # Add SDLM to the path
 #sdlm_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'sdlm')
@@ -791,7 +792,7 @@ class SDLMPromptManager(BasePromptManager):
                 input_ids_padded,
                 attention_mask=attn_masks,
                 generation_config=gen_config,
-                max_new_tokens=1024,
+                max_new_tokens=128, #1024,
                 output_hidden_states=False, output_attentions=False, output_logits=False,
                 pad_token_id=self.tokenizer.pad_token_id,
                 do_sample=False, return_dict_in_generate=return_past_key_vals,
@@ -853,7 +854,7 @@ class SDLMPromptManager(BasePromptManager):
 
         stpwatch_strt = time.time()
         import ipdb; ipdb.set_trace()
-        for i in range(0, len(self._prompts), generation_batch_size):
+        for i in tqdm(range(0, len(self._prompts), generation_batch_size), position=0, leave=True):
             list_prompts = self._prompts[i:i + generation_batch_size]
             outputs = self.generate_batched_str(model, list_prompts, gen_config)
             for prompt, output in zip(list_prompts, outputs):
@@ -1054,7 +1055,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         self, 
         batch_size=1024, 
         topk=256, 
-        temp=1, 
+        temp=0.1, 
         topq=5, 
         allow_non_ascii=True,
         target_weight=1, 
@@ -1150,12 +1151,145 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         print('Current control:', next_control)
         return next_control, mean_loss
     
+    def run(
+        self,
+        n_steps=100,
+        batch_size=1024,
+        topk=256,
+        temp=0.1,
+        topq=5,
+        allow_non_ascii=False,
+        target_weight=None,
+        control_weight=None,
+        anneal=True,
+        anneal_from=0,
+        prev_loss=np.infty,
+        stop_on_success=True,
+        test_steps=200,
+        log_first=False,
+        filter_cand=True,
+        verbose=True,
+        early_stopping=True,
+        loss_threshold=0.12,
+        early_stopping_steps=150,
+        SIMULATED_CANONICAL=True,
+    ):
+        def P(e, e_prime, k):
+            T = max(1 - float(k + 1) / (n_steps + anneal_from), 1.e-7)
+            return True if e_prime < e else math.exp(-(e_prime - e) / T) >= random.random()
+
+        best_step = 0
+
+        if target_weight is None:
+            target_weight_fn = lambda _: 1
+        elif isinstance(target_weight, (int, float)):
+            target_weight_fn = lambda i: target_weight
+        if control_weight is None:
+            control_weight_fn = lambda _: 0.1
+        elif isinstance(control_weight, (int, float)):
+            control_weight_fn = lambda i: control_weight
+
+        steps = 0
+        loss = best_loss = 1e6
+        best_control = self.control_str
+        top_controls = []
+        runtime = 0.
+
+        if self.logfile is not None and log_first:
+            model_tests = self.test_all()
+            self.log(anneal_from,
+                     n_steps + anneal_from,
+                     self.control_str,
+                     loss,
+                     runtime,
+                     model_tests,
+                     verbose=verbose)
+
+        for i in range(n_steps):
+
+            # if stop_on_success:
+            #     model_tests_jb, model_tests_mb, _ = self.test(self.workers, self.prompts)
+            #     if all(all(tests for tests in model_test) for model_test in model_tests_jb):
+            #         break
+
+            steps += 1
+            start = time.time()
+            torch.cuda.empty_cache()
+
+            if SIMULATED_CANONICAL:
+                self.update_solution()
+
+            control, loss = self.step(
+                batch_size=batch_size,
+                topk=topk,
+                temp=temp,
+                topq=topq,
+                allow_non_ascii=allow_non_ascii,
+                target_weight=target_weight_fn(i),
+                control_weight=control_weight_fn(i),
+                filter_cand=filter_cand,
+                verbose=verbose
+            )
+            runtime = time.time() - start
+            keep_control = True if not anneal else P(prev_loss, loss, i + anneal_from)
+            if keep_control:
+                self.control_str = control
+            else:
+                self.control_str = control
+                print('!!!!Rejecting new control originally, changed !!!!')
+
+            # if SIMULATED_CANONICAL:
+            #     self.update_solution()
+
+
+            prev_loss = loss
+            if loss < best_loss:
+                best_loss = loss
+                best_step = i
+                best_control = control
+
+            if len(top_controls) < 10 or loss < top_controls[-1][0]:
+                if len(top_controls) == 10:
+                    top_controls.pop()
+
+                top_controls.append((loss, control))
+                top_controls.sort(key=lambda x: x[0])
+
+            print('Current Loss:', loss, 'Best Loss:', best_loss, 'Best Control:', best_control)
+
+            if i%15 == 0:
+                print("Step: ", i, "Candidates: ", top_controls)
+
+            if loss < loss_threshold and early_stopping:
+                print('Loss below loss_threshold. Moving to next objective.')
+                break
+
+            if i - best_step > early_stopping_steps and early_stopping:
+                print(f'Loss plateaued for {early_stopping_steps} steps. Moving to next group optimization.')
+                # self.control_str = best_control
+                break
+
+            if self.logfile is not None and (i + 1 + anneal_from) % test_steps == 0:
+                import ipdb; ipdb.set_trace()
+                last_control = self.control_str
+                self.control_str = best_control
+
+                model_tests = self.test_all()
+                self.log(i + 1 + anneal_from, n_steps + anneal_from, self.control_str, best_loss, runtime, model_tests,
+                         verbose=verbose)
+
+                self.control_str = last_control
+
+        # Added later
+
+        return self.control_str, loss, steps
+    
     def deprecated_run(
         self, 
         n_steps=100, 
         batch_size=1024, 
         topk=256, 
-        temp=1, 
+        temp=0.1, 
         topq=5, 
         target_weight=1, 
         control_weight=0.2, 

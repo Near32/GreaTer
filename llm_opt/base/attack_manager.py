@@ -1342,7 +1342,6 @@ class MultiPrompter(object):
             early_stopping=True,
             loss_threshold=0.12,
             early_stopping_steps=150,
-
             ):
 
         def P(e, e_prime, k):

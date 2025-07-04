@@ -10,14 +10,14 @@ TRAIN_DATA="../data/grade_school_math/train.jsonl"
 #TEST_DATA="../data/grade_school_math/test.csv"
 TEST_DATA="../data/grade_school_math/test.jsonl"
 LOG_FILE="sdlm_smollm2_135m_logs/gsm8k_optimization.log"
-RESULT_PREFIX="results/sdlm_smollm2_135m_gpu_gsm8k"
+RESULT_PREFIX="results/sdlm_smollm2_135m_cpu_gsm8k"
 
 # Print configuration
 echo "========================================"
-echo "SDLM Optimization with smollm2_135m (GPU)"
+echo "SDLM Optimization with smollm2_135m (CPU)"
 echo "========================================"
 echo "Model: smollm2_135m"
-echo "Device: GPU"
+echo "Device: CPU"
 echo "Train data: $TRAIN_DATA"
 echo "Test data: $TEST_DATA"
 echo "Log file: $LOG_FILE"
@@ -32,9 +32,9 @@ export OMP_NUM_THREADS=$(nproc)  # Use all available CPU cores
 export TOKENIZERS_PARALLELISM=false
 
 # Run the optimization
-echo "Starting optimization on GPU with SmolLM2-135m_instruct..."
+echo "Starting optimization on CPU with SmolLM2-135m_instruct..."
 CUDA_LAUNCH_BLOCKING=1 python -m ipdb -c c main.py \
-    --config="./configs/transfer_sdlm_smollm2_135m_instruct_gpu.py" \
+    --config="./configs/transfer_sdlm_smollm2_135m_instruct_cpu.py" \
     --config.train_data="$TRAIN_DATA" \
     --config.test_data="$TEST_DATA" \
     --config.result_prefix="$RESULT_PREFIX" \
@@ -47,7 +47,7 @@ CUDA_LAUNCH_BLOCKING=1 python -m ipdb -c c main.py \
     --config.n_steps=50 \
     --config.test_steps=5 \
     --config.anneal=True \
-    --config.batch_size=5 \
+    --config.batch_size=2 \
     --config.topk=10 \
     --config.topq=5 \
     --config.control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer." \
@@ -58,7 +58,7 @@ CUDA_LAUNCH_BLOCKING=1 python -m ipdb -c c main.py \
 
 # Print completion message
 echo "========================================"
-echo "GPU Optimization with SmolLM2-135m_instruct completed!"
+echo "CPU Optimization with SmolLM2-135m_instruct completed!"
 echo "Results saved to: $RESULT_PREFIX*"
 echo "Log file: $LOG_FILE"
 echo "========================================"

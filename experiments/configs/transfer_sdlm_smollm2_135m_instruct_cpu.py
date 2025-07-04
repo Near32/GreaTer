@@ -26,7 +26,7 @@ def get_config():
     #config.conversation_templates = ['gemma-2'] #['gpt-2']
     config.conversation_templates = ['smollm-2', 'smollm-2'] #['gpt-2']
     #config.devices = ['cuda:0']
-    config.devices = ['cuda:0', 'cuda:0']
+    config.devices = ['cpu', 'cpu']
     config.torch_dtype = 'float32'  # More stable on CPU
     
     # No quantization needed for DistilGPT2 as it's already small
@@ -56,7 +56,7 @@ def get_config():
     config.early_stopping_steps = 3
     
     # Logging
-    config.logfile = 'results/sdlm_smollm2_135m_instruct_gpu_gsm8k.json'
+    config.logfile = 'results/sdlm_smollm2_135m_instruct_cpu_gsm8k.json'
     config.verbose = True
     
     return config
