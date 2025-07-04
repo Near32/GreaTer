@@ -2001,6 +2001,8 @@ def get_workers(params, eval=False):
             t1.name = 'gemma'
         elif 'llama-3' in template:
             t1.name = 'llama-3'
+        elif 'smollm-2' in template:
+            t1.name = 'smollm-2'
         raw_conv_templates.append(t1)
 
     conv_templates = []
@@ -2020,6 +2022,8 @@ def get_workers(params, eval=False):
             conv.system = "<bos>"
             conv.roles = ('user\n', 'model\n')
             # Handle rest manually inside implementation to avoid any potential issues
+        else:
+            print(conv)
         conv_templates.append(conv)
 
     print(f"Loaded {len(conv_templates)} conversation templates")

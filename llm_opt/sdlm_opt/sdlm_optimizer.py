@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 from typing import List, Optional, Dict, Any, Tuple
+import time
 import sys
 import os
 import gc
@@ -81,7 +82,362 @@ class SDLMPrompter(BasePrompter):
             **kwargs,
         )
         
-    
+    def _update_ids(self, SIMULATED_CANONICAL=False):
+        def find_last_subarray_indices(tokenizer, array1, str2):
+            array2 = tokenizer(str2).input_ids
+            if 'Llama-3' in tokenizer.name_or_path:
+                array2 = array2[1:]  # because it never stops generating the first starting token
+            len_array2 = len(array2)
+            for i in range(len(array1) - len_array2, len(array1) - len_array2 -10, -1):
+                if array1[i:i + len_array2] == array2:
+                    return i, i + len_array2
+
+            # Since we did not get any return value, it indicates tokenizer issue with leading space. So, we try again with a leading space.
+            array2 = tokenizer((" " +str2)).input_ids
+            if 'Llama-3' in tokenizer.name_or_path:
+                array2 = array2[1:]
+            len_array2 = len(array2)
+            for i in range(len(array1) - len_array2, -1, -1):
+                if array1[i:i + len_array2] == array2:
+                    return i, i + len_array2
+
+            return -1, -1  # Return -1, -1 if array2 is not found in array1
+
+        if self.control_pos == "post":
+            self.conv_template.append_message(self.conv_template.roles[0], f"\"{self.goal}\" {self.control}")
+        else:
+            self.conv_template.append_message(self.conv_template.roles[0], f"\"{self.control}\" {self.goal}")
+
+        self.conv_template.append_message(self.conv_template.roles[1], f"{self.target}")
+
+        prompt = self.conv_template.get_prompt()
+        # prompt = re.sub(start_delim + ".*?" + end_delim, replacement, prompt, flags=re.DOTALL)
+        encoding = self.tokenizer(prompt)
+        toks = encoding.input_ids
+
+        if self.conv_template.name == 'llama-2':
+            self.conv_template.messages = []
+
+            self.conv_template.append_message(self.conv_template.roles[0], "")
+            toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+
+            self._user_role_slice = slice(None, len(toks) + 1)  # FORCED BUG FIX for accurate slicing.
+
+            if self.control_pos == "post":
+                self.conv_template.update_last_message(f"{self.goal}")
+                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                self._goal_slice = slice(self._user_role_slice.stop, max(self._user_role_slice.stop, len(toks)))
+
+                separator = ' ' if self.goal else ''
+                self.conv_template.update_last_message(f"{self.goal}{separator}{self.control}")
+                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                self._control_slice = slice(self._goal_slice.stop, len(toks))
+
+                self.conv_template.update_last_message(f"{self.goal}{separator}{self.control}{separator}")
+
+            else:
+                self.conv_template.update_last_message(f"{self.control}")
+                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                self._control_slice = slice(self._user_role_slice.stop, max(self._user_role_slice.stop, len(toks)))
+
+                separator = " " if self.goal else ''
+                self.conv_template.update_last_message(f"{self.control}{separator}{self.goal}")
+                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                self._goal_slice = slice(self._control_slice.stop, len(toks))
+
+                self.conv_template.update_last_message(f"{self.control}{separator}{self.goal}{separator}")
+
+            self.conv_template.append_message(self.conv_template.roles[1], None)
+            toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+            if self.control_pos == "post":
+                self._assistant_role_slice = slice(self._control_slice.stop, len(toks))
+            else:
+                self._assistant_role_slice = slice(self._goal_slice.stop, len(toks))
+
+            # TODO here we are assuming that target is not "CANONICAL". This must be handled for GSM8K where target is canonical
+            if SIMULATED_CANONICAL:
+                self.conv_template.update_last_message(f"{self.current_solution}")
+                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks)-2)
+
+                self.conv_template.update_last_message(f"{self.current_solution} {self.target}")
+                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                self._target_slice = slice(self._current_solution_slice.stop, len(toks)-2)
+                self._loss_slice = slice(self._current_solution_slice.stop-1, len(toks)-3)
+            else:
+                self.conv_template.update_last_message(f"{self.target}")
+                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                self._target_slice = slice(self._assistant_role_slice.stop, len(toks) - 2)
+                self._loss_slice = slice(self._assistant_role_slice.stop - 1, len(toks) - 3)
+
+            if len(self.final_target) > 0:  # focused answer exists
+                # bias1, bias2 = find_last_substring_indices(self.target, self.final_target)
+                idx1, idx2 = find_last_subarray_indices(self.tokenizer, toks, self.final_target)
+                self._focused_target_slice = slice(idx1, idx2)
+            else:
+                self._focused_target_slice = None
+                # self._focused_target_slice = 0
+
+        elif self.conv_template.name == 'llama-3':
+            self.conv_template.messages = []
+            full_input = ""
+
+            # user role slice
+            full_input += "<|start_header_id|>user<|end_header_id|>\n\n"  # are u sure?
+            toks = self.tokenizer(full_input).input_ids
+            self._user_role_slice = slice(None, len(toks))
+
+            if self.control_pos == "post":
+                # goal_slice and control_slice and assistant role slice
+                # goal_slice
+                separator = " "
+                full_input += self.goal
+                # full_input += " "
+                toks = self.tokenizer(full_input).input_ids
+                self._goal_slice = slice(self._user_role_slice.stop, len(toks))
+
+                # control slice
+                if self.control.startswith(" "):
+                    self.control = self.control[1:]
+                full_input = full_input + " " + self.control
+                toks = self.tokenizer(full_input).input_ids
+
+                if self.control_len == 0:
+                    self.control_len = len(toks)
+
+                self._control_slice = slice(self._goal_slice.stop, len(toks))
+            elif self.control_pos == "pre":
+                # control_slice and goal_slice and assistant role slice
+                # control slice
+                full_input += self.control
+                toks = self.tokenizer(full_input).input_ids
+                self._control_slice = slice(self._user_role_slice.stop, len(toks))
+
+                # goal_slice
+                full_input += " "
+                full_input += self.goal
+                toks = self.tokenizer(full_input).input_ids
+                self._goal_slice = slice(self._control_slice.stop, len(toks))
+
+            # assistant role slice
+            full_input += "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
+            toks = self.tokenizer(full_input).input_ids
+            self._assistant_role_slice = slice(self._control_slice.stop, len(toks))
+
+            # current solution slice
+            if SIMULATED_CANONICAL:
+                full_input += self.current_solution
+                toks = self.tokenizer(full_input).input_ids
+                self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks))
+
+                # target_slice
+                full_input += " " ## added on Sept 15, 2024
+                full_input += self.target
+                toks = self.tokenizer(full_input).input_ids
+                self._target_slice = slice(self._current_solution_slice.stop, len(toks))
+                self._loss_slice = slice(self._current_solution_slice.stop - 1, len(toks) - 1)
+            else:
+                # target_slice
+                full_input += self.target
+                toks = self.tokenizer(full_input).input_ids
+                self._target_slice = slice(self._assistant_role_slice.stop, len(toks))
+                self._loss_slice = slice(self._assistant_role_slice.stop - 1, len(toks) - 1)
+
+            if len(self.final_target) > 0:  # focused answer exists
+                idx1, idx2 = find_last_subarray_indices(self.tokenizer, toks, self.final_target)
+                self._focused_target_slice = slice(idx1, idx2)
+            else:
+                self._focused_target_slice = None
+
+        elif self.conv_template.name == 'gemma-2':
+            self.conv_template.messages = []
+            full_input = ""
+
+            # user role slice
+            full_input += "<bos><start_of_turn>user\n"
+            toks = self.tokenizer(full_input).input_ids
+            self._user_role_slice = slice(None, len(toks))
+
+            if self.control_pos == "post":
+                separator = " "
+                # goal_slice
+                full_input += self.goal
+                toks = self.tokenizer(full_input).input_ids
+                self._goal_slice = slice(self._user_role_slice.stop, len(toks))
+
+                # control slice
+                if self.control.startswith(" "):
+                    self.control = self.control[1:]
+                full_input = full_input + " " + self.control
+                toks = self.tokenizer(full_input).input_ids
+                self._control_slice = slice(self._goal_slice.stop, len(toks))
+            elif self.control_pos == "pre":
+                raise NotImplementedError # Not necessary to be implemented in our protocol
+
+            # assistant role slice
+            full_input += "<end_of_turn>\n<start_of_turn>model\n"
+            toks = self.tokenizer(full_input).input_ids
+            self._assistant_role_slice = slice(self._control_slice.stop, len(toks))
+
+            # current solution slice
+            if SIMULATED_CANONICAL:
+                full_input += self.current_solution
+                toks = self.tokenizer(full_input).input_ids
+                self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks))
+
+                # target_slice
+                full_input += self.target
+                toks = self.tokenizer(full_input).input_ids
+                self._target_slice = slice(self._current_solution_slice.stop, len(toks))
+                self._loss_slice = slice(self._current_solution_slice.stop - 1, len(toks) - 1)
+            else:
+                # target_slice
+                full_input += self.target
+                toks = self.tokenizer(full_input).input_ids
+                self._target_slice = slice(self._assistant_role_slice.stop, len(toks))
+                self._loss_slice = slice(self._assistant_role_slice.stop - 1, len(toks) - 1)
+
+            if len(self.final_target) > 0:  # focused answer exists
+                idx1, idx2 = find_last_subarray_indices(self.tokenizer, toks, self.final_target)
+                self._focused_target_slice = slice(idx1, idx2)
+            else:
+                self._focused_target_slice = None
+
+
+        elif self.conv_template.name == 'gemma':
+            # Handle everything manually from absolute scratch since fschat doesnot give full support
+
+            # TODO introduce prefix support as well
+
+            self.conv_template.messages = []
+            full_input = ""
+            # user role slice
+            full_input += "<bos>"
+            toks = self.tokenizer(full_input).input_ids
+            self._user_role_slice = slice(None, len(toks))
+
+            # goal slice
+            full_input += self.goal
+            toks = self.tokenizer(full_input).input_ids
+            self._goal_slice = slice(self._user_role_slice.stop, max(self._user_role_slice.stop, len(toks)))
+
+            # control slice
+            separator = " "
+            full_input = full_input + separator + self.control
+            toks = self.tokenizer(full_input).input_ids
+            self._control_slice = slice(self._goal_slice.stop, len(toks))
+
+            # assistant role slice
+            full_input += "\n\n"
+            toks = self.tokenizer(full_input).input_ids
+            self._assistant_role_slice = slice(self._control_slice.stop, len(toks))
+
+            # current solution slice
+            if SIMULATED_CANONICAL:
+                full_input += self.current_solution
+                toks = self.tokenizer(full_input).input_ids
+                self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks))
+
+                # target_slice
+                full_input += self.target
+                toks = self.tokenizer(full_input).input_ids
+                self._target_slice = slice(self._current_solution_slice.stop, len(toks))
+                self._loss_slice = slice(self._current_solution_slice.stop - 1, len(toks) - 1)
+
+            # target slice
+            else:
+                full_input += self.target
+                toks = self.tokenizer(full_input).input_ids
+                self._target_slice = slice(self._assistant_role_slice.stop, len(toks))
+                self._loss_slice = slice(self._assistant_role_slice.stop - 1, len(toks) - 1)
+
+            if len(self.final_target) > 0:  # focused answer exists
+                # bias1, bias2 = find_last_substring_indices(self.target, self.final_target)
+                idx1, idx2 = find_last_subarray_indices(self.tokenizer, toks, self.final_target)
+                self._focused_target_slice = slice(idx1, idx2)
+
+            else:
+                self._focused_target_slice = None
+                # self._focused_target_slice = 0
+        elif self.conv_template.name == 'smollm-2':
+            verbose = False 
+            self.conv_template.messages = []
+            full_input = "<|im_start|>system\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face<|im_end|>\n"
+            # <|im_start|>user
+            
+            # user role slice
+            full_input += "<|im_start|>user\n"
+            toks = self.tokenizer(full_input).input_ids
+            self._user_role_slice = slice(None, len(toks))
+
+            if self.control_pos == "post":
+                separator = " "
+                # goal_slice
+                full_input += self.goal
+                toks = self.tokenizer(full_input).input_ids
+                self._goal_slice = slice(self._user_role_slice.stop, len(toks))
+
+                # control slice
+                if self.control.startswith(" "):
+                    self.control = self.control[1:]
+                full_input = full_input + " " + self.control
+                toks = self.tokenizer(full_input).input_ids
+                self._control_slice = slice(self._goal_slice.stop, len(toks))
+            elif self.control_pos == "pre":
+                raise NotImplementedError # Not necessary to be implemented in our protocol
+
+            if verbose:
+                print('//'*20)
+                print(full_input)
+                print('-'*20)
+
+            # assistant role slice
+            full_input += "<|im_end|>\n<|im_start|>assistant\n"
+            toks = self.tokenizer(full_input).input_ids
+            self._assistant_role_slice = slice(self._control_slice.stop, len(toks))
+
+            # current solution slice
+            if SIMULATED_CANONICAL:
+                full_input += self.current_solution
+                toks = self.tokenizer(full_input).input_ids
+                self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks))
+
+                # target_slice
+                full_input += self.target
+                toks = self.tokenizer(full_input).input_ids
+                self._target_slice = slice(self._current_solution_slice.stop, len(toks))
+                self._loss_slice = slice(self._current_solution_slice.stop - 1, len(toks) - 1)
+            else:
+                # target_slice
+                full_input += self.target
+                toks = self.tokenizer(full_input).input_ids
+                self._target_slice = slice(self._assistant_role_slice.stop, len(toks))
+                self._loss_slice = slice(self._assistant_role_slice.stop - 1, len(toks) - 1)
+
+            if verbose:
+                print('+TARGET+'*5)
+                print(self.target)
+                print('+FINAL_TARGET+'*5)
+                print(self.final_target)
+                print('-'*20)
+
+                print(full_input)
+                print('-'*20)
+
+            if len(self.final_target) > 0:  # focused answer exists
+                idx1, idx2 = find_last_subarray_indices(self.tokenizer, toks, self.final_target)
+                self._focused_target_slice = slice(idx1, idx2)
+            else:
+                self._focused_target_slice = None
+
+            if verbose: print(full_input)
+        else:
+            raise NotImplementedError
+
+        self.input_ids = torch.tensor(toks[:self._target_slice.stop], device='cpu')
+        self.conv_template.messages = []
+
+     
     def compute_loss(
         self, 
         sdlm_model, 
@@ -128,7 +484,7 @@ class SDLMPrompter(BasePrompter):
         with torch.enable_grad():
             #outputs = self.sdlm_model(
             outputs = sdlm_model(
-                input_one_hots=input_one_hots,
+                input_one_hots=input_one_hots.to(dtype=sdlm_model.dtype),
                 output_hidden_states=True
             )
             
@@ -279,13 +635,18 @@ class SDLMPromptManager(BasePromptManager):
         managers=None,
         final_targets=[],
         learning_rate: float = 0.1,
-        variable_init_temperature: float = 1.0,
         gradient_comp_batch_size: int = 1,
-        stgs_kwargs: Dict[str, Any] = {
-            "stgs_hard": False,
-            "init_temperature": 1.0,
+        stgs_model_kwargs: Dict[str, Any] = {
+            "hard": False,
+            "temperature": 1.0,
             "learnable_temperature": True,
-            "hidden_state_conditioning": True,
+            "hidden_state_conditioning": False,
+        },
+        stgs_variable_kwargs: Dict[str, Any] = {
+            "hard": False,
+            "temperature": 0.1,
+            "logit_scaler": 10.0,
+            "learnable_temperature": True,
         },
         **kwargs,
     ):
@@ -303,11 +664,13 @@ class SDLMPromptManager(BasePromptManager):
         self.learning_rate = learning_rate
         self.current_pos = 0
     
-        self.variable_init_temperature = variable_init_temperature
         self.gradient_comp_batch_size = gradient_comp_batch_size
-        self.stgs_kwargs = stgs_kwargs
+        self.stgs_model_kwargs = stgs_model_kwargs
+        self.stgs_variable_kwargs = stgs_variable_kwargs
         
         self.sdlm_model = None
+        import ipdb; ipdb.set_trace()
+        print(self.control_str, len(self.tokenizer(self.control_str).input_ids))
         self.init_sdlm_variable(initial_string=self.control_str)
         
     def init_sdlm_model(self, model, tokenizer):
@@ -321,7 +684,7 @@ class SDLMPromptManager(BasePromptManager):
         self.sdlm_model = STGSDiffModel(
             model=model,
             tokenizer=tokenizer,
-            stgs_kwargs=self.stgs_kwargs,
+            stgs_kwargs=self.stgs_model_kwargs,
             device=model.device
         )
     
@@ -346,10 +709,158 @@ class SDLMPromptManager(BasePromptManager):
         self.sdlm_variable = Variable(
             initial_ids=initial_ids,
             tokenizer=self.tokenizer,
-            temperature=self.variable_init_temperature,
-            learnable_temperature=True,
             device=device,
+            **self.stgs_variable_kwargs,
         )
+
+    def generate(
+        self, 
+        model, 
+        gen_config=None,
+    ):
+        if gen_config is None:
+            gen_config = model.generation_config
+            gen_config.max_new_tokens = 128
+
+        return [prompt.generate(model, gen_config) for prompt in self._prompts]
+
+    @torch.no_grad()
+    def generate_batched(
+        self, 
+        model, 
+        prompts, 
+        prompt_candidate_toks=None, 
+        gen_config=None, 
+        return_past_key_vals=False,
+    ):
+        if not prompt_candidate_toks:
+            prompt_candidate_toks = prompts[0].input_ids[prompts[0]._control_slice]
+
+        if gen_config is None:
+            gen_config = model.generation_config
+            gen_config.max_length = 700
+
+        # Extract and slice input_ids from each Prompt object
+        sliced_input_ids_list = []
+        for prompt in prompts:
+            #temp = torch.tensor(prompt.input_ids[:prompt._assistant_role_slice.stop])
+            temp = prompt.input_ids[:prompt._assistant_role_slice.stop].detach().clone()
+            #print(temp.shape, prompt._control_slice)
+            temp[prompt._control_slice] = prompt_candidate_toks
+            sliced_input_ids_list.append(temp)
+
+        # Find the length of the longest sequence to calculate padding
+        max_len = max([len(seq) for seq in sliced_input_ids_list])
+
+        input_ids_padded = []
+        for seq in sliced_input_ids_list:
+            padded_seq = torch.cat([torch.full((max_len - len(seq),), self.tokenizer.pad_token_id), seq])
+            input_ids_padded.append(padded_seq)
+
+        input_ids_padded = torch.stack(input_ids_padded).to(model.device)
+
+        # Create attention masks (1 for non-padding tokens, 0 for padding tokens)
+        attn_masks = (input_ids_padded != self.tokenizer.pad_token_id).to(model.device)
+        # Pad input_ids to the length of the longest sequence
+        # input_ids_padded = pad_sequence(sliced_input_ids_list,
+        #                                 batch_first=True,
+        #                                 padding_value=self.tokenizer.pad_token_id).to(model.device)
+
+        # Create attention masks
+        #attn_masks = (input_ids_padded != self.tokenizer.pad_token_id).to(model.device)
+
+        # # Find the minimum length among all sequences
+        # min_length = min([len(seq) for seq in sliced_input_ids_list])
+        #
+        # ##### <> #####
+        #
+        # # Truncate all sequences to the minimum length
+        # sliced_input_ids_list = [seq[:min_length] for seq in sliced_input_ids_list]
+        #
+        # # Stack them into a tensor (no need to pad since they are all the same length now)
+        # input_ids_padded = torch.stack(sliced_input_ids_list).to(model.device)
+        #
+        # # Create attention masks (all ones since no padding is used)
+        # attn_masks = torch.ones(input_ids_truncated.size(), dtype=torch.long).to(model.device)
+
+        # Perform generation
+        model.eval()
+        #import ipdb; ipdb.set_trace()
+        with torch.no_grad():
+            output_ids = model.generate(
+                input_ids_padded,
+                attention_mask=attn_masks,
+                generation_config=gen_config,
+                max_new_tokens=1024,
+                output_hidden_states=False, output_attentions=False, output_logits=False,
+                pad_token_id=self.tokenizer.pad_token_id,
+                do_sample=False, return_dict_in_generate=return_past_key_vals,
+            )
+
+        if return_past_key_vals:
+            output_ids, past_key_vals = output_ids.sequences, output_ids.past_key_values
+            print("Returned with past_key_vals. Warning: This can be slower")
+
+        # Extract the generated tokens, excluding the original input length
+        result = []
+        # TODO possibility of faster implementation later
+        for i, ids in enumerate(input_ids_padded):
+            result.append(output_ids[i, len(ids):])
+
+        if not return_past_key_vals:
+            return result
+
+        return result, output_ids, past_key_vals # return past_key_vals and output_ids if requested
+
+    def generate_str(
+        self, 
+        model, 
+        gen_config=None,
+    ):
+        import ipdb; idpb.set_trace()
+        reasoning_strs = []
+        for output_toks in self.generate(model, gen_config):
+            reasoning_str = self.tokenizer.decode(output_toks)
+            reasoning_strs.append(reasoning_str)
+        return reasoning_strs
+
+    def generate_batched_str(
+        self, 
+        model, 
+        prompts, 
+        prompt_candidate_toks=None, 
+        gen_config=None, 
+    ):
+        # batch generation often causes the assistant token to be repeated, so manually filter them out
+        assistant_str = self.tokenizer.decode(self._prompts[0].input_ids[self._prompts[0]._assistant_role_slice], skip_special_tokens = True) # TODO: assumes all prompts have the same assistant role slice
+
+        # TODO can be faster
+        reasoning_strs = []
+        for output_toks in self.generate_batched(model, prompts, prompt_candidate_toks, gen_config):
+            reasoning_str = self.tokenizer.decode(output_toks, skip_special_tokens=True)
+            # removing possible repeated assistant token:
+            reasoning_str = reasoning_str.split(assistant_str)[-1].strip()
+            reasoning_strs.append(reasoning_str)
+
+        return reasoning_strs
+
+    def update_solution(
+        self, 
+        model, 
+        gen_config=None, 
+        generation_batch_size=9,
+    ):
+
+        stpwatch_strt = time.time()
+        import ipdb; ipdb.set_trace()
+        for i in range(0, len(self._prompts), generation_batch_size):
+            list_prompts = self._prompts[i:i + generation_batch_size]
+            outputs = self.generate_batched_str(model, list_prompts, gen_config)
+            for prompt, output in zip(list_prompts, outputs):
+                prompt.current_solution_str = output
+        print("Time taken to update solutions: ", time.time() - stpwatch_strt)
+                #
+        # [prompt.update_solution(model, gen_config) for prompt in self._prompts]
 
     def grad(
         self, 
@@ -492,6 +1003,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
     def current_prompt(self):
         return self.prompt_managers[0]._prompts[0]
     
+    def update_solution(self):
+        for prompt_manager, worker in zip(self.prompt_managers, self.test_workers):
+            prompt_manager.update_solution(worker.model)
+
     def get_grads(
         self,
         main_device,
