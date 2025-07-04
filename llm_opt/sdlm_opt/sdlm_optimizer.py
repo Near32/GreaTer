@@ -1143,22 +1143,27 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             if include_loss:
                 for i, prompt in enumerate(batch_prompts):
                     # Get the logits for this example in the batch
-                    example_logits = all_logits[i]  # [seq_len, vocab_size]
-                    gen_start = prompt._assistant_role_slice.stop 
-                    # Get the target tokens (shifted by one for next-token prediction)
-                    target_ids = output_ids[i, gen_start+1:].unsqueeze(-1)  # [seq_len-1, 1]
-                    # TODO: verify that the length is not right-padded with padds, that we would want to omit from loss computation
-
-                    # Compute the loss using cross entropy
-                    # We need to select the logits up to the target length
-                    logits = example_logits[:-1]  # [seq_len-1, vocab_size]
+                    logits = all_logits[i]  # [pad_len + seq_len, vocab_size]
+                    # Remove padding:
+                    logits = logits[logits != tokenizer.pad_token_id]
                     
-                    # Flatten the logits and targets for cross entropy
-                    loss = torch.nn.functional.cross_entropy(
-                        logits.view(-1, logits.size(-1)),  # [seq_len-1 * batch_size, vocab_size]
-                        target_ids.view(-1),               # [seq_len-1 * batch_size]
-                        reduction='mean'
-                    )
+                    loss_crit = nn.CrossEntropyLoss(reduction='mean')
+                    if prompt._focused_target_slice:
+                        # loss computation requires shifted slices:
+                        focused_loss_slice = slice(prompt._focused_target_slice.start - 1, prompt._focused_target_slice.stop - 1)
+                        focused_targets = prompt.input_ids[prompt._focused_target_slice]
+                        focused_loss = loss_crit(
+                            logits[:, focused_loss_slice, :].transpose(1,2), 
+                            focused_targets.detach(),
+                        )
+                        loss = focused_loss
+                    else:
+                        targets = prompt.input_ids[prompt._target_slice]
+                        loss = loss_crit(
+                            logits[:, prompt._loss_slice, :].transpose(1,2), 
+                            targets.detach(),
+                        )
+                        
                     batch_losses.append(loss.item())
             
             # Extend results
@@ -1196,6 +1201,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         verbose=False, 
         opt_only=False, 
         filter_cand=True,
+        prompt_managers=None,
+        losses_only=False,
         *args,
         **kwargs,
     ):
@@ -1216,37 +1223,20 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             verbose: Whether to print debug information
             opt_only: Whether to only optimize (no filtering)
             filter_cand: Whether to filter candidates
+            prompt_managers: List of prompt managers to use
+            losses_only: Whether to only compute losses (no optimization)
             
         Returns:
             Loss value
         """
+        if prompt_managers is None:
+            prompt_managers = self.prompt_managers
         # Get the main device
         main_device = self.models[0].device
 
-        """ 
-        # Get gradients using SDLM
-        grads = self.get_grads(
-            main_device=main_device,
-            current_pos=None, # instead of self.prompts[0].current_pos,
-            valid_tokens=None,  # valid_tokens not needed for SDLM
-            control_weight=control_weight,
-        )
-        # [control_len x vocab_size]
-        
-        # Update prompts:
-        cand_losses = []
-        for prompt in self.prompts:
-            new_control, cand_loss = prompt.update(grads)
-            cand_losses.append(cand_loss)
-        
-        # Return the best candidate
-        min_idx = np.argmin(cand_losses)
-        next_control = self.prompts[min_idx].control_str()
-        """
-        # online implementation:
         ## Compute losses like in get_grads:
         pm_losses = []
-        for pmidx, prompt_manager in enumerate(self.prompt_managers):
+        for pmidx, prompt_manager in enumerate(prompt_managers):
             if prompt_manager.sdlm_model is None:
                 prompt_manager.init_sdlm_model(model=self.models[pmidx], tokenizer=prompt_manager.tokenizer)
             batch_loss = []
@@ -1259,8 +1249,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     control_weight=control_weight,
                 )
                 batch_loss.append(loss)
-            batch_loss = torch.stack(batch_loss).mean(dim=0)
-            pm_losses.append(batch_loss)
+            batch_losses = torch.stack(batch_loss)
+            pm_losses.append(batch_losses)
+        
+        if losses_only:
+            return torch.stack(pm_losses)
         
         ## Backward:
         for pmidx, pm_loss in enumerate(pm_losses):
