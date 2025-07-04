@@ -1051,21 +1051,21 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         # [vocab_size] if current_pos is not None else [control_len, vocab_size]
         return grad
 
-    def test(self, workers, prompts, include_loss=False, batch_size=16):
+    def test(self, model, prompt_manager, include_loss=False, batch_size=16):
         """
         Test the prompts against the model in batches.
         
         Args:
-            workers: List of worker objects (only first worker is used)
-            prompts: List of prompt objects to test
+            model: Model to test
+            prompt_manager: PromptManager object which contains the prompts to test
             include_loss: Whether to include loss calculations
             batch_size: Number of prompts to process in each batch
             
         Returns:
             Tuple of (jailbreak_scores, match_scores, losses)
         """
-        model = workers[0].model
-        tokenizer = prompts[0].tokenizer
+        prompts = prompt_manager.prompts
+        tokenizer = prompt_manager.tokenizer
         device = next(model.parameters()).device
         
         # Prepare test prefixes from the first prompt
@@ -1119,7 +1119,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             all_logits = generation_output.logits  # Logits for each generated token
             
             # Process each output in the batch
-            for i, (prompt, output_seq) in enumerate(zip(batch_prompts, output_ids)):
+            for i, (prompt, output_seq) in tqdm(enumerate(zip(batch_prompts, output_ids)), position=0, leave=True):
                 # Get the generated tokens after the assistant role
                 gen_tokens = output_seq[max_len:]
                 gen_str = tokenizer.decode(gen_tokens).strip()
@@ -1127,6 +1127,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 # Calculate jailbreak score (1 if not matching any test prefix)
                 jailbroken = not any(prefix in gen_str for prefix in test_prefixes)
                 # Calculate exact match score (1 if target in generated text)
+                print(prompt.target)
                 em = prompt.target in gen_str
                 
                 batch_jb.append(jailbroken)
@@ -1161,7 +1162,21 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 losses.extend(batch_losses)
         
         return jailbreak_scores, match_scores, losses if include_loss else []
-         
+    
+    def test_all(self):
+        model = self.workers[0].model
+        test_prompt_manager = self.managers['PM'](
+            goals=self.goals + self.test_goals,
+            targets=self.targets + self.test_targets,
+            tokenizer=model.tokenizer,
+            conv_template=model.conv_template,
+            control_init=self.control_str,
+            test_prefixes=self.test_prefixes,
+            managers=self.managers,
+            final_targets=self.train_final_targets+self.test_final_targets,
+        )
+        return self.test(model, test_prompt_manager, include_loss=True)
+
     def step(
         self, 
         batch_size=1024, 
@@ -1245,7 +1260,6 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             pm_loss.backward()
         mean_loss = torch.stack(pm_losses).mean(dim=0).item()
 
-        import ipdb; ipdb.set_trace()
         ## Variable updates:
         self.optimizer.step()
         self.optimizer.zero_grad()
