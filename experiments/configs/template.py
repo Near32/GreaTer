@@ -46,7 +46,7 @@ def get_config():
     config.lr = 0.01
     config.topk = 10
     config.topq = 5
-    config.temp = 1
+    config.temp = 1.0
     config.filter_cand = True
 
 

@@ -1486,13 +1486,14 @@ class MultiPrompter(object):
         all_workers = self.workers + self.test_workers
         all_prompts = [
             self.managers['PM'](
-                self.goals + self.test_goals,
-                self.targets + self.test_targets,
-                worker.tokenizer,
-                worker.conv_template,
-                self.control_str,
-                self.test_prefixes,
-                self.managers
+                goals=self.goals + self.test_goals,
+                targets=self.targets + self.test_targets,
+                tokenizer=worker.tokenizer,
+                conv_template=worker.conv_template,
+                control_init=self.control_str,
+                test_prefixes=self.test_prefixes,
+                managers=self.managers,
+                final_targets=self.train_final_targets+self.test_final_targets,
             )
             for worker in all_workers
         ]

@@ -45,7 +45,7 @@ def get_config():
     config.batch_size = 16        # Larger batch size possible with smaller model
     config.topk = 10              # More focused sampling
     config.topq = 5             # More focused sampling
-    config.temp = 1             # Lower temperature for more focused sampling
+    config.temp = 0.1             # Lower temperature for more focused sampling at the time of new control sampling !!!!
     config.target_weight = 1.0
     config.control_weight = 0.4   # Higher control weight for better guidance
     config.test_steps = 5         # Check more frequently
