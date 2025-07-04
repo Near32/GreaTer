@@ -670,8 +670,7 @@ class SDLMPromptManager(BasePromptManager):
         self.stgs_variable_kwargs = stgs_variable_kwargs
         
         self.sdlm_model = None
-        import ipdb; ipdb.set_trace()
-        print(self.control_str, len(self.tokenizer(self.control_str).input_ids))
+        print(f"Control str:\n {self.control_str}\nLENGTH={len(self.tokenizer(self.control_str).input_ids)}")
         self.init_sdlm_variable(initial_string=self.control_str)
         
     def init_sdlm_model(self, model, tokenizer):
@@ -853,7 +852,6 @@ class SDLMPromptManager(BasePromptManager):
     ):
 
         stpwatch_strt = time.time()
-        import ipdb; ipdb.set_trace()
         for i in tqdm(range(0, len(self._prompts), generation_batch_size), position=0, leave=True):
             list_prompts = self._prompts[i:i + generation_batch_size]
             outputs = self.generate_batched_str(model, list_prompts, gen_config)
@@ -1205,8 +1203,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                      model_tests,
                      verbose=verbose)
 
-        for i in range(n_steps):
-
+        for i in tqdm(range(n_steps), position=0, leave=True):
             # if stop_on_success:
             #     model_tests_jb, model_tests_mb, _ = self.test(self.workers, self.prompts)
             #     if all(all(tests for tests in model_test) for model_test in model_tests_jb):
@@ -1255,6 +1252,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 top_controls.append((loss, control))
                 top_controls.sort(key=lambda x: x[0])
 
+            print("Time taken for iteration: ", runtime)
             print('Current Loss:', loss, 'Best Loss:', best_loss, 'Best Control:', best_control)
 
             if i%15 == 0:
