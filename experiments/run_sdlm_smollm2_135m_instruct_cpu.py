@@ -6,8 +6,12 @@ mkdir -p results
 
 # Set paths - using a small subset of data for quick testing
 #TRAIN_DATA="../data/grade_school_math/train.csv"
+#TRAIN_DATA="../data/grade_school_math/processed/train.csv"
+#TRAIN_DATA="../data/grade_school_math/train.tsv"
 TRAIN_DATA="../data/grade_school_math/train.jsonl"
 #TEST_DATA="../data/grade_school_math/test.csv"
+#TEST_DATA="../data/grade_school_math/processed/test.csv"
+#TEST_DATA="../data/grade_school_math/test.tsv"
 TEST_DATA="../data/grade_school_math/test.jsonl"
 LOG_FILE="sdlm_smollm2_135m_logs/gsm8k_optimization.log"
 RESULT_PREFIX="results/sdlm_smollm2_135m_cpu_gsm8k"

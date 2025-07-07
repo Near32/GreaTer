@@ -55,6 +55,7 @@ class SDLMPrompter(BasePrompter):
         tokenizer: AutoTokenizer,
         conv_template: str,
         control_init: str = "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+        extractor_text: str = "Therefore, the final answer (with format: $ANSWER$) is $",
         test_prefixes: List[str] = ["I'm sorry", "I apologize", "As an", "I'm just", "I'm an", "I cannot", "Hello!"],
         final_target: List[str] = [],
         **kwargs,
@@ -82,8 +83,10 @@ class SDLMPrompter(BasePrompter):
             final_target=final_target,
             **kwargs,
         )
+        self.extractor_text = extractor_text
         
     def _update_ids(self, SIMULATED_CANONICAL=False):
+        verbose = True 
         def find_last_subarray_indices(tokenizer, array1, str2):
             array2 = tokenizer(str2).input_ids
             if 'Llama-3' in tokenizer.name_or_path:
@@ -220,6 +223,11 @@ class SDLMPrompter(BasePrompter):
                 toks = self.tokenizer(full_input).input_ids
                 self._goal_slice = slice(self._control_slice.stop, len(toks))
 
+            if verbose:
+                print('//'*20)
+                print(full_input)
+                print('-'*20)
+            
             # assistant role slice
             full_input += "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
             toks = self.tokenizer(full_input).input_ids
@@ -244,12 +252,22 @@ class SDLMPrompter(BasePrompter):
                 self._target_slice = slice(self._assistant_role_slice.stop, len(toks))
                 self._loss_slice = slice(self._assistant_role_slice.stop - 1, len(toks) - 1)
 
+            if verbose:
+                print('+TARGET+'*5)
+                print(self.target)
+                print('+FINAL_TARGET+'*5)
+                print(self.final_target)
+                print('-'*20)
+                print(full_input)
+                print('-'*20)
+            
             if len(self.final_target) > 0:  # focused answer exists
                 idx1, idx2 = find_last_subarray_indices(self.tokenizer, toks, self.final_target)
                 self._focused_target_slice = slice(idx1, idx2)
             else:
                 self._focused_target_slice = None
 
+            if verbose: print(full_input)
         elif self.conv_template.name == 'gemma-2':
             self.conv_template.messages = []
             full_input = ""
@@ -303,8 +321,6 @@ class SDLMPrompter(BasePrompter):
                 self._focused_target_slice = slice(idx1, idx2)
             else:
                 self._focused_target_slice = None
-
-
         elif self.conv_template.name == 'gemma':
             # Handle everything manually from absolute scratch since fschat doesnot give full support
 
@@ -361,7 +377,6 @@ class SDLMPrompter(BasePrompter):
                 self._focused_target_slice = None
                 # self._focused_target_slice = 0
         elif self.conv_template.name == 'smollm-2':
-            verbose = False 
             self.conv_template.messages = []
             full_input = "<|im_start|>system\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face<|im_end|>\n"
             # <|im_start|>user
@@ -389,6 +404,8 @@ class SDLMPrompter(BasePrompter):
 
             if verbose:
                 print('//'*20)
+                print(self.goal)
+                print('//'*10)
                 print(full_input)
                 print('-'*20)
 
@@ -403,11 +420,20 @@ class SDLMPrompter(BasePrompter):
                 toks = self.tokenizer(full_input).input_ids
                 self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks))
 
-                # target_slice
-                full_input += self.target
+                # Previously:
+                # # target_slice
+                # full_input += self.target
+                # toks = self.tokenizer(full_input).input_ids
+                # self._target_slice = slice(self._current_solution_slice.stop, len(toks))
+                # self._loss_slice = slice(self._current_solution_slice.stop - 1, len(toks) - 1)
+                # NOW: [current_solution + extractor + final_target] and computing loss over final target slice:
+                full_input += self.extractor
                 toks = self.tokenizer(full_input).input_ids
-                self._target_slice = slice(self._current_solution_slice.stop, len(toks))
-                self._loss_slice = slice(self._current_solution_slice.stop - 1, len(toks) - 1)
+                self._extractor_slice = slice(self._current_solution_slice.stop, len(toks))
+                full_input += self.final_target
+                toks = self.tokenizer(full_input).input_ids
+                self._target_slice = slice(self._extractor_slice.stop, len(toks))
+                self._loss_slice = slice(self._extractor_slice.stop - 1, len(toks) - 1)
             else:
                 # target_slice
                 full_input += self.target
@@ -421,7 +447,6 @@ class SDLMPrompter(BasePrompter):
                 print('+FINAL_TARGET+'*5)
                 print(self.final_target)
                 print('-'*20)
-
                 print(full_input)
                 print('-'*20)
 
