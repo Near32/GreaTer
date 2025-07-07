@@ -58,6 +58,7 @@ class SDLMPrompter(BasePrompter):
         extractor_text: str = "Therefore, the final answer (with format: $ANSWER$) is $",
         test_prefixes: List[str] = ["I'm sorry", "I apologize", "As an", "I'm just", "I'm an", "I cannot", "Hello!"],
         final_target: List[str] = [],
+        simulated_canonical: bool = True,
         **kwargs,
     ):
         """
@@ -71,7 +72,9 @@ class SDLMPrompter(BasePrompter):
             control_init: The initial control string
             test_prefixes: The test prefixes to use
             final_target: The final target to use
+            simulated_canonical: bool, if true then we sample reasoning from model.
             **kwargs: Additional keyword arguments
+        """
         """
         super().__init__(
             goal=goal,
@@ -83,9 +86,31 @@ class SDLMPrompter(BasePrompter):
             final_target=final_target,
             **kwargs,
         )
+        """
+        self.goal = goal
+        self.target = target
+        self.control = control_init
+        self.tokenizer = tokenizer
+        self.control_pos = "post"
+        self.conv_template = conv_template
+        self.test_prefixes = test_prefixes
+        self.final_target = final_target
+        self.current_solution = "So "
+        self.control_len = 0  # for the sake of initialization
+
+        self.conv_template.messages = []
+        self.test_new_toks = len(self.tokenizer(self.target).input_ids) + 2  # buffer
+        for prefix in self.test_prefixes:
+            self.test_new_toks = max(self.test_new_toks, len(self.tokenizer(prefix).input_ids))
+
         self.extractor_text = extractor_text
+        self.simulated_canonical = simulated_canonical
+        self._update_ids()
         
-    def _update_ids(self, SIMULATED_CANONICAL=False):
+    def _update_ids(
+        self, 
+    ):
+        SIMULATED_CANONICAL = self.simulated_canonical
         verbose = True 
         def find_last_subarray_indices(tokenizer, array1, str2):
             array2 = tokenizer(str2).input_ids
@@ -427,7 +452,7 @@ class SDLMPrompter(BasePrompter):
                 # self._target_slice = slice(self._current_solution_slice.stop, len(toks))
                 # self._loss_slice = slice(self._current_solution_slice.stop - 1, len(toks) - 1)
                 # NOW: [current_solution + extractor + final_target] and computing loss over final target slice:
-                full_input += self.extractor
+                full_input += self.extractor_text
                 toks = self.tokenizer(full_input).input_ids
                 self._extractor_slice = slice(self._current_solution_slice.stop, len(toks))
                 full_input += self.final_target

@@ -2109,8 +2109,7 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
             train_data = pd.read_csv(params.train_data, dtype=str, on_bad_lines='warn')
             
         #train_targets = train_data['target'].astype(str).tolist()[offset:offset + params.n_train_data]
-        print(train_data.columns)
-        import ipdb; ipdb.set_trace()
+        #print(train_data.columns)
         # IF final_target is within columns, then target column contains a reasoning.
         # THUS, we need to add the extractor_text before the final_target.
         # OTHERWISE, we assume that target only contains the final answer, like in a final_target.
@@ -2124,8 +2123,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
             assert 'answer' in train_data.columns
             # WARNING: it contains  both the target and the final_target.
             # THUS, we split the answer column into two new columns target and final_target on the '### ' separator:
-            train_data['target'] = train_data['answer'].str.split('### ').str[0]
-            train_data['final_target'] = train_data['answer'].str.split('### ').str[1]
+            train_data['target'] = train_data['answer'].str.split('#### ').str[0]
+            train_data['final_target'] = train_data['answer'].str.split('#### ').str[1]
         train_targets = train_data[target_entry].astype(str).tolist()[offset:offset + params.n_train_data]
         #if len(params.extractor_text) > 0:
         #    train_targets = [remove_parentheses_if_single_char(target) for target in train_targets]
@@ -2166,8 +2165,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
                 test_data = pd.read_csv(params.test_data, dtype=str, on_bad_lines='warn')
             #test_targets = test_data['target'].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
             if 'answer' in test_data.columns:
-                test_data['target'] = test_data['answer'].str.split('### ').str[0]
-                test_data['final_target'] = test_data['answer'].str.split('### ').str[1]
+                test_data['target'] = test_data['answer'].str.split('#### ').str[0]
+                test_data['final_target'] = test_data['answer'].str.split('#### ').str[1]
             
             test_targets = test_data[target_entry].astype(str).tolist()[
                            offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
