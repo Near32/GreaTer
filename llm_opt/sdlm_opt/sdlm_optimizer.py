@@ -1168,7 +1168,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             if include_loss:
                 for i, prompt in enumerate(batch_prompts):
                     # Get the logits for this example in the batch
-                    logits = all_logits[i]  # [pad_len + seq_len, vocab_size]
+                    logits = torch.stack([
+                        logits[i] 
+                        for logits in all_logits
+                    ]) 
+                    # [pad_len + seq_len, vocab_size]
                     # Remove padding:
                     logits = logits[logits != tokenizer.pad_token_id]
                     
@@ -1282,8 +1286,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         
         ## Backward:
         for pmidx, pm_loss in enumerate(pm_losses):
-            pm_loss.backward()
-        mean_loss = torch.stack(pm_losses).mean(dim=0).item()
+            pm_loss.mean().backward()
+        mean_loss = torch.stack(pm_losses).mean().item()
 
         ## Variable updates:
         self.optimizer.step()
