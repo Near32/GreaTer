@@ -1175,14 +1175,47 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             #  
 
             # Extract reasoning and add answer extractor prompt:
+            extractor_ids = tokenizer.encode(params.extractor_text, add_special_tokens=False)[0].to(device)
+            input_reasoning_ids_list = [
+                torch.cat([
+                    output_ids[i][output_ids[i]!=tokenizer.pad_token_id], 
+                    extractor_ids,
+                ]) 
+                for i in range(len(output_ids))
+            ]
+            # Padding:
+            in_r_ext_batch = tokenizer.pad(
+                {'input_ids': input_reasoning_ids_list},
+                padding='longest',
+                return_tensors='pt',
+                return_attention_mask=True,
+                padding_side="left",
+            )
+            import ipdb; ipdb.set_trace()
+            in_r_ext_ans_outputs = model.generate(
+                input_ids=in_r_ext_batch['input_ids'],
+                attention_mask=in_r_ext_batch['attention_mask'],
+                max_new_tokens=1024,
+                pad_token_id=tokenizer.pad_token_id,
+                do_sample=False,
+                return_dict_in_generate=True,
+                output_logits=True,
+            )
             
+            in_r_ext_ans_ids = in_r_ext_ans_outputs.sequences
+            # Removing right padding:
+            in_r_ext_ans_ids_list = [
+                in_r_ext_ans_ids[i][in_r_ext_ans_ids[i]!=tokenizer.pad_token_id] 
+                for i in range(len(in_r_ext_ans_ids))
+            ]
+            in_r_ext_ans_logits = in_r_ext_ans_outputs.logits
+
             # Process each output in the batch
-            for i, (prompt, output_seq) in tqdm(enumerate(zip(batch_prompts, output_ids)), position=0, leave=True):
-                # Get the generated tokens after the assistant role
-                gen_start = prompt._assistant_role_slice.stop
+            for i, (prompt, output_seq) in tqdm(enumerate(zip(batch_prompts, in_r_ext_ans_ids_list)), position=0, leave=True):
+                gen_start = len(in_r_ext_batch['input_ids'][i])
                 gen_tokens = output_seq[gen_start:]
                 gen_str = tokenizer.decode(gen_tokens).strip()
-                
+                print(gen_str)
                 # Calculate jailbreak score (1 if not matching any test prefix)
                 jailbroken = not any(prefix in gen_str for prefix in test_prefixes)
                 # Calculate exact match score (1 if target in generated text)
@@ -1200,31 +1233,18 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             if include_loss:
                 for i, prompt in enumerate(batch_prompts):
                     # Get the logits for this example in the batch
-                    logits = torch.stack([
-                        logits[i] 
-                        for logits in all_logits
-                    ]) 
-                    # [pad_len + seq_len, vocab_size]
-                    # Remove padding:
-                    logits = logits[logits != tokenizer.pad_token_id]
-                    
+                    logits = in_r_ext_ans_logits[i] 
+                    # [seq_len, vocab_size]
+                    # restrict to final_target token length:
+                    final_target_tokens = tokenizer.encode(
+                        prompt.final_target, 
+                        add_special_tokens=False,
+                        return_tensors='pt',
+                    ).to(device)
+                    final_target_len = final_target_tokens.shape[1]
+                    logits = logits[-final_target_len:]
                     loss_crit = nn.CrossEntropyLoss(reduction='mean')
-                    if prompt._focused_target_slice:
-                        # loss computation requires shifted slices:
-                        focused_loss_slice = slice(prompt._focused_target_slice.start - 1, prompt._focused_target_slice.stop - 1)
-                        focused_targets = prompt.input_ids[prompt._focused_target_slice]
-                        focused_loss = loss_crit(
-                            logits[:, focused_loss_slice, :].transpose(1,2), 
-                            focused_targets.detach(),
-                        )
-                        loss = focused_loss
-                    else:
-                        targets = prompt.input_ids[prompt._target_slice]
-                        loss = loss_crit(
-                            logits[:, prompt._loss_slice, :].transpose(1,2), 
-                            targets.detach(),
-                        )
-                        
+                    loss = loss_crit(inputs=logits, targets=final_target_tokens)
                     batch_losses.append(loss.item())
             
             # Extend results
