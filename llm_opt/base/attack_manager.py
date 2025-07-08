@@ -1513,6 +1513,7 @@ class MultiPrompter(object):
         prompt_tests_jb, prompt_tests_mb, model_tests_loss = list(map(np.array, model_tests))
         all_goal_strs = self.goals + self.test_goals
         all_workers = self.workers + self.test_workers
+        """
         tests = {
             all_goal_strs[i]:
                 [
@@ -1522,6 +1523,20 @@ class MultiPrompter(object):
                 ]
             for i in range(len(all_goal_strs))
         }
+        """
+        tests = {}
+        for i in range(len(all_goal_strs)):
+            tl = []
+            for j in range(len(all_workers)):
+                model_name = all_workers[j].model.name_or_path
+                jidx = min(j, len(prompt_tests_jb))
+                iidx = min(i, len(prompt_tests_jb[jidx]))
+                jb = prompt_tests_jb[jidx][iidx]
+                mb = prompt_tests_mb[jidx][iidx]
+                loss = model_tests_loss[jidx][iidx]
+                tl.append( (model_name, jb, mb, loss))
+            tests[all_goal_strs[i]] = tl
+
         n_passed = self.parse_results(prompt_tests_jb)
         n_em = self.parse_results(prompt_tests_mb)
         n_loss = self.parse_results(model_tests_loss)
@@ -1534,7 +1549,6 @@ class MultiPrompter(object):
         tests['total'] = total_tests
 
         # Load log file
-        import ipdb; ipdb.set_trace()
         with open(self.logfile, 'r') as f:
             log = json.load(f)
 
@@ -1546,7 +1560,7 @@ class MultiPrompter(object):
         # Save log file
         print(f"Saving log file to {self.logfile}")
         with open(self.logfile, 'w') as f:
-            json.dump(log, f, indent=4, cls=NpEncoder)
+            json.dump(log, f, indent=4, cls=NpEncoder, default=str)
 
         if verbose:
             output_str = ''

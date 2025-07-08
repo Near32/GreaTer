@@ -7,6 +7,8 @@ import time
 import sys
 import os
 import gc
+import math
+import random
 from tqdm import tqdm
 
 # Add SDLM to the path
@@ -111,7 +113,7 @@ class SDLMPrompter(BasePrompter):
         self, 
     ):
         SIMULATED_CANONICAL = self.simulated_canonical
-        verbose = True 
+        verbose = False #True 
         def find_last_subarray_indices(tokenizer, array1, str2):
             array2 = tokenizer(str2).input_ids
             if 'Llama-3' in tokenizer.name_or_path:
@@ -419,11 +421,12 @@ class SDLMPrompter(BasePrompter):
                 self._goal_slice = slice(self._user_role_slice.stop, len(toks))
 
                 # control slice
-                if self.control.startswith(" "):
-                    self.control = self.control[1:]
+                #if self.control.startswith(" "):
+                #    self.control = self.control[1:]
                 full_input = full_input + " " + self.control
                 toks = self.tokenizer(full_input).input_ids
-                self._control_slice = slice(self._goal_slice.stop, len(toks))
+                # +1 to account for the space " "
+                self._control_slice = slice(self._goal_slice.stop+1, len(toks))
             elif self.control_pos == "pre":
                 raise NotImplementedError # Not necessary to be implemented in our protocol
 
@@ -1101,7 +1104,15 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         # [vocab_size] if current_pos is not None else [control_len, vocab_size]
         return grad
 
-    def test(self, model, prompt_manager, include_loss=False, batch_size=16):
+    def test(
+        self, 
+        model, 
+        prompt_manager, 
+        include_loss=False, 
+        batch_size=128,
+        max_new_tokens_reasoning=256,
+        max_new_tokens_answer=32,
+    ):
         """
         Test the prompts against the model in batches.
         
@@ -1116,7 +1127,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         """
         prompts = prompt_manager._prompts
         tokenizer = prompt_manager.tokenizer
-        original_padding_size = tokenizer.padding_side
+        original_padding_side = tokenizer.padding_side
         tokenizer.padding_side = 'left'
         device = next(model.parameters()).device
         
@@ -1129,7 +1140,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         losses = []
         
         # Process prompts in batches
-        for i in range(0, len(prompts), batch_size):
+        for i in tqdm(range(0, len(prompts), batch_size), position=0, leave=True):
             batch_prompts = prompts[i:i+batch_size]
             batch_jb = []
             batch_mb = []
@@ -1151,9 +1162,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             batch_attention_masks = batch['attention_mask'].to(device)
             
             # Get generation config
+            # TODO : normalise repetition_penalty being an argument of launch script
+            # TODO : find a better strategy for max_new_tokens
             gen_config = model.generation_config
             gen_config.repetition_penalty = 1.2  # Add repetition penalty to reduce repetitions
-            gen_config.max_new_tokens = max(p.test_new_toks for p in batch_prompts)
+            gen_config.max_new_tokens = max_new_tokens_reasoning #max(p.test_new_toks for p in batch_prompts)
             
             # Get reasoning:
             # Generate output tokens and logits for the entire batch
@@ -1161,7 +1174,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 input_ids=batch_inputs,
                 attention_mask=batch_attention_masks,
                 generation_config=gen_config,
-                max_new_tokens=1024,
+                max_new_tokens=max_new_tokens_reasoning,
                 pad_token_id=tokenizer.pad_token_id,
                 do_sample=False,
                 return_dict_in_generate=True,
@@ -1175,7 +1188,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             #  
 
             # Extract reasoning and add answer extractor prompt:
-            extractor_ids = tokenizer.encode(params.extractor_text, add_special_tokens=False)[0].to(device)
+            extractor_ids = tokenizer.encode(
+                prompts[0].extractor_text, 
+                add_special_tokens=False,
+                return_tensors='pt',
+            )[0].to(device)
+            
             input_reasoning_ids_list = [
                 torch.cat([
                     output_ids[i][output_ids[i]!=tokenizer.pad_token_id], 
@@ -1191,11 +1209,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 return_attention_mask=True,
                 padding_side="left",
             )
-            import ipdb; ipdb.set_trace()
+            # Generate answer:
             in_r_ext_ans_outputs = model.generate(
-                input_ids=in_r_ext_batch['input_ids'],
-                attention_mask=in_r_ext_batch['attention_mask'],
-                max_new_tokens=1024,
+                input_ids=in_r_ext_batch['input_ids'].to(device),
+                attention_mask=in_r_ext_batch['attention_mask'].to(device),
+                max_new_tokens=max_new_tokens_answer,
                 pad_token_id=tokenizer.pad_token_id,
                 do_sample=False,
                 return_dict_in_generate=True,
@@ -1203,7 +1221,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             )
             
             in_r_ext_ans_ids = in_r_ext_ans_outputs.sequences
-            # Removing right padding:
+            # Removing left and right padding:
             in_r_ext_ans_ids_list = [
                 in_r_ext_ans_ids[i][in_r_ext_ans_ids[i]!=tokenizer.pad_token_id] 
                 for i in range(len(in_r_ext_ans_ids))
@@ -1211,7 +1229,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             in_r_ext_ans_logits = in_r_ext_ans_outputs.logits
 
             # Process each output in the batch
-            for i, (prompt, output_seq) in tqdm(enumerate(zip(batch_prompts, in_r_ext_ans_ids_list)), position=0, leave=True):
+            #for i, (prompt, output_seq) in tqdm(enumerate(zip(batch_prompts, in_r_ext_ans_ids_list)), position=1, leave=True):
+            for i, (prompt, output_seq) in enumerate(zip(batch_prompts, in_r_ext_ans_ids_list)):
                 gen_start = len(in_r_ext_batch['input_ids'][i])
                 gen_tokens = output_seq[gen_start:]
                 gen_str = tokenizer.decode(gen_tokens).strip()
@@ -1222,10 +1241,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 gt_answer = prompt.target
                 if prompt.final_target != "":
                     gt_answer = prompt.final_target
-                print(gt_answer)
+                #print(f"Generated answer: {gt_answer}")
                 em = gt_answer in gen_str
                 
-                batch_jb.append(jailbroken)
+                batch_jb.append(int(jailbroken))
                 batch_mb.append(int(em))
             
             # Compute losses if needed
@@ -1233,18 +1252,19 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             if include_loss:
                 for i, prompt in enumerate(batch_prompts):
                     # Get the logits for this example in the batch
-                    logits = in_r_ext_ans_logits[i] 
-                    # [seq_len, vocab_size]
+                    lgts = [el[i] for el in in_r_ext_ans_logits]
+                    logits = torch.stack(lgts)
+                    # [seq_leni x vocab_size]
                     # restrict to final_target token length:
                     final_target_tokens = tokenizer.encode(
                         prompt.final_target, 
                         add_special_tokens=False,
                         return_tensors='pt',
-                    ).to(device)
-                    final_target_len = final_target_tokens.shape[1]
+                    )[0].to(device)
+                    final_target_len = final_target_tokens.shape[0]
                     logits = logits[-final_target_len:]
                     loss_crit = nn.CrossEntropyLoss(reduction='mean')
-                    loss = loss_crit(inputs=logits, targets=final_target_tokens)
+                    loss = loss_crit(input=logits, target=final_target_tokens)
                     batch_losses.append(loss.item())
             
             # Extend results
@@ -1268,7 +1288,14 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             managers=self.managers,
             final_targets=self.train_final_targets+self.test_final_targets,
         )
-        return self.test(model, test_prompt_manager, include_loss=True)
+        
+        outputs = self.test(model, test_prompt_manager, include_loss=True)
+        # duplicate for all workers...
+        returns = []
+        nbr_workers = len(self.workers)+len(self.test_workers)
+        for output in outputs:
+            returns.append([output for _ in range(nbr_workers)])
+        return returns
 
     def step(
         self, 
@@ -1346,7 +1373,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         self.optimizer.zero_grad()
         
         # Update input_ids by updating control_toks:
-        _, _, self.current_pm.control_str = self.current_pm.sdlm_variable.forward(temperature=temp)
+        control_toks, _, self.current_pm.control_str = self.current_pm.sdlm_variable.forward(temperature=temp)
+        # Remove batch dim:
+        self.current_pm.control_toks = control_toks[0]
+
+        # The current_pm's contol_toks setter also sets its prompts' control_toks: but just in case...
         for prompt_manager in self.prompt_managers:
             for prompt in prompt_manager._prompts:
                 prompt.control_toks = self.current_pm.control_toks
@@ -1354,7 +1385,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 # TODO: update the reasoning/target of each prompt based on their control_toks
         next_control = self.current_pm.control_str
         
-        print('Current length:', len(self.workers[0].tokenizer(next_control).input_ids[1:]))
+        print('Current length:', len(self.workers[0].tokenizer(next_control).input_ids))
         print('Current control:', next_control)
         return next_control, mean_loss
     
@@ -1477,7 +1508,6 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 break
 
             if self.logfile is not None and (i + 1 + anneal_from) % test_steps == 0:
-                import ipdb; ipdb.set_trace()
                 last_control = self.control_str
                 self.control_str = best_control
 
