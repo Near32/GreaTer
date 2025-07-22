@@ -92,6 +92,7 @@ class SDLMPrompter(BasePrompter):
         self.goal = goal
         self.target = target
         self.control = control_init
+        self._control_toks = tokenizer(self.control, return_tensors='pt').input_ids[0]
         self.tokenizer = tokenizer
         self.control_pos = "post"
         self.conv_template = conv_template
@@ -108,7 +109,30 @@ class SDLMPrompter(BasePrompter):
         self.extractor_text = extractor_text
         self.simulated_canonical = simulated_canonical
         self._update_ids()
-        
+    
+    @property
+    def control_str(self):
+        return self.control
+        #return self.tokenizer.decode(self.input_ids[self._control_slice])#.strip()
+
+    @control_str.setter
+    def control_str(self, control):
+        self.control = control
+        #self._update_ids()
+
+    @property
+    def control_toks(self):
+        return self._control_toks
+        #return self.tokenizer(self.control, return_tensors='pt').input_ids
+        #return self.input_ids[self._control_slice]
+
+    @control_toks.setter
+    def control_toks(self, control_toks):
+        self._control_toks = control_toks
+        #self.control = self.tokenizer.decode(control_toks)
+        #import ipdb; ipdb.set_trace()
+        self._update_ids()
+
     def _update_ids(
         self, 
     ):
@@ -403,7 +427,7 @@ class SDLMPrompter(BasePrompter):
             else:
                 self._focused_target_slice = None
                 # self._focused_target_slice = 0
-        elif self.conv_template.name == 'smollm-2':
+        elif self.conv_template.name == 'smollm-2-depr':
             self.conv_template.messages = []
             full_input = "<|im_start|>system\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face<|im_end|>\n"
             # <|im_start|>user
@@ -423,13 +447,24 @@ class SDLMPrompter(BasePrompter):
                 # control slice
                 #if self.control.startswith(" "):
                 #    self.control = self.control[1:]
-                full_input = full_input + " " + self.control
+                full_input = full_input + "\n" + self.control
+                #full_input = full_input + self.control
                 toks = self.tokenizer(full_input).input_ids
-                # +1 to account for the space " "
+                if len(toks)-self._goal_slice.stop != 37:
+                    import ipdb; ipdb.set_trace()
+                # PREVIOUSLY: should have contained maybe +1 to account for the space " "
                 self._control_slice = slice(self._goal_slice.stop+1, len(toks))
+                '''
+                # TOKENIZER ARE NOT REVERSIBLE, therefore we take directly the control_toks:
+                # Adding separator:
+                full_input += "\n"
+                toks_before_control = self.tokenizer(full_input, return_tensors='pt').input_ids[0]
+                toks = torch.cat([toks_before_control, self.control_toks], dim=0)
+                self._control_slice = slice(len(toks_before_control), len(toks))
+                '''
             elif self.control_pos == "pre":
                 raise NotImplementedError # Not necessary to be implemented in our protocol
-
+        
             if verbose:
                 print('//'*20)
                 print(self.goal)
@@ -438,7 +473,8 @@ class SDLMPrompter(BasePrompter):
                 print('-'*20)
 
             # assistant role slice
-            full_input += "<|im_end|>\n<|im_start|>assistant\n"
+            #full_input += "<|im_end|>\n<|im_start|>assistant\n"
+            full_input += "\n<|im_end|>\n<|im_start|>assistant\n"
             toks = self.tokenizer(full_input).input_ids
             self._assistant_role_slice = slice(self._control_slice.stop, len(toks))
 
@@ -477,6 +513,7 @@ class SDLMPrompter(BasePrompter):
                 print('-'*20)
                 print(full_input)
                 print('-'*20)
+                print(full_input_after_control)
 
             if len(self.final_target) > 0:  # focused answer exists
                 idx1, idx2 = find_last_subarray_indices(self.tokenizer, toks, self.final_target)
@@ -485,10 +522,131 @@ class SDLMPrompter(BasePrompter):
                 self._focused_target_slice = None
 
             if verbose: print(full_input)
+        elif self.conv_template.name == 'smollm-2':
+            self.conv_template.messages = []
+            full_input = "<|im_start|>system\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face<|im_end|>\n"
+            # <|im_start|>user
+            
+            # user role slice
+            full_input += "<|im_start|>user\n"
+            toks = self.tokenizer(full_input).input_ids
+            self._user_role_slice = slice(None, len(toks))
+
+            if self.control_pos == "post":
+                separator = " "
+                # goal_slice
+                full_input += self.goal
+                toks = self.tokenizer(full_input).input_ids
+                self._goal_slice = slice(self._user_role_slice.stop, len(toks))
+
+                '''
+                # control slice
+                #if self.control.startswith(" "):
+                #    self.control = self.control[1:]
+                full_input = full_input + "\n" + self.control
+                #full_input = full_input + self.control
+                toks = self.tokenizer(full_input).input_ids
+                if len(toks)-self._goal_slice.stop != 37:
+                    import ipdb; ipdb.set_trace()
+                # PREVIOUSLY: should have contained maybe +1 to account for the space " "
+                self._control_slice = slice(self._goal_slice.stop+1, len(toks))
+                '''
+                # TOKENIZER ARE NOT REVERSIBLE, therefore we take directly the control_toks:
+                # Adding separator:
+                full_input += "\n"
+                toks_before_control = self.tokenizer(full_input, return_tensors='pt').input_ids[0]
+                toks = torch.cat([toks_before_control, self.control_toks], dim=0)
+                self._control_slice = slice(len(toks_before_control), len(toks))
+            elif self.control_pos == "pre":
+                raise NotImplementedError # Not necessary to be implemented in our protocol
+        
+            full_input_before_control = full_input
+            full_input_after_control = ""
+            if verbose:
+                print('//'*20)
+                print(self.goal)
+                print('//'*10)
+                print(full_input)
+                print('-'*20)
+
+            # assistant role slice
+            #full_input += "<|im_end|>\n<|im_start|>assistant\n"
+            #full_input += "\n<|im_end|>\n<|im_start|>assistant\n"
+            full_input_after_control += "\n<|im_end|>\n<|im_start|>assistant\n"
+            #toks = self.tokenizer(full_input).input_ids
+            toks_after_control = self.tokenizer(full_input_after_control).input_ids
+            #self._assistant_role_slice = slice(self._control_slice.stop, len(toks))
+            self._assistant_role_slice = slice(self._control_slice.stop, self._control_slice.stop+len(toks_after_control))
+
+            # current solution slice
+            if SIMULATED_CANONICAL:
+                #full_input += self.current_solution
+                full_input_after_control += self.current_solution
+                #toks = self.tokenizer(full_input).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                #self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks))
+                self._current_solution_slice = slice(self._assistant_role_slice.stop, self._control_slice.stop+len(toks_after_control))
+
+                # Previously:
+                # # target_slice
+                # full_input += self.target
+                # toks = self.tokenizer(full_input).input_ids
+                # self._target_slice = slice(self._current_solution_slice.stop, len(toks))
+                # self._loss_slice = slice(self._current_solution_slice.stop - 1, len(toks) - 1)
+                # NOW: [current_solution + extractor + final_target] and computing loss over final target slice:
+                #full_input += self.extractor_text
+                full_input_after_control += self.extractor_text
+                #toks = self.tokenizer(full_input).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                #self._extractor_slice = slice(self._current_solution_slice.stop, len(toks))
+                self._extractor_slice = slice(self._current_solution_slice.stop, self._control_slice.stop+len(toks_after_control))
+                #full_input += self.final_target
+                full_input_after_control += self.final_target
+                #toks = self.tokenizer(full_input).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                #self._target_slice = slice(self._extractor_slice.stop, len(toks))
+                self._target_slice = slice(self._extractor_slice.stop, self._control_slice.stop+len(toks_after_control))
+                #self._loss_slice = slice(self._extractor_slice.stop - 1, len(toks) - 1)
+                self._loss_slice = slice(self._extractor_slice.stop - 1, self._control_slice.stop+len(toks_after_control) - 1)
+            else:
+                # target_slice
+                #full_input += self.target
+                full_input_after_control += self.target
+                #toks = self.tokenizer(full_input).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                #self._target_slice = slice(self._assistant_role_slice.stop, len(toks))
+                self._target_slice = slice(self._assistant_role_slice.stop, self._control_slice.stop+len(toks_after_control))
+                #self._loss_slice = slice(self._assistant_role_slice.stop - 1, len(toks) - 1)
+                self._loss_slice = slice(self._assistant_role_slice.stop - 1, self._control_slice.stop+len(toks) - 1)
+
+            if verbose:
+                print('+TARGET+'*5)
+                print(self.target)
+                print('+FINAL_TARGET+'*5)
+                print(self.final_target)
+                print('-'*20)
+                print(full_input)
+                print('-'*20)
+                print(full_input_after_control)
+
+            # regularising toks:
+            toks_after_control = torch.tensor(toks_after_control).to(device=toks.device)
+            toks = torch.cat([toks, toks_after_control], dim=0)#.tolist()
+            # regularising full_input:
+            full_input = full_input_before_control + full_input_after_control
+
+            if len(self.final_target) > 0:  # focused answer exists
+                idx1, idx2 = find_last_subarray_indices(self.tokenizer, toks.tolist(), self.final_target)
+                self._focused_target_slice = slice(idx1, idx2)
+            else:
+                self._focused_target_slice = None
+
+            if verbose: print(full_input)
         else:
             raise NotImplementedError
 
-        self.input_ids = torch.tensor(toks[:self._target_slice.stop], device='cpu')
+        #self.input_ids = torch.tensor(toks[:self._target_slice.stop], device='cpu')
+        self.input_ids = toks[:self._target_slice.stop].cpu()
         self.conv_template.messages = []
 
      
@@ -499,7 +657,7 @@ class SDLMPrompter(BasePrompter):
         gradient_comp_batch_size: int = 1,
         current_pos: Optional[int] = None, 
         valid_tokens: Optional[List[int]] = None, 
-        temperature: Optional[float] = 1, 
+        temperature: Optional[float] = 0.4, 
         control_weight: Optional[float] = 0.2,
         **kwargs
     ):
@@ -541,7 +699,7 @@ class SDLMPrompter(BasePrompter):
                 input_one_hots=input_one_hots.to(dtype=sdlm_model.dtype),
                 output_hidden_states=True
             )
-            
+           
             # Compute loss (you can customize this based on your needs)
             #logits = outputs.stgs_logits
             logits = outputs.logits
@@ -704,6 +862,26 @@ class SDLMPromptManager(BasePromptManager):
         },
         **kwargs,
     ):
+        """
+        Initializes the PromptManager object with the provided parameters.
+
+        Parameters
+        ----------
+        goals : list of str
+            The list of intended goals of the attack
+        targets : list of str
+            The list of targets of the attack
+        tokenizer : Transformer Tokenizer
+            The tokenizer used to convert text into tokens
+        conv_template : Template
+            The conversation template used for the attack
+        control_init : str, optional
+            A string used to control the attack (default is "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !")
+        test_prefixes : list, optional
+            A list of prefixes to test the attack (default is ["I'm sorry", "I apologize", "As an", "I'm just", "I'm an", "I cannot", "Hello!"])
+        managers : dict, optional
+            A dictionary of manager objects, required to create the prompts.
+        """
         super().__init__(
             goals=goals,
             targets=targets,
@@ -715,6 +893,30 @@ class SDLMPromptManager(BasePromptManager):
             final_targets=final_targets,
             **kwargs,
         )
+        """
+        if len(goals) != len(targets):
+            raise ValueError("Length of goals and targets must match")
+        if len(goals) == 0:
+            raise ValueError("Must provide at least one goal, target pair")
+
+        self.tokenizer = tokenizer
+
+        self._prompts = [
+            managers['AP'](
+                goal=goal,
+                target=target,
+                tokenizer=tokenizer,
+                conv_template=conv_template,
+                control_init=control_init,
+                test_prefixes=test_prefixes,
+                final_target=final_target,
+            )
+            for goal, target, final_target in zip(goals, targets, final_targets)
+        ]
+
+        self._nonascii_toks = get_nonascii_toks(tokenizer, device='cpu', aggressive=False)
+        """
+
         self.learning_rate = learning_rate
         self.current_pos = 0
     
@@ -723,9 +925,10 @@ class SDLMPromptManager(BasePromptManager):
         self.stgs_variable_kwargs = stgs_variable_kwargs
         
         self.sdlm_model = None
-        print(f"Control str:\n {self.control_str}\nLENGTH={len(self.tokenizer(self.control_str).input_ids)}")
+        print(f"Control str:\n {self.control_str}")
+        print(f"LENGTH={self.control_toks.shape[0]}")
         self.init_sdlm_variable(initial_string=self.control_str)
-        
+     
     def init_sdlm_model(self, model, tokenizer):
         """
         Initialize the SDLM model.
@@ -784,6 +987,8 @@ class SDLMPromptManager(BasePromptManager):
         prompts, 
         prompt_candidate_toks=None, 
         gen_config=None, 
+        max_new_tokens=128,
+        repetition_penalty=1.2,
         return_past_key_vals=False,
     ):
         if not prompt_candidate_toks:
@@ -791,8 +996,8 @@ class SDLMPromptManager(BasePromptManager):
 
         if gen_config is None:
             gen_config = model.generation_config
-            gen_config.max_length = 700
-            gen_config.repetition_penalty = 1.2  # Add repetition penalty to reduce repetitions
+            gen_config.max_new_tokens = max_new_tokens
+            gen_config.repetition_penalty = repetition_penalty  # Add repetition penalty to reduce repetitions
 
         # Extract and slice input_ids from each Prompt object
         sliced_input_ids_list = []
@@ -811,7 +1016,7 @@ class SDLMPromptManager(BasePromptManager):
             padded_seq = torch.cat([torch.full((max_len - len(seq),), self.tokenizer.pad_token_id), seq])
             input_ids_padded.append(padded_seq)
 
-        input_ids_padded = torch.stack(input_ids_padded).to(model.device)
+        input_ids_padded = torch.stack(input_ids_padded).long().to(model.device)
 
         # Create attention masks (1 for non-padding tokens, 0 for padding tokens)
         attn_masks = (input_ids_padded != self.tokenizer.pad_token_id).to(model.device)
@@ -845,10 +1050,10 @@ class SDLMPromptManager(BasePromptManager):
                 input_ids_padded,
                 attention_mask=attn_masks,
                 generation_config=gen_config,
-                max_new_tokens=128, #1024,
+                max_new_tokens=max_new_tokens, #1024,
                 output_hidden_states=False, output_attentions=False, output_logits=False,
                 pad_token_id=self.tokenizer.pad_token_id,
-                repetition_penalty=1.2,  # Add explicit repetition penalty here as well
+                repetition_penalty=repetition_penalty,  # Add explicit repetition penalty here as well
                 do_sample=False, return_dict_in_generate=return_past_key_vals,
             )
 
@@ -885,14 +1090,27 @@ class SDLMPromptManager(BasePromptManager):
         prompts, 
         prompt_candidate_toks=None, 
         gen_config=None, 
+        max_new_tokens=128,
+        repetition_penalty=1.2,
     ):
         # batch generation often causes the assistant token to be repeated, so manually filter them out
         assistant_str = self.tokenizer.decode(self._prompts[0].input_ids[self._prompts[0]._assistant_role_slice], skip_special_tokens = True) # TODO: assumes all prompts have the same assistant role slice
 
         # TODO can be faster
         reasoning_strs = []
-        for output_toks in self.generate_batched(model, prompts, prompt_candidate_toks, gen_config):
-            reasoning_str = self.tokenizer.decode(output_toks, skip_special_tokens=True)
+        batched_output_toks = self.generate_batched(
+            model=model, 
+            prompts=prompts, 
+            prompt_candidate_toks=prompt_candidate_toks, 
+            gen_config=gen_config,
+            max_new_tokens=max_new_tokens,
+            repetition_penalty=repetition_penalty,
+        )
+        for output_toks in batched_output_toks:
+            reasoning_str = self.tokenizer.decode(
+                output_toks, 
+                skip_special_tokens=True
+            )
             # removing possible repeated assistant token:
             reasoning_str = reasoning_str.split(assistant_str)[-1].strip()
             reasoning_strs.append(reasoning_str)
@@ -904,12 +1122,20 @@ class SDLMPromptManager(BasePromptManager):
         model, 
         gen_config=None, 
         generation_batch_size=9,
+        max_new_tokens=128,
+        repetition_penalty=1.2,
     ):
 
         stpwatch_strt = time.time()
         for i in tqdm(range(0, len(self._prompts), generation_batch_size), position=0, leave=True):
             list_prompts = self._prompts[i:i + generation_batch_size]
-            outputs = self.generate_batched_str(model, list_prompts, gen_config)
+            outputs = self.generate_batched_str(
+                model=model, 
+                prompts=list_prompts, 
+                gen_config=gen_config,
+                max_new_tokens=max_new_tokens,
+                repetition_penalty=repetition_penalty,
+            )
             for prompt, output in zip(list_prompts, outputs):
                 prompt.current_solution_str = output
         print("Time taken to update solutions: ", time.time() - stpwatch_strt)
@@ -1344,49 +1570,62 @@ class SDLMMultiPrompter(BaseMultiPrompter):
 
         ## Compute losses like in get_grads:
         pm_losses = []
+        print("Computing losses:")
         for pmidx, prompt_manager in enumerate(prompt_managers):
             if prompt_manager.sdlm_model is None:
                 prompt_manager.init_sdlm_model(model=self.models[pmidx], tokenizer=prompt_manager.tokenizer)
             batch_loss = []
-            for bidx, prompt in enumerate(prompt_manager._prompts):
+            for bidx, prompt in tqdm(enumerate(prompt_manager._prompts), position=0, leave=True):
                 loss = prompt.compute_loss(
                     sdlm_model=prompt_manager.sdlm_model,
                     sdlm_variable=prompt_manager.sdlm_variable,
                     current_pos=prompt_manager.current_pos,
                     valid_tokens=None, 
                     control_weight=control_weight,
+                    gradient_comp_batch_size=batch_size,
+                    temperature=temp,
                 )
-                batch_loss.append(loss)
+                ## Backward:
+                loss.backward()
+                batch_loss.append(loss.detach())
+                del loss
+                torch.cuda.empty_cache()
+                gc.collect()
             batch_losses = torch.stack(batch_loss)
             pm_losses.append(batch_losses)
         
         if losses_only:
             return torch.stack(pm_losses)
         
-        ## Backward:
-        for pmidx, pm_loss in enumerate(pm_losses):
-            pm_loss.mean().backward()
         mean_loss = torch.stack(pm_losses).mean().item()
 
         ## Variable updates:
+        #import ipdb; ipdb.set_trace()
+        #print(self.current_pm.sdlm_variable)
+
         self.optimizer.step()
         self.optimizer.zero_grad()
         
-        # Update input_ids by updating control_toks:
         control_toks, _, self.current_pm.control_str = self.current_pm.sdlm_variable.forward(temperature=temp)
         # Remove batch dim:
-        self.current_pm.control_toks = control_toks[0]
+        control_toks = control_toks[0].long()
+        # Update control_toks:
+        # perform update_ids too and update prompts' control_toks
+        self.current_pm.control_toks = control_toks
 
         # The current_pm's contol_toks setter also sets its prompts' control_toks: but just in case...
+        '''
         for prompt_manager in self.prompt_managers:
             for prompt in prompt_manager._prompts:
-                prompt.control_toks = self.current_pm.control_toks
-                # which performs: prompt._update_ids()
+                #prompt.control_toks = self.current_pm.control_toks
+                prompt.control_str = self.current_pm.control_str
+                # which DOES NOT performs: prompt._update_ids()
                 # TODO: update the reasoning/target of each prompt based on their control_toks
+        '''
         next_control = self.current_pm.control_str
         
-        print('Current length:', len(self.workers[0].tokenizer(next_control).input_ids))
-        print('Current control:', next_control)
+        #print('Current length:', len(self.workers[0].tokenizer(next_control).input_ids))
+        #print('Current control:', next_control)
         return next_control, mean_loss
     
     def run(
