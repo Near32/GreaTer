@@ -9,7 +9,11 @@ def get_config():
     
     # Override the attack method to use SDLM
     config.attack = 'sdlm_opt'
-    
+
+    # SDLM:
+    config.acc_grad_n_examples = -1
+    config.update_solution_max_new_tokens = 128
+
     # Use DistilGPT2 model (much smaller and faster)
     # With 2 :
     config.model_kwargs *= 2

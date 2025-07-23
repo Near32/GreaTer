@@ -69,7 +69,8 @@ def main(_):
         train_final_target=train_final_target,
         test_final_target =  test_final_target
     )
-
+    
+    print(f"Starting optimisation over {len(train_goals)} examples...")
     prompt_optimizer.run(
         n_steps=params.n_steps,
         batch_size=params.batch_size, 
@@ -85,6 +86,7 @@ def main(_):
         verbose=params.verbose,
         filter_cand=params.filter_cand,
         allow_non_ascii=params.allow_non_ascii,
+        params=params,
     )
 
     for worker in workers + test_workers:

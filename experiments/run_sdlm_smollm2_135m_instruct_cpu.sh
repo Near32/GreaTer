@@ -37,19 +37,20 @@ export TOKENIZERS_PARALLELISM=false
 
 # Run the optimization
 echo "Starting optimization on CPU with SmolLM2-135m_instruct..."
-CUDA_LAUNCH_BLOCKING=1 python -m ipdb -c c main.py \
+python -m ipdb -c c main.py \
     --config="./configs/transfer_sdlm_smollm2_135m_instruct_cpu.py" \
     --config.use_wandb=True \
     --config.project="GreaTer-SDLM" \
     --config.train_data="$TRAIN_DATA" \
     --config.test_data="$TEST_DATA" \
     --config.result_prefix="$RESULT_PREFIX" \
-    --config.progressive_goals=True \
     --config.stop_on_success=True \
     --config.allow_non_ascii=False \
     --config.num_train_models=1 \
     --config.n_train_data=10 \
     --config.n_test_data=10 \
+    --config.acc_grad_n_examples=32 \
+    --config.update_solution_max_new_tokens=64 \
     --config.n_steps=50 \
     --config.test_steps=1 \
     --config.anneal=True \

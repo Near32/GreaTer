@@ -7,6 +7,7 @@ import time
 import sys
 import os
 import gc
+import json
 import math
 import random
 from tqdm import tqdm
@@ -27,6 +28,7 @@ from llm_opt.base.attack_manager import (
     Prompter as BasePrompter,
     PromptManager as BasePromptManager,
     MultiPrompter as BaseMultiPrompter,
+    NpEncoder,
     get_embeddings,
     get_embedding_matrix,
 )
@@ -992,7 +994,7 @@ class SDLMPromptManager(BasePromptManager):
         repetition_penalty=1.2,
         return_past_key_vals=False,
     ):
-        if not prompt_candidate_toks:
+        if prompt_candidate_toks is None:
             prompt_candidate_toks = prompts[0].input_ids[prompts[0]._control_slice]
 
         if gen_config is None:
@@ -1125,11 +1127,15 @@ class SDLMPromptManager(BasePromptManager):
         generation_batch_size=9,
         max_new_tokens=128,
         repetition_penalty=1.2,
+        _prompts=None,
     ):
+        if _prompts is None:
+            _prompts = self._prompts
 
         stpwatch_strt = time.time()
-        for i in tqdm(range(0, len(self._prompts), generation_batch_size), position=0, leave=True):
-            list_prompts = self._prompts[i:i + generation_batch_size]
+        print(f"Updating solutions for {len(_prompts)} examples over batch_size={generation_batch_size}...")
+        for i in tqdm(range(0, len(_prompts), generation_batch_size), position=0, leave=True):
+            list_prompts = _prompts[i:i + generation_batch_size]
             outputs = self.generate_batched_str(
                 model=model, 
                 prompts=list_prompts, 
@@ -1564,16 +1570,16 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         tests['n_loss'] = n_loss
         tests['total'] = total_tests
 
-        import ipdb; ipdb.set_trace()
-        if kwargs.get('use_wandb', False):
+        if kwargs['params'].get('use_wandb', False):
             dlog = {
                 "step_num": step_num,
                 "train/control": control,
-                "train/loss": loss,
+                "train/best_loss": loss,
                 "train/runtime": runtime,
             }
             for i, tag in enumerate(['id_id', 'id_od', 'od_id', 'od_od']):
                 dlog[f"test/{tag}/EM"] = n_em[i]
+                dlog[f"test/{tag}/EM-Accuracy"] = float(n_em[i]*100.0)/max(total_tests[i],1)
                 dlog[f"test/{tag}/passed"] = n_passed[i]
                 dlog[f"test/{tag}/loss"] = n_loss[i]
                 dlog[f"test/{tag}/total"] = total_tests[i]
@@ -1651,6 +1657,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             prompt_managers = self.prompt_managers
         # Get the main device
         main_device = self.models[0].device
+        
+        acc_grad_n_examples = kwargs['params'].get('acc_grad_n_examples', -1)
 
         ## Compute losses like in get_grads:
         pm_losses = []
@@ -1659,22 +1667,51 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             if prompt_manager.sdlm_model is None:
                 prompt_manager.init_sdlm_model(model=self.models[pmidx], tokenizer=prompt_manager.tokenizer)
             batch_loss = []
-            for bidx, prompt in tqdm(enumerate(prompt_manager._prompts), position=0, leave=True):
-                loss = prompt.compute_loss(
-                    sdlm_model=prompt_manager.sdlm_model,
-                    sdlm_variable=prompt_manager.sdlm_variable,
-                    current_pos=prompt_manager.current_pos,
-                    valid_tokens=None, 
-                    control_weight=control_weight,
-                    gradient_comp_batch_size=batch_size,
-                    temperature=temp,
-                )
-                ## Backward:
-                loss.backward()
-                batch_loss.append(loss.detach())
-                del loss
+            nbr_prompts = len(prompt_manager._prompts)
+            for pidx, prompt in enumerate(tqdm(prompt_manager._prompts, position=0, leave=True)):
+                try:
+                    loss = prompt.compute_loss(
+                        sdlm_model=prompt_manager.sdlm_model,
+                        sdlm_variable=prompt_manager.sdlm_variable,
+                        current_pos=prompt_manager.current_pos,
+                        valid_tokens=None, 
+                        control_weight=control_weight,
+                        gradient_comp_batch_size=batch_size,
+                        temperature=temp,
+                    )
+                    ## Backward:
+                    loss.backward()
+                    batch_loss.append(loss.detach())
+                    del loss
+                except Exception as e:
+                    print(e)
+                    
                 torch.cuda.empty_cache()
                 gc.collect()
+                
+                if acc_grad_n_examples != -1 \
+                and (pidx+1) % kwargs['params']['acc_grad_n_examples'] == 0:
+                    # Optimise step:
+                    acc_grad_n_examples = kwargs['params']['acc_grad_n_examples']
+                    next_ids = [ idx for idx in range(pidx+1,pidx+acc_grad_n_examples+1)
+                            if idx < nbr_prompts]
+                    self.optimise_and_update(
+                        ins=next_ids,
+                        batch_size=batch_size,
+                        temperature=temp,
+                        update_solution=True,
+                        **kwargs,
+                    )
+
+                    # Logging:
+                    mean_loss = torch.stack(batch_loss[-acc_grad_n_examples:]).mean().item()
+                    wandb.log({
+                        'train/instantaneous_loss':mean_loss,
+                        'train/instantaneous_control': self.current_pm._prompts[pidx].control_str,
+                        }, 
+                        commit=True,
+                    )
+
             batch_losses = torch.stack(batch_loss)
             pm_losses.append(batch_losses)
         
@@ -1683,35 +1720,76 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         
         mean_loss = torch.stack(pm_losses).mean().item()
 
-        ## Variable updates:
-        #import ipdb; ipdb.set_trace()
-        #print(self.current_pm.sdlm_variable)
+        self.optimise_and_update(
+            ins=range(nbr_prompts), # if acc_grad_n_examples==-1 else range(acc_grad_n_examples+1),
+            batch_size=batch_size,
+            temperature=temp,
+            update_solution=False, # It will be updated in the run loop..
+            **kwargs,
+        )
 
-        self.optimizer.step()
-        self.optimizer.zero_grad()
-        
-        control_toks, _, self.current_pm.control_str = self.current_pm.sdlm_variable.forward(temperature=temp)
-        # Remove batch dim:
-        control_toks = control_toks[0].long()
-        # Update control_toks:
-        # perform update_ids too and update prompts' control_toks
-        self.current_pm.control_toks = control_toks
-
-        # The current_pm's contol_toks setter also sets its prompts' control_toks: but just in case...
-        '''
-        for prompt_manager in self.prompt_managers:
-            for prompt in prompt_manager._prompts:
-                #prompt.control_toks = self.current_pm.control_toks
-                prompt.control_str = self.current_pm.control_str
-                # which DOES NOT performs: prompt._update_ids()
-                # TODO: update the reasoning/target of each prompt based on their control_toks
-        '''
         next_control = self.current_pm.control_str
         
         #print('Current length:', len(self.workers[0].tokenizer(next_control).input_ids))
         #print('Current control:', next_control)
         return next_control, mean_loss
     
+    def optimise_and_update(
+        self,
+        ins: Optional[List[int]] = [],
+        not_ins: Optional[List[int]] = [],
+        batch_size: Optional[int] = 1,
+        temperature: Optional[float] = 0.1,
+        update_solution: Optional[bool] = False,
+        **kwargs,
+    ):
+        self.optimizer.step()
+        self.optimizer.zero_grad()
+        
+        #control_toks, _, self.current_pm.control_str = self.current_pm.sdlm_variable.forward(temperature=temperature)
+        control_toks, _, control_str = self.current_pm.sdlm_variable.forward(temperature=temperature)
+        # Remove batch dim:
+        control_toks = control_toks[0].long()
+        # Update control_toks and strs:
+        #  and perform update_ids manually:
+        #self.current_pm.control_toks = control_toks
+        pindices_to_update = list(set(ins).difference(not_ins))
+        for pidx in pindices_to_update:
+            if len(self.current_pm._prompts) <= pidx:    
+                continue
+            prompt = self.current_pm._prompts[pidx]
+            # Update control sstrs
+            prompt.control_str = control_str
+            # Update control toks and input_ids via setter:
+            prompt.control_toks = control_toks
+        
+        if update_solution:
+            # Update solution manually, as batch:
+            #stpwatch_strt = time.time()
+            for i in range(0, len(pindices_to_update), batch_size):
+                bpindices = pindices_to_update[i:i+batch_size]
+                bprompts = [
+                    self.current_pm._prompts[bpidx] 
+                    for bpidx in bpindices
+                    if bpidx < len(self.current_pm._prompts)
+                ]
+                outputs = self.current_pm.generate_batched_str(
+                    model=self.workers[0].model, 
+                    prompts=bprompts,
+                    prompt_candidate_toks=control_toks,
+                    max_new_tokens=kwargs['params']['update_solution_max_new_tokens'],
+                    gen_config=None,#gen_config,
+                )
+                for prompt, output in zip(bprompts, outputs):
+                    prompt.current_solution_str = output
+                    # Update ids manually:
+                    prompt._update_ids()
+            #print("Time taken to update solutions: ", time.time() - stpwatch_strt)
+        else:
+            pass
+
+        return
+
     def run(
         self,
         n_steps=100,
@@ -1765,7 +1843,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                      loss,
                      runtime,
                      model_tests,
-                     verbose=verbose)
+                     verbose=verbose,
+                     params=kwargs['params'],
+            )
 
         for i in tqdm(range(n_steps), position=0, leave=True):
             # if stop_on_success:
@@ -1779,9 +1859,24 @@ class SDLMMultiPrompter(BaseMultiPrompter):
 
             if SIMULATED_CANONICAL:
                 print("Updating solution...")
-                self.update_solution(
-                    max_new_tokens=kwargs.get('max_new_tokens', 32),
-                )
+                # Only need to update the first few prompts if accumulating gradients:
+                acc_grad_n_examples = kwargs['params']['acc_grad_n_examples']
+                if acc_grad_n_examples == -1:
+                    #prompt_to_update = self.current_pm._prompts
+                    self.update_solution(
+                        max_new_tokens=kwargs['params'].get('update_solution_max_new_tokens', 128),
+                        generation_batch_size=batch_size,
+                    )
+                else:
+                    print(f"Gradient accumulation over {acc_grad_n_examples} examples => only updating first examples.")
+                    prompt_to_update = [self.current_pm._prompts[idx] for idx in range(acc_grad_n_examples+1)]
+                    for prompt_manager, worker in zip(self.prompt_managers, self.test_workers):
+                        prompt_manager.update_solution(
+                            _prompts=prompt_to_update,
+                            model=worker.model,
+                            max_new_tokens=kwargs['params'].get('update_solution_max_new_tokens', 128),
+                            generation_batch_size=batch_size,
+                        )
                 print("Updating solution: DONE.")
 
             control, loss = self.step(
@@ -1794,10 +1889,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 control_weight=control_weight_fn(i),
                 filter_cand=filter_cand,
                 verbose=verbose,
-                **kwargs,
+                params=kwargs['params'],
             )
 
-            if kwargs.get('use_wandb', False):
+            if kwargs['params'].get('use_wandb', False):
                 wandb.log({
                     'train/loss': loss,
                     'train/control': control,
@@ -1857,7 +1952,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     runtime, 
                     model_tests,
                     verbose=verbose,
-                    **kwargs,
+                    params=kwargs['params'],
                 )
 
                 self.control_str = last_control

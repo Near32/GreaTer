@@ -33,24 +33,25 @@ export TOKENIZERS_PARALLELISM=false
 
 # Run the optimization
 echo "Starting optimization on GPU with SmolLM2-135m_instruct..."
-CUDA_LAUNCH_BLOCKING=1 python -m ipdb -c c main.py \
+python -m ipdb -c c main.py \
     --config="./configs/transfer_sdlm_smollm2_135m_instruct_gpu.py" \
     --config.use_wandb=True \
     --config.project="GreaTer-SDLM" \
     --config.train_data="$TRAIN_DATA" \
     --config.test_data="$TEST_DATA" \
     --config.result_prefix="$RESULT_PREFIX" \
-    --config.progressive_goals=True \
     --config.stop_on_success=True \
     --config.allow_non_ascii=False \
     --config.num_train_models=1 \
-    --config.n_train_data=50 \
-    --config.n_test_data=50 \
+    --config.n_train_data=10000 \
+    --config.n_test_data=10000 \
+    --config.acc_grad_n_examples=32 \
+    --config.update_solution_max_new_tokens=64 \
     --config.n_steps=50 \
     --config.test_steps=1 \
     --config.anneal=True \
     --config.batch_size=64 \
-    --config.temp=0.6 \
+    --config.temp=0.5 \
     --config.topk=10 \
     --config.topq=5 \
     --config.control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer." \

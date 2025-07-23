@@ -8,6 +8,10 @@ def get_config():
     config.use_wandb = False
     config.project = 'GreaTer-SDLM'
 
+    # SDLM:
+    config.acc_grad_n_examples = -1
+    config.update_solution_max_new_tokens = 128
+
     # General parameters 
     config.target_weight=0.85
     config.control_weight=0.15

@@ -10,6 +10,7 @@ import re
 import os
 import ast
 
+from tqdm import tqdm
 import dill
 import numpy as np
 import pandas as pd
@@ -792,8 +793,9 @@ class PromptManager(object):
 
         self.tokenizer = tokenizer
 
-        self._prompts = [
-            managers['AP'](
+        self._prompts = []
+        for goal, target, final_target in tqdm(zip(goals, targets, final_targets), total=len(goals), position=0, leave=True):
+            manager =  managers['AP'](
                 goal=goal,
                 target=target,
                 tokenizer=tokenizer,
@@ -802,8 +804,7 @@ class PromptManager(object):
                 test_prefixes=test_prefixes,
                 final_target=final_target,
             )
-            for goal, target, final_target in zip(goals, targets, final_targets)
-        ]
+            self._prompts.append(manager)
 
         self._nonascii_toks = get_nonascii_toks(tokenizer, device='cpu', aggressive=False)
 
@@ -1375,7 +1376,7 @@ class MultiPrompter(object):
                      runtime,
                      model_tests,
                      verbose=verbose,
-                     **kwargs,
+                     params=kwargs['params'],
                      )
 
         for i in range(n_steps):
@@ -1707,7 +1708,8 @@ class ProgressiveMultiPrompter(object):
             stop_on_success: bool = True,
             verbose: bool = True,
             filter_cand: bool = False,
-            group_size=100
+            group_size=100,
+            params={},
             ):
 
 
@@ -1774,6 +1776,7 @@ class ProgressiveMultiPrompter(object):
         loss = np.infty
         early_stopping = True
         while step < n_steps:
+            print(f"Creating prompt managers: ...")
             attack = self.managers['MPA'](
                 self.goals[:num_goals],
                 self.targets[:num_goals],
@@ -1792,6 +1795,7 @@ class ProgressiveMultiPrompter(object):
             if num_goals == len(self.goals) and num_workers == len(self.workers):
                 stop_inner_on_success = False
                 early_stopping = False
+            print(f"Creating prompt managers: DONE.") 
             control, loss, inner_steps = attack.run(
                 n_steps=n_steps - step,
                 batch_size=batch_size,
@@ -1808,7 +1812,8 @@ class ProgressiveMultiPrompter(object):
                 test_steps=test_steps,
                 filter_cand=filter_cand,
                 early_stopping=early_stopping,
-                verbose=verbose
+                verbose=verbose,
+                params=params,
             )
 
             step += inner_steps
@@ -1825,7 +1830,7 @@ class ProgressiveMultiPrompter(object):
                     loss = np.infty
                 elif num_workers == len(self.workers) and stop_on_success:
                     model_tests = attack.test_all()
-                    attack.log(step, n_steps, self.control, loss, 0., model_tests, verbose=verbose)
+                    attack.log(step, n_steps, self.control, loss, 0., model_tests, verbose=verbose, **params)
                     break
                 else:
                     if isinstance(control_weight, (int, float)) and incr_control:
@@ -2186,10 +2191,12 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
                 test_data['target'] = test_data['answer'].str.split('#### ').str[0]
                 test_data['final_target'] = test_data['answer'].str.split('#### ').str[1]
             
-            test_targets = test_data[target_entry].astype(str).tolist()[
-                           offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
+            #test_targets = test_data[target_entry].astype(str).tolist()[
+            #               offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
+            test_targets = test_data[target_entry].astype(str).tolist()[offset:offset + params.n_test_data]
             if goal_entry in test_data.columns:
-                test_goals = test_data[goal_entry].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
+                #test_goals = test_data[goal_entry].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
+                test_goals = test_data[goal_entry].astype(str).tolist()[offset:offset + params.n_test_data]
                 if len(addition) > 0:
                     test_goals = [goal + addition for goal in test_goals]
                 #if len(params.extractor_text) > 0:
@@ -2199,15 +2206,18 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
 
             # Again, Most datasets won't have it. Just the ones we are curating for this feature
             if final_target_entry in test_data.columns:
-                test_final_targets = test_data[final_target_entry].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
+                #test_final_targets = test_data[final_target_entry].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
+                test_final_targets = test_data[final_target_entry].astype(str).tolist()[offset:offset + params.n_test_data]
                 #if len(addition3) >= 0 and "llama-3" in params.conversation_templates:
                 #    test_final_targets = [addition3 + remove_parentheses_if_single_char(target) for target in test_final_targets]
                 #elif "llama-2" in params.conversation_templates or "gemma-2" in params.conversation_templates:
                 #    test_final_targets = [remove_parentheses_if_single_char(target) for target in test_final_targets]
             else:
-                test_final_targets = [""] * len(train_targets)
+                #test_final_targets = [""] * len(train_targets)
+                test_final_targets = [""] * len(test_targets)
 
         elif params.n_test_data > 0:
+            raise NotImplementedError
             test_targets = train_data[target_entry].astype(str).tolist()[
                            offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
             if goal_entry in train_data.columns:
