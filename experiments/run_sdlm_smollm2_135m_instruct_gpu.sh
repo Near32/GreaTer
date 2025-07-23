@@ -45,7 +45,8 @@ python -m ipdb -c c main.py \
     --config.num_train_models=1 \
     --config.n_train_data=10000 \
     --config.n_test_data=10000 \
-    --config.acc_grad_n_examples=32 \
+    --config.acc_grad_n_examples=4 \
+    --config.gradient_comp_batch_size=1 \
     --config.update_solution_max_new_tokens=64 \
     --config.n_steps=50 \
     --config.test_steps=1 \

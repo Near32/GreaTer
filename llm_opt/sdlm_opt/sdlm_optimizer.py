@@ -1613,9 +1613,117 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             ))
 
  
+    def batched_compute_loss(
+        self, 
+        prompts: List[SDLMPrompter],
+        sdlm_model: AutoModelForCausalLM, 
+        sdlm_variable: Variable,
+        gradient_comp_batch_size: int = 1,
+        current_pos: Optional[int] = None, 
+        valid_tokens: Optional[List[int]] = None, 
+        temperature: Optional[float] = 0.4, 
+        control_weight: Optional[float] = 0.2,
+        **kwargs
+    ):
+        """
+        Compute loss using SDLM's differentiable text generation.
+        
+        Args:
+            prompts: List of prompts
+            sdlm_model: The target SDLM model
+            sdlm_variable: The SDLM variable
+            gradient_comp_batch_size: Batch size for gradient computation
+            current_pos: Current position in the prompt for which gradients are computed
+            valid_tokens: List of valid token indices
+            temperature: Temperature for the focused loss computation
+            control_weight: Weight for the control loss
+        Returns:
+            Loss for the current position
+        """
+        # Create batched padded input for SDLM with variable:
+        batched_input_one_hots = []
+        max_len = 0
+        for prompt in prompts:
+            temp = prompt.input_ids
+            max_len = max(max_len, len(temp))
+            input_one_hots = F.one_hot(temp, num_classes=sdlm_model.config.vocab_size).float()
+            input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1)
+            for bidx in range(gradient_comp_batch_size):
+                diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
+                input_one_hots[bidx, prompt._control_slice] = diff_one_hot
+            batched_input_one_hots.append(input_one_hots)
+         
+        padding_one_hot = torch.zeros((1, sdlm_model.config.vocab_size))
+        padding_one_hot[:, self.tokenizer.pad_token_id] = 1
+        padding_one_hot = padding_one_hot.unsqueeze(0).repeat(gradient_comp_batch_size, 1, 1)
+        # (batch_size, 1, vocab_size)
+
+        for iidx, input_one_hots in enumerate(batched_input_one_hots):
+            input_one_hots = torch.cat([padding_one_hot.repeat(1,max_len-input_one_hots.shape[1], 1), input_one_hots], dim=1)
+            # (batch_size, max_len, vocab_size) 
+            batched_input_one_hots[iidx] = input_one_hots
+
+        batched_input_ids_padded = torch.stack(batched_input_one_hots).long().to(sdlm_model.device)
+
+        # Create attention masks (1 for non-padding tokens, 0 for padding tokens)
+        attn_masks = (batched_input_ids_padded != self.tokenizer.pad_token_id).to(sdlm_model.device)
+         
+        # Set SDLM variable to current control tokens:
+        # Forward pass through SDLM
+        with torch.enable_grad():
+            #outputs = self.sdlm_model(
+            outputs = sdlm_model(
+                input_one_hots=input_one_hots.to(dtype=sdlm_model.dtype),
+                output_hidden_states=True
+            )
+           
+            # Compute loss (you can customize this based on your needs)
+            #logits = outputs.stgs_logits
+            logits = outputs.logits
+            #TODO: consider using stgs_logits instead
+            # or partially over the reasoning slice when ground-truth reasoning are not provided.
+
+            losses = []
+            for pidx, prompt in enumerate(prompts):
+                plogits = logits[pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size]
+                targets = prompt.input_ids[prompt._target_slice].repeat(gradient_comp_batch_size, 1)
+                loss_crit = nn.CrossEntropyLoss(reduction='mean')
+                
+                loss = loss_crit(
+                    plogits[:, prompt._loss_slice, :].transpose(1,2), 
+                    targets.detach(),
+                )
+
+                # Compute control loss, i.e. perplexity:
+                control_output_slice = slice(prompt._control_slice.start - 1, prompt._control_slice.stop - 1)
+                control_target_slice = slice(prompt._control_slice.start, prompt._control_slice.stop)
+                control_targets = prompt.input_ids[control_target_slice].repeat(gradient_comp_batch_size, 1)
+                control_loss = loss_crit(
+                    plogits[:, control_output_slice, :].transpose(1,2), 
+                    control_targets.detach(),
+                )
+
+                if prompt._focused_target_slice:
+                    # loss computation requires shifted slices:
+                    focused_loss_slice = slice(prompt._focused_target_slice.start - 1, prompt._focused_target_slice.stop - 1)
+                    focused_targets = prompt.input_ids[prompt._focused_target_slice]
+                    focused_targets = focused_targets.repeat(gradient_comp_batch_size, 1)
+                    focused_loss = loss_crit(
+                        plogits[:, focused_loss_slice, :].transpose(1,2) / temperature, 
+                        focused_targets.detach()
+                    )
+                    loss = focused_loss+control_weight*control_loss
+                else:
+                    loss = loss+control_weight*control_loss
+            
+                losses.append(loss)
+            losses = torch.stack(losses)
+        return losses
+    
     def step(
         self, 
-        batch_size=1024, 
+        batch_size=1024,
+        gradient_comp_batch_size=1,
         topk=256, 
         temp=0.1, 
         topq=5, 
@@ -1627,6 +1735,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         filter_cand=True,
         prompt_managers=None,
         losses_only=False,
+        SIMULATED_CANONICAL=False,
         *args,
         **kwargs,
     ):
@@ -1638,6 +1747,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         
         Args:
             batch_size: Number of candidates to generate
+            gradient_comp_batch_size: Batch size for gradient computation for each prompt
             topk: Top-k sampling parameter
             temp: Temperature for sampling
             topq: Top-q sampling parameter (unused in SDLM)
@@ -1649,7 +1759,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             filter_cand: Whether to filter candidates
             prompt_managers: List of prompt managers to use
             losses_only: Whether to only compute losses (no optimization)
-            
+            SIMULATED_CANONICAL: Whether to simulate canonical updates
         Returns:
             Loss value
         """
@@ -1668,19 +1778,42 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 prompt_manager.init_sdlm_model(model=self.models[pmidx], tokenizer=prompt_manager.tokenizer)
             batch_loss = []
             nbr_prompts = len(prompt_manager._prompts)
-            for pidx, prompt in enumerate(tqdm(prompt_manager._prompts, position=0, leave=True)):
+            shuffled_batch_indices = torch.randperm(nbr_prompts).tolist()
+            batch_indices = range(0, nbr_prompts, batch_size)
+
+            # updating initial solutions:
+            if SIMULATED_CANONICAL:
+                if acc_grad_n_examples != -1:
+                    print("Updating solution...")
+                    print(f"Gradient accumulation over {acc_grad_n_examples*batch_size} examples => only updating first examples.")
+                    pidx_to_update = []
+                    for bidx in range(acc_grad_n_examples):
+                        bpidx = batch_indices[bidx]
+                        pidx_to_update.extend(shuffled_batch_indices[bpidx:bpidx+batch_size])
+                    prompts_to_update = [prompt_manager._prompts[idx] for idx in pidx_to_update]
+                    prompt_manager.update_solution(
+                        _prompts=prompts_to_update,
+                        model=self.workers[0].model,
+                        max_new_tokens=kwargs['params'].get('update_solution_max_new_tokens', 128),
+                        generation_batch_size=batch_size*gradient_comp_batch_size,
+                    )
+                    print(f"Updating solution: DONE.")
+            for bidx, bpidx in enumerate(tqdm(batch_indices, position=0, leave=True)):
+                sampled_indices = shuffled_batch_indices[bpidx:bpidx+batch_size]
+                prompts = [prompt_manager._prompts[i] for i in sampled_indices]
                 try:
-                    loss = prompt.compute_loss(
+                    loss = self.batched_compute_loss(
+                        prompts=prompts,
                         sdlm_model=prompt_manager.sdlm_model,
                         sdlm_variable=prompt_manager.sdlm_variable,
                         current_pos=prompt_manager.current_pos,
                         valid_tokens=None, 
                         control_weight=control_weight,
-                        gradient_comp_batch_size=batch_size,
+                        gradient_comp_batch_size=gradient_comp_batch_size,
                         temperature=temp,
                     )
                     ## Backward:
-                    loss.backward()
+                    loss.mean().backward()
                     batch_loss.append(loss.detach())
                     del loss
                 except Exception as e:
@@ -1690,11 +1823,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 gc.collect()
                 
                 if acc_grad_n_examples != -1 \
-                and (pidx+1) % kwargs['params']['acc_grad_n_examples'] == 0:
+                and (bidx+1) % kwargs['params']['acc_grad_n_examples'] == 0:
                     # Optimise step:
-                    acc_grad_n_examples = kwargs['params']['acc_grad_n_examples']
-                    next_ids = [ idx for idx in range(pidx+1,pidx+acc_grad_n_examples+1)
-                            if idx < nbr_prompts]
+                    #next_ids = [ idx for idx in range(bpidx+1,bpidx+acc_grad_n_examples+1) if idx < nbr_prompts]
+                    next_start = batch_indices[bidx+1]
+                    next_ids = shuffled_batch_indices[next_start:next_start+batch_size] 
                     self.optimise_and_update(
                         ins=next_ids,
                         batch_size=batch_size,
@@ -1814,6 +1947,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         SIMULATED_CANONICAL=True,
         **kwargs,
     ):
+        gradient_comp_batch_size = kwargs['params'].get('gradient_comp_batch_size', 1)
+
         def P(e, e_prime, k):
             T = max(1 - float(k + 1) / (n_steps + anneal_from), 1.e-7)
             return True if e_prime < e else math.exp(-(e_prime - e) / T) >= random.random()
@@ -1858,29 +1993,23 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             torch.cuda.empty_cache()
 
             if SIMULATED_CANONICAL:
-                print("Updating solution...")
                 # Only need to update the first few prompts if accumulating gradients:
                 acc_grad_n_examples = kwargs['params']['acc_grad_n_examples']
                 if acc_grad_n_examples == -1:
+                    print("Updating solution...")
                     #prompt_to_update = self.current_pm._prompts
                     self.update_solution(
                         max_new_tokens=kwargs['params'].get('update_solution_max_new_tokens', 128),
                         generation_batch_size=batch_size,
                     )
+                    print("Updating solution: DONE.")
                 else:
-                    print(f"Gradient accumulation over {acc_grad_n_examples} examples => only updating first examples.")
-                    prompt_to_update = [self.current_pm._prompts[idx] for idx in range(acc_grad_n_examples+1)]
-                    for prompt_manager, worker in zip(self.prompt_managers, self.test_workers):
-                        prompt_manager.update_solution(
-                            _prompts=prompt_to_update,
-                            model=worker.model,
-                            max_new_tokens=kwargs['params'].get('update_solution_max_new_tokens', 128),
-                            generation_batch_size=batch_size,
-                        )
-                print("Updating solution: DONE.")
+                    pass
+                    # Update is performed in the step method...
 
             control, loss = self.step(
                 batch_size=batch_size,
+                gradient_comp_batch_size=gradient_comp_batch_size,
                 topk=topk,
                 temp=temp,
                 topq=topq,
@@ -1889,6 +2018,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 control_weight=control_weight_fn(i),
                 filter_cand=filter_cand,
                 verbose=verbose,
+                SIMULATED_CANONICAL=SIMULATED_CANONICAL,
                 params=kwargs['params'],
             )
 
