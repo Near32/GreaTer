@@ -5,6 +5,8 @@ def get_config():
 
     # Experiment type
     config.transfer = False
+    config.use_wandb = False
+    config.project = 'GreaTer-SDLM'
 
     # General parameters 
     config.target_weight=0.85

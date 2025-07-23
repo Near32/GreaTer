@@ -10,6 +10,7 @@ import gc
 import math
 import random
 from tqdm import tqdm
+import wandb
 
 # Add SDLM to the path
 #sdlm_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'sdlm')
@@ -1283,9 +1284,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
     def current_prompt(self):
         return self.prompt_managers[0]._prompts[0]
     
-    def update_solution(self):
+    def update_solution(self, **kwargs):
         for prompt_manager, worker in zip(self.prompt_managers, self.test_workers):
-            prompt_manager.update_solution(worker.model)
+            prompt_manager.update_solution(worker.model, **kwargs)
 
     def get_grads(
         self,
@@ -1502,7 +1503,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         tokenizer.padding_side = original_padding_side
         return jailbreak_scores, match_scores, losses if include_loss else []
     
-    def test_all(self):
+    def test_all(self, **kwargs):
         model = self.workers[0].model
         test_prompt_manager = self.managers['PM'](
             goals=self.goals + self.test_goals,
@@ -1515,7 +1516,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             final_targets=self.train_final_targets+self.test_final_targets,
         )
         
-        outputs = self.test(model, test_prompt_manager, include_loss=True)
+        outputs = self.test(model, test_prompt_manager, include_loss=True, **kwargs)
         # duplicate for all workers...
         returns = []
         nbr_workers = len(self.workers)+len(self.test_workers)
@@ -1523,6 +1524,89 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             returns.append([output for _ in range(nbr_workers)])
         return returns
 
+    def log(self, step_num, n_steps, control, loss, runtime, model_tests, verbose=True, **kwargs):
+
+        prompt_tests_jb, prompt_tests_mb, model_tests_loss = list(map(np.array, model_tests))
+        all_goal_strs = self.goals + self.test_goals
+        all_workers = self.workers + self.test_workers
+        """
+        tests = {
+            all_goal_strs[i]:
+                [
+                    (all_workers[j].model.name_or_path, prompt_tests_jb[j][i], prompt_tests_mb[j][i],
+                     model_tests_loss[j][i])
+                    for j in range(len(all_workers))
+                ]
+            for i in range(len(all_goal_strs))
+        }
+        """
+        tests = {}
+        for i in range(len(all_goal_strs)):
+            tl = []
+            for j in range(len(all_workers)):
+                model_name = all_workers[j].model.name_or_path
+                jidx = min(j, len(prompt_tests_jb))
+                iidx = min(i, len(prompt_tests_jb[jidx]))
+                jb = prompt_tests_jb[jidx][iidx]
+                mb = prompt_tests_mb[jidx][iidx]
+                loss = model_tests_loss[jidx][iidx]
+                tl.append( (model_name, jb, mb, loss))
+            tests[all_goal_strs[i]] = tl
+
+        n_passed = self.parse_results(prompt_tests_jb)
+        n_em = self.parse_results(prompt_tests_mb)
+        n_loss = self.parse_results(model_tests_loss)
+        total_tests = self.parse_results(np.ones(prompt_tests_jb.shape, dtype=int))
+        n_loss = [l / t if t > 0 else 0 for l, t in zip(n_loss, total_tests)]
+
+        tests['n_passed'] = n_passed
+        tests['n_em'] = n_em
+        tests['n_loss'] = n_loss
+        tests['total'] = total_tests
+
+        import ipdb; ipdb.set_trace()
+        if kwargs.get('use_wandb', False):
+            dlog = {
+                "step_num": step_num,
+                "train/control": control,
+                "train/loss": loss,
+                "train/runtime": runtime,
+            }
+            for i, tag in enumerate(['id_id', 'id_od', 'od_id', 'od_od']):
+                dlog[f"test/{tag}/EM"] = n_em[i]
+                dlog[f"test/{tag}/passed"] = n_passed[i]
+                dlog[f"test/{tag}/loss"] = n_loss[i]
+                dlog[f"test/{tag}/total"] = total_tests[i]
+            wandb.log(dlog)
+        
+        # Load log file
+        with open(self.logfile, 'r') as f:
+            log = json.load(f)
+
+        log['controls'].append(control)
+        log['losses'].append(loss)
+        log['runtimes'].append(runtime)
+        log['tests'].append(tests)
+
+        # Save log file
+        print(f"Saving log file to {self.logfile}")
+        with open(self.logfile, 'w') as f:
+            json.dump(log, f, indent=4, cls=NpEncoder, default=str)
+
+        if verbose:
+            output_str = ''
+            for i, tag in enumerate(['id_id', 'id_od', 'od_id', 'od_od']):
+                if total_tests[i] > 0:
+                    output_str += f"({tag}) | Passed {n_passed[i]:>3}/{total_tests[i]:<3} | EM {n_em[i]:>3}/{total_tests[i]:<3} | Loss {n_loss[i]:.4f}\n"
+            print((
+                f"\n====================================================\n"
+                f"Step {step_num:>4}/{n_steps:>4} ({runtime:.4} s)\n"
+                f"{output_str}"
+                f"control='{control}'\n"
+                f"====================================================\n"
+            ))
+
+ 
     def step(
         self, 
         batch_size=1024, 
@@ -1650,6 +1734,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         loss_threshold=0.12,
         early_stopping_steps=150,
         SIMULATED_CANONICAL=True,
+        **kwargs,
     ):
         def P(e, e_prime, k):
             T = max(1 - float(k + 1) / (n_steps + anneal_from), 1.e-7)
@@ -1693,7 +1778,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             torch.cuda.empty_cache()
 
             if SIMULATED_CANONICAL:
-                self.update_solution()
+                print("Updating solution...")
+                self.update_solution(
+                    max_new_tokens=kwargs.get('max_new_tokens', 32),
+                )
+                print("Updating solution: DONE.")
 
             control, loss = self.step(
                 batch_size=batch_size,
@@ -1704,8 +1793,17 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 target_weight=target_weight_fn(i),
                 control_weight=control_weight_fn(i),
                 filter_cand=filter_cand,
-                verbose=verbose
+                verbose=verbose,
+                **kwargs,
             )
+
+            if kwargs.get('use_wandb', False):
+                wandb.log({
+                    'train/loss': loss,
+                    'train/control': control,
+                    'steps': steps,
+                })
+            
             runtime = time.time() - start
             keep_control = True if not anneal else P(prev_loss, loss, i + anneal_from)
             if keep_control:
@@ -1751,8 +1849,16 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 self.control_str = best_control
 
                 model_tests = self.test_all()
-                self.log(i + 1 + anneal_from, n_steps + anneal_from, self.control_str, best_loss, runtime, model_tests,
-                         verbose=verbose)
+                self.log(
+                    i + 1 + anneal_from, 
+                    n_steps + anneal_from, 
+                    self.control_str, 
+                    best_loss, 
+                    runtime, 
+                    model_tests,
+                    verbose=verbose,
+                    **kwargs,
+                )
 
                 self.control_str = last_control
 

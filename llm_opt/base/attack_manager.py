@@ -1342,6 +1342,7 @@ class MultiPrompter(object):
             early_stopping=True,
             loss_threshold=0.12,
             early_stopping_steps=150,
+            **kwargs,
             ):
 
         def P(e, e_prime, k):
@@ -1373,7 +1374,9 @@ class MultiPrompter(object):
                      loss,
                      runtime,
                      model_tests,
-                     verbose=verbose)
+                     verbose=verbose,
+                     **kwargs,
+                     )
 
         for i in range(n_steps):
 
@@ -1398,7 +1401,8 @@ class MultiPrompter(object):
                 target_weight=target_weight_fn(i),
                 control_weight=control_weight_fn(i),
                 filter_cand=filter_cand,
-                verbose=verbose
+                verbose=verbose,
+                **kwargs,
             )
             runtime = time.time() - start
             keep_control = True if not anneal else P(prev_loss, loss, i + anneal_from)
@@ -1508,7 +1512,7 @@ class MultiPrompter(object):
         od_od = results[x:, i:].sum()
         return id_id, id_od, od_id, od_od
 
-    def log(self, step_num, n_steps, control, loss, runtime, model_tests, verbose=True):
+    def log(self, step_num, n_steps, control, loss, runtime, model_tests, verbose=True, **kwargs):
 
         prompt_tests_jb, prompt_tests_mb, model_tests_loss = list(map(np.array, model_tests))
         all_goal_strs = self.goals + self.test_goals

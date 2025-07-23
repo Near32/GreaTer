@@ -6,6 +6,7 @@ import torch.multiprocessing as mp
 from absl import app
 from ml_collections import config_flags
 import dill
+import wandb
 
 import os
 import sys
@@ -29,7 +30,13 @@ def main(_):
 
     attack_lib = dynamic_import(f'llm_opt.{params.attack}')
 
-    print(params)
+    if params.use_wandb:
+        wandb.init(
+            project=params.project,
+            #name=params.result_prefix,
+            config=params,
+            reinit=True,
+        )
 
     train_goals, train_targets, test_goals, test_targets, train_final_target, test_final_target = get_goals_and_targets(params)
 

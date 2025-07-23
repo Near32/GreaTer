@@ -35,6 +35,8 @@ export TOKENIZERS_PARALLELISM=false
 echo "Starting optimization on GPU with SmolLM2-135m_instruct..."
 CUDA_LAUNCH_BLOCKING=1 python -m ipdb -c c main.py \
     --config="./configs/transfer_sdlm_smollm2_135m_instruct_gpu.py" \
+    --config.use_wandb=True \
+    --config.project="GreaTer-SDLM" \
     --config.train_data="$TRAIN_DATA" \
     --config.test_data="$TEST_DATA" \
     --config.result_prefix="$RESULT_PREFIX" \
