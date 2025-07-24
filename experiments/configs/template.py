@@ -11,6 +11,7 @@ def get_config():
     # SDLM:
     config.acc_grad_n_examples = -1
     config.update_solution_max_new_tokens = 128
+    config.gradient_comp_batch_size = 1
 
     # General parameters 
     config.target_weight=0.85

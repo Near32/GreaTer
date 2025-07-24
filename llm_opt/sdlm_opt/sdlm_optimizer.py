@@ -1616,6 +1616,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
     def batched_compute_loss(
         self, 
         prompts: List[SDLMPrompter],
+        tokenizer: AutoTokenizer,
         sdlm_model: AutoModelForCausalLM, 
         sdlm_variable: Variable,
         gradient_comp_batch_size: int = 1,
@@ -1642,38 +1643,43 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         """
         # Create batched padded input for SDLM with variable:
         batched_input_one_hots = []
+        batched_attn_masks = []
+        seq_offsets = []
         max_len = 0
         for prompt in prompts:
             temp = prompt.input_ids
             max_len = max(max_len, len(temp))
             input_one_hots = F.one_hot(temp, num_classes=sdlm_model.config.vocab_size).float()
-            input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1)
+            input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1).cpu()
             for bidx in range(gradient_comp_batch_size):
                 diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
-                input_one_hots[bidx, prompt._control_slice] = diff_one_hot
+                input_one_hots[bidx, prompt._control_slice] = diff_one_hot.cpu()
             batched_input_one_hots.append(input_one_hots)
          
         padding_one_hot = torch.zeros((1, sdlm_model.config.vocab_size))
-        padding_one_hot[:, self.tokenizer.pad_token_id] = 1
-        padding_one_hot = padding_one_hot.unsqueeze(0).repeat(gradient_comp_batch_size, 1, 1)
+        padding_one_hot[:, tokenizer.pad_token_id] = 1
+        padding_one_hot = padding_one_hot.unsqueeze(0).repeat(gradient_comp_batch_size, 1, 1).to(device=batched_input_one_hots[0].device)
         # (batch_size, 1, vocab_size)
 
         for iidx, input_one_hots in enumerate(batched_input_one_hots):
+            offset = max_len-input_one_hots.shape[1]
+            seq_offsets.append(offset)
             input_one_hots = torch.cat([padding_one_hot.repeat(1,max_len-input_one_hots.shape[1], 1), input_one_hots], dim=1)
-            # (batch_size, max_len, vocab_size) 
+            # (batch_size, max_len, vocab_size)
+            attn_mask = torch.cat([torch.zeros((1, max_len-input_one_hots.shape[1])), torch.ones((1, input_one_hots.shape[1]))], dim=1).to(sdlm_model.device)
             batched_input_one_hots[iidx] = input_one_hots
+            batched_attn_masks.append(attn_mask)
 
-        batched_input_ids_padded = torch.stack(batched_input_one_hots).long().to(sdlm_model.device)
+        batched_input_one_hots_padded = torch.cat(batched_input_one_hots, dim=0).long().to(sdlm_model.device)
+        attn_masks = torch.stack(batched_attn_masks).to(sdlm_model.device)
 
-        # Create attention masks (1 for non-padding tokens, 0 for padding tokens)
-        attn_masks = (batched_input_ids_padded != self.tokenizer.pad_token_id).to(sdlm_model.device)
-         
         # Set SDLM variable to current control tokens:
         # Forward pass through SDLM
         with torch.enable_grad():
             #outputs = self.sdlm_model(
             outputs = sdlm_model(
-                input_one_hots=input_one_hots.to(dtype=sdlm_model.dtype),
+                input_one_hots=batched_input_one_hots_padded.to(dtype=sdlm_model.dtype),
+                attention_mask=attn_masks,
                 output_hidden_states=True
             )
            
@@ -1685,8 +1691,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
 
             losses = []
             for pidx, prompt in enumerate(prompts):
-                plogits = logits[pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size]
-                targets = prompt.input_ids[prompt._target_slice].repeat(gradient_comp_batch_size, 1)
+                #plogits = logits[pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size]
+                seq_offset = seq_offsets[pidx]
+                plogits = logits[pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size, seq_offset:]
+                targets = prompt.input_ids[prompt._target_slice].repeat(gradient_comp_batch_size, 1).to(device=logits.device)
                 loss_crit = nn.CrossEntropyLoss(reduction='mean')
                 
                 loss = loss_crit(
@@ -1697,7 +1705,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 # Compute control loss, i.e. perplexity:
                 control_output_slice = slice(prompt._control_slice.start - 1, prompt._control_slice.stop - 1)
                 control_target_slice = slice(prompt._control_slice.start, prompt._control_slice.stop)
-                control_targets = prompt.input_ids[control_target_slice].repeat(gradient_comp_batch_size, 1)
+                control_targets = prompt.input_ids[control_target_slice].repeat(gradient_comp_batch_size, 1).to(device=logits.device)
                 control_loss = loss_crit(
                     plogits[:, control_output_slice, :].transpose(1,2), 
                     control_targets.detach(),
@@ -1707,7 +1715,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     # loss computation requires shifted slices:
                     focused_loss_slice = slice(prompt._focused_target_slice.start - 1, prompt._focused_target_slice.stop - 1)
                     focused_targets = prompt.input_ids[prompt._focused_target_slice]
-                    focused_targets = focused_targets.repeat(gradient_comp_batch_size, 1)
+                    focused_targets = focused_targets.repeat(gradient_comp_batch_size, 1).to(device=logits.device)
                     focused_loss = loss_crit(
                         plogits[:, focused_loss_slice, :].transpose(1,2) / temperature, 
                         focused_targets.detach()
@@ -1804,6 +1812,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 try:
                     loss = self.batched_compute_loss(
                         prompts=prompts,
+                        tokenizer=prompt_manager.sdlm_model.tokenizer,
                         sdlm_model=prompt_manager.sdlm_model,
                         sdlm_variable=prompt_manager.sdlm_variable,
                         current_pos=prompt_manager.current_pos,
@@ -1814,11 +1823,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     )
                     ## Backward:
                     loss.mean().backward()
-                    batch_loss.append(loss.detach())
+                    batch_loss.append(loss.detach().cpu())
                     del loss
                 except Exception as e:
                     print(e)
-                    
+                    batch_loss.append(torch.zeros(batch_size).cpu())
+
                 torch.cuda.empty_cache()
                 gc.collect()
                 
@@ -1826,7 +1836,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 and (bidx+1) % kwargs['params']['acc_grad_n_examples'] == 0:
                     # Optimise step:
                     #next_ids = [ idx for idx in range(bpidx+1,bpidx+acc_grad_n_examples+1) if idx < nbr_prompts]
-                    next_start = batch_indices[bidx+1]
+                    next_bidx = (bidx+1) % len(batch_indices)
+                    # when looping back, it might be a different shuffled batch indices,
+                    # but we only care about logging being feasible: cf wandb.log below
+                    next_start = batch_indices[next_bidx]
                     next_ids = shuffled_batch_indices[next_start:next_start+batch_size] 
                     self.optimise_and_update(
                         ins=next_ids,
@@ -1837,21 +1850,24 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     )
 
                     # Logging:
-                    mean_loss = torch.stack(batch_loss[-acc_grad_n_examples:]).mean().item()
+                    mean_loss = torch.cat(batch_loss[-acc_grad_n_examples:], dim=0)
+                    # acc_grad_n_examples * (batch_size or less)
+                    mean_loss = mean_loss.mean().item()
                     wandb.log({
                         'train/instantaneous_loss':mean_loss,
-                        'train/instantaneous_control': self.current_pm._prompts[pidx].control_str,
+                        'train/instantaneous_control': self.current_pm._prompts[next_ids[0]].control_str,
                         }, 
                         commit=True,
                     )
 
-            batch_losses = torch.stack(batch_loss)
+            batch_losses = torch.cat(batch_loss, dim=0)
+            # nbr_prompts
             pm_losses.append(batch_losses)
         
         if losses_only:
             return torch.stack(pm_losses)
         
-        mean_loss = torch.stack(pm_losses).mean().item()
+        mean_loss = torch.cat(pm_losses, dim=0).mean().item()
 
         self.optimise_and_update(
             ins=range(nbr_prompts), # if acc_grad_n_examples==-1 else range(acc_grad_n_examples+1),
