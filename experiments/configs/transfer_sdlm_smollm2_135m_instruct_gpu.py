@@ -37,14 +37,21 @@ def get_config():
     # No quantization needed for DistilGPT2 as it's already small
     
     # SDLM-specific parameters (optimized for CPU and small model)
-    config.sdlm_params = { #TODO: model & variable params
+    config.sdlm_variable_kwargs = { #TODO: model & variable params
         'learning_rate': 0.1,    # Higher learning rate for faster convergence
         'logit_scaler': 10.0,
-        'temperature': 0.1,      # Lower temperature for more focused sampling
-        'learnable_temperature': True,  
+        'temperature': 0.7,      # Lower temperature for more focused sampling
+        'learnable_temperature': False, 
+        'init_strategy': 'fluency', 
         'hard': False,
     }
-    
+    config.sdlm_model_kwargs = {
+        "hard": False,
+        "temperature": 0.1,
+        "learnable_temperature": False,
+        "hidden_state_conditioning": False,
+    }
+        
     # Optimization parameters (optimized for CPU and small model)
     config.n_steps = 50          # Fewer steps for faster experimentation
     config.batch_size = 16        # Larger batch size possible with smaller model

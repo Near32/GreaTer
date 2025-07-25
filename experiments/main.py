@@ -67,7 +67,8 @@ def main(_):
         mpa_batch_size=params.batch_size,
         mpa_n_steps=params.n_steps,
         train_final_target=train_final_target,
-        test_final_target =  test_final_target
+        test_final_target =  test_final_target,
+        params=params,
     )
     
     print(f"Starting optimisation over {len(train_goals)} examples...")

@@ -49,6 +49,10 @@ python -m ipdb -c c main.py \
     --config.num_train_models=1 \
     --config.n_train_data=3 \
     --config.n_test_data=3 \
+    --config.sdlm_variable_kwargs.learning_rate=0.01 \
+    --config.sdlm_variable_kwargs.init_strategy='fluency' \
+    --config.sdlm_variable_kwargs.temperature=1.0 \
+    --config.sdlm_variable_kwargs.learnable_temperature=False \
     --config.acc_grad_n_examples=-1 \
     --config.update_solution_max_new_tokens=16 \
     --config.n_steps=50 \

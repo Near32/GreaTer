@@ -1691,6 +1691,9 @@ class ProgressiveMultiPrompter(object):
         for key in kwargs.keys():
             if key.startswith('mpa_'):
                 mpa_kwargs[key[4:]] = kwargs[key]
+            
+        if 'params' in kwargs:
+            mpa_kwargs['params'] = kwargs['params']
         return mpa_kwargs
 
     def run(self,

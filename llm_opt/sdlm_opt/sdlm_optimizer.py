@@ -874,13 +874,14 @@ class SDLMPromptManager(BasePromptManager):
         final_targets=[],
         learning_rate: float = 0.1,
         gradient_comp_batch_size: int = 1,
-        stgs_model_kwargs: Dict[str, Any] = {
+        sdlm_fluency_model_name_or_path: str = '',
+        sdlm_model_kwargs: Dict[str, Any] = {
             "hard": False,
             "temperature": 1.0,
             "learnable_temperature": True,
             "hidden_state_conditioning": False,
         },
-        stgs_variable_kwargs: Dict[str, Any] = {
+        sdlm_variable_kwargs: Dict[str, Any] = {
             "hard": False,
             "temperature": 0.1,
             "logit_scaler": 10.0,
@@ -947,13 +948,18 @@ class SDLMPromptManager(BasePromptManager):
         self.current_pos = 0
     
         self.gradient_comp_batch_size = gradient_comp_batch_size
-        self.stgs_model_kwargs = stgs_model_kwargs
-        self.stgs_variable_kwargs = stgs_variable_kwargs
+        self.sdlm_model_kwargs = sdlm_model_kwargs
+        self.sdlm_variable_kwargs = sdlm_variable_kwargs
         
+        import sdlm
+        self.sdlm_fluency_model_name_or_path = sdlm_fluency_model_name_or_path
+        sdlm._manager.configure_fluency_model(self.sdlm_fluency_model_name_or_path)
         self.sdlm_model = None
         print(f"Control str:\n {self.control_str}")
         print(f"LENGTH={self.control_toks.shape[0]}")
-        self.init_sdlm_variable(initial_string=self.control_str)
+        self.init_sdlm_variable(
+            initial_string=self.control_str,
+        )
      
     def init_sdlm_model(self, model, tokenizer):
         """
@@ -966,7 +972,7 @@ class SDLMPromptManager(BasePromptManager):
         self.sdlm_model = STGSDiffModel(
             model=model,
             tokenizer=tokenizer,
-            stgs_kwargs=self.stgs_model_kwargs,
+            stgs_kwargs=self.sdlm_model_kwargs,
             device=model.device
         )
     
@@ -987,12 +993,13 @@ class SDLMPromptManager(BasePromptManager):
         assert initial_ids is not None or initial_string is not None
         if initial_ids is None:
             initial_ids = self.tokenizer(initial_string, return_tensors="pt").input_ids
-
+        
+        # Relies possibly on the fluency model defined in the constructor...
         self.sdlm_variable = Variable(
             initial_ids=initial_ids,
             tokenizer=self.tokenizer,
             device=device,
-            **self.stgs_variable_kwargs,
+            **self.sdlm_variable_kwargs,
         )
 
     def generate(
@@ -1283,6 +1290,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         learning_rate: float = 0.1,
         **kwargs,
     ):
+        """
         super().__init__(
             goals=goals,
             targets=targets,
@@ -1298,6 +1306,39 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             test_final_targets=test_final_targets,
             **kwargs,
         )
+        """
+        self.goals = goals
+        self.targets = targets
+        self.workers = workers
+        self.test_goals = test_goals
+        self.test_targets = test_targets
+        self.test_workers = test_workers
+        self.test_prefixes = test_prefixes
+        self.models = [worker.model for worker in workers]
+        self.logfile = logfile
+        self.prompts = [
+            managers['PM'](
+                goals,
+                targets,
+                worker.tokenizer,
+                worker.conv_template,
+                control_init,
+                test_prefixes,
+                managers,
+                train_final_targets,
+                sdlm_fluency_model_name_or_path=self.workers[0].model.name_or_path,
+                sdlm_model_kwargs=kwargs['params']['sdlm_model_kwargs'],
+                sdlm_variable_kwargs=kwargs['params']['sdlm_variable_kwargs'],
+                params=kwargs['params'],
+            )
+            for worker in workers
+        ]
+
+
+        self.managers = managers
+        self.train_final_targets = train_final_targets
+        self.test_final_targets = test_final_targets
+
         self.learning_rate = learning_rate
         self.loss_cache = {}
         self.initial_length = len(self.prompt_managers[0].control_toks)
