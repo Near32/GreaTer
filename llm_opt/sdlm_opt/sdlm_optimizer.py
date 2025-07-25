@@ -1380,7 +1380,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             
             # Prepare batched inputs using tokenizer's padding
             input_ids_list = [prompt.input_ids[:prompt._assistant_role_slice.stop] for prompt in batch_prompts]
-            
+            #DEBUG:
+            #str_list = [tokenizer.decode(input_ids, skip_special_tokens=False) for input_ids in input_ids_list]
+            #print("\n===\n".join(str_list))
+
             # Pad all inputs to the same length
             batch = tokenizer.pad(
                 {'input_ids': input_ids_list},
@@ -1390,6 +1393,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 padding_side="left",
             )
             
+            #DEBUG:
+            #str_list = [tokenizer.decode(input_ids, skip_special_tokens=False) for input_ids in batch['input_ids']]
+            #print("\n===\n".join(str_list))
+
             # Move tensors to the correct device
             batch_inputs = batch['input_ids'].to(device)
             batch_attention_masks = batch['attention_mask'].to(device)
@@ -1426,7 +1433,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 add_special_tokens=False,
                 return_tensors='pt',
             )[0].to(device)
-            
+
             input_reasoning_ids_list = [
                 torch.cat([
                     output_ids[i][output_ids[i]!=tokenizer.pad_token_id], 
@@ -1434,6 +1441,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 ]) 
                 for i in range(len(output_ids))
             ]
+
+            #DEBUG:
+            #str_reasoning_list = [tokenizer.decode(input_ids, skip_special_tokens=False) for input_ids in input_reasoning_ids_list]
+            #print("\n===\n".join(str_reasoning_list))
+
             # Padding:
             in_r_ext_batch = tokenizer.pad(
                 {'input_ids': input_reasoning_ids_list},
@@ -1442,6 +1454,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 return_attention_mask=True,
                 padding_side="left",
             )
+
+            #DEBUG:
+            #str_padded_reasoning_list = [tokenizer.decode(input_ids, skip_special_tokens=False) for input_ids in in_r_ext_batch['input_ids']]
+            #print("\n===\n".join(str_padded_reasoning_list))
+
             # Generate answer:
             in_r_ext_ans_outputs = model.generate(
                 input_ids=in_r_ext_batch['input_ids'].to(device),
@@ -1464,10 +1481,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             # Process each output in the batch
             #for i, (prompt, output_seq) in tqdm(enumerate(zip(batch_prompts, in_r_ext_ans_ids_list)), position=1, leave=True):
             for i, (prompt, output_seq) in enumerate(zip(batch_prompts, in_r_ext_ans_ids_list)):
-                gen_start = len(in_r_ext_batch['input_ids'][i])
-                gen_tokens = output_seq[gen_start:]
-                gen_str = tokenizer.decode(gen_tokens).strip()
-                print(gen_str)
+                # Padding has already been filtered out, so no need for the following:
+                #gen_start = len(in_r_ext_batch['input_ids'][i])
+                #gen_tokens = output_seq[gen_start:]
+                #gen_str = tokenizer.decode(gen_tokens).strip()
+                gen_str = tokenizer.decode(output_seq).strip()
+                
                 # Calculate jailbreak score (1 if not matching any test prefix)
                 jailbroken = not any(prefix in gen_str for prefix in test_prefixes)
                 # Calculate exact match score (1 if target in generated text)
@@ -1476,6 +1495,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     gt_answer = prompt.final_target
                 #print(f"Generated answer: {gt_answer}")
                 em = gt_answer in gen_str
+                
+                print(f"\n===\nProblem {i}: Solution={gt_answer}\n{gen_str}")
                 
                 batch_jb.append(int(jailbroken))
                 batch_mb.append(int(em))
@@ -1650,10 +1671,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             temp = prompt.input_ids
             max_len = max(max_len, len(temp))
             input_one_hots = F.one_hot(temp, num_classes=sdlm_model.config.vocab_size).float()
-            input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1).cpu()
+            input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1).to(device=sdlm_model.device)#.cpu()
             for bidx in range(gradient_comp_batch_size):
                 diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
-                input_one_hots[bidx, prompt._control_slice] = diff_one_hot.cpu()
+                input_one_hots[bidx, prompt._control_slice] = diff_one_hot.to(device=sdlm_model.device)#cpu()
             batched_input_one_hots.append(input_one_hots)
          
         padding_one_hot = torch.zeros((1, sdlm_model.config.vocab_size))
@@ -1987,7 +2008,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         runtime = 0.
 
         if self.logfile is not None and log_first:
-            model_tests = self.test_all()
+            model_tests = self.test_all(
+                batch_size=kwargs['params'].get('batch_size', 1),
+                max_new_tokens_reasoning=kwargs['params'].get('update_solution_max_new_tokens', 32),
+                max_new_tokens_answer=kwargs['params'].get('max_new_tokens_answer', 32),
+            )
             self.log(anneal_from,
                      n_steps + anneal_from,
                      self.control_str,
@@ -2089,7 +2114,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 last_control = self.control_str
                 self.control_str = best_control
 
-                model_tests = self.test_all()
+                model_tests = self.test_all(
+                    batch_size=kwargs['params'].get('batch_size', 1),
+                    max_new_tokens_reasoning=kwargs['params'].get('update_solution_max_new_tokens', 32),
+                    max_new_tokens_answer=kwargs['params'].get('max_new_tokens_answer', 32),
+                )
                 self.log(
                     i + 1 + anneal_from, 
                     n_steps + anneal_from, 
@@ -2165,7 +2194,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     print(f"Step {step}: Loss = {loss:.4f}")
                 
                 # Test on all workers
-                self.test_all()
+                self.test_all(
+                    #batch_size=kwargs['params'].get('batch_size', 1),
+                    #max_new_tokens_reasoning=kwargs['params'].get('update_solution_max_new_tokens', 32),
+                    #max_new_tokens_answer=kwargs['params'].get('update_solution_max_new_tokens', 32),
+                )
                 
                 # Check for early stopping
                 if stop_on_success and all(self.test_results[-1]):
