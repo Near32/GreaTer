@@ -2101,7 +2101,10 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
     addition2 = "Therefore, the final answer ($ A or $ B or $ C or $ D or ... or $ R or $ S) is  $ "  # Type 1 in our list: reasoning_about_colored_objects
     """
 
-    addition = ". Use"
+    # Previously:
+    #addition = ". Use"
+    # NOW:
+    addition = ""
     #addition2 = " The final answer (Yes or No) to the question of truthfulness is: "
     addition3 = ""
     has_final_targets = False

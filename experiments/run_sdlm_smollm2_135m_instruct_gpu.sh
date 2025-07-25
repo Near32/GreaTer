@@ -47,8 +47,8 @@ python -m ipdb -c c main.py \
     --config.n_test_data=100 \
     --config.sdlm_params.learning_rate=0.01 \
     --config.acc_grad_n_examples=2 \
-    --config.gradient_comp_batch_size=8 \
-    --config.update_solution_max_new_tokens=256 \
+    --config.gradient_comp_batch_size=1 \
+    --config.update_solution_max_new_tokens=512 \
     --config.max_new_tokens_answer=8 \
     --config.n_steps=50 \
     --config.test_steps=1 \

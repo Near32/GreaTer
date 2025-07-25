@@ -527,7 +527,7 @@ class SDLMPrompter(BasePrompter):
             if verbose: print(full_input)
         elif self.conv_template.name == 'smollm-2':
             self.conv_template.messages = []
-            full_input = "<|im_start|>system\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face<|im_end|>\n"
+            full_input = "<|im_start|>system\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face.\n<|im_end|>\n"
             # <|im_start|>user
             
             # user role slice
@@ -535,51 +535,71 @@ class SDLMPrompter(BasePrompter):
             toks = self.tokenizer(full_input).input_ids
             self._user_role_slice = slice(None, len(toks))
 
-            if self.control_pos == "post":
-                separator = " "
-                # goal_slice
-                full_input += self.goal
-                toks = self.tokenizer(full_input).input_ids
-                self._goal_slice = slice(self._user_role_slice.stop, len(toks))
+            self.control_in_assistant = True
+            latest_slice = None
+            if self.control_in_assistant:
+                if self.control_pos == "post":
+                    separator = " "
+                    # goal_slice
+                    full_input += self.goal
+                    toks = self.tokenizer(full_input).input_ids
+                    self._goal_slice = slice(self._user_role_slice.stop, len(toks))
 
-                '''
-                # control slice
-                #if self.control.startswith(" "):
-                #    self.control = self.control[1:]
-                full_input = full_input + "\n" + self.control
-                #full_input = full_input + self.control
-                toks = self.tokenizer(full_input).input_ids
-                if len(toks)-self._goal_slice.stop != 37:
-                    import ipdb; ipdb.set_trace()
-                # PREVIOUSLY: should have contained maybe +1 to account for the space " "
-                self._control_slice = slice(self._goal_slice.stop+1, len(toks))
-                '''
-                # TOKENIZER ARE NOT REVERSIBLE, therefore we take directly the control_toks:
-                # Adding separator:
-                full_input += "\n"
-                toks_before_control = self.tokenizer(full_input, return_tensors='pt').input_ids[0]
-                toks = torch.cat([toks_before_control, self.control_toks], dim=0)
-                self._control_slice = slice(len(toks_before_control), len(toks))
-            elif self.control_pos == "pre":
-                raise NotImplementedError # Not necessary to be implemented in our protocol
+                    full_input += "\n<|im_end|>\n<|im_start|>assistant\n"
+                    toks_before_control = self.tokenizer(full_input).input_ids
+                    # PREVIOUSLY:
+                    # self._assistant_role_slice = slice(self._goal_slice.stop, len(toks_before_control))
+                    # WARNING: assistant_role_slice is the start of the reasoning, not the start of the assistant...
+
+                    # TOKENIZER ARE NOT REVERSIBLE, therefore we take directly the control_toks:
+                    toks_before_control = self.tokenizer(full_input, return_tensors='pt').input_ids[0]
+                    toks = torch.cat([toks_before_control, self.control_toks], dim=0)
+                    self._control_slice = slice(len(toks_before_control), len(toks))
+
+                    # NOW:
+                    self._assistant_role_slice = slice(self._goal_slice.stop, len(toks))
+                elif self.control_pos == "pre":
+                    raise NotImplementedError # Not necessary to be implemented in our protocol
         
-            full_input_before_control = full_input
-            full_input_after_control = ""
+                # PREVIOUSLY:
+                #latest_slice = self._control_slice
+                #NOW:
+                latest_slice=self._assistant_role_slice
+                full_input_before_control = full_input
+                full_input_after_control = ""
+            else:
+                if self.control_pos == "post":
+                    separator = " "
+                    # goal_slice
+                    full_input += self.goal
+                    toks = self.tokenizer(full_input).input_ids
+                    self._goal_slice = slice(self._user_role_slice.stop, len(toks))
+
+                    # TOKENIZER ARE NOT REVERSIBLE, therefore we take directly the control_toks:
+                    # Adding separator:
+                    full_input += "\n"
+                    toks_before_control = self.tokenizer(full_input, return_tensors='pt').input_ids[0]
+                    toks = torch.cat([toks_before_control, self.control_toks], dim=0)
+                    self._control_slice = slice(len(toks_before_control), len(toks))
+                elif self.control_pos == "pre":
+                    raise NotImplementedError # Not necessary to be implemented in our protocol
+        
+                full_input_before_control = full_input
+                full_input_after_control = ""
+                # assistant role slice
+                #full_input += "<|im_end|>\n<|im_start|>assistant\n"
+                #full_input += "\n<|im_end|>\n<|im_start|>assistant\n"
+                full_input_after_control += "\n<|im_end|>\n<|im_start|>assistant\n"
+                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                self._assistant_role_slice = slice(self._control_slice.stop, self._control_slice.stop+len(toks_after_control))
+                latest_slice = self._assistant_role_slice
+
             if verbose:
                 print('//'*20)
                 print(self.goal)
                 print('//'*10)
                 print(full_input)
                 print('-'*20)
-
-            # assistant role slice
-            #full_input += "<|im_end|>\n<|im_start|>assistant\n"
-            #full_input += "\n<|im_end|>\n<|im_start|>assistant\n"
-            full_input_after_control += "\n<|im_end|>\n<|im_start|>assistant\n"
-            #toks = self.tokenizer(full_input).input_ids
-            toks_after_control = self.tokenizer(full_input_after_control).input_ids
-            #self._assistant_role_slice = slice(self._control_slice.stop, len(toks))
-            self._assistant_role_slice = slice(self._control_slice.stop, self._control_slice.stop+len(toks_after_control))
 
             # current solution slice
             if SIMULATED_CANONICAL:
@@ -588,7 +608,8 @@ class SDLMPrompter(BasePrompter):
                 #toks = self.tokenizer(full_input).input_ids
                 toks_after_control = self.tokenizer(full_input_after_control).input_ids
                 #self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks))
-                self._current_solution_slice = slice(self._assistant_role_slice.stop, self._control_slice.stop+len(toks_after_control))
+                #self._current_solution_slice = slice(self._assistant_role_slice.stop, self._control_slice.stop+len(toks_after_control))
+                self._current_solution_slice = slice(latest_slice.stop, self._control_slice.stop+len(toks_after_control))
 
                 # Previously:
                 # # target_slice
@@ -618,9 +639,11 @@ class SDLMPrompter(BasePrompter):
                 #toks = self.tokenizer(full_input).input_ids
                 toks_after_control = self.tokenizer(full_input_after_control).input_ids
                 #self._target_slice = slice(self._assistant_role_slice.stop, len(toks))
-                self._target_slice = slice(self._assistant_role_slice.stop, self._control_slice.stop+len(toks_after_control))
+                #self._target_slice = slice(self._assistant_role_slice.stop, self._control_slice.stop+len(toks_after_control))
+                self._target_slice = slice(latest_slice.stop, self._control_slice.stop+len(toks_after_control))
                 #self._loss_slice = slice(self._assistant_role_slice.stop - 1, len(toks) - 1)
-                self._loss_slice = slice(self._assistant_role_slice.stop - 1, self._control_slice.stop+len(toks) - 1)
+                #self._loss_slice = slice(self._assistant_role_slice.stop - 1, self._control_slice.stop+len(toks) - 1)
+                self._loss_slice = slice(latest_slice.stop - 1, self._control_slice.stop+len(toks) - 1)
 
             if verbose:
                 print('+TARGET+'*5)
@@ -1517,6 +1540,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     )[0].to(device)
                     final_target_len = final_target_tokens.shape[0]
                     logits = logits[-final_target_len:]
+                    # Restrict final_target_tokens to the same length as logits:
+                    final_target_tokens = final_target_tokens[:logits.shape[0]]
+
                     loss_crit = nn.CrossEntropyLoss(reduction='mean')
                     loss = loss_crit(input=logits, target=final_target_tokens)
                     batch_losses.append(loss.item())
