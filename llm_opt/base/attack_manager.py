@@ -1451,7 +1451,7 @@ class MultiPrompter(object):
 
                 model_tests = self.test_all()
                 self.log(i + 1 + anneal_from, n_steps + anneal_from, self.control_str, best_loss, runtime, model_tests,
-                         verbose=verbose)
+                         verbose=verbose, params=kwargs['params'])
 
                 self.control_str = last_control
 
@@ -1833,7 +1833,7 @@ class ProgressiveMultiPrompter(object):
                     loss = np.infty
                 elif num_workers == len(self.workers) and stop_on_success:
                     model_tests = attack.test_all()
-                    attack.log(step, n_steps, self.control, loss, 0., model_tests, verbose=verbose, **params)
+                    attack.log(step, n_steps, self.control, loss, 0., model_tests, verbose=verbose, params=params)
                     break
                 else:
                     if isinstance(control_weight, (int, float)) and incr_control:
