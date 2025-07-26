@@ -35,7 +35,6 @@ def main(_):
             project=params.project,
             #name=params.result_prefix,
             config=params,
-            reinit=True,
         )
 
     train_goals, train_targets, test_goals, test_targets, train_final_target, test_final_target = get_goals_and_targets(params)

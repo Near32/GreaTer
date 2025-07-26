@@ -46,7 +46,7 @@ python -m ipdb -c c main.py \
     --config.n_train_data=1000 \
     --config.n_test_data=100 \
     --config.sdlm_variable_kwargs.learning_rate=0.1 \
-    --config.sdlm_variable_kwargs.init_strategy='fluency' \
+    --config.sdlm_variable_kwargs.init_strategy='random' \
     --config.sdlm_variable_kwargs.temperature=0.1 \
     --config.sdlm_variable_kwargs.learnable_temperature=True \
     --config.acc_grad_n_examples=2 \
