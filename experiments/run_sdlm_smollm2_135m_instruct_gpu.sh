@@ -45,10 +45,10 @@ python -m ipdb -c c main.py \
     --config.num_train_models=1 \
     --config.n_train_data=1000 \
     --config.n_test_data=100 \
-    --config.sdlm_variable_kwargs.learning_rate=0.01 \
+    --config.sdlm_variable_kwargs.learning_rate=0.1 \
     --config.sdlm_variable_kwargs.init_strategy='fluency' \
-    --config.sdlm_variable_kwargs.temperature=1.0 \
-    --config.sdlm_variable_kwargs.learnable_temperature=False \
+    --config.sdlm_variable_kwargs.temperature=0.1 \
+    --config.sdlm_variable_kwargs.learnable_temperature=True \
     --config.acc_grad_n_examples=2 \
     --config.gradient_comp_batch_size=1 \
     --config.update_solution_max_new_tokens=512 \
@@ -57,7 +57,7 @@ python -m ipdb -c c main.py \
     --config.test_steps=1 \
     --config.anneal=True \
     --config.batch_size=16 \
-    --config.temp=0.5 \
+    --config.temp=0.6 \
     --config.topk=10 \
     --config.topq=5 \
     --config.control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer." \

@@ -1307,6 +1307,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             **kwargs,
         )
         """
+        self.kwargs = kwargs
         self.goals = goals
         self.targets = targets
         self.workers = workers
@@ -1327,9 +1328,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 managers,
                 train_final_targets,
                 sdlm_fluency_model_name_or_path=self.workers[0].model.name_or_path,
-                sdlm_model_kwargs=kwargs['params']['sdlm_model_kwargs'],
-                sdlm_variable_kwargs=kwargs['params']['sdlm_variable_kwargs'],
-                params=kwargs['params'],
+                sdlm_model_kwargs=self.kwargs['params']['sdlm_model_kwargs'],
+                sdlm_variable_kwargs=self.kwargs['params']['sdlm_variable_kwargs'],
+                params=self.kwargs['params'],
             )
             for worker in workers
         ]
@@ -1608,6 +1609,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             test_prefixes=self.test_prefixes,
             managers=self.managers,
             final_targets=self.train_final_targets+self.test_final_targets,
+            sdlm_fluency_model_name_or_path=self.workers[0].model.name_or_path,
+            sdlm_model_kwargs=self.kwargs['params']['sdlm_model_kwargs'],
+            sdlm_variable_kwargs=self.kwargs['params']['sdlm_variable_kwargs'],
+            params=self.kwargs['params'],
         )
         
         outputs = self.test(model, test_prompt_manager, include_loss=True, **kwargs)
@@ -1883,7 +1888,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     print("Updating solution...")
                     print(f"Gradient accumulation over {acc_grad_n_examples*batch_size} examples => only updating first examples.")
                     pidx_to_update = []
-                    for bidx in range(acc_grad_n_examples):
+                    for bidx in range(min(acc_grad_n_examples, len(batch_indices))):
                         bpidx = batch_indices[bidx]
                         pidx_to_update.extend(shuffled_batch_indices[bpidx:bpidx+batch_size])
                     prompts_to_update = [prompt_manager._prompts[idx] for idx in pidx_to_update]
