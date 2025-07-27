@@ -1340,7 +1340,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         self.train_final_targets = train_final_targets
         self.test_final_targets = test_final_targets
 
-        self.learning_rate = learning_rate
+        self.learning_rate = self.kwargs['params']['sdlm_variable_kwargs']['learning_rate'] #learning_rate
         self.loss_cache = {}
         self.initial_length = len(self.prompt_managers[0].control_toks)
         parameters = [param for name, param in self.current_pm.sdlm_variable.named_parameters()]

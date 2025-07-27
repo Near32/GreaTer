@@ -45,10 +45,13 @@ python -m ipdb -c c main.py \
     --config.num_train_models=1 \
     --config.n_train_data=1000 \
     --config.n_test_data=100 \
-    --config.sdlm_variable_kwargs.learning_rate=0.1 \
-    --config.sdlm_variable_kwargs.init_strategy='random' \
+    --config.sdlm_variable_kwargs.learning_rate=0.01 \
+    --config.sdlm_variable_kwargs.init_strategy='fluency' \
     --config.sdlm_variable_kwargs.temperature=0.1 \
     --config.sdlm_variable_kwargs.learnable_temperature=True \
+    --config.sdlm_model_kwargs.learnable_temperature=False \
+    --config.sdlm_model_kwargs.temperature=0.7 \
+    --config.sdlm_model_kwargs.hidden_state_conditioning=False \
     --config.acc_grad_n_examples=2 \
     --config.gradient_comp_batch_size=1 \
     --config.update_solution_max_new_tokens=512 \
