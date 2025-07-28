@@ -298,6 +298,7 @@ class Prompter(object):
                 # self._focused_target_slice = 0
 
         elif self.conv_template.name == 'llama-3':
+            import ipdb; ipdb.set_trace()
             self.conv_template.messages = []
             full_input = ""
 

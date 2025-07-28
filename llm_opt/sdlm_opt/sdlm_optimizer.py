@@ -140,7 +140,8 @@ class SDLMPrompter(BasePrompter):
         self, 
     ):
         SIMULATED_CANONICAL = self.simulated_canonical
-        verbose = False #True 
+        verbose = False 
+        #verbose = True 
         def find_last_subarray_indices(tokenizer, array1, str2):
             array2 = tokenizer(str2).input_ids
             if 'Llama-3' in tokenizer.name_or_path:
@@ -236,7 +237,7 @@ class SDLMPrompter(BasePrompter):
                 self._focused_target_slice = None
                 # self._focused_target_slice = 0
 
-        elif self.conv_template.name == 'llama-3':
+        elif self.conv_template.name == 'llama-3-depr':
             self.conv_template.messages = []
             full_input = ""
 
@@ -520,6 +521,153 @@ class SDLMPrompter(BasePrompter):
 
             if len(self.final_target) > 0:  # focused answer exists
                 idx1, idx2 = find_last_subarray_indices(self.tokenizer, toks, self.final_target)
+                self._focused_target_slice = slice(idx1, idx2)
+            else:
+                self._focused_target_slice = None
+
+            if verbose: print(full_input)
+        elif self.conv_template.name == 'llama-3':
+            self.conv_template.messages = []
+            #full_input = "<|im_start|>system\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face.\n<|im_end|>\n"
+            full_input = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nCutting Knowledge Date: December 2023\nToday Date: 28 Jul 2025\n\n'<|eot_id|>"
+            # <|im_start|>user
+            
+            # user role slice
+            #full_input += "<|im_start|>user\n"
+            full_input += "<|start_header_id|>user<|end_header_id|>\n\n"  # are u sure?
+            toks = self.tokenizer(full_input).input_ids
+            self._user_role_slice = slice(None, len(toks))
+
+            self.control_in_assistant = True
+            latest_slice = None
+            if self.control_in_assistant:
+                if self.control_pos == "post":
+                    separator = " "
+                    # goal_slice
+                    full_input += self.goal
+                    toks = self.tokenizer(full_input).input_ids
+                    self._goal_slice = slice(self._user_role_slice.stop, len(toks))
+
+                    #full_input += "\n<|im_end|>\n<|im_start|>assistant\n"
+                    full_input += "\n\n<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
+                    toks_before_control = self.tokenizer(full_input).input_ids
+                    # PREVIOUSLY:
+                    # self._assistant_role_slice = slice(self._goal_slice.stop, len(toks_before_control))
+                    # WARNING: assistant_role_slice is the start of the reasoning, not the start of the assistant...
+
+                    # TOKENIZER ARE NOT REVERSIBLE, therefore we take directly the control_toks:
+                    toks_before_control = self.tokenizer(full_input, return_tensors='pt').input_ids[0]
+                    toks = torch.cat([toks_before_control, self.control_toks], dim=0)
+                    self._control_slice = slice(len(toks_before_control), len(toks))
+
+                    # NOW:
+                    self._assistant_role_slice = slice(self._goal_slice.stop, len(toks))
+                elif self.control_pos == "pre":
+                    raise NotImplementedError # Not necessary to be implemented in our protocol
+        
+                # PREVIOUSLY:
+                #latest_slice = self._control_slice
+                #NOW:
+                latest_slice=self._assistant_role_slice
+                full_input_before_control = full_input
+                full_input_after_control = ""
+            else:
+                if self.control_pos == "post":
+                    separator = " "
+                    # goal_slice
+                    full_input += self.goal
+                    toks = self.tokenizer(full_input).input_ids
+                    self._goal_slice = slice(self._user_role_slice.stop, len(toks))
+
+                    # TOKENIZER ARE NOT REVERSIBLE, therefore we take directly the control_toks:
+                    # Adding separator:
+                    full_input += "\n"
+                    toks_before_control = self.tokenizer(full_input, return_tensors='pt').input_ids[0]
+                    toks = torch.cat([toks_before_control, self.control_toks], dim=0)
+                    self._control_slice = slice(len(toks_before_control), len(toks))
+                elif self.control_pos == "pre":
+                    raise NotImplementedError # Not necessary to be implemented in our protocol
+        
+                full_input_before_control = full_input
+                full_input_after_control = ""
+                # assistant role slice
+                #full_input += "<|im_end|>\n<|im_start|>assistant\n"
+                #full_input += "\n<|im_end|>\n<|im_start|>assistant\n"
+                #full_input_after_control += "\n<|im_end|>\n<|im_start|>assistant\n"
+                full_input_after_control += "\n\n<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
+                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                self._assistant_role_slice = slice(self._control_slice.stop, self._control_slice.stop+len(toks_after_control))
+                latest_slice = self._assistant_role_slice
+
+            if verbose:
+                print('//'*20)
+                print(self.goal)
+                print('//'*10)
+                print(full_input)
+                print('-'*20)
+
+            # current solution slice
+            if SIMULATED_CANONICAL:
+                #full_input += self.current_solution
+                full_input_after_control += self.current_solution
+                #toks = self.tokenizer(full_input).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                #self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks))
+                #self._current_solution_slice = slice(self._assistant_role_slice.stop, self._control_slice.stop+len(toks_after_control))
+                self._current_solution_slice = slice(latest_slice.stop, self._control_slice.stop+len(toks_after_control))
+
+                # Previously:
+                # # target_slice
+                # full_input += self.target
+                # toks = self.tokenizer(full_input).input_ids
+                # self._target_slice = slice(self._current_solution_slice.stop, len(toks))
+                # self._loss_slice = slice(self._current_solution_slice.stop - 1, len(toks) - 1)
+                # NOW: [current_solution + extractor + final_target] and computing loss over final target slice:
+                #full_input += self.extractor_text
+                full_input_after_control += self.extractor_text
+                #toks = self.tokenizer(full_input).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                #self._extractor_slice = slice(self._current_solution_slice.stop, len(toks))
+                self._extractor_slice = slice(self._current_solution_slice.stop, self._control_slice.stop+len(toks_after_control))
+                #full_input += self.final_target
+                full_input_after_control += self.final_target
+                #toks = self.tokenizer(full_input).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                #self._target_slice = slice(self._extractor_slice.stop, len(toks))
+                self._target_slice = slice(self._extractor_slice.stop, self._control_slice.stop+len(toks_after_control))
+                #self._loss_slice = slice(self._extractor_slice.stop - 1, len(toks) - 1)
+                self._loss_slice = slice(self._extractor_slice.stop - 1, self._control_slice.stop+len(toks_after_control) - 1)
+            else:
+                # target_slice
+                #full_input += self.target
+                full_input_after_control += self.target
+                #toks = self.tokenizer(full_input).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                #self._target_slice = slice(self._assistant_role_slice.stop, len(toks))
+                #self._target_slice = slice(self._assistant_role_slice.stop, self._control_slice.stop+len(toks_after_control))
+                self._target_slice = slice(latest_slice.stop, self._control_slice.stop+len(toks_after_control))
+                #self._loss_slice = slice(self._assistant_role_slice.stop - 1, len(toks) - 1)
+                #self._loss_slice = slice(self._assistant_role_slice.stop - 1, self._control_slice.stop+len(toks) - 1)
+                self._loss_slice = slice(latest_slice.stop - 1, self._control_slice.stop+len(toks) - 1)
+
+            if verbose:
+                print('+TARGET+'*5)
+                print(self.target)
+                print('+FINAL_TARGET+'*5)
+                print(self.final_target)
+                print('-'*20)
+                print(full_input)
+                print('-'*20)
+                print(full_input_after_control)
+
+            # regularising toks:
+            toks_after_control = torch.tensor(toks_after_control).to(device=toks.device)
+            toks = torch.cat([toks, toks_after_control], dim=0)#.tolist()
+            # regularising full_input:
+            full_input = full_input_before_control + full_input_after_control
+
+            if len(self.final_target) > 0:  # focused answer exists
+                idx1, idx2 = find_last_subarray_indices(self.tokenizer, toks.tolist(), self.final_target)
                 self._focused_target_slice = slice(idx1, idx2)
             else:
                 self._focused_target_slice = None

@@ -1,0 +1,90 @@
+import os
+
+os.sys.path.append("..")
+from configs.template import get_config as default_config
+
+
+def get_config():
+    config = default_config()
+    
+    # Override the attack method to use SDLM
+    config.attack = 'sdlm_opt'
+    config.transfer = False
+    config.progressive_goals = False
+    config.stop_on_success = True
+    
+    # Tokenizer configuration matching transfer_llama3.py
+    config.tokenizer_paths = [
+        "meta-llama/Meta-Llama-3-8B-Instruct",
+        #"meta-llama/Meta-Llama-3-8B-Instruct"
+    ]
+    config.tokenizer_kwargs = [
+        {"use_fast": False, "add_bos_token": False, "pad_token": "<|end_of_text|>"}, 
+        #{"use_fast": False, "add_bos_token": False, "pad_token": "<|end_of_text|>"}
+    ]
+    
+    # Model configuration for Llama-3-8B-Instruct
+    config.model_paths = [
+        "meta-llama/Meta-Llama-3-8B-Instruct",
+        #"meta-llama/Meta-Llama-3-8B-Instruct"
+    ]
+    config.conversation_templates = [
+        'llama-3', 
+        #'llama-3',
+    ]
+    config.devices = [
+        'cuda:0', 
+        #'cuda:0',
+    ]
+    config.torch_dtype = 'bfloat16'
+    
+    # Enable 4-bit quantization to fit the model in GPU memory
+    config.quantization_config = {
+        'load_in_4bit': True,
+        'bnb_4bit_quant_type': 'nf4',
+        'bnb_4bit_use_double_quant': True,
+        'bnb_4bit_compute_dtype': 'bfloat16'
+    }
+    
+    # SDLM-specific parameters (optimized for Llama-3-8B-Instruct)
+    config.sdlm_variable_kwargs = {
+        'learning_rate': 0.001,     # Lower learning rate for stability
+        'logit_scaler': 5.0,       # Adjusted for better gradient flow
+        'temperature': 0.1,        # Lower temperature for more focused sampling
+        'learnable_temperature': True,
+        'init_strategy': 'fluency',
+        'hard': False,
+    }
+    
+    config.sdlm_model_kwargs = {
+        "hard": False,
+        "temperature": 0.7,        # Slightly higher temperature for model sampling
+        "learnable_temperature": False,
+        "hidden_state_conditioning": True,  # Enabled for better performance
+    }
+    
+    # SDLM configuration
+    config.acc_grad_n_examples = -1
+    config.update_solution_max_new_tokens = 512
+    config.gradient_comp_batch_size = 1
+        
+    # Optimization parameters (optimized for Llama-3-8B-Instruct)
+    config.n_steps = 30            # Fewer steps due to larger model
+    config.batch_size = 8          # Smaller batch size to fit in GPU memory
+    config.topk = 50               # Broader sampling for more diverse outputs
+    config.topq = 0.9              # Using top-p sampling for better quality
+    config.temp = 0.6              # Temperature for control sampling
+    config.target_weight = 1.0
+    config.control_weight = 0.3    # Slightly lower control weight
+    config.test_steps = 5          # Check periodically
+    
+    # Early stopping
+    config.stop_on_success = True
+    config.early_stopping = True
+    config.early_stopping_steps = 3
+    
+    # Logging
+    config.logfile = 'results/sdlm_llama3_8b_gpu_gsm8k.json'
+    config.verbose = True
+    
+    return config
