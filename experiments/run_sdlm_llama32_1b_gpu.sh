@@ -52,20 +52,19 @@ python -m ipdb -c c main.py \
     --config.sdlm_model_kwargs.hidden_state_conditioning=True \
     --config.acc_grad_n_examples=1 \
     --config.gradient_comp_batch_size=1 \
-    --config.update_solution_max_new_tokens=512 \
+    --config.update_solution_max_new_tokens=256 \
     --config.max_new_tokens_answer=8 \
     --config.n_steps=30 \
     --config.test_steps=1 \
     --config.anneal=True \
     --config.batch_size=8 \
     --config.temp=0.6 \
-    --config.topk=50 \
-    --config.topq=0.9 \
+    --config.topk=10 \
+    --config.topq=5 \
     --config.control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer." \
     --config.extractor_text="$extractor_text" \
     --config.control_weight=0.3 \
-    --config.target_weight=1.0 \
-    > "$LOG_FILE" 2>&1
+    --config.target_weight=1.0 #> "$LOG_FILE" 2>&1
 
 # Print completion message
 echo "========================================"

@@ -95,7 +95,7 @@ class SDLMPrompter(BasePrompter):
         self.goal = goal
         self.target = target
         self.control = control_init
-        self._control_toks = tokenizer(self.control, return_tensors='pt').input_ids[0]
+        self._control_toks = tokenizer(self.control, return_tensors='pt', add_special_tokens=False).input_ids[0]
         self.tokenizer = tokenizer
         self.control_pos = "post"
         self.conv_template = conv_template
@@ -105,9 +105,9 @@ class SDLMPrompter(BasePrompter):
         self.control_len = 0  # for the sake of initialization
 
         self.conv_template.messages = []
-        self.test_new_toks = len(self.tokenizer(self.target).input_ids) + 2  # buffer
+        self.test_new_toks = len(self.tokenizer(self.target, add_special_tokens=False).input_ids) + 2  # buffer
         for prefix in self.test_prefixes:
-            self.test_new_toks = max(self.test_new_toks, len(self.tokenizer(prefix).input_ids))
+            self.test_new_toks = max(self.test_new_toks, len(self.tokenizer(prefix, add_special_tokens=False).input_ids))
 
         self.extractor_text = extractor_text
         self.simulated_canonical = simulated_canonical
@@ -143,7 +143,7 @@ class SDLMPrompter(BasePrompter):
         verbose = False 
         #verbose = True 
         def find_last_subarray_indices(tokenizer, array1, str2):
-            array2 = tokenizer(str2).input_ids
+            array2 = tokenizer(str2, add_special_tokens=False).input_ids
             if 'Llama-3' in tokenizer.name_or_path:
                 array2 = array2[1:]  # because it never stops generating the first starting token
             len_array2 = len(array2)
@@ -152,7 +152,7 @@ class SDLMPrompter(BasePrompter):
                     return i, i + len_array2
 
             # Since we did not get any return value, it indicates tokenizer issue with leading space. So, we try again with a leading space.
-            array2 = tokenizer((" " +str2)).input_ids
+            array2 = tokenizer((" " +str2), add_special_tokens=False).input_ids
             if 'Llama-3' in tokenizer.name_or_path:
                 array2 = array2[1:]
             len_array2 = len(array2)
@@ -171,43 +171,43 @@ class SDLMPrompter(BasePrompter):
 
         prompt = self.conv_template.get_prompt()
         # prompt = re.sub(start_delim + ".*?" + end_delim, replacement, prompt, flags=re.DOTALL)
-        encoding = self.tokenizer(prompt)
+        encoding = self.tokenizer(prompt, add_special_tokens=False)
         toks = encoding.input_ids
 
         if self.conv_template.name == 'llama-2':
             self.conv_template.messages = []
 
             self.conv_template.append_message(self.conv_template.roles[0], "")
-            toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+            toks = self.tokenizer(self.conv_template.get_prompt(), add_special_tokens=False).input_ids
 
             self._user_role_slice = slice(None, len(toks) + 1)  # FORCED BUG FIX for accurate slicing.
 
             if self.control_pos == "post":
                 self.conv_template.update_last_message(f"{self.goal}")
-                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                toks = self.tokenizer(self.conv_template.get_prompt(), add_special_tokens=False).input_ids
                 self._goal_slice = slice(self._user_role_slice.stop, max(self._user_role_slice.stop, len(toks)))
 
                 separator = ' ' if self.goal else ''
                 self.conv_template.update_last_message(f"{self.goal}{separator}{self.control}")
-                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                toks = self.tokenizer(self.conv_template.get_prompt(), add_special_tokens=False).input_ids
                 self._control_slice = slice(self._goal_slice.stop, len(toks))
 
                 self.conv_template.update_last_message(f"{self.goal}{separator}{self.control}{separator}")
 
             else:
                 self.conv_template.update_last_message(f"{self.control}")
-                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                toks = self.tokenizer(self.conv_template.get_prompt(), add_special_tokens=False).input_ids
                 self._control_slice = slice(self._user_role_slice.stop, max(self._user_role_slice.stop, len(toks)))
 
                 separator = " " if self.goal else ''
                 self.conv_template.update_last_message(f"{self.control}{separator}{self.goal}")
-                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                toks = self.tokenizer(self.conv_template.get_prompt(), add_special_tokens=False).input_ids
                 self._goal_slice = slice(self._control_slice.stop, len(toks))
 
                 self.conv_template.update_last_message(f"{self.control}{separator}{self.goal}{separator}")
 
             self.conv_template.append_message(self.conv_template.roles[1], None)
-            toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+            toks = self.tokenizer(self.conv_template.get_prompt(), add_special_tokens=False).input_ids
             if self.control_pos == "post":
                 self._assistant_role_slice = slice(self._control_slice.stop, len(toks))
             else:
@@ -216,7 +216,7 @@ class SDLMPrompter(BasePrompter):
             # TODO here we are assuming that target is not "CANONICAL". This must be handled for GSM8K where target is canonical
             if SIMULATED_CANONICAL:
                 self.conv_template.update_last_message(f"{self.current_solution}")
-                toks = self.tokenizer(self.conv_template.get_prompt()).input_ids
+                toks = self.tokenizer(self.conv_template.get_prompt(), add_special_tokens=False).input_ids
                 self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks)-2)
 
                 self.conv_template.update_last_message(f"{self.current_solution} {self.target}")
@@ -329,45 +329,45 @@ class SDLMPrompter(BasePrompter):
 
             # user role slice
             full_input += "<bos><start_of_turn>user\n"
-            toks = self.tokenizer(full_input).input_ids
+            toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
             self._user_role_slice = slice(None, len(toks))
 
             if self.control_pos == "post":
                 separator = " "
                 # goal_slice
                 full_input += self.goal
-                toks = self.tokenizer(full_input).input_ids
+                toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
                 self._goal_slice = slice(self._user_role_slice.stop, len(toks))
 
                 # control slice
                 if self.control.startswith(" "):
                     self.control = self.control[1:]
                 full_input = full_input + " " + self.control
-                toks = self.tokenizer(full_input).input_ids
+                toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
                 self._control_slice = slice(self._goal_slice.stop, len(toks))
             elif self.control_pos == "pre":
                 raise NotImplementedError # Not necessary to be implemented in our protocol
 
             # assistant role slice
             full_input += "<end_of_turn>\n<start_of_turn>model\n"
-            toks = self.tokenizer(full_input).input_ids
+            toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
             self._assistant_role_slice = slice(self._control_slice.stop, len(toks))
 
             # current solution slice
             if SIMULATED_CANONICAL:
                 full_input += self.current_solution
-                toks = self.tokenizer(full_input).input_ids
+                toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
                 self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks))
 
                 # target_slice
                 full_input += self.target
-                toks = self.tokenizer(full_input).input_ids
+                toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
                 self._target_slice = slice(self._current_solution_slice.stop, len(toks))
                 self._loss_slice = slice(self._current_solution_slice.stop - 1, len(toks) - 1)
             else:
                 # target_slice
                 full_input += self.target
-                toks = self.tokenizer(full_input).input_ids
+                toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
                 self._target_slice = slice(self._assistant_role_slice.stop, len(toks))
                 self._loss_slice = slice(self._assistant_role_slice.stop - 1, len(toks) - 1)
 
@@ -530,12 +530,13 @@ class SDLMPrompter(BasePrompter):
             self.conv_template.messages = []
             #full_input = "<|im_start|>system\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face.\n<|im_end|>\n"
             full_input = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nCutting Knowledge Date: December 2023\nToday Date: 28 Jul 2025\n\n'<|eot_id|>"
+            #full_input = "<|start_header_id|>system<|end_header_id|>\n\nCutting Knowledge Date: December 2023\nToday Date: 28 Jul 2025\n\n'<|eot_id|>"
             # <|im_start|>user
             
             # user role slice
             #full_input += "<|im_start|>user\n"
             full_input += "<|start_header_id|>user<|end_header_id|>\n\n"  # are u sure?
-            toks = self.tokenizer(full_input).input_ids
+            toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
             self._user_role_slice = slice(None, len(toks))
 
             self.control_in_assistant = True
@@ -545,18 +546,18 @@ class SDLMPrompter(BasePrompter):
                     separator = " "
                     # goal_slice
                     full_input += self.goal
-                    toks = self.tokenizer(full_input).input_ids
+                    toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
                     self._goal_slice = slice(self._user_role_slice.stop, len(toks))
 
                     #full_input += "\n<|im_end|>\n<|im_start|>assistant\n"
                     full_input += "\n\n<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
-                    toks_before_control = self.tokenizer(full_input).input_ids
+                    toks_before_control = self.tokenizer(full_input, add_special_tokens=False).input_ids
                     # PREVIOUSLY:
                     # self._assistant_role_slice = slice(self._goal_slice.stop, len(toks_before_control))
                     # WARNING: assistant_role_slice is the start of the reasoning, not the start of the assistant...
 
                     # TOKENIZER ARE NOT REVERSIBLE, therefore we take directly the control_toks:
-                    toks_before_control = self.tokenizer(full_input, return_tensors='pt').input_ids[0]
+                    toks_before_control = self.tokenizer(full_input, return_tensors='pt', add_special_tokens=False).input_ids[0]
                     toks = torch.cat([toks_before_control, self.control_toks], dim=0)
                     self._control_slice = slice(len(toks_before_control), len(toks))
 
@@ -576,13 +577,13 @@ class SDLMPrompter(BasePrompter):
                     separator = " "
                     # goal_slice
                     full_input += self.goal
-                    toks = self.tokenizer(full_input).input_ids
+                    toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
                     self._goal_slice = slice(self._user_role_slice.stop, len(toks))
 
                     # TOKENIZER ARE NOT REVERSIBLE, therefore we take directly the control_toks:
                     # Adding separator:
                     full_input += "\n"
-                    toks_before_control = self.tokenizer(full_input, return_tensors='pt').input_ids[0]
+                    toks_before_control = self.tokenizer(full_input, return_tensors='pt', add_special_tokens=False).input_ids[0]
                     toks = torch.cat([toks_before_control, self.control_toks], dim=0)
                     self._control_slice = slice(len(toks_before_control), len(toks))
                 elif self.control_pos == "pre":
@@ -595,7 +596,7 @@ class SDLMPrompter(BasePrompter):
                 #full_input += "\n<|im_end|>\n<|im_start|>assistant\n"
                 #full_input_after_control += "\n<|im_end|>\n<|im_start|>assistant\n"
                 full_input_after_control += "\n\n<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
-                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control, add_special_tokens=False).input_ids
                 self._assistant_role_slice = slice(self._control_slice.stop, self._control_slice.stop+len(toks_after_control))
                 latest_slice = self._assistant_role_slice
 
@@ -611,7 +612,7 @@ class SDLMPrompter(BasePrompter):
                 #full_input += self.current_solution
                 full_input_after_control += self.current_solution
                 #toks = self.tokenizer(full_input).input_ids
-                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control, add_special_tokens=False).input_ids
                 #self._current_solution_slice = slice(self._assistant_role_slice.stop, len(toks))
                 #self._current_solution_slice = slice(self._assistant_role_slice.stop, self._control_slice.stop+len(toks_after_control))
                 self._current_solution_slice = slice(latest_slice.stop, self._control_slice.stop+len(toks_after_control))
@@ -626,13 +627,13 @@ class SDLMPrompter(BasePrompter):
                 #full_input += self.extractor_text
                 full_input_after_control += self.extractor_text
                 #toks = self.tokenizer(full_input).input_ids
-                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control, add_special_tokens=False).input_ids
                 #self._extractor_slice = slice(self._current_solution_slice.stop, len(toks))
                 self._extractor_slice = slice(self._current_solution_slice.stop, self._control_slice.stop+len(toks_after_control))
                 #full_input += self.final_target
                 full_input_after_control += self.final_target
                 #toks = self.tokenizer(full_input).input_ids
-                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control, add_special_tokens=False).input_ids
                 #self._target_slice = slice(self._extractor_slice.stop, len(toks))
                 self._target_slice = slice(self._extractor_slice.stop, self._control_slice.stop+len(toks_after_control))
                 #self._loss_slice = slice(self._extractor_slice.stop - 1, len(toks) - 1)
@@ -642,7 +643,7 @@ class SDLMPrompter(BasePrompter):
                 #full_input += self.target
                 full_input_after_control += self.target
                 #toks = self.tokenizer(full_input).input_ids
-                toks_after_control = self.tokenizer(full_input_after_control).input_ids
+                toks_after_control = self.tokenizer(full_input_after_control, add_special_tokens=False).input_ids
                 #self._target_slice = slice(self._assistant_role_slice.stop, len(toks))
                 #self._target_slice = slice(self._assistant_role_slice.stop, self._control_slice.stop+len(toks_after_control))
                 self._target_slice = slice(latest_slice.stop, self._control_slice.stop+len(toks_after_control))
@@ -680,7 +681,7 @@ class SDLMPrompter(BasePrompter):
             
             # user role slice
             full_input += "<|im_start|>user\n"
-            toks = self.tokenizer(full_input).input_ids
+            toks = self.tokenizer(full_input, add_special_tokens=False).input_ids
             self._user_role_slice = slice(None, len(toks))
 
             self.control_in_assistant = True
@@ -1140,7 +1141,7 @@ class SDLMPromptManager(BasePromptManager):
         """
         assert initial_ids is not None or initial_string is not None
         if initial_ids is None:
-            initial_ids = self.tokenizer(initial_string, return_tensors="pt").input_ids
+            initial_ids = self.tokenizer(initial_string, return_tensors="pt", add_special_tokens=False).input_ids
         
         # Relies possibly on the fluency model defined in the constructor...
         self.sdlm_variable = Variable(
@@ -2050,7 +2051,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             for bidx, bpidx in enumerate(tqdm(batch_indices, position=0, leave=True)):
                 sampled_indices = shuffled_batch_indices[bpidx:bpidx+batch_size]
                 prompts = [prompt_manager._prompts[i] for i in sampled_indices]
-                try:
+                if True:#try:
                     loss = self.batched_compute_loss(
                         prompts=prompts,
                         tokenizer=prompt_manager.sdlm_model.tokenizer,
@@ -2066,7 +2067,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     loss.mean().backward()
                     batch_loss.append(loss.detach().cpu())
                     del loss
-                except Exception as e:
+                else: #except Exception as e:
                     print(e)
                     batch_loss.append(torch.zeros(batch_size).cpu())
 

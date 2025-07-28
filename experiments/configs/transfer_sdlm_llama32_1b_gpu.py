@@ -16,31 +16,31 @@ def get_config():
     # Tokenizer configuration matching transfer_llama3.py
     config.tokenizer_paths = [
         "meta-llama/Llama-3.2-1B-Instruct",
-        #"meta-llama/Meta-Llama-3-8B-Instruct"
+        "meta-llama/Llama-3.2-1B-Instruct"
     ]
     config.tokenizer_kwargs = [
         {"use_fast": False, "add_bos_token": False, "pad_token": "<|end_of_text|>"}, 
-        #{"use_fast": False, "add_bos_token": False, "pad_token": "<|end_of_text|>"}
+        {"use_fast": False, "add_bos_token": False, "pad_token": "<|end_of_text|>"}
     ]
     
     # Model configuration for Llama-3-8B-Instruct
     config.model_paths = [
         "meta-llama/Llama-3.2-1B-Instruct",
-        #"meta-llama/Meta-Llama-3-8B-Instruct"
+        "meta-llama/Llama-3.2-1B-Instruct"
     ]
     config.conversation_templates = [
         'llama-3', 
-        #'llama-3',
+        'llama-3',
     ]
     config.devices = [
         'cuda:0', 
-        #'cuda:0',
+        'cuda:0',
     ]
     config.torch_dtype = 'bfloat16'
     
     config.model_kwargs = [
-        {"low_cpu_mem_usage": True, "use_cache": False},
-        {"low_cpu_mem_usage": True, "use_cache": False}
+            {"low_cpu_mem_usage": True, "use_cache": False, "do_sample": True},
+            {"low_cpu_mem_usage": True, "use_cache": False, "do_sample": True}
     ]
     '''
     # Enable 4-bit quantization to fit the model in GPU memory
