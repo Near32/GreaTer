@@ -144,8 +144,9 @@ class SDLMPrompter(BasePrompter):
         #verbose = True 
         def find_last_subarray_indices(tokenizer, array1, str2):
             array2 = tokenizer(str2, add_special_tokens=False).input_ids
-            if 'Llama-3' in tokenizer.name_or_path:
-                array2 = array2[1:]  # because it never stops generating the first starting token
+            #if 'Llama-3' in tokenizer.name_or_path:
+            #    array2 = array2[1:]  # because it never stops generating the first starting token
+            # unless you use add_special_tokens=False as argument...
             len_array2 = len(array2)
             for i in range(len(array1) - len_array2, len(array1) - len_array2 -10, -1):
                 if array1[i:i + len_array2] == array2:
@@ -153,8 +154,9 @@ class SDLMPrompter(BasePrompter):
 
             # Since we did not get any return value, it indicates tokenizer issue with leading space. So, we try again with a leading space.
             array2 = tokenizer((" " +str2), add_special_tokens=False).input_ids
-            if 'Llama-3' in tokenizer.name_or_path:
-                array2 = array2[1:]
+            #if 'Llama-3' in tokenizer.name_or_path:
+            #    array2 = array2[1:]
+            # cf above for explanation
             len_array2 = len(array2)
             for i in range(len(array1) - len_array2, -1, -1):
                 if array1[i:i + len_array2] == array2:
@@ -1966,6 +1968,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 else:
                     loss = loss+control_weight*control_loss
             
+                if torch.isnan(loss.mean()):
+                    import ipdb; ipdb.set_trace()
                 losses.append(loss)
             losses = torch.stack(losses)
         return losses
@@ -2051,7 +2055,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             for bidx, bpidx in enumerate(tqdm(batch_indices, position=0, leave=True)):
                 sampled_indices = shuffled_batch_indices[bpidx:bpidx+batch_size]
                 prompts = [prompt_manager._prompts[i] for i in sampled_indices]
-                if True:#try:
+                try:
                     loss = self.batched_compute_loss(
                         prompts=prompts,
                         tokenizer=prompt_manager.sdlm_model.tokenizer,
@@ -2064,10 +2068,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                         temperature=temp,
                     )
                     ## Backward:
-                    loss.mean().backward()
+                    mloss = loss.mean()
+                    mloss.backward()
                     batch_loss.append(loss.detach().cpu())
                     del loss
-                else: #except Exception as e:
+                except Exception as e:
                     print(e)
                     batch_loss.append(torch.zeros(batch_size).cpu())
 
