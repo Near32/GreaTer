@@ -41,8 +41,8 @@ python -m ipdb -c c main.py \
     --config.stop_on_success=True \
     --config.allow_non_ascii=False \
     --config.num_train_models=1 \
-    --config.n_train_data=50 \
-    --config.n_test_data=5 \
+    --config.n_train_data=500 \
+    --config.n_test_data=50 \
     --config.sdlm_variable_kwargs.learning_rate=0.1 \
     --config.sdlm_variable_kwargs.init_strategy='fluency' \
     --config.sdlm_variable_kwargs.temperature=0.5 \

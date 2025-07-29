@@ -1968,8 +1968,6 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 else:
                     loss = loss+control_weight*control_loss
             
-                if torch.isnan(loss.mean()):
-                    import ipdb; ipdb.set_trace()
                 losses.append(loss)
             losses = torch.stack(losses)
         return losses
