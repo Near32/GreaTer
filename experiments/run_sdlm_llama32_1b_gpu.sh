@@ -8,7 +8,7 @@ mkdir -p results
 TRAIN_DATA="../data/grade_school_math/train.jsonl"
 TEST_DATA="../data/grade_school_math/test.jsonl"
 LOG_FILE="sdlm_llama32_1b_logs/gsm8k_optimization.log"
-RESULT_PREFIX="results/sdlm_llama32_1b_gpu_gsm8k"
+RESULT_PREFIX="results_test/sdlm_llama32_1b_gpu_gsm8k"
 
 # Print configuration
 echo "========================================"
@@ -41,8 +41,8 @@ python -m ipdb -c c main.py \
     --config.stop_on_success=True \
     --config.allow_non_ascii=False \
     --config.num_train_models=1 \
-    --config.n_train_data=500 \
-    --config.n_test_data=50 \
+    --config.n_train_data=5 \
+    --config.n_test_data=5 \
     --config.sdlm_variable_kwargs.learning_rate=0.1 \
     --config.sdlm_variable_kwargs.init_strategy='fluency' \
     --config.sdlm_variable_kwargs.temperature=0.5 \
@@ -57,7 +57,7 @@ python -m ipdb -c c main.py \
     --config.n_steps=30 \
     --config.test_steps=1 \
     --config.anneal=True \
-    --config.batch_size=8 \
+    --config.batch_size=2 \
     --config.temp=0.6 \
     --config.topk=10 \
     --config.topq=5 \
