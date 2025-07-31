@@ -12,7 +12,8 @@ method: bayes  # Bayesian optimization for efficient hyperparameter exploration
 metric:
   #name: train/instantaneous_loss 
   #name: train/loss 
-  name: test/id_id/EM 
+  #name: test/id_id/EM 
+  name: test/od_od/EM-Accuracy 
   #goal: minimize
   goal: maximize
 
@@ -51,9 +52,9 @@ parameters:
   config.num_train_models:
     value: 1
   config.n_train_data:
-    value: 100
+    value: 1000
   config.n_test_data:
-    value: 10
+    value: 1000
   config.anneal:
     value: true
   
@@ -61,7 +62,8 @@ parameters:
   config.sdlm_variable_kwargs.init_strategy:
     values: ['fluency', 'random']
   config.sdlm_variable_kwargs.learning_rate:
-    values: [0.1, 0.01, 0.001]
+    #values: [0.1, 0.01, 0.001]
+    values: [0.01, 0.001, 0.0001]
   config.sdlm_variable_kwargs.temperature:
     values: [0.01, 0.1, 1.0, 10.0, 100.0, 1000.0]
   config.sdlm_variable_kwargs.learnable_temperature:
@@ -69,7 +71,8 @@ parameters:
   config.sdlm_variable_kwargs.logit_scaler:
     values: [1.0, 10.0, 100.0]
   config.temp:
-    values: [0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    #values: [0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    values: [0.4, 0.5, 0.6, 0.7]
   
   config.sdlm_model_kwargs.temperature:
     values: [0.1, 0.5, 0.7, 1.0]
@@ -78,7 +81,8 @@ parameters:
   config.sdlm_model_kwargs.hidden_state_conditioning:
     values: [False, True]
   config.acc_grad_n_examples:
-    values: [1, 2, 4, 8]
+    #values: [1, 2, 4, 8]
+    values: [1, 2, 4]
   config.gradient_comp_batch_size:
     values: [1]
   config.update_solution_max_new_tokens:
@@ -112,7 +116,8 @@ parameters:
   #  max: 12
   
   config.control_weight:
-    values: [0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
+    #values: [0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
+    values: [0.1, 1.0, 2.0, 3.0, 5.0]
   
   config.target_weight:
     values: [0.1]
