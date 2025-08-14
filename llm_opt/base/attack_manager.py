@@ -807,7 +807,9 @@ class PromptManager(object):
             )
             self._prompts.append(manager)
 
+        print(f"PromptManager: getting non-ascii tokens: ...")
         self._nonascii_toks = get_nonascii_toks(tokenizer, device='cpu', aggressive=False)
+        print(f"PromptManager: getting non-ascii tokens: DONE.")
 
     def generate(self, model, gen_config=None):
         if gen_config is None:
@@ -1833,7 +1835,9 @@ class ProgressiveMultiPrompter(object):
                     num_workers = min(num_workers, len(self.workers))
                     loss = np.infty
                 elif num_workers == len(self.workers) and stop_on_success:
+                    import ipdb; ipdb.set_trace()
                     model_tests = attack.test_all()
+                    import ipdb; ipdb.set_trace()
                     attack.log(step, n_steps, self.control, loss, 0., model_tests, verbose=verbose, params=params)
                     break
                 else:

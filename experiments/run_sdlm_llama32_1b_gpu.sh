@@ -54,10 +54,10 @@ python -m ipdb -c c main.py \
     --config.gradient_comp_batch_size=1 \
     --config.update_solution_max_new_tokens=256 \
     --config.max_new_tokens_answer=8 \
-    --config.n_steps=30 \
+    --config.n_steps=2 \
     --config.test_steps=1 \
     --config.anneal=True \
-    --config.batch_size=2 \
+    --config.batch_size=8 \
     --config.temp=0.6 \
     --config.topk=10 \
     --config.topq=5 \
