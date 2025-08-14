@@ -1835,9 +1835,7 @@ class ProgressiveMultiPrompter(object):
                     num_workers = min(num_workers, len(self.workers))
                     loss = np.infty
                 elif num_workers == len(self.workers) and stop_on_success:
-                    import ipdb; ipdb.set_trace()
                     model_tests = attack.test_all()
-                    import ipdb; ipdb.set_trace()
                     attack.log(step, n_steps, self.control, loss, 0., model_tests, verbose=verbose, params=params)
                     break
                 else:

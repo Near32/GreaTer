@@ -54,7 +54,7 @@ parameters:
   config.n_train_data:
     value: 100
   config.n_test_data:
-    value: 1000
+    value: 100
   config.anneal:
     value: true
   
