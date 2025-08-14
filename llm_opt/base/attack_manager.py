@@ -807,7 +807,9 @@ class PromptManager(object):
             )
             self._prompts.append(manager)
 
+        print(f"PromptManager: getting non-ascii tokens: ...")
         self._nonascii_toks = get_nonascii_toks(tokenizer, device='cpu', aggressive=False)
+        print(f"PromptManager: getting non-ascii tokens: DONE.") 
 
     def generate(self, model, gen_config=None):
         if gen_config is None:

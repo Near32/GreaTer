@@ -1589,8 +1589,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         losses = []
         
         # Process prompts in batches
-        for i in tqdm(range(0, len(prompts), batch_size), position=0, leave=True):
-            batch_prompts = prompts[i:i+batch_size]
+        nbr_prompts = len(prompts)
+        i=0
+        eff_batch_size = batch_size
+        #for i in tqdm(range(0, len(prompts), batch_size), position=0, leave=True):
+        while i<nbr_prompts:
+            batch_prompts = prompts[i:i+eff_batch_size]
             batch_jb = []
             batch_mb = []
             batch_losses = []
@@ -1742,19 +1746,40 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                         loss_crit = nn.CrossEntropyLoss(reduction='mean')
                         loss = loss_crit(input=logits, target=final_target_tokens)
                         batch_losses.append(loss.item())
-                
+            
+                # BOOKKEEPING:
+                i += eff_batch_size
+                ready_to_log = True
             except Exception as e:
                 print(e)
-                batch_size = len(batch_prompts)
-                batch_jb = [0]*batch_size
-                batch_mb = [0]*batch_size
-                batch_losses = [0]*batch_size
+                #BOOKKEEPING:
+                # probably cuda out of memory error:
+                # we reduce batch_size:
+                if eff_batch_size > 1:
+                    print(f"Reducing batch size from {eff_batch_size} to:")
+                    eff_batch_size = eff_batch_size // 2
+                    print(eff_batch_size)
+                    # and we retry the current, without logging:
+                    ready_to_log = False
+                    print(f"Retrying the current batch...")
+                else:
+                    print(f"Giving up on the current batch of elements.")
+                    print(f"Resetting batch_size to {batch_size}...")
+                    # Reset batch_size:
+                    eff_batch_size = batch_size
+                    # Logging failed values:
+                    ready_to_log = True
+                    cbatch_size = len(batch_prompts)
+                    batch_jb = [0]*cbatch_size
+                    batch_mb = [0]*cbatch_size
+                    batch_losses = [0]*cbatch_size
 
             # Extend results
-            jailbreak_scores.extend(batch_jb)
-            match_scores.extend(batch_mb)
-            if include_loss:
-                losses.extend(batch_losses)
+            if ready_to_log:
+                jailbreak_scores.extend(batch_jb)
+                match_scores.extend(batch_mb)
+                if include_loss:
+                    losses.extend(batch_losses)
         
         tokenizer.padding_side = original_padding_side
         return jailbreak_scores, match_scores, losses if include_loss else []
