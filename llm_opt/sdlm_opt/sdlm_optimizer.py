@@ -1590,11 +1590,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         
         # Process prompts in batches
         nbr_prompts = len(prompts)
-        i=0
+        pidx=0
         eff_batch_size = batch_size
         #for i in tqdm(range(0, len(prompts), batch_size), position=0, leave=True):
-        while i<nbr_prompts:
-            batch_prompts = prompts[i:i+eff_batch_size]
+        while pidx < nbr_prompts:
+            print(f"COMPUTING ELEMENTS {pidx} to {min(pidx+eff_batch_size-1, len(prompts)-1)}...")
+            batch_prompts = prompts[pidx:pidx+eff_batch_size]
             batch_jb = []
             batch_mb = []
             batch_losses = []
@@ -1659,10 +1660,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
     
                 input_reasoning_ids_list = [
                     torch.cat([
-                        output_ids[i][output_ids[i]!=tokenizer.pad_token_id], 
+                        output_ids[oidx][output_ids[oidx]!=tokenizer.pad_token_id], 
                         extractor_ids,
                     ]) 
-                    for i in range(len(output_ids))
+                    for oidx in range(len(output_ids))
                 ]
     
                 #DEBUG:
@@ -1720,7 +1721,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     #print(f"Generated answer: {gt_answer}")
                     em = gt_answer in gen_str
                     
-                    print(f"\n===\nProblem {i}: Solution={gt_answer}\n{gen_str}")
+                    print(f"\n===\nProblem {pidx+i}: Solution={gt_answer}\n{gen_str}")
                     
                     batch_jb.append(int(jailbroken))
                     batch_mb.append(int(em))
@@ -1748,7 +1749,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                         batch_losses.append(loss.item())
             
                 # BOOKKEEPING:
-                i += eff_batch_size
+                pidx += eff_batch_size
                 ready_to_log = True
             except Exception as e:
                 print(e)
