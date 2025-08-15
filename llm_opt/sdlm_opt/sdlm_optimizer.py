@@ -2282,6 +2282,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                      verbose=verbose,
                      params=kwargs['params'],
             )
+            if kwargs.get('test_only', False):
+                return self.control_str, loss, steps
 
         for i in tqdm(range(n_steps), position=0, leave=True):
             # if stop_on_success:

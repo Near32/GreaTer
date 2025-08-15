@@ -4,6 +4,8 @@ def get_config():
     config = config_dict.ConfigDict()
 
     # Experiment type
+    config.log_first = False
+    config.test_only = False
     config.transfer = False
     config.use_wandb = False
     config.project = 'GreaTer-SDLM'

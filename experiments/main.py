@@ -27,6 +27,7 @@ def main(_):
     mp.set_start_method('spawn')
 
     params = _CONFIG.value
+    params.test_steps = 5
 
     attack_lib = dynamic_import(f'llm_opt.{params.attack}')
 

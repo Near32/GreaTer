@@ -1819,11 +1819,15 @@ class ProgressiveMultiPrompter(object):
                 filter_cand=filter_cand,
                 early_stopping=early_stopping,
                 verbose=verbose,
+                log_first=params['log_first'],
                 params=params,
             )
 
             step += inner_steps
             self.control = control
+
+            if params.get('test_only', False):
+                return self.control, step
 
             if num_goals < len(self.goals):
                 num_goals += group_size
