@@ -1238,7 +1238,9 @@ class SDLMPromptManager(BasePromptManager):
                 output_hidden_states=False, output_attentions=False, output_logits=False,
                 pad_token_id=self.tokenizer.pad_token_id,
                 repetition_penalty=repetition_penalty,  # Add explicit repetition penalty here as well
-                do_sample=False, return_dict_in_generate=return_past_key_vals,
+                do_sample=True,
+                #do_sample=False, 
+                return_dict_in_generate=return_past_key_vals,
             )
 
         if return_past_key_vals:
@@ -1640,7 +1642,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                         generation_config=gen_config,
                         max_new_tokens=max_new_tokens_reasoning,
                         pad_token_id=tokenizer.pad_token_id,
-                        do_sample=False,
+                        #do_sample=False,
+                        do_sample=True,
                         return_dict_in_generate=True,
                         output_logits=True
                     )
@@ -1690,7 +1693,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                         attention_mask=in_r_ext_batch['attention_mask'].to(device),
                         max_new_tokens=max_new_tokens_answer,
                         pad_token_id=tokenizer.pad_token_id,
-                        do_sample=False,
+                        do_sample=True,
+                        #do_sample=False,
                         return_dict_in_generate=True,
                         output_logits=True,
                     )

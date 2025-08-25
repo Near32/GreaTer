@@ -25,8 +25,8 @@ echo "========================================"
 # Set extractor text for GSM8K format
 extractor_text="Therefore, the final answer (use exactly this format: \$NUMBER\$, where NUMBER is a positive or negative integer) is $"
 #control_text="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer."
-control_text="button_xpathstm_FILE reachedSourceType حیौर mockiameterAccordionuseservativeecera HeatingSelectedItemcentreADRynchronFilterWhereMPLesson ขาย Blue CLICK viele ولك 時776.XtraGridSlider的情况 Browseophe Suite v"
-
+#control_text="button_xpathstm_FILE reachedSourceType حیौर mockiameterAccordionuseservativeecera HeatingSelectedItemcentreADRynchronFilterWhereMPLesson ขาย Blue CLICK viele ولك 時776.XtraGridSlider的情况 Browseophe Suite v"
+control_text="Let's文件 this math problem step by step Addition First 줄 I will.setDefault misguided problem editing then break itɵ bzwleanup, manageable ذات,�CroAfrica at стад correct answer tekrar"
 
 # Set environment variables for CPU optimization
 export OMP_NUM_THREADS=$(nproc)  # Use all available CPU cores
