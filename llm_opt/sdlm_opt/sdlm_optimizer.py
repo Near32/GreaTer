@@ -1174,6 +1174,7 @@ class SDLMPromptManager(BasePromptManager):
         max_new_tokens=128,
         repetition_penalty=1.2,
         return_past_key_vals=False,
+        do_sample=True,
     ):
         if prompt_candidate_toks is None:
             prompt_candidate_toks = prompts[0].input_ids[prompts[0]._control_slice]
@@ -1238,8 +1239,7 @@ class SDLMPromptManager(BasePromptManager):
                 output_hidden_states=False, output_attentions=False, output_logits=False,
                 pad_token_id=self.tokenizer.pad_token_id,
                 repetition_penalty=repetition_penalty,  # Add explicit repetition penalty here as well
-                do_sample=True,
-                #do_sample=False, 
+                do_sample=do_sample,
                 return_dict_in_generate=return_past_key_vals,
             )
 
@@ -1563,6 +1563,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         batch_size=128,
         max_new_tokens_reasoning=256,
         max_new_tokens_answer=32,
+        do_sample=True,
     ):
         """
         Test the prompts against the model in batches.
@@ -1642,8 +1643,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                         generation_config=gen_config,
                         max_new_tokens=max_new_tokens_reasoning,
                         pad_token_id=tokenizer.pad_token_id,
-                        #do_sample=False,
-                        do_sample=True,
+                        do_sample=do_sample,
                         return_dict_in_generate=True,
                         output_logits=True
                     )
@@ -1693,8 +1693,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                         attention_mask=in_r_ext_batch['attention_mask'].to(device),
                         max_new_tokens=max_new_tokens_answer,
                         pad_token_id=tokenizer.pad_token_id,
-                        do_sample=True,
-                        #do_sample=False,
+                        do_sample=do_sample,
                         return_dict_in_generate=True,
                         output_logits=True,
                     )
@@ -1789,7 +1788,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         tokenizer.padding_side = original_padding_side
         return jailbreak_scores, match_scores, losses if include_loss else []
     
-    def test_all(self, **kwargs):
+    def test_all(self, do_sample=True, **kwargs):
         model = self.workers[0].model
         test_prompt_manager = self.managers['PM'](
             goals=self.goals + self.test_goals,
@@ -1806,7 +1805,13 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             params=self.kwargs['params'],
         )
         
-        outputs = self.test(model, test_prompt_manager, include_loss=True, **kwargs)
+        outputs = self.test(
+            model, 
+            test_prompt_manager, 
+            include_loss=True, 
+            do_sample=do_sample,
+            **kwargs,
+        )
         # duplicate for all workers...
         returns = []
         nbr_workers = len(self.workers)+len(self.test_workers)
@@ -2276,6 +2281,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 batch_size=kwargs['params'].get('batch_size', 1),
                 max_new_tokens_reasoning=kwargs['params'].get('update_solution_max_new_tokens', 32),
                 max_new_tokens_answer=kwargs['params'].get('max_new_tokens_answer', 32),
+                do_sample=kwargs['params'].get('do_sample', True),
             )
             self.log(anneal_from,
                      n_steps + anneal_from,
@@ -2384,6 +2390,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     batch_size=kwargs['params'].get('batch_size', 1),
                     max_new_tokens_reasoning=kwargs['params'].get('update_solution_max_new_tokens', 32),
                     max_new_tokens_answer=kwargs['params'].get('max_new_tokens_answer', 32),
+                    do_sample=kwargs['params'].get('do_sample', True),
                 )
                 self.log(
                     i + 1 + anneal_from, 
@@ -2464,6 +2471,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     #batch_size=kwargs['params'].get('batch_size', 1),
                     #max_new_tokens_reasoning=kwargs['params'].get('update_solution_max_new_tokens', 32),
                     #max_new_tokens_answer=kwargs['params'].get('update_solution_max_new_tokens', 32),
+                    #do_sample=kwargs['params'].get('do_sample', True),
                 )
                 
                 # Check for early stopping

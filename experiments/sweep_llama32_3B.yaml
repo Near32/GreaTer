@@ -52,12 +52,15 @@ parameters:
   config.num_train_models:
     value: 1
   config.n_train_data:
-    value: 660
+    value: 100
   config.n_test_data:
     value: 10000
   config.anneal:
     value: true
   
+  config.do_sample:
+    values: [False]
+
   # Model-specific SDLM parameters
   config.sdlm_variable_kwargs.init_strategy:
     values: ['fluency', 'random']
@@ -100,10 +103,10 @@ parameters:
     value: False
   
   config.n_steps:
-    value: 10
+    value: 20
   
   config.test_steps:
-    values: [10]
+    values: [20]
   
   config.batch_size:
     values: [4]
