@@ -90,7 +90,7 @@ def get_config():
     config.early_stopping_steps = 3
     
     # Logging
-    config.logfile = 'results/sdlm_llama3_8b_gpu_gsm8k.json'
+    config.logfile = 'results/sdlm_llama32_1b_gpu_gsm8k.json'
     config.verbose = True
     
     return config
