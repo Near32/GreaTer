@@ -42,6 +42,7 @@ def get_config():
     config.devices=['auto']
 
     # data
+    config.seed = 0
     config.train_data = ''
     config.test_data = ''
     config.n_train_data = 50

@@ -5,7 +5,7 @@ import random
 import string
 import time
 from copy import deepcopy
-from typing import Optional, Any
+from typing import Optional, Any, List
 import re
 import os
 import ast
@@ -27,6 +27,38 @@ from transformers import (AutoModelForCausalLM, AutoTokenizer, GPT2LMHeadModel,
 # FLAG
 SIMULATED_CANONICAL = True
 
+def generate_random_indices(dataset_size: int, seed: int) -> List[int]:
+    """
+    Generate a list of randomized indices using a seeded random number generator.
+    
+    Args:
+        dataset_size (int): The size of the dataset (number of elements)
+        seed (int): seed value for randomiser
+        
+    Returns:
+        List[int]: A list of indices in randomized order
+        
+    Raises:
+        ValueError: If dataset_size is not a positive integer
+        TypeError: If seed is not an integer
+    """
+    # Validate input parameters
+    if not isinstance(dataset_size, int) or dataset_size <= 0:
+        raise ValueError("dataset_size must be a positive integer")
+    
+    if not isinstance(seed, int):
+        raise TypeError("seed value must be an integer")
+    
+    # Set the random seed for reproducible results
+    random.seed(seed)
+    
+    # Generate list of indices from 0 to dataset_size-1
+    indices = list(range(dataset_size))
+    
+    # Shuffle the indices in-place using the seeded random generator
+    random.shuffle(indices)
+    
+    return indices
 
 class NpEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -2132,6 +2164,10 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
 
     offset = getattr(params, 'data_offset', 0)
 
+    # Seeding:
+    seed = params.get('seed', 0)
+    print(f'SEED = {seed}') 
+
     if params.train_data:
         if params.train_data.endswith('.tsv'):
             train_data = pd.read_csv(params.train_data, sep='\t', dtype=str)
@@ -2144,6 +2180,11 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
         else:
             train_data = pd.read_csv(params.train_data, dtype=str, on_bad_lines='warn')
             
+        seeded_indices = generate_random_indices(
+            dataset_size=len(train_data),
+            seed=seed,
+        ) if seed != 0 else list(range(len(train_data)))    
+
         #train_targets = train_data['target'].astype(str).tolist()[offset:offset + params.n_train_data]
         #print(train_data.columns)
         # IF final_target is within columns, then target column contains a reasoning.
@@ -2161,7 +2202,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
             # THUS, we split the answer column into two new columns target and final_target on the '### ' separator:
             train_data['target'] = train_data['answer'].str.split('#### ').str[0]
             train_data['final_target'] = train_data['answer'].str.split('#### ').str[1]
-        train_targets = train_data[target_entry].astype(str).tolist()[offset:offset + params.n_train_data]
+        train_targets = train_data[target_entry].astype(str).tolist()
+        train_targets = [train_targets[i] for i in seeded_indices][offset:offset + params.n_train_data]
         #if len(params.extractor_text) > 0:
         #    train_targets = [remove_parentheses_if_single_char(target) for target in train_targets]
 
@@ -2169,7 +2211,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
         if goal_entry not in train_data.columns:
             goal_entry = 'question' 
         if goal_entry in train_data.columns:
-            train_goals = train_data[goal_entry].astype(str).tolist()[offset:offset + params.n_train_data]
+            train_goals = train_data[goal_entry].astype(str).tolist()
+            train_goals = [train_goals[i] for i in seeded_indices][offset:offset + params.n_train_data]
             if len(addition) > 0:
                 train_goals = [goal + addition for goal in train_goals]
         else:
@@ -2178,7 +2221,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
         # Most datasets won't have it. Just the ones we are curating for this feature
         final_target_entry = 'final_target'
         if final_target_entry in train_data.columns:
-            train_final_targets = train_data[final_target_entry].astype(str).tolist()[offset:offset + params.n_train_data]
+            train_final_targets = train_data[final_target_entry].astype(str).tolist()
+            train_final_targets = [train_final_targets[i] for i in seeded_indices][offset:offset + params.n_train_data]
             #if len(addition3) >= 0 and "llama-3" in params.conversation_templates:
             #    train_final_targets = [addition3 + remove_parentheses_if_single_char(target) for target in train_final_targets]
             #elif "llama-2" in params.conversation_templates or "gemma-2" in params.conversation_templates:
@@ -2199,17 +2243,26 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
                 test_data = pd.DataFrame(data)
             else:
                 test_data = pd.read_csv(params.test_data, dtype=str, on_bad_lines='warn')
+            
+            seeded_indices = generate_random_indices(
+                dataset_size=len(test_data),
+                seed=seed,
+            ) if seed != 0 else list(range(len(test_data)))    
+
             #test_targets = test_data['target'].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
+            
             if 'answer' in test_data.columns:
                 test_data['target'] = test_data['answer'].str.split('#### ').str[0]
                 test_data['final_target'] = test_data['answer'].str.split('#### ').str[1]
             
             #test_targets = test_data[target_entry].astype(str).tolist()[
             #               offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
-            test_targets = test_data[target_entry].astype(str).tolist()[offset:offset + params.n_test_data]
+            test_targets = test_data[target_entry].astype(str).tolist()
+            test_targets = [test_targets[i] for i in seeded_indices][offset:offset + params.n_test_data]
             if goal_entry in test_data.columns:
                 #test_goals = test_data[goal_entry].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
-                test_goals = test_data[goal_entry].astype(str).tolist()[offset:offset + params.n_test_data]
+                test_goals = test_data[goal_entry].astype(str).tolist()
+                test_goals = [test_goals[i] for i in seeded_indices][offset:offset + params.n_test_data]
                 if len(addition) > 0:
                     test_goals = [goal + addition for goal in test_goals]
                 #if len(params.extractor_text) > 0:
@@ -2220,7 +2273,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
             # Again, Most datasets won't have it. Just the ones we are curating for this feature
             if final_target_entry in test_data.columns:
                 #test_final_targets = test_data[final_target_entry].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
-                test_final_targets = test_data[final_target_entry].astype(str).tolist()[offset:offset + params.n_test_data]
+                test_final_targets = test_data[final_target_entry].astype(str).tolist()
+                test_final_targets = [test_final_targets[i] for i in seeded_indices][offset:offset + params.n_test_data]
                 #if len(addition3) >= 0 and "llama-3" in params.conversation_templates:
                 #    test_final_targets = [addition3 + remove_parentheses_if_single_char(target) for target in test_final_targets]
                 #elif "llama-2" in params.conversation_templates or "gemma-2" in params.conversation_templates:
