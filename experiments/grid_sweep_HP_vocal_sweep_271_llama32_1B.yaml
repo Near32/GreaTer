@@ -59,6 +59,7 @@ parameters:
     value: true
   
   config.do_sample:
+    #values: [True]
     values: [False]
 
   # Model-specific SDLM parameters

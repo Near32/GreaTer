@@ -1174,7 +1174,7 @@ class SDLMPromptManager(BasePromptManager):
         max_new_tokens=128,
         repetition_penalty=1.2,
         return_past_key_vals=False,
-        do_sample=True,
+        do_sample=False,
     ):
         if prompt_candidate_toks is None:
             prompt_candidate_toks = prompts[0].input_ids[prompts[0]._control_slice]
@@ -1236,7 +1236,9 @@ class SDLMPromptManager(BasePromptManager):
                 attention_mask=attn_masks,
                 generation_config=gen_config,
                 max_new_tokens=max_new_tokens, #1024,
-                output_hidden_states=False, output_attentions=False, output_logits=False,
+                output_hidden_states=False, 
+                output_attentions=False, 
+                output_logits=False,
                 pad_token_id=self.tokenizer.pad_token_id,
                 repetition_penalty=repetition_penalty,  # Add explicit repetition penalty here as well
                 do_sample=do_sample,
@@ -1278,6 +1280,7 @@ class SDLMPromptManager(BasePromptManager):
         gen_config=None, 
         max_new_tokens=128,
         repetition_penalty=1.2,
+        do_sample=False,
     ):
         # batch generation often causes the assistant token to be repeated, so manually filter them out
         assistant_str = self.tokenizer.decode(self._prompts[0].input_ids[self._prompts[0]._assistant_role_slice], skip_special_tokens = True) # TODO: assumes all prompts have the same assistant role slice
@@ -1291,6 +1294,7 @@ class SDLMPromptManager(BasePromptManager):
             gen_config=gen_config,
             max_new_tokens=max_new_tokens,
             repetition_penalty=repetition_penalty,
+            do_sample=do_sample,
         )
         for output_toks in batched_output_toks:
             reasoning_str = self.tokenizer.decode(
@@ -1311,6 +1315,7 @@ class SDLMPromptManager(BasePromptManager):
         max_new_tokens=128,
         repetition_penalty=1.2,
         _prompts=None,
+        do_sample=False,
     ):
         if _prompts is None:
             _prompts = self._prompts
@@ -1325,6 +1330,7 @@ class SDLMPromptManager(BasePromptManager):
                 gen_config=gen_config,
                 max_new_tokens=max_new_tokens,
                 repetition_penalty=repetition_penalty,
+                do_sample=do_sample,
             )
             for prompt, output in zip(list_prompts, outputs):
                 prompt.current_solution_str = output
@@ -1563,7 +1569,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         batch_size=128,
         max_new_tokens_reasoning=256,
         max_new_tokens_answer=32,
-        do_sample=True,
+        do_sample=False,
     ):
         """
         Test the prompts against the model in batches.
@@ -1788,7 +1794,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         tokenizer.padding_side = original_padding_side
         return jailbreak_scores, match_scores, losses if include_loss else []
     
-    def test_all(self, do_sample=True, **kwargs):
+    def test_all(self, do_sample=False, **kwargs):
         model = self.workers[0].model
         test_prompt_manager = self.managers['PM'](
             goals=self.goals + self.test_goals,
@@ -2218,6 +2224,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     prompt_candidate_toks=control_toks,
                     max_new_tokens=kwargs['params']['update_solution_max_new_tokens'],
                     gen_config=None,#gen_config,
+                    do_sample=kwargs['params']['do_sample'],
                 )
                 for prompt, output in zip(bprompts, outputs):
                     prompt.current_solution_str = output
@@ -2383,6 +2390,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 break
 
             if self.logfile is not None and (i + 1 + anneal_from) % test_steps == 0:
+                # We only care about testing best_control so far:
                 last_control = self.control_str
                 self.control_str = best_control
 
@@ -2403,6 +2411,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     params=kwargs['params'],
                 )
 
+                # Bookkeeping to enable the optimisation of the current control to carry on:
                 self.control_str = last_control
 
         # Added later
