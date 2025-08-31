@@ -53,11 +53,17 @@ parameters:
     value: 1
   config.n_train_data:
     value: 100
+  config.n_valid_data:
+    values: [50, 100, 200]
   config.n_test_data:
-    value: 100
+    value: 10000
   config.anneal:
     value: true
   
+  config.do_sample:
+    #values: [True]
+    values: [False]
+
   # Model-specific SDLM parameters
   config.sdlm_variable_kwargs.init_strategy:
     values: ['fluency', 'random']
@@ -90,20 +96,29 @@ parameters:
   config.max_new_tokens_answer:
     value: 8
   
+  config.torch_deterministic:
+    value: True
+
+  config.seed:
+    values: [0, 10, 20, 30, 40, 50] 
+
   # Prompt engineering configuration
   config.control_init:
     value: "Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer."
   config.extractor_text:
     value: "Therefore, the final answer (use exactly this format: $NUMBER$, where NUMBER is a positive or negative integer) is $"
 
+  config.log_first:
+    value: False
+
   config.n_steps:
     value: 10
   
   config.test_steps:
-    values: [1]
+    values: [10]
   
   config.batch_size:
-    values: [8]
+    values: [8, 16]
   
   #config.topk:
   #  distribution: int_uniform

@@ -53,6 +53,8 @@ parameters:
     value: 1
   config.n_train_data:
     value: 100
+  config.n_valid_data:
+    value: 100
   config.n_test_data:
     value: 10000
   config.anneal:
@@ -96,6 +98,9 @@ parameters:
   
   #config.lm_seed:
   #  values: [10,20,30,40,50]
+  
+  config.torch_deterministic:
+    value: True
 
   config.seed:
     values: [10, 20, 30, 40, 50] 
