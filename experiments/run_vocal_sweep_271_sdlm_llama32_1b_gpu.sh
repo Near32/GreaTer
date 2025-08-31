@@ -47,7 +47,9 @@ python -m ipdb -c c main.py \
     --config.num_train_models=1 \
     --config.do_sample=False \
     --config.seed=0 \
+    --config.torch_deterministic=True \
     --config.n_train_data=100 \
+    --config.n_valid_data=100 \
     --config.n_test_data=100 \
     --config.sdlm_variable_kwargs.learning_rate=0.001 \
     --config.sdlm_variable_kwargs.init_strategy='random' \

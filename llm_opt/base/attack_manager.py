@@ -1629,10 +1629,13 @@ class ProgressiveMultiPrompter(object):
                  test_prefixes=["I'm sorry", "I apologize", "As an", "I'm just", "I'm an", "I cannot", "Hello!"],
                  logfile=None,
                  managers=None,
+                 valid_goals=[],
+                 valid_targets=[],
                  test_goals=[],
                  test_targets=[],
                  test_workers=[],
                  train_final_target=[],
+                 valid_final_target=[],
                  test_final_target=[],
                  *args, **kwargs
                  ):
@@ -1671,6 +1674,8 @@ class ProgressiveMultiPrompter(object):
         self.goals = goals
         self.targets = targets
         self.workers = workers
+        self.valid_goals = valid_goals
+        self.valid_targets = valid_targets
         self.test_goals = test_goals
         self.test_targets = test_targets
         self.test_workers = test_workers
@@ -1682,6 +1687,7 @@ class ProgressiveMultiPrompter(object):
         self.managers = managers
         self.mpa_kwargs = ProgressiveMultiPrompter.filter_mpa_kwargs(**kwargs)
         self.train_final_target = train_final_target
+        self.valid_final_target = valid_final_target
         self.test_final_target = test_final_target
 
         if logfile is not None:
@@ -1690,8 +1696,13 @@ class ProgressiveMultiPrompter(object):
                     'params': {
                         'goals': goals,
                         'targets': targets,
+                        'final_target': train_final_target,
+                        'valid_goals': valid_goals,
+                        'valid_targets': valid_targets,
+                        'valid_final_target': valid_final_target,
                         'test_goals': test_goals,
                         'test_targets': test_targets,
+                        'test_final_target': test_final_target,
                         'progressive_goals': progressive_goals,
                         'progressive_models': progressive_models,
                         'control_init': control_init,
@@ -1823,11 +1834,14 @@ class ProgressiveMultiPrompter(object):
                 self.test_prefixes,
                 self.logfile,
                 self.managers,
-                self.test_goals,
-                self.test_targets,
-                self.test_workers,
-                self.train_final_target,
-                self.test_final_target,
+                valid_goals=self.valid_goals,
+                valid_targets=self.valid_targets,
+                test_goals=self.test_goals,
+                test_targets=self.test_targets,
+                test_workers=self.test_workers,
+                train_final_targets=self.train_final_target,
+                valid_final_targets=self.valid_final_target,
+                test_final_targets=self.test_final_target,
                 **self.mpa_kwargs
             )
             if num_goals == len(self.goals) and num_workers == len(self.workers):
@@ -2152,12 +2166,16 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
     has_final_targets = False
     train_goals = getattr(params, 'goals', [])
     train_targets = getattr(params, 'targets', [])
+    
+    valid_goals = getattr(params, 'valid_goals', [])
+    valid_targets = getattr(params, 'valid_targets', [])
 
     test_goals = getattr(params, 'test_goals', [])
     test_targets = getattr(params, 'test_targets', [])
 
     # additionally added to facilitate final loss
     train_final_targets = getattr(params, 'final_target', [])
+    valid_final_targets = getattr(params, 'valid_final_target', [])
     test_final_targets = getattr(params, 'final_target', [])
 
     #addition2 = params.extractor_text
@@ -2232,6 +2250,30 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
         else:
             train_final_targets = [""] * len(train_targets)
 
+        # VALIDATION SET:
+        if params.n_valid_data > 0:
+            valid_data = train_data
+            # Sample valid data after the train data:
+            valid_offset = len(train_targets)
+
+            valid_targets = valid_data[target_entry].astype(str).tolist()
+            valid_targets = [valid_targets[i] for i in seeded_indices][valid_offset:valid_offset + params.n_valid_data]
+            if goal_entry in valid_data.columns:
+                valid_goals = valid_data[goal_entry].astype(str).tolist()
+                valid_goals = [valid_goals[i] for i in seeded_indices][valid_offset:valid_offset + params.n_valid_data]
+                if len(addition) > 0:
+                    valid_goals = [goal + addition for goal in valid_goals]
+            else:
+                valid_goals = [""] * len(valid_targets)
+
+            # Again, Most datasets won't have it. Just the ones we are curating for this feature
+            if final_target_entry in valid_data.columns:
+                valid_final_targets = valid_data[final_target_entry].astype(str).tolist()
+                valid_final_targets = [valid_final_targets[i] for i in seeded_indices][valid_offset:valid_offset + params.n_valid_data]
+            else:
+                valid_final_targets = [""] * len(valid_targets)
+
+        # TEST SET:
         if params.test_data and params.n_test_data > 0:
             if params.test_data.endswith('.tsv'):
                 test_data = pd.read_csv(params.test_data, sep='\t', dtype=str)
@@ -2296,8 +2338,23 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
                 test_goals = [""] * len(test_targets)
 
     assert len(train_goals) == len(train_targets)
+    if params.n_valid_data > 0: assert len(valid_goals) == len(valid_targets)
     assert len(test_goals) == len(test_targets)
     print('Loaded {} train goals'.format(len(train_goals)))
+    if params.n_valid_data > 0: print(f'Loaded {len(valid_goals)} validation goals')
     print('Loaded {} test goals'.format(len(test_goals)))
 
-    return train_goals, train_targets, test_goals, test_targets, train_final_targets, test_final_targets
+    rdict = {
+        'train_goals':train_goals, 
+        'train_targets':train_targets, 
+        'test_goals':test_goals, 
+        'test_targets':test_targets, 
+        'train_final_targets':train_final_targets, 
+        'test_final_targets':test_final_targets,
+    }
+    
+    rdict['valid_goals'] = valid_goals
+    rdict['valid_targets'] = valid_targets
+    rdict['valid_final_targets'] = valid_final_targets
+
+    return rdict

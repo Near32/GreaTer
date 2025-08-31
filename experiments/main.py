@@ -2,6 +2,8 @@
 import time
 import importlib
 import numpy as np
+import random
+import torch
 import torch.multiprocessing as mp
 from absl import app
 from ml_collections import config_flags
@@ -27,6 +29,15 @@ def main(_):
     mp.set_start_method('spawn')
 
     params = _CONFIG.value
+    seed = params.seed
+
+    torch.manual_seed(seed)
+    if hasattr(torch.backends, "cudnn") and params.get('torch_deterministic', False):
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = True #False
+
+    np.random.seed(seed)
+    random.seed(seed)
 
     attack_lib = dynamic_import(f'llm_opt.{params.attack}')
 
@@ -37,7 +48,18 @@ def main(_):
             config=params,
         )
 
-    train_goals, train_targets, test_goals, test_targets, train_final_target, test_final_target = get_goals_and_targets(params)
+    data_dict = get_goals_and_targets(params)
+    train_goals, train_targets, test_goals, test_targets, train_final_target, test_final_target = \
+        data_dict['train_goals'], \
+        data_dict['train_targets'], \
+        data_dict['test_goals'], \
+        data_dict['test_targets'], \
+        data_dict['train_final_targets'], \
+        data_dict['test_final_targets'] 
+
+    valid_goals = data_dict['valid_goals']
+    valid_targets = data_dict['valid_targets']
+    valid_final_target = data_dict['valid_final_targets']
 
     workers, test_workers = get_workers(params, eval=(params.attack == 'sdlm_opt'))
 
@@ -58,6 +80,8 @@ def main(_):
         control_init=params.control_init,
         logfile=f"{params.result_prefix}_{timestamp}.json",
         managers=managers,
+        valid_goals=valid_goals,
+        valid_targets=valid_targets,
         test_goals=test_goals,
         test_targets=test_targets,
         test_workers=test_workers,
@@ -66,6 +90,7 @@ def main(_):
         mpa_batch_size=params.batch_size,
         mpa_n_steps=params.n_steps,
         train_final_target=train_final_target,
+        valid_final_target=valid_final_target,
         test_final_target =  test_final_target,
         params=params,
     )
