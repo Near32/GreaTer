@@ -2336,6 +2336,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
 
         steps = 0
         loss = best_loss = 1e6
+        accuracy = best_accuracy = 0.0
         best_control = self.control_str
         top_controls = []
         runtime = 0.
@@ -2398,6 +2399,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 SIMULATED_CANONICAL=SIMULATED_CANONICAL,
                 params=kwargs['params'],
             )
+            accuracy = 0.0
 
             if kwargs['params'].get('use_wandb', False):
                 wandb_log = {
@@ -2428,6 +2430,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 )
                 valid_jb, valid_mb, valid_loss = list(map(np.array, model_valids))
                 valid_loss = valid_loss.mean().item()
+                n_em = self.parse_results(valid_mb, entry_type='valid')
+                total_tests = self.parse_results(np.ones(valid_jb.shape, dtype=int), entry_type='valid')
+                valid_accuracy = float(n_em[0]*100.0)/max(total_tests[0],1)
                 if kwargs['params'].get('use_wandb', False):
                     wandb_log.update({
                         'valid/loss': valid_loss,
@@ -2450,12 +2455,23 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             #     self.update_solution()
 
 
+            validate_on = kwargs['params'].get('validate_on' 'loss')
             if kwargs['params'].get('n_valid_data', 0) <=0:
                 prev_loss = loss 
-                if loss < best_loss:
+                prev_accuracy = accuracy
+                if validate_on == 'loss' \
+                and loss < best_loss:
                     best_loss = loss
+                    best_accuracy = accuracy
                     best_step = i
                     best_control = control
+                elif validate_on == 'accuracy' \
+                and accuracy > best_accuracy:
+                    best_loss = loss
+                    best_accuracy = accuracy
+                    best_step = i
+                    best_control = control
+
                 if len(top_controls) < 10 or loss < top_controls[-1][0]:
                     if len(top_controls) == 10:
                         top_controls.pop()
@@ -2467,8 +2483,17 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 print('Current Loss:', loss, 'Best Loss:', best_loss, 'Best Control:', best_control)
             else:
                 prev_loss = valid_loss 
-                if valid_loss < best_loss:
+                prev_accuracy = valid_accuracy
+                if validate_on == 'loss' \
+                and valid_loss < best_loss:
                     best_loss = valid_loss
+                    best_accuracy = valid accuracy
+                    best_step = i
+                    best_control = control
+                elif validate_on == 'accuracy' \
+                and valid_accuracy > best_accuracy:
+                    best_loss = valid_loss
+                    best_accuracy = valid_accuracy
                     best_step = i
                     best_control = control
 
@@ -2481,6 +2506,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
 
                 print("Time taken for iteration: ", runtime)
                 print('Current Train/Valid Loss:', loss, '/', valid_loss, 'Best Valid Loss:', best_loss, 'Best Control:', best_control)
+                print('Current Train/Valid accuracy:', accuracy, '/', valid_accuracy, 'Best Valid Accuracy:', best_accuracy, 'Best Control:', best_control)
 
             if i%15 == 0:
                 print("Step: ", i, "Candidates: ", top_controls)

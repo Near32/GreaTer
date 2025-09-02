@@ -50,6 +50,7 @@ def get_config():
     config.n_valid_data = 0
     config.n_test_data = 0
     config.data_offset = 0
+    config.validate_on = 'loss'
 
     # attack-related parameters
     config.attack = 'gcg'
