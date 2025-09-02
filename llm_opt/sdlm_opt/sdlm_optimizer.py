@@ -2437,10 +2437,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     wandb_log.update({
                         'valid/loss': valid_loss,
                         'valid/control': control,
+                        'valid/accuracy': valid_accuracy,
                     })
-
-            if kwargs['params'].get('use_wandb', False):
-                wandb.log(wandb_log)
 
             '''
             keep_control = True if not anneal else P(prev_loss, loss, i + anneal_from)
@@ -2455,7 +2453,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             #     self.update_solution()
 
 
-            validate_on = kwargs['params'].get('validate_on' 'loss')
+            validate_on = kwargs['params'].get('validate_on', 'loss')
             if kwargs['params'].get('n_valid_data', 0) <=0:
                 prev_loss = loss 
                 prev_accuracy = accuracy
@@ -2487,7 +2485,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 if validate_on == 'loss' \
                 and valid_loss < best_loss:
                     best_loss = valid_loss
-                    best_accuracy = valid accuracy
+                    best_accuracy = valid_accuracy
                     best_step = i
                     best_control = control
                 elif validate_on == 'accuracy' \
@@ -2504,9 +2502,19 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     top_controls.append((valid_loss, control))
                     top_controls.sort(key=lambda x: x[0])
 
+                if kwargs['params'].get('use_wandb', False):
+                    wandb_log.update({
+                        'best_accuracy': best_accuracy,
+                        'best_loss': best_loss,
+                        'best_control': best_control,
+                    })
+
                 print("Time taken for iteration: ", runtime)
                 print('Current Train/Valid Loss:', loss, '/', valid_loss, 'Best Valid Loss:', best_loss, 'Best Control:', best_control)
                 print('Current Train/Valid accuracy:', accuracy, '/', valid_accuracy, 'Best Valid Accuracy:', best_accuracy, 'Best Control:', best_control)
+
+            if kwargs['params'].get('use_wandb', False):
+                wandb.log(wandb_log)
 
             if i%15 == 0:
                 print("Step: ", i, "Candidates: ", top_controls)

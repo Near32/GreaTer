@@ -63,6 +63,8 @@ parameters:
   config.do_sample:
     #values: [True]
     values: [False]
+  config.validate_on:
+    value: 'accuracy'
 
   # Model-specific SDLM parameters
   config.sdlm_variable_kwargs.init_strategy:

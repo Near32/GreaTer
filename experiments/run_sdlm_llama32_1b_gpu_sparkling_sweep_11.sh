@@ -63,7 +63,7 @@ python -m ipdb -c c main.py \
     --config.n_steps=20 \
     --config.test_steps=20 \
     --config.anneal=True \
-    --config.batch_size=16 \
+    --config.batch_size=8 \
     --config.temp=0.5 \
     --config.topk=10 \
     --config.topq=5 \
