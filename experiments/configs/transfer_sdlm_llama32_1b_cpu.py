@@ -16,7 +16,7 @@ def get_config():
     # Tokenizer configuration matching transfer_llama3.py
     config.tokenizer_paths = [
         "meta-llama/Llama-3.2-1B-Instruct",
-        "meta-llama/Meta-Llama-3-8B-Instruct"
+        "meta-llama/Llama-3.2-1B-Instruct"
     ]
     config.tokenizer_kwargs = [
         {"use_fast": False, "add_bos_token": False, "pad_token": "<|end_of_text|>"}, 
@@ -24,11 +24,14 @@ def get_config():
     ]
     
     # Model configuration for Llama-3-8B-Instruct
-    config.model_paths = ['HuggingFaceTB/SmolLM2-135M-Instruct', 'HuggingFaceTB/SmolLM2-135M-Instruct']
     #config.model_paths = [
-    #    "meta-llama/Llama-3.2-1B-Instruct",
-    #    "meta-llama/Meta-Llama-3-8B-Instruct"
+    #    'HuggingFaceTB/SmolLM2-135M-Instruct', 
+    #    'HuggingFaceTB/SmolLM2-135M-Instruct',
     #]
+    config.model_paths = [
+        "meta-llama/Llama-3.2-1B-Instruct",
+        "meta-llama/Llama-3.2-1B-Instruct",
+    ]
     config.conversation_templates = [
         'llama-3', 
         'llama-3',
@@ -91,7 +94,7 @@ def get_config():
     config.early_stopping_steps = 3
     
     # Logging
-    config.logfile = 'results/sdlm_llama3_8b_gpu_gsm8k.json'
+    config.logfile = 'results/sdlm_llama3_1b_cpu_gsm8k.json'
     config.verbose = True
     
     return config

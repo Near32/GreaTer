@@ -2181,12 +2181,14 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
     #addition2 = params.extractor_text
 
     offset = getattr(params, 'data_offset', 0)
+    test_offset = getattr(params, 'data_test_offset', 0)
 
     # Seeding:
     seed = params.get('seed', 0)
     print(f'SEED = {seed}') 
 
     if params.train_data:
+        import ipdb; ipdb.set_trace()
         if params.train_data.endswith('.tsv'):
             train_data = pd.read_csv(params.train_data, sep='\t', dtype=str)
         elif params.train_data.endswith('.jsonl'):
@@ -2274,6 +2276,13 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
                 valid_final_targets = [""] * len(valid_targets)
 
         # TEST SET:
+        if params.test_data == params.train_data:
+            print(f"Test set is sampled from the same data than train and valid.")
+            # need to make sure that the training data are not used for testing:
+            test_offset += len(train_targets)
+            if params.n_valid_data > 0:
+                test_offset += len(valid_targets)
+
         if params.test_data and params.n_test_data > 0:
             if params.test_data.endswith('.tsv'):
                 test_data = pd.read_csv(params.test_data, sep='\t', dtype=str)
@@ -2286,10 +2295,14 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
             else:
                 test_data = pd.read_csv(params.test_data, dtype=str, on_bad_lines='warn')
             
-            seeded_indices = generate_random_indices(
-                dataset_size=len(test_data),
-                seed=seed,
-            ) if seed != 0 else list(range(len(test_data)))    
+            if params.test_data == params.train_data:
+                # we reuse the previous seeds
+                pass
+            else:
+                seeded_indices = generate_random_indices(
+                    dataset_size=len(test_data),
+                    seed=seed,
+                ) if seed != 0 else list(range(len(test_data)))    
 
             #test_targets = test_data['target'].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
             
@@ -2300,11 +2313,11 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
             #test_targets = test_data[target_entry].astype(str).tolist()[
             #               offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
             test_targets = test_data[target_entry].astype(str).tolist()
-            test_targets = [test_targets[i] for i in seeded_indices][offset:offset + params.n_test_data]
+            test_targets = [test_targets[i] for i in seeded_indices][test_offset:test_offset + params.n_test_data]
             if goal_entry in test_data.columns:
                 #test_goals = test_data[goal_entry].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
                 test_goals = test_data[goal_entry].astype(str).tolist()
-                test_goals = [test_goals[i] for i in seeded_indices][offset:offset + params.n_test_data]
+                test_goals = [test_goals[i] for i in seeded_indices][test_offset:test_offset + params.n_test_data]
                 if len(addition) > 0:
                     test_goals = [goal + addition for goal in test_goals]
                 #if len(params.extractor_text) > 0:
@@ -2316,7 +2329,7 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
             if final_target_entry in test_data.columns:
                 #test_final_targets = test_data[final_target_entry].astype(str).tolist()[offset + params.n_train_data:offset + params.n_train_data + params.n_test_data]
                 test_final_targets = test_data[final_target_entry].astype(str).tolist()
-                test_final_targets = [test_final_targets[i] for i in seeded_indices][offset:offset + params.n_test_data]
+                test_final_targets = [test_final_targets[i] for i in seeded_indices][test_offset:test_offset + params.n_test_data]
                 #if len(addition3) >= 0 and "llama-3" in params.conversation_templates:
                 #    test_final_targets = [addition3 + remove_parentheses_if_single_char(target) for target in test_final_targets]
                 #elif "llama-2" in params.conversation_templates or "gemma-2" in params.conversation_templates:
