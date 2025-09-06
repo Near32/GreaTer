@@ -2188,7 +2188,6 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
     print(f'SEED = {seed}') 
 
     if params.train_data:
-        import ipdb; ipdb.set_trace()
         if params.train_data.endswith('.tsv'):
             train_data = pd.read_csv(params.train_data, sep='\t', dtype=str)
         elif params.train_data.endswith('.jsonl'):
@@ -2254,9 +2253,23 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
 
         # VALIDATION SET:
         if params.n_valid_data > 0:
-            valid_data = train_data
-            # Sample valid data after the train data:
-            valid_offset = len(train_targets)
+            if params.valid_data:
+                valid_offset = 0
+                if params.valid_data.endswith('.tsv'):
+                    valid_data = pd.read_csv(params.valid_data, sep='\t', dtype=str)
+                elif params.valid_data.endswith('.jsonl'):
+                    # Read JSONL file line by line and convert to DataFrame
+                    with open(params.valid_data, 'r') as f:
+                        lines = f.readlines()
+                        data = [json.loads(line) for line in lines]
+                    valid_data = pd.DataFrame(data)
+                else:
+                    valid_data = pd.read_csv(params.train_data, dtype=str, on_bad_lines='warn')
+            else:
+                print(f"Sampling validation set from the same data than training set.")
+                valid_data = train_data
+                # Sample valid data after the train data:
+                valid_offset = len(train_targets)
 
             valid_targets = valid_data[target_entry].astype(str).tolist()
             valid_targets = [valid_targets[i] for i in seeded_indices][valid_offset:valid_offset + params.n_valid_data]
@@ -2276,6 +2289,7 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
                 valid_final_targets = [""] * len(valid_targets)
 
         # TEST SET:
+        import ipdb; ipdb.set_trace()
         if params.test_data == params.train_data:
             print(f"Test set is sampled from the same data than train and valid.")
             # need to make sure that the training data are not used for testing:

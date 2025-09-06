@@ -45,6 +45,7 @@ def get_config():
     config.seed = 0
     config.torch_deterministic = False
     config.train_data = ''
+    config.valid_data = ''
     config.test_data = ''
     config.n_train_data = 50
     config.n_valid_data = 0
