@@ -78,6 +78,7 @@ def main(_):
         progressive_models=params.progressive_models,
         progressive_goals=params.progressive_goals,
         control_init=params.control_init,
+        extractor_text=params.extractor_text,
         logfile=f"{params.result_prefix}_{timestamp}.json",
         managers=managers,
         valid_goals=valid_goals,

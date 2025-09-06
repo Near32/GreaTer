@@ -56,7 +56,7 @@ parameters:
   config.n_train_data:
     value: 50
   config.n_valid_data:
-    values: 100
+    value: 100
   config.n_test_data:
     value: 10000
   config.anneal:
@@ -108,9 +108,9 @@ parameters:
 
   # Prompt engineering configuration
   config.control_init:
-    value: "Use proper logical reasoning and think step by step. Finally, give the actuacl correct_answer."
+    value: "Use proper logical reasoning and think step by step. Finally, give the actual correct answer."
   config.extractor_text:
-    value: "Therefore, the final answer (use exactly this format: $(LETTER)$, where LETTER is an uppercase letter, like A or B) is $("
+    value: "Therefore, the final answer (use exactly this format: $LETTER$, where LETTER is an uppercase letter, like A or B) is $"
 
   config.log_first:
     value: False

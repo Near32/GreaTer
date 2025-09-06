@@ -25,9 +25,9 @@ echo "Results prefix: $RESULT_PREFIX"
 echo "========================================"
 
 # Set extractor text for FOLIO format
-extractor_text="Therefore, the final answer (use exactly this format: \$(LETTER)\$, where LETTER is an uppercase letter, like A or B) is \$("
+extractor_text="Therefore, the final answer (use exactly this format: \$(LETTER)\$, where LETTER is an uppercase letter, like A or B) is \$"
 # "Therefore, the final answer (use exactly this format: \$NUMBER\$, where NUMBER is a positive or negative integer) is $"
-control_init="Use proper logical reasoning and think step by step. Finally, give the actuacl correct_answer."
+control_init="Use proper logical reasoning and think step by step. Finally, give the actual correct answer."
 #"Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer." \
 
 # Set environment variables for CPU optimization

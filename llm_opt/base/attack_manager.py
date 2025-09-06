@@ -793,6 +793,7 @@ class PromptManager(object):
                  tokenizer,
                  conv_template,
                  control_init="! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+                 extractor_text="",
                  test_prefixes=["I'm sorry", "I apologize", "As an", "I'm just", "I'm an", "I cannot", "Hello!"],
                  managers=None,
                  final_targets=[],
@@ -834,6 +835,7 @@ class PromptManager(object):
                 tokenizer=tokenizer,
                 conv_template=conv_template,
                 control_init=control_init,
+                extractor_text=extractor_text,
                 test_prefixes=test_prefixes,
                 final_target=final_target,
             )
@@ -1626,6 +1628,7 @@ class ProgressiveMultiPrompter(object):
                  progressive_goals=True,
                  progressive_models=True,
                  control_init="! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+                 extractor_text="",
                  test_prefixes=["I'm sorry", "I apologize", "As an", "I'm just", "I'm an", "I cannot", "Hello!"],
                  logfile=None,
                  managers=None,
@@ -1682,6 +1685,7 @@ class ProgressiveMultiPrompter(object):
         self.progressive_goals = progressive_goals
         self.progressive_models = progressive_models
         self.control = control_init
+        self.extractor_text = extractor_text
         self.test_prefixes = test_prefixes
         self.logfile = logfile
         self.managers = managers
@@ -1827,13 +1831,14 @@ class ProgressiveMultiPrompter(object):
         while step < n_steps:
             print(f"Creating prompt managers: ...")
             attack = self.managers['MPA'](
-                self.goals[:num_goals],
-                self.targets[:num_goals],
-                self.workers[:num_workers],
-                self.control,
-                self.test_prefixes,
-                self.logfile,
-                self.managers,
+                goals=self.goals[:num_goals],
+                targets=self.targets[:num_goals],
+                workers=self.workers[:num_workers],
+                control_init=self.control,
+                extractor_text=self.extractor_text,
+                test_prefixes=self.test_prefixes,
+                logfile=self.logfile,
+                managers=self.managers,
                 valid_goals=self.valid_goals,
                 valid_targets=self.valid_targets,
                 test_goals=self.test_goals,
@@ -2223,8 +2228,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
             train_data['final_target'] = train_data['answer'].str.split('#### ').str[1]
         train_targets = train_data[target_entry].astype(str).tolist()
         train_targets = [train_targets[i] for i in seeded_indices][offset:offset + params.n_train_data]
-        #if len(params.extractor_text) > 0:
-        #    train_targets = [remove_parentheses_if_single_char(target) for target in train_targets]
+        if len(params.extractor_text) > 0:
+            train_targets = [remove_parentheses_if_single_char(target) for target in train_targets]
 
         goal_entry = 'goal'
         if goal_entry not in train_data.columns:
@@ -2246,7 +2251,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
             #    train_final_targets = [addition3 + remove_parentheses_if_single_char(target) for target in train_final_targets]
             #elif "llama-2" in params.conversation_templates or "gemma-2" in params.conversation_templates:
             #    train_final_targets = [remove_parentheses_if_single_char(target) for target in train_final_targets]
-
+            if len(params.extractor_text) > 0:
+                train_final_targets = [remove_parentheses_if_single_char(final_target) for final_target in train_final_targets]
             has_final_targets = True
         else:
             train_final_targets = [""] * len(train_targets)
@@ -2278,6 +2284,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
                 valid_goals = [valid_goals[i] for i in seeded_indices][valid_offset:valid_offset + params.n_valid_data]
                 if len(addition) > 0:
                     valid_goals = [goal + addition for goal in valid_goals]
+                if len(params.extractor_text) > 0:
+                    valid_targets = [remove_parentheses_if_single_char(target) for target in valid_targets]
             else:
                 valid_goals = [""] * len(valid_targets)
 
@@ -2285,11 +2293,12 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
             if final_target_entry in valid_data.columns:
                 valid_final_targets = valid_data[final_target_entry].astype(str).tolist()
                 valid_final_targets = [valid_final_targets[i] for i in seeded_indices][valid_offset:valid_offset + params.n_valid_data]
+                if len(params.extractor_text) > 0:
+                    valid_final_targets = [remove_parentheses_if_single_char(final_target) for final_target in valid_final_targets]
             else:
                 valid_final_targets = [""] * len(valid_targets)
 
         # TEST SET:
-        import ipdb; ipdb.set_trace()
         if params.test_data == params.train_data:
             print(f"Test set is sampled from the same data than train and valid.")
             # need to make sure that the training data are not used for testing:
@@ -2334,8 +2343,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
                 test_goals = [test_goals[i] for i in seeded_indices][test_offset:test_offset + params.n_test_data]
                 if len(addition) > 0:
                     test_goals = [goal + addition for goal in test_goals]
-                #if len(params.extractor_text) > 0:
-                #    test_targets = [params.extractor_text + remove_parentheses_if_single_char(target) for target in test_targets]
+                if len(params.extractor_text) > 0:
+                    test_targets = [params.extractor_text + remove_parentheses_if_single_char(target) for target in test_targets]
             else:
                 test_goals = [""] * len(test_targets)
 
@@ -2348,6 +2357,8 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
                 #    test_final_targets = [addition3 + remove_parentheses_if_single_char(target) for target in test_final_targets]
                 #elif "llama-2" in params.conversation_templates or "gemma-2" in params.conversation_templates:
                 #    test_final_targets = [remove_parentheses_if_single_char(target) for target in test_final_targets]
+                if len(params.extractor_text) > 0:
+                    test_final_targets = [remove_parentheses_if_single_char(final_target) for final_target in test_final_targets]
             else:
                 #test_final_targets = [""] * len(train_targets)
                 test_final_targets = [""] * len(test_targets)
