@@ -43,6 +43,7 @@ def get_config():
 
     # data
     config.seed = 0
+    config.data_seed = -1
     config.torch_deterministic = False
     config.train_data = ''
     config.valid_data = ''

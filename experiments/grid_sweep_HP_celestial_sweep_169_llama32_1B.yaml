@@ -104,6 +104,8 @@ parameters:
   config.validate_on:
     value: 'accuracy'
   config.seed:
+    values: [40]
+  config.data_seed:
     values: [10, 20, 30, 40, 50] 
 
   # Prompt engineering configuration

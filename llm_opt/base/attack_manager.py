@@ -2189,7 +2189,7 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
     test_offset = getattr(params, 'data_test_offset', 0)
 
     # Seeding:
-    seed = params.get('seed', 0)
+    seed = params.get('seed_data', params.get('seed', 0))
     print(f'SEED = {seed}') 
 
     if params.train_data:

@@ -29,16 +29,7 @@ def main(_):
     mp.set_start_method('spawn')
 
     params = _CONFIG.value
-    seed = params.seed
-
-    torch.manual_seed(seed)
-    if hasattr(torch.backends, "cudnn") and params.get('torch_deterministic', False):
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = True #False
-
-    np.random.seed(seed)
-    random.seed(seed)
-
+    
     attack_lib = dynamic_import(f'llm_opt.{params.attack}')
 
     if params.use_wandb:
@@ -60,6 +51,16 @@ def main(_):
     valid_goals = data_dict['valid_goals']
     valid_targets = data_dict['valid_targets']
     valid_final_target = data_dict['valid_final_targets']
+
+    seed = params.seed
+
+    torch.manual_seed(seed)
+    if hasattr(torch.backends, "cudnn") and params.get('torch_deterministic', False):
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = True #False
+
+    np.random.seed(seed)
+    random.seed(seed)
 
     workers, test_workers = get_workers(params, eval=(params.attack == 'sdlm_opt'))
 
