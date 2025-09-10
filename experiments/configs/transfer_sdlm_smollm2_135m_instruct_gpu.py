@@ -45,6 +45,7 @@ def get_config():
         'init_strategy': 'fluency', 
         'hard': False,
     }
+    config.sdlm_model_stgs_logits_generation = True
     config.sdlm_model_kwargs = {
         "hard": False,
         "temperature": 0.1,

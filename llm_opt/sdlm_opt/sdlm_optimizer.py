@@ -1027,6 +1027,7 @@ class SDLMPromptManager(BasePromptManager):
         learning_rate: float = 0.1,
         gradient_comp_batch_size: int = 1,
         sdlm_fluency_model_name_or_path: str = '',
+        sdlm_model_stgs_logits_generation: Optional[bool] = True,
         sdlm_model_kwargs: Dict[str, Any] = {
             "hard": False,
             "temperature": 1.0,
@@ -1103,7 +1104,8 @@ class SDLMPromptManager(BasePromptManager):
         self.gradient_comp_batch_size = gradient_comp_batch_size
         self.sdlm_model_kwargs = sdlm_model_kwargs
         self.sdlm_variable_kwargs = sdlm_variable_kwargs
-        
+        self.sdlm_model_stgs_logits_generation = sdlm_model_stgs_logits_generation
+
         import sdlm
         self.sdlm_fluency_model_name_or_path = sdlm_fluency_model_name_or_path
         sdlm._manager.configure_fluency_model(self.sdlm_fluency_model_name_or_path)
@@ -1126,6 +1128,7 @@ class SDLMPromptManager(BasePromptManager):
             model=model,
             tokenizer=tokenizer,
             stgs_kwargs=self.sdlm_model_kwargs,
+            stgs_logits_generation=self.sdlm_model_stgs_logits_generation,
             device=model.device
         )
     
@@ -1497,6 +1500,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 managers=managers,
                 final_targets=train_final_targets,
                 sdlm_fluency_model_name_or_path=self.workers[0].model.name_or_path,
+                sdlm_model_stgs_logits_generation=self.kwargs['params']['sdlm_model_stgs_logits_generation'],
                 sdlm_model_kwargs=self.kwargs['params']['sdlm_model_kwargs'],
                 sdlm_variable_kwargs=self.kwargs['params']['sdlm_variable_kwargs'],
                 params=self.kwargs['params'],
@@ -1824,6 +1828,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             #final_targets=self.train_final_targets+self.valid_final_targets,
             final_targets=self.valid_final_targets,
             sdlm_fluency_model_name_or_path=self.workers[0].model.name_or_path,
+            sdlm_model_stgs_logits_generation=self.kwargs['params']['sdlm_model_stgs_logits_generation'],
             sdlm_model_kwargs=self.kwargs['params']['sdlm_model_kwargs'],
             sdlm_variable_kwargs=self.kwargs['params']['sdlm_variable_kwargs'],
             params=self.kwargs['params'],
@@ -1856,6 +1861,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             managers=self.managers,
             final_targets=self.train_final_targets+self.test_final_targets,
             sdlm_fluency_model_name_or_path=self.workers[0].model.name_or_path,
+            sdlm_model_stgs_logits_generation=self.kwargs['params']['sdlm_model_stgs_logits_generation'],
             sdlm_model_kwargs=self.kwargs['params']['sdlm_model_kwargs'],
             sdlm_variable_kwargs=self.kwargs['params']['sdlm_variable_kwargs'],
             params=self.kwargs['params'],

@@ -62,6 +62,7 @@ def get_config():
         'hard': False,
     }
     
+    config.sdlm_model_stgs_logits_generation = True
     config.sdlm_model_kwargs = {
         "hard": False,
         "temperature": 0.7,        # Slightly higher temperature for model sampling
