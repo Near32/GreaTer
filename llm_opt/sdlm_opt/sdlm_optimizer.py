@@ -2321,7 +2321,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         control_weight=None,
         anneal=True,
         anneal_from=0,
-        prev_loss=np.infty,
+        prev_loss=np.inf,
         stop_on_success=True,
         test_steps=200,
         log_first=False,

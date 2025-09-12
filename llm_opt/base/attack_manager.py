@@ -1371,7 +1371,7 @@ class MultiPrompter(object):
             control_weight=None,
             anneal=True,
             anneal_from=0,
-            prev_loss=np.infty,
+            prev_loss=np.inf,
             stop_on_success=True,
             test_steps=200,
             log_first=False,
@@ -1826,7 +1826,7 @@ class ProgressiveMultiPrompter(object):
         step = 0
         # stop_inner_on_success = self.progressive_goals
         stop_inner_on_success = False
-        loss = np.infty
+        loss = np.inf
         early_stopping = True
         while step < n_steps:
             print(f"Creating prompt managers: ...")
@@ -1883,12 +1883,12 @@ class ProgressiveMultiPrompter(object):
             if num_goals < len(self.goals):
                 num_goals += group_size
                 num_goals = min(num_goals, len(self.goals))
-                loss = np.infty
+                loss = np.inf
             elif num_goals == len(self.goals):
                 if num_workers < len(self.workers):
                     num_workers += group_size
                     num_workers = min(num_workers, len(self.workers))
-                    loss = np.infty
+                    loss = np.inf
                 elif num_workers == len(self.workers) and stop_on_success:
                     model_tests = attack.test_all()
                     attack.log(step, n_steps, self.control, loss, 0., model_tests, verbose=verbose, params=params)
@@ -1897,7 +1897,7 @@ class ProgressiveMultiPrompter(object):
                     if isinstance(control_weight, (int, float)) and incr_control:
                         if control_weight <= 0.5:
                             control_weight += 0.01
-                            loss = np.infty
+                            loss = np.inf
                             if verbose:
                                 print(f"Control weight increased to {control_weight:.5}")
                         else:
