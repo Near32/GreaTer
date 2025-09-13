@@ -4,6 +4,7 @@ import math
 import random
 import string
 import time
+from time import sleep
 from copy import deepcopy
 from typing import Optional, Any, List
 import re
@@ -1695,6 +1696,8 @@ class ProgressiveMultiPrompter(object):
         self.test_final_target = test_final_target
 
         if logfile is not None:
+            directory = os.path.dirname(logfile)
+            os.makedirs(directory, exist_ok=True)
             with open(logfile, 'w') as f:
                 json.dump({
                     'params': {
@@ -1915,6 +1918,7 @@ class ModelWorker(object):
         tokenizer,
         conv_template,
         device,
+        dtype='auto',
     ):
         if type(model_path) == type("sample string"):
             # os.environ["CUDA_VISIBLE_DEVICES"] = device
@@ -1924,16 +1928,25 @@ class ModelWorker(object):
             #     trust_remote_code=True,
             #     **model_kwargs
             # ).to(device).eval()
+            
+            print(f"Loading model {model_path} with:")
+            print(f" dtype = {dtype} ; ")
+            print(f" device = {device}: ")
 
             self.model = AutoModelForCausalLM.from_pretrained(
                 model_path,
-                torch_dtype='auto',
+                torch_dtype=dtype,
                 trust_remote_code=True,
                 #cache_dir='/scratch2/share/model_files/huggingface',
                 # device_map = 'auto',
                 **model_kwargs
             ).to(device).eval()
+            if 'float16' == dtype:
+                print('MODEL HALF --> FP16')
+                sleep(5)
+                self.model = self.model.half()
             self.model.share_memory()
+
             # devices = ast.literal_eval(device)
             # self.model = nn.DataParallel(self.model, device_ids=devices)
             # .cuda(device=devices[0])
@@ -2111,16 +2124,29 @@ def get_workers(params, eval=False):
         conv_templates.append(conv)
 
     print(f"Loaded {len(conv_templates)} conversation templates")
-    workers = [
-        ModelWorker(
-            params.model_paths[i],
-            params.model_kwargs[i],
-            tokenizers[i],
-            conv_templates[i],
-            params.devices[i]
-        )
-        for i in range(len(params.model_paths))
-    ]
+    if params.model_paths[0] == params.model_paths[-1]:
+        workers = [
+            ModelWorker(
+                params.model_paths[0],
+                params.model_kwargs[0],
+                tokenizers[0],
+                conv_templates[0],
+                device=params.devices[0],
+                dtype=params.dtypes[0],
+            )
+        ] * len(params.model_paths)
+    else:
+        workers = [
+            ModelWorker(
+                params.model_paths[i],
+                params.model_kwargs[i],
+                tokenizers[i],
+                conv_templates[i],
+                device=params.devices[i],
+                dtype=params.dtypes[i],
+            )
+            for i in range(len(params.model_paths))
+        ]
     print("Initialized Workers...")
     if not eval:
         for worker in workers:
@@ -2189,7 +2215,7 @@ def get_goals_and_targets(params, addition=""" Put **only** the final number aro
     test_offset = getattr(params, 'data_test_offset', 0)
 
     # Seeding:
-    seed = params.get('seed_data', params.get('seed', 0))
+    seed = params.get('data_seed', params.get('seed', 0))
     print(f'SEED = {seed}') 
 
     if params.train_data:

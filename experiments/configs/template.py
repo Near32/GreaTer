@@ -40,11 +40,13 @@ def get_config():
     config.model_kwargs=[{"low_cpu_mem_usage": True, "use_cache": False}]
     config.conversation_templates=['vicuna']
     config.devices=['auto']
+    config.dtypes=['auto']
 
     # data
     config.seed = 0
     config.data_seed = -1
     config.torch_deterministic = False
+    config.torch_allow_tf32 = False
     config.train_data = ''
     config.valid_data = ''
     config.test_data = ''

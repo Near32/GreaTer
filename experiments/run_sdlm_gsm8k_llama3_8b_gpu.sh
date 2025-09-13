@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Create directories
-mkdir -p sdlm_llama32_1b_logs
+mkdir -p sdlm_llama3_8b_logs
 mkdir -p results
 
 # Set paths - using a small subset of data for quick testing
 TRAIN_DATA="../data/grade_school_math/train.jsonl"
 TEST_DATA="../data/grade_school_math/test.jsonl"
-LOG_FILE="sdlm_llama32_1b_logs/gsm8k_optimization.log"
-RESULT_PREFIX="results_test/sdlm_llama32_1b_gpu_gsm8k"
+LOG_FILE="sdlm_llama3_8b_logs/gsm8k_optimization.log"
+RESULT_PREFIX="results_test/sdlm_llama3_8b_gpu_gsm8k"
 
 # Print configuration
 echo "========================================"
-echo "SDLM Optimization with Llama-3.2-1B-Instruct (GPU)"
+echo "SDLM Optimization with Llama-3-8B-Instruct (GPU)"
 echo "========================================"
-echo "Model: meta-llama/Llama-3.2-1B-Instruct"
+echo "Model: meta-llama/Llama-3-8B-Instruct"
 echo "Device: GPU"
 echo "Train data: $TRAIN_DATA"
 echo "Test data: $TEST_DATA"
@@ -30,14 +30,14 @@ export OMP_NUM_THREADS=$(nproc)  # Use all available CPU cores
 export TOKENIZERS_PARALLELISM=false
 
 # Run the optimization
-echo "Starting optimization on GPU with Llama-3.2-1B-Instruct..."
+echo "Starting optimization on GPU with Llama-3-8B-Instruct..."
 #WANDB_DEBUG=true \
 #WANDB_CORE_DEBUG=true \
 WANDB_CACHE_DIR=./wandb_cache/ \
 WANDB_DIR=./wandb_dir/ \
 WANDB_DATA_DIR=./wandb_data_dir/ \
 python -m ipdb -c c main.py \
-    --config="./configs/transfer_sdlm_llama32_1b_gpu.py" \
+    --config="./configs/transfer_sdlm_llama3_8b_gpu.py" \
     --config.use_wandb=True \
     --config.project="GreaTer-SDLM" \
     --config.train_data="$TRAIN_DATA" \
@@ -54,7 +54,7 @@ python -m ipdb -c c main.py \
     --config.n_train_data=100 \
     --config.n_valid_data=50 \
     --config.n_test_data=10000 \
-    --config.sdlm_variable_kwargs.learning_rate=0.1 \
+    --config.sdlm_variable_kwargs.learning_rate=0.01 \
     --config.sdlm_variable_kwargs.init_strategy='random' \
     --config.sdlm_variable_kwargs.temperature=1.0 \
     --config.sdlm_variable_kwargs.logit_scaler=1.0 \
@@ -71,7 +71,7 @@ python -m ipdb -c c main.py \
     --config.test_steps=10 \
     --config.log_first=False \
     --config.anneal=True \
-    --config.batch_size=8 \
+    --config.batch_size=4 \
     --config.temp=0.7 \
     --config.topk=10 \
     --config.topq=5 \
@@ -82,7 +82,7 @@ python -m ipdb -c c main.py \
 
 # Print completion message
 echo "========================================"
-echo "GPU Optimization with Llama-3.2-1B-Instruct completed!"
+echo "GPU Optimization with Llama-3-8B-Instruct completed!"
 echo "Results saved to: $RESULT_PREFIX*"
 echo "Log file: $LOG_FILE"
 echo "========================================"

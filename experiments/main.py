@@ -11,6 +11,8 @@ import dill
 import wandb
 
 import os
+import time
+from time import sleep
 import sys
 sys.path.append('..')
 from llm_opt.base.attack_manager import get_goals_and_targets, get_workers
@@ -56,8 +58,16 @@ def main(_):
 
     torch.manual_seed(seed)
     if hasattr(torch.backends, "cudnn") and params.get('torch_deterministic', False):
+        print("ALLOWING DETERMINISTIC & BENCHMARK")
+        sleep(5)
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = True #False
+    if hasattr(torch.backends, "cudnn") and params.get('torch_allow_tf32', False):
+        print("ALLOWING TF32")
+        sleep(5)
+        # Reduce memory allocation overhead
+        torch.backends.cuda.matmul.allow_tf32 = True
+        torch.backends.cudnn.allow_tf32 = True
 
     np.random.seed(seed)
     random.seed(seed)

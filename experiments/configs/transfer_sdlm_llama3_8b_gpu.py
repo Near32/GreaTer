@@ -16,28 +16,39 @@ def get_config():
     # Tokenizer configuration matching transfer_llama3.py
     config.tokenizer_paths = [
         "meta-llama/Meta-Llama-3-8B-Instruct",
-        #"meta-llama/Meta-Llama-3-8B-Instruct"
+        "meta-llama/Meta-Llama-3-8B-Instruct"
     ]
     config.tokenizer_kwargs = [
         {"use_fast": False, "add_bos_token": False, "pad_token": "<|end_of_text|>"}, 
-        #{"use_fast": False, "add_bos_token": False, "pad_token": "<|end_of_text|>"}
+        {"use_fast": False, "add_bos_token": False, "pad_token": "<|end_of_text|>"}
     ]
     
     # Model configuration for Llama-3-8B-Instruct
     config.model_paths = [
         "meta-llama/Meta-Llama-3-8B-Instruct",
-        #"meta-llama/Meta-Llama-3-8B-Instruct"
+        "meta-llama/Meta-Llama-3-8B-Instruct"
     ]
     config.conversation_templates = [
         'llama-3', 
-        #'llama-3',
+        'llama-3',
     ]
     config.devices = [
         'cuda:0', 
-        #'cuda:0',
+        'cuda:0',
+    ]
+    config.dtypes = [
+        'bfloat16',
+        'bfloat16',
     ]
     config.torch_dtype = 'bfloat16'
     
+    config.model_kwargs = [
+            #{"low_cpu_mem_usage": True, "use_cache": False, "do_sample": True},
+            #{"low_cpu_mem_usage": True, "use_cache": False, "do_sample": True},
+            {"low_cpu_mem_usage": True, "use_cache": True, "do_sample": True},
+            {"low_cpu_mem_usage": True, "use_cache": True, "do_sample": True}
+    ]
+    '''
     # Enable 4-bit quantization to fit the model in GPU memory
     config.quantization_config = {
         'load_in_4bit': True,
@@ -45,7 +56,8 @@ def get_config():
         'bnb_4bit_use_double_quant': True,
         'bnb_4bit_compute_dtype': 'bfloat16'
     }
-    
+    '''
+
     # SDLM-specific parameters (optimized for Llama-3-8B-Instruct)
     config.sdlm_variable_kwargs = {
         'learning_rate': 0.001,     # Lower learning rate for stability
@@ -56,6 +68,7 @@ def get_config():
         'hard': False,
     }
     
+    config.sdlm_fluency_model = 'distilbert/distilgpt2'
     config.sdlm_model_stgs_logits_generation = True
     config.sdlm_model_kwargs = {
         "hard": False,
@@ -70,13 +83,13 @@ def get_config():
     config.gradient_comp_batch_size = 1
         
     # Optimization parameters (optimized for Llama-3-8B-Instruct)
-    config.n_steps = 30            # Fewer steps due to larger model
+    config.n_steps = 50            # Fewer steps due to larger model
     config.batch_size = 8          # Smaller batch size to fit in GPU memory
-    config.topk = 50               # Broader sampling for more diverse outputs
-    config.topq = 0.9              # Using top-p sampling for better quality
-    config.temp = 0.6              # Temperature for control sampling
+    config.topk = 10               # Broader sampling for more diverse outputs
+    config.topq = 5              # Using top-p sampling for better quality
+    config.temp = 0.1              # Temperature for control sampling
     config.target_weight = 1.0
-    config.control_weight = 0.3    # Slightly lower control weight
+    config.control_weight = 0.4    # Slightly lower control weight
     config.test_steps = 5          # Check periodically
     
     # Early stopping
