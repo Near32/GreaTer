@@ -48,6 +48,7 @@ python -m ipdb -c c main.py \
     --config.num_train_models=1 \
     --config.torch_deterministic=True \
     --config.torch_allow_tf32=True \
+    --config.do_sample=False \
     --config.seed=40 \
     --config.data_seed=10 \
     --config.validate_on="accuracy" \
