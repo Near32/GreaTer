@@ -75,6 +75,7 @@ python -m ipdb -c c main.py \
     --config.topk=10 \
     --config.topq=5 \
     --config.control_init="$control_text" \
+    --config.em_from_gen_str=False \
     --config.extractor_text="$extractor_text" \
     --config.control_weight=0.3 \
     --config.target_weight=1.0 #> "$LOG_FILE" 2>&1

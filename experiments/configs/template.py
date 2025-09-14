@@ -70,6 +70,7 @@ def get_config():
 
 
     # Extraction parameter
+    config.em_from_gen_str =True
     config.extractor_text = "Therefore, the final answer option is  $ "
 
     config.gbda_deterministic = True

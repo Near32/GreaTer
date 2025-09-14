@@ -63,6 +63,7 @@ python -m ipdb -c c main.py \
     --config.topk=10 \
     --config.topq=5 \
     --config.control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer." \
+    --config.em_from_gen_str=False \
     --config.extractor_text="$extractor_text" \
     --config.control_weight=0.4 \
     --config.target_weight=1.0 #\

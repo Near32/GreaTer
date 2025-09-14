@@ -24,6 +24,7 @@ echo "========================================"
 
 # Set extractor text for GSM8K format
 extractor_text="Therefore, the final answer (use exactly this format: \$NUMBER\$, where NUMBER is a positive or negative integer) is $"
+#extractor_text="Therefore, the final answer (with format: $ANSWER$) is $"
 
 # Set environment variables for CPU optimization
 export OMP_NUM_THREADS=$(nproc)  # Use all available CPU cores
@@ -48,11 +49,12 @@ python -m ipdb -c c main.py \
     --config.num_train_models=1 \
     --config.torch_deterministic=True \
     --config.torch_allow_tf32=True \
-    --config.seed=40 \
+    --config.do_sample=False \
+    --config.seed=10 \
     --config.data_seed=10 \
     --config.validate_on="accuracy" \
     --config.n_train_data=100 \
-    --config.n_valid_data=50 \
+    --config.n_valid_data=200 \
     --config.n_test_data=10000 \
     --config.sdlm_variable_kwargs.learning_rate=0.1 \
     --config.sdlm_variable_kwargs.init_strategy='random' \
@@ -67,8 +69,8 @@ python -m ipdb -c c main.py \
     --config.gradient_comp_batch_size=1 \
     --config.update_solution_max_new_tokens=256 \
     --config.max_new_tokens_answer=8 \
-    --config.n_steps=10 \
-    --config.test_steps=10 \
+    --config.n_steps=20 \
+    --config.test_steps=25 \
     --config.log_first=False \
     --config.anneal=True \
     --config.batch_size=8 \
@@ -77,6 +79,7 @@ python -m ipdb -c c main.py \
     --config.topq=5 \
     --config.control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer." \
     --config.extractor_text="$extractor_text" \
+    --config.em_from_gen_str=False \
     --config.control_weight=5.0 \
     --config.target_weight=0.1 #> "$LOG_FILE" 2>&1
 

@@ -71,6 +71,7 @@ python -m ipdb -c c main.py \
     --config.batch_size=8 \
     --config.temp=0.6 \
     --config.control_init="$control_text" \
+    --config.em_from_gen_str=False \
     --config.extractor_text="$extractor_text" \
     --config.control_weight=0.1 \
     --config.target_weight=0.1 #> "$LOG_FILE" 2>&1

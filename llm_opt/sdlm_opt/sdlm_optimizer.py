@@ -1586,6 +1586,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         max_new_tokens_reasoning=256,
         max_new_tokens_answer=32,
         do_sample=False,
+        em_from_gen_str=False,
     ):
         """
         Test the prompts against the model in batches.
@@ -1747,7 +1748,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     
                     print(f"Ground truth answer: {gt_answer}")
                     print(f"Gen. string: {final_answer}")
-                    em = gt_answer in final_answer #gen_str
+                    if em_from_gen_str:
+                        print(f"EM from gen_str")
+                        em = gt_answer in gen_str
+                    else:
+                        print(f"EM from final_answer")
+                        em = gt_answer in final_answer #gen_str
                     
                     print(f"\n===\nProblem {pidx+i}: Solution={gt_answer}\n{gen_str}")
                     
@@ -1841,6 +1847,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             valid_prompt_manager, 
             include_loss=True, 
             do_sample=do_sample,
+            em_from_gen_str=self.kwargs['params']['em_from_gen_str'],
             **kwargs,
         )
         # duplicate for all workers...
@@ -1875,6 +1882,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             test_prompt_manager, 
             include_loss=True, 
             do_sample=do_sample,
+            em_from_gen_str=self.kwargs['params']['em_from_gen_str'],
             **kwargs,
         )
         # duplicate for all workers...

@@ -28,7 +28,9 @@ parameters:
   # Core configuration and model setup
   config:
     value: "./configs/transfer_sdlm_smollm2_135m_instruct_gpu.py"
-  
+  config.em_from_gen_str:
+    value: False 
+   
   # Weights & Biases integration
   config.use_wandb:
     value: True

@@ -99,6 +99,8 @@ parameters:
   #config.lm_seed:
   #  values: [10,20,30,40,50]
   
+  config.em_from_gen_str:
+    value: False 
   config.torch_deterministic:
     value: True
   config.validate_on:
