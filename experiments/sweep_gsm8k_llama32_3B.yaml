@@ -28,8 +28,10 @@ metric:
 parameters:
   # Core configuration and model setup
   config:
-    value: "./configs/transfer_sdlm_llama32_1b_gpu.py"
-  
+    value: "./configs/transfer_sdlm_llama32_3b_instruct_gpu.py"
+  config.em_from_gen_str:
+    value: False 
+   
   # Weights & Biases integration
   config.use_wandb:
     value: True
@@ -42,7 +44,7 @@ parameters:
   config.test_data:
     value: "../data/grade_school_math/test.jsonl"
   config.result_prefix:
-    value: "results/sdlm_llama32_1b_gpu_gsm8k"
+    value: "results/sdlm_llama32_3b_instruct_gpu_gsm8k"
   
   # Training behavior and constraints
   config.stop_on_success:
@@ -54,14 +56,13 @@ parameters:
   config.n_train_data:
     value: 100
   config.n_valid_data:
-    values: [50, 100, 200]
+    values: [100]
   config.n_test_data:
     value: 10000
   config.anneal:
     value: true
   
   config.do_sample:
-    #values: [True]
     values: [False]
   config.validate_on:
     value: 'accuracy'
@@ -105,6 +106,8 @@ parameters:
 
   config.seed:
     values: [0, 10, 20, 30, 40, 50] 
+  config.data_seed:
+    values: [0, 10, 20, 30, 40, 50]
 
   # Prompt engineering configuration
   config.control_init:
@@ -114,15 +117,15 @@ parameters:
 
   config.log_first:
     value: False
-
+  
   config.n_steps:
     value: 10
   
   config.test_steps:
-    values: [10]
+    values: [25]
   
   config.batch_size:
-    values: [8, 16]
+    values: [4, 8]
   
   #config.topk:
   #  distribution: int_uniform
@@ -135,7 +138,7 @@ parameters:
   #  max: 12
   
   config.control_weight:
-    values: [0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
+    values: [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 100.0]
     #values: [0.1, 1.0, 2.0, 3.0, 5.0]
   
   config.target_weight:

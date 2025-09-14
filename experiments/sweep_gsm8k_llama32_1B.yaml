@@ -28,10 +28,8 @@ metric:
 parameters:
   # Core configuration and model setup
   config:
-    value: "./configs/transfer_sdlm_llama32_3b_instruct_gpu.py"
-  config.em_from_gen_str:
-    value: False 
-   
+    value: "./configs/transfer_sdlm_llama32_1b_gpu.py"
+  
   # Weights & Biases integration
   config.use_wandb:
     value: True
@@ -44,7 +42,7 @@ parameters:
   config.test_data:
     value: "../data/grade_school_math/test.jsonl"
   config.result_prefix:
-    value: "results/sdlm_llama32_3b_instruct_gpu_gsm8k"
+    value: "results/sdlm_llama32_1b_gpu_gsm8k"
   
   # Training behavior and constraints
   config.stop_on_success:
@@ -55,6 +53,8 @@ parameters:
     value: 1
   config.n_train_data:
     value: 100
+  config.n_valid_data:
+    values: [100]
   config.n_test_data:
     value: 10000
   config.anneal:
@@ -62,6 +62,9 @@ parameters:
   
   config.do_sample:
     values: [False]
+    #values: [True, False]
+  config.validate_on:
+    value: 'accuracy'
 
   # Model-specific SDLM parameters
   config.sdlm_variable_kwargs.init_strategy:
@@ -95,23 +98,33 @@ parameters:
   config.max_new_tokens_answer:
     value: 8
   
+  config.em_from_gen_str:
+    value: False 
+  config.torch_deterministic:
+    value: True
+
+  config.seed:
+    values: [0, 10, 20, 30, 40, 50] 
+  config.data_seed:
+    values: [0, 10, 20, 30, 40, 50]
+
   # Prompt engineering configuration
   config.control_init:
     value: "Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer."
   config.extractor_text:
-    value: "Therefore, the final answer (use exactly this format: $NUMBER$, where NUMBER is a positive or negative integer) is $"
+    value: "Therefore, the final answer (with format: $NUMBER$, where NUMBER is a positive or negative integer) is $"
 
   config.log_first:
     value: False
-  
+
   config.n_steps:
-    value: 20
+    value: 10
   
   config.test_steps:
-    values: [20]
+    values: [15]
   
   config.batch_size:
-    values: [4]
+    values: [4, 8, 16]
   
   #config.topk:
   #  distribution: int_uniform
