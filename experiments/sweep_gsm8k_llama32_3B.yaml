@@ -83,6 +83,9 @@ parameters:
     values: [0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     #values: [0.4, 0.5, 0.6, 0.7]
   
+  config.sdlm_model_stgs_logits_generation:
+    #values: [False, True]
+    values: [True]
   config.sdlm_model_kwargs.temperature:
     values: [0.1, 0.5, 0.7, 1.0]
   config.sdlm_model_kwargs.learnable_temperature:

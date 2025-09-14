@@ -68,7 +68,7 @@ def get_config():
         'hard': False,
     }
     
-    config.sdlm_fluency_model = 'distilbert/distilgpt2'
+    config.sdlm_fluency_model = "meta-llama/Meta-Llama-3-8B-Instruct"
     config.sdlm_model_stgs_logits_generation = True
     config.sdlm_model_kwargs = {
         "hard": False,

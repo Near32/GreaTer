@@ -67,6 +67,7 @@ def get_config():
     }
     
     config.sdlm_model_stgs_logits_generation = True
+    config.sdlm_fluency_model = "meta-llama/Llama-3.2-3B-Instruct"
     config.sdlm_model_kwargs = {
         "hard": False,
         "temperature": 0.7,        # Slightly higher temperature for model sampling
