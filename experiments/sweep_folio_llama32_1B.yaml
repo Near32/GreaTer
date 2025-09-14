@@ -64,7 +64,7 @@ parameters:
   
   config.do_sample:
     #values: [True]
-    values: [False]
+    values: [True, False]
   config.validate_on:
     value: 'accuracy'
 
@@ -94,7 +94,7 @@ parameters:
     values: [1, 2, 4, 8]
     #values: [1, 2, 4]
   config.gradient_comp_batch_size:
-    values: [1]
+    values: [1, 2, 4]
   config.update_solution_max_new_tokens:
     value: 256
   config.max_new_tokens_answer:
@@ -107,24 +107,26 @@ parameters:
 
   config.seed:
     values: [0, 10, 20, 30, 40, 50] 
+  config.data_seed:
+    values: [0, 10, 20, 30, 40, 50]
 
   # Prompt engineering configuration
   config.control_init:
     value: "Use proper logical reasoning and think step by step. Finally, give the actual correct answer."
   config.extractor_text:
-    value: "Therefore, the final answer (use exactly this format: $LETTER$, where LETTER is an uppercase letter, like A or B) is $"
+    value: "Therefore, the final answer (with format: $LETTER$, where LETTER is an uppercase letter, like A or B) is $"
 
   config.log_first:
     value: False
 
   config.n_steps:
-    value: 10
+    value: 20
   
   config.test_steps:
-    values: [10]
+    values: [25]
   
   config.batch_size:
-    values: [8, 16]
+    values: [4, 8, 16]
   
   #config.topk:
   #  distribution: int_uniform
@@ -137,7 +139,7 @@ parameters:
   #  max: 12
   
   config.control_weight:
-    values: [0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
+    values: [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 100.0]
     #values: [0.1, 1.0, 2.0, 3.0, 5.0]
   
   config.target_weight:

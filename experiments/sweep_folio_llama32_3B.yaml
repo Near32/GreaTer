@@ -112,7 +112,7 @@ parameters:
   config.control_init:
     value: "Use proper logical reasoning and think step by step. Finally, give the actual correct answer."
   config.extractor_text:
-    value: "Therefore, the final answer (use exactly the format: $LETTER$, where LETTER is an uppercase letter, like A or B) is $"
+    value: "Therefore, the final answer (with format: $LETTER$, where LETTER is an uppercase letter, like A or B) is $"
 
   config.log_first:
     value: False
