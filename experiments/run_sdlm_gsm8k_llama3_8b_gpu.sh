@@ -33,6 +33,7 @@ export TOKENIZERS_PARALLELISM=false
 echo "Starting optimization on GPU with Llama-3-8B-Instruct..."
 #WANDB_DEBUG=true \
 #WANDB_CORE_DEBUG=true \
+#PYTORCH_HIP_ALLOC_CONF=expandable_segments:True \
 WANDB_CACHE_DIR=./wandb_cache/ \
 WANDB_DIR=./wandb_dir/ \
 WANDB_DATA_DIR=./wandb_data_dir/ \
@@ -53,7 +54,7 @@ python -m ipdb -c c main.py \
     --config.data_seed=10 \
     --config.validate_on="accuracy" \
     --config.n_train_data=100 \
-    --config.n_valid_data=50 \
+    --config.n_valid_data=100 \
     --config.n_test_data=10000 \
     --config.sdlm_variable_kwargs.learning_rate=0.01 \
     --config.sdlm_variable_kwargs.init_strategy='random' \
@@ -72,7 +73,7 @@ python -m ipdb -c c main.py \
     --config.test_steps=10 \
     --config.log_first=False \
     --config.anneal=True \
-    --config.batch_size=4 \
+    --config.batch_size=8 \
     --config.temp=0.7 \
     --config.topk=10 \
     --config.topq=5 \
