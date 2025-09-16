@@ -16,6 +16,7 @@ def get_config():
     config.update_solution_max_new_tokens = 256
     config.gradient_comp_batch_size = 1
     config.do_sample = True 
+    config.loss_type = 'offline'
 
     # General parameters 
     config.target_weight=0.85

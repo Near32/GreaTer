@@ -50,11 +50,12 @@ python -m ipdb -c c main.py \
     --config.torch_deterministic=True \
     --config.torch_allow_tf32=True \
     --config.do_sample=False \
+    --config.loss_type='online' \
     --config.seed=10 \
     --config.data_seed=10 \
     --config.validate_on="accuracy" \
     --config.n_train_data=100 \
-    --config.n_valid_data=200 \
+    --config.n_valid_data=100 \
     --config.n_test_data=10000 \
     --config.sdlm_variable_kwargs.learning_rate=0.1 \
     --config.sdlm_variable_kwargs.init_strategy='random' \

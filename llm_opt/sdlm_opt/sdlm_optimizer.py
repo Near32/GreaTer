@@ -2113,6 +2113,257 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 losses.append(loss)
             losses = torch.stack(losses)
         return losses
+
+    def batched_online_compute_loss(
+        self, 
+        prompts: List[SDLMPrompter],
+        tokenizer: AutoTokenizer,
+        sdlm_model: AutoModelForCausalLM, 
+        sdlm_variable: Variable,
+        gradient_comp_batch_size: int = 1,
+        current_pos: Optional[int] = None, 
+        valid_tokens: Optional[List[int]] = None, 
+        temperature: Optional[float] = 0.4, 
+        control_weight: Optional[float] = 0.2,
+        **kwargs
+    ):
+        """
+        Compute loss using SDLM's differentiable text generation.
+        
+        Args:
+            prompts: List of prompts
+            sdlm_model: The target SDLM model
+            sdlm_variable: The SDLM variable
+            gradient_comp_batch_size: Batch size for gradient computation
+            current_pos: Current position in the prompt for which gradients are computed
+            valid_tokens: List of valid token indices
+            temperature: Temperature for the focused loss computation
+            control_weight: Weight for the control loss
+        Returns:
+            Loss for the current position
+        """
+        # Create batched padded input for SDLM with variable:
+        batched_input_one_hots = []
+        batched_attn_masks = []
+        seq_offsets = []
+        max_len = 0
+        for prompt in prompts:
+            temp = prompt.input_ids
+            input_one_hots = F.one_hot(temp, num_classes=sdlm_model.config.vocab_size).float()
+            input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1).to(device=sdlm_model.device)#.cpu()
+            for bidx in range(gradient_comp_batch_size):
+                diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
+                input_one_hots[bidx, prompt._control_slice] = diff_one_hot.to(device=sdlm_model.device)#cpu()
+            
+            ## Slice input just after control slice:
+            input_one_hots = input_one_hots[:, :prompt._control_slice.stop]
+            max_len = max(max_len, input_one_hots.shape[1])
+            batched_input_one_hots.append(input_one_hots)
+
+        padding_one_hot = torch.zeros((1, sdlm_model.config.vocab_size))
+        padding_one_hot[:, tokenizer.pad_token_id] = 1
+        padding_one_hot = padding_one_hot.unsqueeze(0).repeat(gradient_comp_batch_size, 1, 1).to(device=batched_input_one_hots[0].device)
+        # (batch_size, 1, vocab_size)
+
+        for iidx, input_one_hots in enumerate(batched_input_one_hots):
+            offset = max_len-input_one_hots.shape[1]
+            seq_offsets.append(offset)
+            input_one_hots = torch.cat([padding_one_hot.repeat(1,max_len-input_one_hots.shape[1], 1), input_one_hots], dim=1)
+            # (batch_size, max_len, vocab_size)
+            attn_mask = torch.cat([torch.zeros((1, max_len-input_one_hots.shape[1])), torch.ones((1, input_one_hots.shape[1]))], dim=1).to(sdlm_model.device)
+            batched_input_one_hots[iidx] = input_one_hots
+            batched_attn_masks.append(attn_mask)
+
+        batched_input_one_hots_padded = torch.cat(batched_input_one_hots, dim=0).to(
+            device=sdlm_model.device,
+            dtype=sdlm_model.dtype,
+        )
+        attn_masks = torch.cat(batched_attn_masks, dim=0).to(
+            device=sdlm_model.device,
+            dtype=sdlm_model.dtype,
+        )
+
+        # Generate reasoning:
+        with torch.enable_grad():
+            outputs_reasoning = sdlm_model.generate(
+                input_one_hots=batched_input_one_hots_padded,
+                attention_mask=attn_masks,
+                max_new_tokens=self.kwargs['params']['update_solution_max_new_tokens'],
+                return_dict=True,
+            )
+        
+        # Extract differentiable reasoning diff_one_hot and concatenate them to batched_input_one_hots:
+        reasoning_diff_one_hot = outputs_reasoning.sampled_diff_one_hot
+        reasoning_diff_tokens = outputs_reasoning.sampled_diff_tokens
+        # DEBUG: visualization of string:
+        #for i in range(reasoning_diff_one_hot.shape[0]):
+        #    print(tokenizer.decode(reasoning_diff_tokens[i].cpu().long().tolist(), skip_special_tokens=False))
+        # remove right-side pads added by the model on different batch entries:
+        # how to identify pads?
+        # It is very important to convert to long before comparison, 
+        # otherwise comparison is may be failing due to poor resolution of certain dtype, e.g. bfloat16:
+        pad_mask = (reasoning_diff_tokens.long() == tokenizer.pad_token_id).long()
+        non_reg_padding_starts = torch.argmax(pad_mask, dim=1)
+        # DEBUG: visualization of padding_start:
+        # print(non_reg_padding_starts)
+        # all zeros if no pad_token are present, this need regularisation to len(reasoning_diff_one_hot):
+        padding_starts = torch.where(non_reg_padding_starts == 0, reasoning_diff_one_hot.shape[1], non_reg_padding_starts)
+        # DEBUG: visualization of padding_start:
+        # print(padding_starts)
+        # remove right-side pads:
+        reasoning_diff_one_hot = [
+            reasoning_diff_one_hot[i, :padding_starts[i]] 
+            for i in range(padding_starts.shape[0])
+        ]
+        reasoning_diff_one_hot = torch.stack(reasoning_diff_one_hot)
+
+        # Copy batched_input_one_hots_padded without left-side pads:
+        final_answer_input_one_hots = [
+            batched_input_one_hots_padded[i:i+1, seq_offsets[i]:] 
+            for i in range(len(seq_offsets))
+        ]
+        # list of tensors of shape (1, max_len, vocab_size)
+
+        # Concatenate reasoning_diff_one_hot to final_answer_input_one_hots and extractor_text_one_hot:
+        extractor_one_hot = F.one_hot(
+            tokenizer(prompt.extractor_text, return_tensors='pt').input_ids, 
+            num_classes=sdlm_model.config.vocab_size
+        ).float().to(
+            device=sdlm_model.device,
+            dtype=sdlm_model.dtype,
+        )
+        # tensor of shape (1, max_len, vocab_size)
+        #extractor_one_hot = extractor_one_hot.repeat(gradient_comp_batch_size*batch_size, 1, 1)
+        # tensor of shape (gradient_comp_batch_size*batch_size, max_len, vocab_size)
+        
+        final_answer_input_one_hots = [
+            torch.cat([
+                final_answer_input_one_hots[i], 
+                reasoning_diff_one_hot[i:i+1],
+                extractor_one_hot,
+                ], 
+                dim=1,
+            ) 
+            for i in range(len(final_answer_input_one_hots))
+        ]
+        # list of tensors of shape (gradient_comp_batch_size*batch_size, max_len, vocab_size)
+        
+        # Padding on the left side and stacking:
+        batched_final_answer_input_one_hots = []
+        batched_final_answer_attn_masks = []
+        max_len = max([final_answer_input_one_hots.shape[1] for final_answer_input_one_hots in final_answer_input_one_hots])
+        seq_offsets = []
+        for iidx, final_answer_input_one_hots in enumerate(final_answer_input_one_hots):
+            offset = max_len-final_answer_input_one_hots.shape[1]
+            seq_offsets.append(offset)
+            input_one_hots = torch.cat([
+                padding_one_hot.repeat(1, offset, 1), 
+                final_answer_input_one_hots,
+                ], 
+                dim=1,
+            )
+            # (batch_size, max_len, vocab_size)
+            attn_mask = torch.cat([torch.zeros((1, max_len-final_answer_input_one_hots.shape[1])), torch.ones((1, final_answer_input_one_hots.shape[1]))], dim=1).to(sdlm_model.device)
+            batched_final_answer_input_one_hots.append(input_one_hots)
+            batched_final_answer_attn_masks.append(attn_mask)
+
+        batched_final_answer_input_one_hots_padded = torch.cat(batched_final_answer_input_one_hots, dim=0).to(
+            device=sdlm_model.device,
+            dtype=sdlm_model.dtype,
+        )
+        # (batch_size*gradient_comp_batch_size, max_len, vocab_size)
+        batched_final_answer_attn_masks = torch.cat(batched_final_answer_attn_masks, dim=0).to(
+            device=sdlm_model.device,
+            dtype=sdlm_model.dtype,
+        )
+        # (batch_size*gradient_comp_batch_size, max_len)
+
+        final_answer_starts = batched_final_answer_input_one_hots_padded.shape[1] 
+
+        # Generate final answer
+        with torch.enable_grad():
+            outputs_final_answer = sdlm_model.generate(
+                input_one_hots=batched_final_answer_input_one_hots_padded,
+                attention_mask=batched_final_answer_attn_masks,
+                max_new_tokens=self.kwargs['params']['max_new_tokens_answer'],
+                return_dict=True,
+            )
+           
+            # Compute loss (you can customize this based on your needs)
+            #logits = outputs.stgs_logits
+            logits = outputs_final_answer.logits
+            # (batch_size*gradient_comp_batch_size, max_new_tokens_answer, vocab_size)
+            #TODO: consider using stgs_logits instead
+            # or partially over the reasoning slice when ground-truth reasoning are not provided.
+
+            losses = []
+            for pidx, prompt in enumerate(prompts):
+                input_logits = outputs_final_answer.input_logits[
+                    pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size, 
+                    seq_offsets[pidx]:, #removing paddings
+                    ...
+                ]
+                plogits = logits[
+                    pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size, 
+                    #final_answer_starts:, #not needed because returning only new token logits 
+                    ...
+                ]
+                targets = prompt.input_ids[
+                    prompt._target_slice
+                ].repeat(gradient_comp_batch_size, 1).to(
+                    device=logits.device,
+                    dtype=torch.long,
+                )
+                loss_crit = nn.CrossEntropyLoss(reduction='mean')
+                
+                loss = loss_crit(
+                    plogits[:, :targets.shape[1]].transpose(1,2), 
+                    targets.detach(),
+                )
+
+                # Compute control loss, i.e. perplexity:
+                control_output_slice = slice(prompt._control_slice.start - 1, prompt._control_slice.stop - 1)
+                control_target_slice = slice(prompt._control_slice.start, prompt._control_slice.stop)
+                control_targets = prompt.input_ids[control_target_slice].repeat(gradient_comp_batch_size, 1).to(
+                    device=logits.device,
+                    dtype=torch.long,
+                )
+                ce_loss = nn.CrossEntropyLoss(reduction='none')(  # Don't reduce yet
+                    input_logits[:, control_output_slice, :].transpose(1,2), 
+                    control_targets.detach(),
+                )
+                avg_ce_loss = ce_loss.mean(dim=1)
+                perplexity = torch.exp(avg_ce_loss)
+                control_loss = perplexity.mean()
+                '''
+                control_loss = loss_crit(
+                    plogits[:, control_output_slice, :].transpose(1,2), 
+                    control_targets.detach(),
+                )
+                '''
+
+                if prompt._focused_target_slice \
+                and prompt._focused_target_slice != prompt._target_slice:
+                    # loss computation requires shifted slices:
+                    raise NotImplementedError
+                    # this does not make sense, unless it ought to be understood as the same as target, but for a different slice...
+                    focused_loss_slice = slice(prompt._focused_target_slice.start - 1, prompt._focused_target_slice.stop - 1)
+                    focused_targets = prompt.input_ids[prompt._focused_target_slice]
+                    focused_targets = focused_targets.repeat(gradient_comp_batch_size, 1).to(
+                        device=logits.device,
+                        dtype=logits.dtype,
+                    )
+                    focused_loss = loss_crit(
+                        plogits[:, focused_loss_slice, :].transpose(1,2) / temperature, 
+                        focused_targets.detach()
+                    )
+                    loss = focused_loss+control_weight*control_loss
+                else:
+                    loss = loss+control_weight*control_loss
+            
+                losses.append(loss)
+            losses = torch.stack(losses)
+        return losses
     
     def step(
         self, 
@@ -2177,7 +2428,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
 
             # updating initial solutions:
             if SIMULATED_CANONICAL:
-                if acc_grad_n_examples != -1:
+                if self.kwargs['params'].get('loss_type', 'offline') == 'offline' \
+                and acc_grad_n_examples != -1:
                     print("Updating solution...")
                     print(f"Gradient accumulation over {acc_grad_n_examples*batch_size} examples => only updating first examples.")
                     pidx_to_update = []
@@ -2190,29 +2442,46 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                         model=self.workers[0].model,
                         max_new_tokens=kwargs['params'].get('update_solution_max_new_tokens', 128),
                         generation_batch_size=batch_size*gradient_comp_batch_size,
+                        do_sample=kwargs['params'].get('do_sample', False),
                     )
                     print(f"Updating solution: DONE.")
             for bidx, bpidx in enumerate(tqdm(batch_indices, position=0, leave=True)):
                 sampled_indices = shuffled_batch_indices[bpidx:bpidx+batch_size]
                 prompts = [prompt_manager._prompts[i] for i in sampled_indices]
-                try:
-                    loss = self.batched_compute_loss(
-                        prompts=prompts,
-                        tokenizer=prompt_manager.sdlm_model.tokenizer,
-                        sdlm_model=prompt_manager.sdlm_model,
-                        sdlm_variable=prompt_manager.sdlm_variable,
-                        current_pos=prompt_manager.current_pos,
-                        valid_tokens=None, 
-                        control_weight=control_weight,
-                        gradient_comp_batch_size=gradient_comp_batch_size,
-                        temperature=temp,
-                    )
+                if True: #try:
+                    if self.kwargs['params'].get('loss_type', 'offline') == 'offline':
+                        loss = self.batched_compute_loss(
+                            prompts=prompts,
+                            tokenizer=prompt_manager.sdlm_model.tokenizer,
+                            sdlm_model=prompt_manager.sdlm_model,
+                            sdlm_variable=prompt_manager.sdlm_variable,
+                            current_pos=prompt_manager.current_pos,
+                            valid_tokens=None, 
+                            control_weight=control_weight,
+                            gradient_comp_batch_size=gradient_comp_batch_size,
+                            temperature=temp,
+                        )
+                    elif self.kwargs['params'].get('loss_type', 'offline') == 'online':
+                        loss = self.batched_online_compute_loss(
+                            prompts=prompts,
+                            tokenizer=prompt_manager.sdlm_model.tokenizer,
+                            sdlm_model=prompt_manager.sdlm_model,
+                            sdlm_variable=prompt_manager.sdlm_variable,
+                            current_pos=prompt_manager.current_pos,
+                            valid_tokens=None, 
+                            control_weight=control_weight,
+                            gradient_comp_batch_size=gradient_comp_batch_size,
+                            temperature=temp,
+                        )
+                    else:
+                        raise ValueError(f"Unknown loss type: {self.kwargs['params'].get('loss_type')}")
+
                     ## Backward:
                     mloss = loss.mean()
                     mloss.backward()
                     batch_loss.append(loss.detach().cpu())
                     del loss
-                except Exception as e:
+                else: #except Exception as e:
                     print(e)
                     batch_loss.append(torch.zeros(batch_size).cpu())
 
@@ -2299,7 +2568,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             # Update control toks and input_ids via setter:
             prompt.control_toks = control_toks
         
-        if update_solution:
+        if self.kwargs['params'].get('loss_type', 'offline') == 'offline' \
+        and update_solution:
             # Update solution manually, as batch:
             #stpwatch_strt = time.time()
             for i in range(0, len(pindices_to_update), batch_size):
@@ -2407,7 +2677,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             if SIMULATED_CANONICAL:
                 # Only need to update the first few prompts if accumulating gradients:
                 acc_grad_n_examples = kwargs['params']['acc_grad_n_examples']
-                if acc_grad_n_examples == -1:
+                if self.kwargs['params'].get('loss_type', 'offline') == 'offline' \
+                and acc_grad_n_examples == -1:
                     print("Updating solution...")
                     #prompt_to_update = self.current_pm._prompts
                     self.update_solution(
@@ -2417,7 +2688,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     print("Updating solution: DONE.")
                 else:
                     pass
-                    # Update is performed in the step method...
+                    # Update is performed in the step method, either offline or online...
 
             control, loss = self.step(
                 batch_size=batch_size,
