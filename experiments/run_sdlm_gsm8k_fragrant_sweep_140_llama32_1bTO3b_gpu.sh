@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Create directories
-mkdir -p sdlm_llama32_1b_logs
+mkdir -p sdlm_llama32_3b_logs
 mkdir -p results
 
 # Set paths - using a small subset of data for quick testing
 TRAIN_DATA="../data/grade_school_math/train.jsonl"
 TEST_DATA="../data/grade_school_math/test.jsonl"
-LOG_FILE="sdlm_llama32_1b_logs/gsm8k_optimization.log"
-RESULT_PREFIX="results_test/sdlm_llama32_1b_gpu_gsm8k"
+LOG_FILE="sdlm_llama32_3b_logs/gsm8k_optimization.log"
+RESULT_PREFIX="results_test/sdlm_llama32_3b_gpu_gsm8k"
 
 # Print configuration
 echo "========================================"
@@ -39,7 +39,7 @@ WANDB_CACHE_DIR=./wandb_cache/ \
 WANDB_DIR=./wandb_dir/ \
 WANDB_DATA_DIR=./wandb_data_dir/ \
 python -m ipdb -c c main.py \
-    --config="./configs/transfer_sdlm_llama32_1b_gpu.py" \
+    --config="./configs/transfer_sdlm_llama32_3b_instruct_gpu.py" \
     --config.use_wandb=True \
     --config.project="GreaTer-SDLM" \
     --config.train_data="$TRAIN_DATA" \
@@ -53,7 +53,7 @@ python -m ipdb -c c main.py \
     --config.do_sample=False \
     --config.loss_type='offline' \
     --config.seed=10 \
-    --config.data_seed=10 \
+    --config.data_seed=50 \
     --config.validate_on="accuracy" \
     --config.n_train_data=100 \
     --config.n_valid_data=100 \
@@ -74,6 +74,7 @@ python -m ipdb -c c main.py \
     --config.n_steps=10 \
     --config.test_steps=25 \
     --config.log_first=False \
+    --config.test_only=False \
     --config.anneal=True \
     --config.batch_size=4 \
     --config.temp=0.5 \
