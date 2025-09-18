@@ -56,7 +56,7 @@ python -m ipdb -c c main.py \
     --config.do_sample=False \
     --config.loss_type='offline' \
     --config.seed=10 \
-    --config.data_seed=10 \
+    --config.data_seed=0 \
     --config.validate_on="accuracy" \
     --config.n_train_data=50 \
     --config.n_valid_data=100 \

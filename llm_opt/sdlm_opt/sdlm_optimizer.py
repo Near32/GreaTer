@@ -2066,7 +2066,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             outputs = sdlm_model(
                 input_one_hots=batched_input_one_hots_padded.to(dtype=sdlm_model.dtype),
                 attention_mask=attn_masks,
-                output_hidden_states=True
+                #output_hidden_states=True,
+                output_normal_logits=True,
             )
            
             # Compute loss (you can customize this based on your needs)
@@ -2150,29 +2151,49 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         for prompt in prompts:
             temp = prompt.input_ids
             input_one_hots = F.one_hot(temp, num_classes=sdlm_model.config.vocab_size).float()
+            del temp
             input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1).to(device=sdlm_model.device)#.cpu()
             for bidx in range(gradient_comp_batch_size):
                 diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
+                wandb.log({
+                    f"variable_forward": decoded_string,
+                    },
+                    commit=True,
+                )
                 input_one_hots[bidx, prompt._control_slice] = diff_one_hot.to(device=sdlm_model.device)#cpu()
-            
+            del diff_input_ids, diff_one_hot, decoded_string
             ## Slice input just after control slice:
             input_one_hots = input_one_hots[:, :prompt._control_slice.stop]
             max_len = max(max_len, input_one_hots.shape[1])
             batched_input_one_hots.append(input_one_hots)
+            del input_one_hots
 
         padding_one_hot = torch.zeros((1, sdlm_model.config.vocab_size))
         padding_one_hot[:, tokenizer.pad_token_id] = 1
-        padding_one_hot = padding_one_hot.unsqueeze(0).repeat(gradient_comp_batch_size, 1, 1).to(device=batched_input_one_hots[0].device)
+        padding_one_hot = padding_one_hot.unsqueeze(0).to(device=batched_input_one_hots[0].device)
+        #.repeat(gradient_comp_batch_size, 1, 1)
         # (batch_size, 1, vocab_size)
 
         for iidx, input_one_hots in enumerate(batched_input_one_hots):
             offset = max_len-input_one_hots.shape[1]
             seq_offsets.append(offset)
-            input_one_hots = torch.cat([padding_one_hot.repeat(1,max_len-input_one_hots.shape[1], 1), input_one_hots], dim=1)
-            # (batch_size, max_len, vocab_size)
-            attn_mask = torch.cat([torch.zeros((1, max_len-input_one_hots.shape[1])), torch.ones((1, input_one_hots.shape[1]))], dim=1).to(sdlm_model.device)
+            input_one_hots = torch.cat([
+                padding_one_hot.repeat(gradient_comp_batch_size,max_len-input_one_hots.shape[1], 1), 
+                input_one_hots,
+                ], 
+                dim=1,
+            )
+            # (batch_size*gradient_comp_batch_size, max_len, vocab_size)
+            attn_mask = torch.cat([
+                torch.zeros((gradient_comp_batch_size, max_len-input_one_hots.shape[1])), 
+                torch.ones((gradient_comp_batch_size, input_one_hots.shape[1]))
+                ], 
+                dim=1,
+            ).to(sdlm_model.device)
             batched_input_one_hots[iidx] = input_one_hots
+            del input_one_hots
             batched_attn_masks.append(attn_mask)
+            del attn_mask
 
         batched_input_one_hots_padded = torch.cat(batched_input_one_hots, dim=0).to(
             device=sdlm_model.device,
@@ -2182,6 +2203,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             device=sdlm_model.device,
             dtype=sdlm_model.dtype,
         )
+        del batched_input_one_hots, batched_attn_masks
 
         # Generate reasoning:
         with torch.enable_grad():
@@ -2189,6 +2211,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 input_one_hots=batched_input_one_hots_padded,
                 attention_mask=attn_masks,
                 max_new_tokens=self.kwargs['params']['update_solution_max_new_tokens'],
+                output_diff_tokens=True,
                 return_dict=True,
             )
         
@@ -2219,10 +2242,14 @@ class SDLMMultiPrompter(BaseMultiPrompter):
 
         # Copy batched_input_one_hots_padded without left-side pads:
         final_answer_input_one_hots = [
-            batched_input_one_hots_padded[i:i+1, seq_offsets[i]:] 
-            for i in range(len(seq_offsets))
+            batched_input_one_hots_padded[
+                i:(i+1), 
+                seq_offsets[i//gradient_comp_batch_size]:,
+            ] 
+            for i in range(batched_input_one_hots_padded.shape[0])
         ]
-        # list of tensors of shape (1, max_len, vocab_size)
+        # list of batch_size tensors of shape (gradient_comp_batch_size, max_len, vocab_size)
+        del batched_input_one_hots_padded
 
         # Concatenate reasoning_diff_one_hot to final_answer_input_one_hots and extractor_text_one_hot:
         extractor_one_hot = F.one_hot(
@@ -2247,26 +2274,35 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             for i in range(len(final_answer_input_one_hots))
         ]
         # list of tensors of shape (gradient_comp_batch_size*batch_size, max_len, vocab_size)
+        del reasoning_diff_one_hot, extractor_one_hot
         
         # Padding on the left side and stacking:
         batched_final_answer_input_one_hots = []
         batched_final_answer_attn_masks = []
         max_len = max([final_answer_input_one_hots.shape[1] for final_answer_input_one_hots in final_answer_input_one_hots])
         seq_offsets = []
-        for iidx, final_answer_input_one_hots in enumerate(final_answer_input_one_hots):
-            offset = max_len-final_answer_input_one_hots.shape[1]
+        for iidx, final_answer_input in enumerate(final_answer_input_one_hots):
+            offset = max_len-final_answer_input.shape[1]
             seq_offsets.append(offset)
             input_one_hots = torch.cat([
                 padding_one_hot.repeat(1, offset, 1), 
-                final_answer_input_one_hots,
+                final_answer_input,
                 ], 
                 dim=1,
             )
             # (batch_size, max_len, vocab_size)
-            attn_mask = torch.cat([torch.zeros((1, max_len-final_answer_input_one_hots.shape[1])), torch.ones((1, final_answer_input_one_hots.shape[1]))], dim=1).to(sdlm_model.device)
+            attn_mask = torch.cat([
+                torch.zeros((1, max_len-final_answer_input.shape[1])), 
+                torch.ones((1, final_answer_input.shape[1])),
+                ], 
+                dim=1,
+            ).to(sdlm_model.device)
             batched_final_answer_input_one_hots.append(input_one_hots)
             batched_final_answer_attn_masks.append(attn_mask)
-
+            del input_one_hots, attn_mask
+        del final_answer_input_one_hots
+        del padding_one_hot
+        
         batched_final_answer_input_one_hots_padded = torch.cat(batched_final_answer_input_one_hots, dim=0).to(
             device=sdlm_model.device,
             dtype=sdlm_model.dtype,
@@ -2278,14 +2314,13 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         )
         # (batch_size*gradient_comp_batch_size, max_len)
 
-        final_answer_starts = batched_final_answer_input_one_hots_padded.shape[1] 
-
         # Generate final answer
         with torch.enable_grad():
             outputs_final_answer = sdlm_model.generate(
                 input_one_hots=batched_final_answer_input_one_hots_padded,
                 attention_mask=batched_final_answer_attn_masks,
                 max_new_tokens=self.kwargs['params']['max_new_tokens_answer'],
+                output_normal_logits=True,
                 return_dict=True,
             )
            
