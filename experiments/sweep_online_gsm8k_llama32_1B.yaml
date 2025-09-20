@@ -66,7 +66,7 @@ parameters:
   config.validate_on:
     value: 'accuracy'
   config.loss_type:
-    value: ['online']
+    value: 'online'
 
   # Model-specific SDLM parameters
   config.sdlm_variable_kwargs.init_strategy:
@@ -131,7 +131,7 @@ parameters:
     values: [15]
   
   config.batch_size:
-    values: [1]
+    values: [1, 2]
   
   #config.topk:
   #  distribution: int_uniform

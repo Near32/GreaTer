@@ -75,7 +75,7 @@ python -m ipdb -c c main.py \
     --config.test_steps=25 \
     --config.log_first=False \
     --config.anneal=True \
-    --config.batch_size=4 \
+    --config.batch_size=2 \
     --config.temp=0.5 \
     --config.topk=10 \
     --config.topq=5 \
