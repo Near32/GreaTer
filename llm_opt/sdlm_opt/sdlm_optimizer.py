@@ -1889,6 +1889,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 else:
                     print(f"Giving up on the current batch of elements.")
                     print(f"Resetting batch_size to {batch_size}...")
+                    pbar.update(current_batch_size)
+                    pidx += eff_batch_size
                     # Reset batch_size:
                     eff_batch_size = batch_size
                     # Logging failed values:
@@ -2315,8 +2317,14 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         torch.autograd.set_grad_enabled(False)
 
         # Extract differentiable reasoning diff_one_hot and concatenate them to batched_input_one_hots:
-        reasoning_diff_one_hot = outputs_reasoning.sampled_diff_one_hot
         reasoning_diff_tokens = outputs_reasoning.sampled_diff_tokens
+        if reasoning_diff_tokens is not None:
+            reasoning_diff_one_hot = outputs_reasoning.sampled_diff_one_hot
+        else:
+            # we are using online-distr2, so stgs_logits_geenration=False and no stgs is computed.
+            # the reasoning_diff_one_hot is replaced by the logits distr:
+            reasoning_diff_one_hot = outputs_reasoning.logits
+
         # DEBUG: visualization of string:
         #for i in range(reasoning_diff_one_hot.shape[0]):
         #    print(tokenizer.decode(reasoning_diff_tokens[i].cpu().long().tolist(), skip_special_tokens=False))
@@ -2325,12 +2333,19 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         # It is very important to convert to long before comparison, 
         # otherwise comparison is may be failing due to poor resolution of certain dtype, e.g. bfloat16:
         with torch.no_grad():
-            pad_mask = (reasoning_diff_tokens.long() == tokenizer.pad_token_id).long()
+            if reasoning_diff_tokens is not None:
+                pad_mask = (reasoning_diff_tokens.long() == tokenizer.pad_token_id).long()
+                reasoning_max_len = reasoning_diff_one_hot.shape[1]
+            else:
+                # we are using online-distr2, so stgs_logits_generation=False and no stgs is computed:
+                # to perform padding, we use the maximum of each distributions:
+                pad_mask = (outputs_reasoning.logits.argmax(dim=-1).long() == tokenizer.pad_token_id).long()
+                reasoning_max_len = outputs_reasoning.logits.shape[1]
             non_reg_padding_starts = torch.argmax(pad_mask, dim=1)
             # DEBUG: visualization of padding_start:
             # print(non_reg_padding_starts)
             # all zeros if no pad_token are present, this need regularisation to len(reasoning_diff_one_hot):
-            padding_starts = torch.where(non_reg_padding_starts == 0, reasoning_diff_one_hot.shape[1], non_reg_padding_starts)
+            padding_starts = torch.where(non_reg_padding_starts == 0, reasoning_max_len, non_reg_padding_starts)
             # DEBUG: visualization of padding_start:
             # print(padding_starts)
             # remove right-side pads:
