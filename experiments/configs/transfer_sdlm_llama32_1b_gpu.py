@@ -12,7 +12,8 @@ def get_config():
     config.transfer = False
     config.progressive_goals = False
     config.stop_on_success = True
-    
+    config.gradient_clip_stategy = 'whole-50'
+
     # Tokenizer configuration matching transfer_llama3.py
     config.tokenizer_paths = [
         "meta-llama/Llama-3.2-1B-Instruct",
@@ -75,6 +76,7 @@ def get_config():
         "temperature": 0.7,        # Slightly higher temperature for model sampling
         "learnable_temperature": False,
         "hidden_state_conditioning": True,  # Enabled for better performance
+        "use_bpttoken": False,
     }
     
     # SDLM configuration

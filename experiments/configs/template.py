@@ -17,6 +17,7 @@ def get_config():
     config.gradient_comp_batch_size = 1
     config.do_sample = True 
     config.loss_type = 'offline'
+    config.gradient_clip_strategy = 'none'
 
     # General parameters 
     config.target_weight=0.85

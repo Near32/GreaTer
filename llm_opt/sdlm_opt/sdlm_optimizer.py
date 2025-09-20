@@ -37,6 +37,9 @@ from llm_opt.base.attack_manager import (
 import sys
 import pdb
 
+from torchviz import make_dot
+
+
 class ForkedPdb(pdb.Pdb):
     """A Pdb subclass that may be used
     from a forked multiprocessing child
@@ -2144,7 +2147,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             batched_input_one_hots[iidx] = input_one_hots
             batched_attn_masks.append(attn_mask)
 
-        batched_input_one_hots_padded = torch.cat(batched_input_one_hots, dim=0).long().to(sdlm_model.device)
+        #batched_input_one_hots_padded = torch.cat(batched_input_one_hots, dim=0).long().to(sdlm_model.device)
+        batched_input_one_hots_padded = torch.cat(batched_input_one_hots, dim=0).to(sdlm_model.device)
         attn_masks = torch.stack(batched_attn_masks).to(sdlm_model.device)
 
         # Set SDLM variable to current control tokens:
@@ -2236,7 +2240,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             Loss for the current position
         """
         # Create batched padded input for SDLM with variable:
-        torch.autograd.set_grad_enabled(False)
+        #torch.autograd.set_grad_enabled(False)
+        torch.autograd.set_grad_enabled(True)
 
         batched_input_one_hots = []
         batched_attn_masks = []
@@ -2248,9 +2253,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             del temp
             input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1).to(device=sdlm_model.device)#.cpu()
             for bidx in range(gradient_comp_batch_size):
-                torch.autograd.set_grad_enabled(True)
+                #torch.autograd.set_grad_enabled(True)
                 diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
-                torch.autograd.set_grad_enabled(False)
+                #torch.autograd.set_grad_enabled(False)
                 wandb.log({
                     f"variable_forward": decoded_string,
                     },
@@ -2297,6 +2302,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             device=sdlm_model.device,
             dtype=sdlm_model.dtype,
         )
+        # (batch_size*gradient_comp_batch_size, max_len, vocab_size)
         attn_masks = torch.cat(batched_attn_masks, dim=0).to(
             device=sdlm_model.device,
             dtype=sdlm_model.dtype,
@@ -2306,7 +2312,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         # Generate reasoning:
         #sdlm_model = sdlm_model.eval() 
         #sdlm_model.model = sdlm_model.model.eval()
-        torch.autograd.set_grad_enabled(True)
+        #torch.autograd.set_grad_enabled(True)
         outputs_reasoning = sdlm_model.generate(
             input_one_hots=batched_input_one_hots_padded,
             attention_mask=attn_masks.detach(),
@@ -2314,7 +2320,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             output_diff_tokens=True,
             return_dict=True,
         )
-        torch.autograd.set_grad_enabled(False)
+        #torch.autograd.set_grad_enabled(False)
 
         # Extract differentiable reasoning diff_one_hot and concatenate them to batched_input_one_hots:
         reasoning_diff_tokens = outputs_reasoning.sampled_diff_tokens
@@ -2432,7 +2438,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         # (batch_size*gradient_comp_batch_size, max_len)
 
         # Generate final answer
-        torch.autograd.set_grad_enabled(True)
+        #torch.autograd.set_grad_enabled(True)
         outputs_final_answer = sdlm_model.generate(
             input_one_hots=batched_final_answer_input_one_hots_padded,
             attention_mask=batched_final_answer_attn_masks.detach(),
@@ -2521,7 +2527,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         self, 
         batch_size=1024,
         gradient_comp_batch_size=1,
-        topk=256, 
+        topk=257, 
         temp=0.1, 
         topq=5, 
         allow_non_ascii=True,
@@ -2564,6 +2570,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             prompt_managers = self.prompt_managers
         # Get the main device
         main_device = self.models[0].device
+        
+        # Initialize wandb logging
+        if not hasattr(self, 'step_count'):
+            self.step_count = 0
+        self.step_count += 1
         
         acc_grad_n_examples = kwargs['params'].get('acc_grad_n_examples', -1)
 
@@ -2630,6 +2641,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
 
                     ## Backward:
                     mloss = loss.mean()
+                    #import ipdb; ipdb.set_trace()
+                    #make_dot(mloss, params=dict(self.current_pm.sdlm_variable.named_parameters())).render("gradient_flow", format="png")
                     mloss.backward(retain_graph=False)
                     batch_loss.append(loss.detach().cpu())
                     del mloss
@@ -2653,11 +2666,14 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     # but we only care about logging being feasible: cf wandb.log below
                     next_start = batch_indices[next_bidx]
                     next_ids = shuffled_batch_indices[next_start:next_start+batch_size] 
+                    
+                    # Perform optimization step
                     self.optimise_and_update(
                         ins=next_ids,
                         batch_size=batch_size,
                         temperature=temp,
                         update_solution=True,
+                        prompt_manager=prompt_manager,
                         **kwargs,
                     )
 
@@ -2686,6 +2702,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             batch_size=batch_size,
             temperature=temp,
             update_solution=False, # It will be updated in the run loop..
+            prompt_manager=prompt_manager,
             **kwargs,
         )
 
@@ -2695,6 +2712,49 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         #print('Current control:', next_control)
         return next_control, mean_loss
     
+    def log_gradients(self, var_logits, prefix=''):
+        """
+        Log gradient statistics and histograms for the given variable's gradients.
+        
+        Args:
+            var_logits: The variable containing gradients to log
+            prefix: Prefix to add to log names for better organization
+        """
+        if not hasattr(var_logits, 'grad') or var_logits.grad is None:
+            return
+
+        grad = var_logits.grad
+        
+        # Log gradient statistics
+        stats = {
+            f'grad_stats/{prefix}/mean': grad.mean().item(),
+            f'grad_stats/{prefix}/std': grad.std().item(),
+            f'grad_stats/{prefix}/min': grad.min().item(),
+            f'grad_stats/{prefix}/max': grad.max().item(),
+            f'grad_stats/{prefix}/norm': torch.norm(grad).item(),
+        }
+        
+        # Log gradient histograms (limited to first 10 tokens to avoid excessive logging)
+        max_tokens = min(10, grad.shape[1])  # Limit to first 10 tokens
+        for token_id in range(max_tokens):
+            token_grad = grad[0, token_id]  # [batch=1, seq_len, vocab_size]
+            
+            # Log token-level gradient stats
+            stats.update({
+                f'grad_stats/{prefix}/token_{token_id}/mean': token_grad.mean().item(),
+                f'grad_stats/{prefix}/token_{token_id}/std': token_grad.std().item(),
+                f'grad_stats/{prefix}/token_{token_id}/min': token_grad.min().item(),
+                f'grad_stats/{prefix}/token_{token_id}/max': token_grad.max().item(),
+                f'grad_stats/{prefix}/token_{token_id}/norm': torch.norm(token_grad).item(),
+            })
+            
+            # Log histogram of gradients for this token
+            wandb.log({
+                f'grad_hist/{prefix}/token_{token_id}': wandb.Histogram(token_grad.detach().cpu().numpy())
+            }, commit=False)
+        
+        wandb.log(stats, commit=False)
+    
     def optimise_and_update(
         self,
         ins: Optional[List[int]] = [],
@@ -2702,8 +2762,43 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         batch_size: Optional[int] = 1,
         temperature: Optional[float] = 0.1,
         update_solution: Optional[bool] = False,
+        prompt_manager: Optional[SDLMPromptManager] = None,
         **kwargs,
     ):
+        # Log gradients after backward pass (before clipping)
+        if hasattr(prompt_manager, 'sdlm_variable') and hasattr(prompt_manager.sdlm_variable, 'logits'):
+            self.log_gradients(prompt_manager.sdlm_variable.logits, 'after_backward')
+        
+        # Apply gradient clipping if specified
+        gradient_clip_strategy = self.kwargs['params'].get('gradient_clip_strategy', 'none')
+        if 'whole' in gradient_clip_strategy \
+        and hasattr(prompt_manager, 'sdlm_variable') \
+        and hasattr(prompt_manager.sdlm_variable, 'logits'):
+            clip_value = float(gradient_clip_strategy.split('-')[-1])
+            var_logits = prompt_manager.sdlm_variable.logits
+            
+            # Log gradient norms before clipping
+            if var_logits.grad is not None:
+                for token_id in range(min(10, var_logits.grad.shape[1])):
+                    norm = torch.norm(var_logits.grad[0, token_id], p=2).item()
+                    wandb.log({f'grad_norm/before_clip/token_{token_id}': norm}, commit=False)
+            
+            # Apply gradient clipping
+            torch.nn.utils.clip_grad_norm_(
+                parameters=[var_logits],
+                max_norm=clip_value,
+                norm_type=2.0,
+            )
+            
+            # Log gradient norms after clipping
+            if var_logits.grad is not None:
+                for token_id in range(min(10, var_logits.grad.shape[1])):
+                    norm = torch.norm(var_logits.grad[0, token_id], p=2).item()
+                    wandb.log({f'grad_norm/after_clip/token_{token_id}': norm}, commit=False)
+            
+            # Log gradients after clipping
+            self.log_gradients(var_logits, 'after_clipping')
+            
         self.optimizer.step()
         self.optimizer.zero_grad()
         

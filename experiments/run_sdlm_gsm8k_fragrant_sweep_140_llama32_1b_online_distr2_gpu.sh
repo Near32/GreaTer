@@ -52,6 +52,7 @@ python -m ipdb -c c main.py \
     --config.torch_allow_tf32=True \
     --config.do_sample=False \
     --config.loss_type='online' \
+    --config.gradient_clip_strategy='whole-5.0' \
     --config.seed=10 \
     --config.data_seed=10 \
     --config.validate_on="accuracy" \
@@ -67,7 +68,7 @@ python -m ipdb -c c main.py \
     --config.sdlm_model_kwargs.learnable_temperature=False \
     --config.sdlm_model_kwargs.temperature=0.7 \
     --config.sdlm_model_kwargs.hidden_state_conditioning=False \
-    --config.acc_grad_n_examples=4 \
+    --config.acc_grad_n_examples=1 \
     --config.gradient_comp_batch_size=1 \
     --config.update_solution_max_new_tokens=256\
     --config.max_new_tokens_answer=8 \
