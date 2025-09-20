@@ -29,6 +29,10 @@ echo "========================================"
 extractor_text="Therefore, the final answer (use exactly this format: \$LETTER\$, where LETTER is an uppercase letter, like A or B) is $"
 #extractor_text="Therefore, the final answer (with format: $ANSWER$) is $"
 
+control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer."
+#control_init=" Bols referendum_APItheidcarousel twenty.pivot by step駅ращ chốngُن the(MigrationBuilder rowData answer '}';"
+#control_init="_percentageχο嗯 reasoning and think详情 by_keyboard vidět και, giveaug cerebralфра circumstances."
+
 # Set environment variables for CPU optimization
 export OMP_NUM_THREADS=$(nproc)  # Use all available CPU cores
 export TOKENIZERS_PARALLELISM=false
@@ -77,12 +81,13 @@ python -m ipdb -c c main.py \
     --config.n_steps=10 \
     --config.test_steps=25 \
     --config.log_first=False \
+    --config.test_only=False \
     --config.anneal=True \
     --config.batch_size=16 \
     --config.temp=0.8 \
     --config.topk=10 \
     --config.topq=5 \
-    --config.control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer." \
+    --config.control_init="$control_init" \
     --config.extractor_text="$extractor_text" \
     --config.em_from_gen_str=False \
     --config.control_weight=0.5 \

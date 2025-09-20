@@ -1880,6 +1880,9 @@ class ProgressiveMultiPrompter(object):
             step += inner_steps
             self.control = control
 
+            #TODO: DEBUG:
+            #params['test_only'] = False
+            #import ipdb; ipdb.set_trace()
             if params.get('test_only', False):
                 return self.control, step
 

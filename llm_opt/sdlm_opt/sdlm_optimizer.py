@@ -1587,9 +1587,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         model, 
         prompt_manager, 
         include_loss=False, 
-        batch_size=128,
-        max_new_tokens_reasoning=256,
-        max_new_tokens_answer=32,
+        batch_size=None,
+        max_new_tokens_reasoning=None,
+        max_new_tokens_answer=None,
         do_sample=False,
         em_from_gen_str=False,
     ):
@@ -1605,6 +1605,15 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         Returns:
             Tuple of (jailbreak_scores, match_scores, losses)
         """
+        if batch_size is None:
+            batch_size = self.kwargs['params']['batch_size']
+        if max_new_tokens_reasoning is None:
+            max_new_tokens_reasoning = self.kwargs['params']['update_solution_max_new_tokens']
+        if max_new_tokens_answer is None:
+            max_new_tokens_answer = self.kwargs['params']['max_new_tokens_answer']
+        
+        model = model.eval()
+
         prompts = prompt_manager._prompts
         tokenizer = prompt_manager.tokenizer
         original_padding_side = tokenizer.padding_side
@@ -2696,7 +2705,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                      verbose=verbose,
                      params=kwargs['params'],
             )
-            if kwargs.get('test_only', False):
+            if kwargs['params'].get('test_only', False):
                 return self.control_str, loss, steps
 
         for i in tqdm(range(n_steps), position=0, leave=True):
