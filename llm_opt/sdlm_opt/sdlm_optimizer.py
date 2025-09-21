@@ -3021,7 +3021,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             
             if kwargs['params'].get('n_valid_data', 0) > 0:
                 model_valids = self.validate_all(
-                    batch_size=kwargs['params'].get('batch_size', 1),
+                    batch_size=kwargs['params'].get('batch_size', 128)*8,
                     max_new_tokens_reasoning=kwargs['params'].get('update_solution_max_new_tokens', 32),
                     max_new_tokens_answer=kwargs['params'].get('max_new_tokens_answer', 32),
                     do_sample=kwargs['params'].get('do_sample', True),
