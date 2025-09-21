@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Create directories
-mkdir -p sdlm_llama32_8b_logs
+mkdir -p sdlm_llama32_1b_logs
 mkdir -p results
 
 # Set paths - using a small subset of data for quick testing
 TRAIN_DATA="../data/grade_school_math/train.jsonl"
 TEST_DATA="../data/grade_school_math/test.jsonl"
-LOG_FILE="sdlm_llama32_8b_logs/gsm8k_optimization.log"
-RESULT_PREFIX="results_test/sdlm_llama32_8b_gpu_gsm8k"
+LOG_FILE="sdlm_llama32_1b_logs/gsm8k_optimization.log"
+RESULT_PREFIX="results_test/online_sdlm_llama32_1b_gpu_gsm8k"
 
 # Print configuration
 echo "========================================"
-echo "SDLM Optimization with Llama-3-8B-Instruct (GPU)"
+echo "SDLM Optimization with Llama-3.2-1B-Instruct (GPU)"
 echo "========================================"
-echo "Model: meta-llama/Llama-3-8B-Instruct"
+echo "Model: meta-llama/Llama-3.2-1B-Instruct"
 echo "Device: GPU"
 echo "Train data: $TRAIN_DATA"
 echo "Test data: $TEST_DATA"
@@ -32,7 +32,7 @@ export OMP_NUM_THREADS=$(nproc)  # Use all available CPU cores
 export TOKENIZERS_PARALLELISM=false
 
 # Run the optimization
-echo "Starting optimization on GPU with Llama-3-8B-Instruct..."
+echo "Starting optimization on GPU with Llama-3.2-1B-Instruct..."
 #WANDB_DEBUG=true \
 #WANDB_CORE_DEBUG=true \
 WANDB_CACHE_DIR=./wandb_cache/ \
@@ -52,16 +52,16 @@ python -m ipdb -c c main.py \
     --config.torch_allow_tf32=True \
     --config.do_sample=False \
     --config.loss_type='online' \
-    --config.gradient_clip_strategy='whole-50.0' \
+    --config.gradient_clip_strategy='wta-whole-50.0' \
     --config.seed=10 \
     --config.data_seed=10 \
     --config.validate_on="accuracy" \
-    --config.n_train_data=100 \
-    --config.n_valid_data=100 \
+    --config.n_train_data=10 \
+    --config.n_valid_data=10 \
     --config.n_test_data=10000 \
-    --config.sdlm_variable_kwargs.learning_rate=0.001 \
+    --config.sdlm_variable_kwargs.learning_rate=0.01 \
     --config.sdlm_variable_kwargs.init_strategy='random' \
-    --config.sdlm_variable_kwargs.temperature=10.0 \
+    --config.sdlm_variable_kwargs.temperature=0.01 \
     --config.sdlm_variable_kwargs.logit_scaler=1.0 \
     --config.sdlm_variable_kwargs.learnable_temperature=True \
     --config.sdlm_model_stgs_logits_generation=True \
@@ -69,7 +69,7 @@ python -m ipdb -c c main.py \
     --config.sdlm_model_kwargs.temperature=0.7 \
     --config.sdlm_model_kwargs.hidden_state_conditioning=False \
     --config.sdlm_model_kwargs.use_bpttoken=False \
-    --config.acc_grad_n_examples=4 \
+    --config.acc_grad_n_examples=1 \
     --config.gradient_comp_batch_size=1 \
     --config.update_solution_max_new_tokens=256\
     --config.max_new_tokens_answer=8 \
@@ -89,7 +89,7 @@ python -m ipdb -c c main.py \
 
 # Print completion message
 echo "========================================"
-echo "GPU Optimization with Llama-3-8B-Instruct completed!"
+echo "GPU Optimization with Llama-3.2-1B-Instruct completed!"
 echo "Results saved to: $RESULT_PREFIX*"
 echo "Log file: $LOG_FILE"
 echo "========================================"

@@ -1695,7 +1695,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         jailbreak_scores = []
         match_scores = []
         losses = []
-        
+        gen_strs = []
+        solutions = []
+
         # Process prompts in batches
         nbr_prompts = len(prompts)
         pidx=0
@@ -1715,7 +1717,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             batch_jb = []
             batch_mb = []
             batch_losses = []
-            
+            batch_gen_strs = []
+            batch_solutions = []
+
             try:
                 # Prepare batched inputs using tokenizer's padding
                 input_ids_list = [prompt.input_ids[:prompt._assistant_role_slice.stop] for prompt in batch_prompts]
@@ -1849,7 +1853,9 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     
                     batch_jb.append(int(jailbroken))
                     batch_mb.append(int(em))
-                
+                    batch_gen_strs.append(gen_str)
+                    batch_solutions.append(gt_answer)
+
                 # Compute losses if needed
                 if include_loss:
                     for i, prompt in enumerate(batch_prompts):
@@ -1909,11 +1915,21 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 match_scores.extend(batch_mb)
                 if include_loss:
                     losses.extend(batch_losses)
-        
+                gen_strs.extend(batch_gen_strs)
+                solutions.extend(batch_solutions)
+
         # Close progress bar and restore tokenizer settings
         pbar.close()
         tokenizer.padding_side = original_padding_side
-        return jailbreak_scores, match_scores, losses if include_loss else []
+        retl = [
+            jailbreak_scores, 
+            match_scores, 
+            losses if include_loss else [],
+            gen_strs,
+            solutions,
+        ]
+
+        return retl
     
     def validate_all(self, do_sample=False, **kwargs):
         model = self.workers[0].model
@@ -2009,8 +2025,20 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         return id_id, id_od, od_id, od_od
 
     def log(self, step_num, n_steps, control, loss, runtime, model_tests, verbose=True, entry_type="test", **kwargs):
+        '''
+        :arg model_tests: List of lists, containing for each the list of results for each worker:
+            - jailbreak results;
+            - EM score ;
+            - loss ;
+            - Optional[gen_str] ;
+            - Optional[solution] ;
+        '''
+        prompt_tests_jb, prompt_tests_mb, model_tests_loss = list(map(np.array, model_tests[:3]))
+        gen_strs = []
+        solutions = []
+        if len(model_tests)>3:
+            gen_strs, solutions = list(map(np.array, model_tests[3:]))
 
-        prompt_tests_jb, prompt_tests_mb, model_tests_loss = list(map(np.array, model_tests))
         if "test" in entry_type:
             all_goal_strs = self.goals + self.test_goals
         elif "valid" in entry_type:
@@ -2029,7 +2057,20 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 jb = prompt_tests_jb[jidx][iidx]
                 mb = prompt_tests_mb[jidx][iidx]
                 loss = model_tests_loss[jidx][iidx]
-                tl.append( (model_name, jb, mb, loss))
+                data_dict = {
+                    'model':model_name, 
+                    'jailbreak':jb, 
+                    'EM':mb, 
+                    'loss':loss,
+                    'control':control,
+                }
+                if gen_strs is not None:
+                    gen_str = gen_strs[jidx][iidx]
+                    solution = solutions[jidx][iidx]
+                    # extract from np.str format:
+                    data_dict['gen_str'] = gen_str.item()
+                    data_dict['solution'] = solution.item()
+                tl.append(data_dict)
             tests[all_goal_strs[i]] = tl
 
         n_passed = self.parse_results(prompt_tests_jb, entry_type)
@@ -2735,7 +2776,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         }
         
         # Log gradient histograms (limited to first 10 tokens to avoid excessive logging)
-        max_tokens = min(10, grad.shape[1])  # Limit to first 10 tokens
+        #max_tokens = min(10, grad.shape[1])  # Limit to first 10 tokens
+        max_tokens = grad.shape[1]  # Limit to first 10 tokens
         for token_id in range(max_tokens):
             token_grad = grad[0, token_id]  # [batch=1, seq_len, vocab_size]
             
@@ -2749,9 +2791,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             })
             
             # Log histogram of gradients for this token
-            wandb.log({
-                f'grad_hist/{prefix}/token_{token_id}': wandb.Histogram(token_grad.detach().cpu().numpy())
-            }, commit=False)
+            if token_id < 10:
+                wandb.log({
+                    f'grad_hist/{prefix}/token_{token_id}': wandb.Histogram(token_grad.detach().cpu().numpy())
+                }, commit=False)
         
         wandb.log(stats, commit=False)
     
@@ -2771,17 +2814,20 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         
         # Apply gradient clipping if specified
         gradient_clip_strategy = self.kwargs['params'].get('gradient_clip_strategy', 'none')
-        if 'whole' in gradient_clip_strategy \
-        and hasattr(prompt_manager, 'sdlm_variable') \
-        and hasattr(prompt_manager.sdlm_variable, 'logits'):
+        argmax_token_grad_norm = None
+        max_token_grad_norm = -1
+        # Log gradient norms before clipping
+        var_logits = prompt_manager.sdlm_variable.logits
+        if var_logits.grad is not None:
+            for token_id in range(var_logits.grad.shape[1]):
+                norm = torch.norm(var_logits.grad[0, token_id], p=2).item()
+                wandb.log({f'grad_norm/before_clip/token_{token_id}': norm}, commit=False)
+                if norm > max_token_grad_norm:
+                    max_token_grad_norm = norm
+                    argmax_token_grad_norm = token_id
+
+        if 'whole' in gradient_clip_strategy: 
             clip_value = float(gradient_clip_strategy.split('-')[-1])
-            var_logits = prompt_manager.sdlm_variable.logits
-            
-            # Log gradient norms before clipping
-            if var_logits.grad is not None:
-                for token_id in range(min(10, var_logits.grad.shape[1])):
-                    norm = torch.norm(var_logits.grad[0, token_id], p=2).item()
-                    wandb.log({f'grad_norm/before_clip/token_{token_id}': norm}, commit=False)
             
             # Apply gradient clipping
             torch.nn.utils.clip_grad_norm_(
@@ -2792,13 +2838,19 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             
             # Log gradient norms after clipping
             if var_logits.grad is not None:
-                for token_id in range(min(10, var_logits.grad.shape[1])):
+                for token_id in range(var_logits.grad.shape[1]):
                     norm = torch.norm(var_logits.grad[0, token_id], p=2).item()
                     wandb.log({f'grad_norm/after_clip/token_{token_id}': norm}, commit=False)
             
             # Log gradients after clipping
             self.log_gradients(var_logits, 'after_clipping')
-            
+        if 'wta' in gradient_clip_strategy:
+            if var_logits.grad is not None:
+                for token_id in range(var_logits.grad.shape[1]):
+                    if token_id == argmax_token_grad_norm:  continue
+                    else:   var_logits.grad[0, token_id] = 0
+            wandb.log({f"wta_gradient_clip/argmax_token_id":argmax_token_grad_norm,}, commit=False)
+
         self.optimizer.step()
         self.optimizer.zero_grad()
         
@@ -2985,7 +3037,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     params=kwargs['params'],
                     entry_type="valid",
                 )
-                valid_jb, valid_mb, valid_loss = list(map(np.array, model_valids))
+                # [:3] because it may also contain gen_strs and solutions:
+                valid_jb, valid_mb, valid_loss = list(map(np.array, model_valids[:3]))
                 valid_loss = valid_loss.mean().item()
                 n_em = self.parse_results(valid_mb, entry_type='valid')
                 total_tests = self.parse_results(np.ones(valid_jb.shape, dtype=int), entry_type='valid')
