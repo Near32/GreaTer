@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\title{Main Algorithm of \texttt{next\_token\_distribution\_analysis.py}}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\begin{algorithm}
+\caption{Top-Level Control Flow}
+\begin{algorithmic}[1]
+\STATE $\text{settings} \leftarrow \textsc{ParseArgs}(\text{argv})$
+\STATE \textsc{SetSeeds}$(\text{settings.random\_seed})$
+\STATE $\text{wandb\_run} \leftarrow \varnothing$
+\STATE $\text{run\_path} \leftarrow \text{settings.wandb\_source\_run}$
+\IF{$\text{settings.wandb\_action}$ contains ``log''}
+    \STATE $\text{wandb\_run} \leftarrow \textsc{RunExperiment}(\text{settings})$
+    \IF{$\text{wandb\_run}$ has a path}
+        \STATE $\text{run\_path} \leftarrow \text{wandb\_run.path}$
+    \ENDIF
+\ENDIF
+\IF{$\text{settings.wandb\_action}$ contains ``reload''}
+    \STATE $(\text{plots}, \text{history}) \leftarrow \textsc{ReloadAndPlot}(\text{settings}, \text{run\_path})$
+    \STATE \textsc{PersistArtifacts}$(\text{plots}, \text{history}, \text{settings.plot\_output\_path}, \text{wandb\_run})$
+\ENDIF
+\STATE \textsc{FinishRunIfNeeded}$(\text{wandb\_run})$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{\textsc{RunExperiment}(settings)}
+\begin{algorithmic}[1]
+\STATE $\text{tokenizer} \leftarrow \textsc{LoadTokenizer}(\text{settings})$
+\STATE $\text{device} \leftarrow \textsc{ResolveDevice}(\text{settings.device})$
+\STATE $\text{candidate\_ids} \leftarrow \textsc{CollectValidTokenIds}(\text{tokenizer})$
+\STATE \textsc{MaybeTruncateCandidates}$(\text{candidate\_ids}, \text{settings.max\_similarity\_candidates})$
+\STATE $\text{dictionary\_pool} \leftarrow \varnothing$
+\IF{$\text{settings.candidate\_source} = \text{``dictionary''}$}
+    \STATE $(\text{span\_tok}, \text{span\_model}) \leftarrow \textsc{LoadSpanEncoder}(\text{settings}, \text{device})$
+    \STATE $\text{dict\_file} \leftarrow \textsc{ResolveDictionaryPath}(\text{settings})$
+    \STATE $\text{dictionary\_pool} \leftarrow \textsc{BuildDictionaryCandidatePool}(\cdot)$
+    \STATE \textsc{MaybeClusterCandidates}$(\text{dictionary\_pool}, \text{settings})$
+\ENDIF
+\STATE $\text{logged\_tables} \leftarrow \emptyset$
+\FORALL{$\text{dtype\_name}$ in $\text{settings.dtypes}$}
+    \STATE $\text{dtype\_info} \leftarrow \textsc{ResolveDType}(\text{dtype\_name})$
+    \STATE $\text{dtype\_device} \leftarrow \textsc{AdjustDevice}(\text{device}, \text{dtype\_info})$
+    \STATE $\text{models} \leftarrow \textsc{LoadRequestedModels}(\text{settings}, \text{dtype\_info}, \text{dtype\_device})$
+    \FORALL{$(\text{mode\_name}, \text{model}) \in \text{models}$}
+        \IF{$\text{settings.candidate\_source} = \text{``token''}$}
+            \STATE $\text{candidate\_pool} \leftarrow \textsc{BuildTokenCandidatePool}(\text{model}, \text{tokenizer}, \text{candidate\_ids})$
+            \STATE \textsc{MaybeClusterCandidates}$(\text{candidate\_pool}, \text{settings}, \text{mode\_name}, \text{dtype\_name})$
+            \STATE \textsc{LogEmbeddingTableIfOnce}$(\text{candidate\_pool}, \text{mode\_name}, \text{dtype\_name}, \text{logged\_tables})$
+        \ELSE
+            \STATE $\text{candidate\_pool} \leftarrow \text{dictionary\_pool}$
+        \ENDIF
+        \FORALL{$\text{distribution\_type} \in \text{settings.distribution\_types}$}
+            \STATE $\text{k\_list} \leftarrow \textsc{ResolveSupports}(\text{distribution\_type}, \text{settings.k\_values})$
+            \FORALL{$k \in \text{k\_list}$}
+                \FORALL{$\beta \in \text{settings.anchor\_cluster\_blends}$}
+                    \STATE $\text{ratio\_logs} \leftarrow [\,]$
+                    \FORALL{$\rho \in \text{settings.ratios}$}
+                        \STATE $\text{scalar\_records} \leftarrow [\,]$
+                        \FOR{$a = 0$ to $\text{settings.num\_anchor\_sets}-1$}
+                            \STATE $\text{rng} \leftarrow \textsc{SeededGenerator}(\text{settings.random\_seed} + a \times \text{settings.anchor\_seed\_stride})$
+                            \STATE $\text{blueprints} \leftarrow \textsc{BuildBlueprints}(\text{settings}, \text{rng}, \text{candidate\_pool}, k, \rho, \beta)$
+                            \STATE $(\text{stacked}, \text{metadata}) \leftarrow \textsc{CollectNextTokenDistributions}(\text{model}, \text{tokenizer}, \text{settings}, \text{blueprints}, \text{dtype\_device}, a)$
+                            \STATE $\text{metrics} \leftarrow \textsc{ComputeCrossEntropyMetrics}(\text{stacked}, \text{dtype\_info})$
+                            \STATE $\text{metrics.mean\_support\_similarity} \leftarrow \textsc{AggregateSupportSims}(\text{blueprints})$
+                            \STATE \textsc{LogHeatmapsAndTables}$(\text{metrics}, \text{metadata}, \cdot)$
+                            \STATE $\text{scalar\_records.append}(\text{metrics})$
+                        \ENDFOR
+                        \STATE $\text{ratio\_summary} \leftarrow \textsc{AggregateScalarMetrics}(\text{scalar\_records})$
+                        \STATE \textsc{LogRatioSummary}$(\text{ratio\_summary}, \rho, k, \beta, \text{distribution\_type}, \text{mode\_name}, \text{dtype\_info})$
+                        \STATE $\text{ratio\_logs.append}(\text{ratio\_summary})$
+                    \ENDFOR
+                    \STATE $\text{blend\_summary} \leftarrow \textsc{AggregateRatioSummaries}(\text{ratio\_logs})$
+                    \STATE \textsc{LogBlendSummary}$(\text{blend\_summary}, k, \beta, \text{distribution\_type}, \text{mode\_name}, \text{dtype\_info})$
+                \ENDFOR
+            \ENDFOR
+        \ENDFOR
+    \ENDFOR
+\ENDFOR
+\STATE \textbf{return} current W\&B run handle
+\end{algorithmic}
+\end{algorithm}
+
+\end{document}
