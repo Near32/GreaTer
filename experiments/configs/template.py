@@ -18,6 +18,7 @@ def get_config():
     config.do_sample = True 
     config.loss_type = 'offline'
     config.gradient_clip_strategy = 'none'
+    config.online_teacher_forcing = False
 
     # General parameters 
     config.target_weight=0.85

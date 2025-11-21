@@ -38,10 +38,12 @@ def get_config():
         'cuda:0',
     ]
     config.dtypes = [
-        'bfloat16',
-        'bfloat16',
-        #'float16',
-        #'float16',
+        #'bfloat16',
+        #'bfloat16',
+        #'float32',
+        #'float32',
+        'auto',
+        'auto',
     ]
     config.torch_dtype = 'bfloat16'
     
