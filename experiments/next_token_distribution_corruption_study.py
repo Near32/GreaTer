@@ -16,6 +16,8 @@ from __future__ import annotations
 
 import argparse
 import logging
+import math
+import re
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
@@ -23,6 +25,8 @@ from typing import List, Sequence, Tuple
 from string import ascii_uppercase
 
 import numpy as np
+
+import tqdm
 import torch
 from datasets import load_dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -48,7 +52,8 @@ except ImportError:  # pragma: no cover
     wandb = None  # type: ignore
 
 LOGGER = logging.getLogger(__name__)
-EPSILON = 1e-12
+EPSILON = 1e-7
+TRANSFER_ONLY_TARGETS = {"high_to_any", "low_to_any"}
 
 
 @dataclass
@@ -87,8 +92,12 @@ def parse_args() -> argparse.Namespace:
         "--corruption-targets",
         nargs="*",
         default=("high", "low", "random"),
-        choices=("high", "low", "random"),
-        help="Distribution regions to perturb",
+        choices=("high", "low", "random", "high_to_any", "low_to_any"),
+        help=(
+            "Distribution regions to perturb. "
+            "Use *_to_any to let head (or tail) tokens donate probability mass to any recipient "
+            "(transfer mode only)."
+        ),
     )
     parser.add_argument(
         "--corruption-modes",
@@ -126,10 +135,23 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("artifacts/next_token_corruption"),
-        help="Directory for tables and plots",
+        default=None,
+        help=(
+            "Directory for tables and plots. Defaults to an auto-named folder derived "
+            "from the model, dataset, and corruption settings."
+        ),
     )
     parser.add_argument("--no-plots", action="store_true", help="Skip generating seaborn plots even if available")
+    parser.add_argument(
+        "--plot-log",
+        action="store_true",
+        help="Also render plots with a logarithmic x-axis.",
+    )
+    parser.add_argument(
+        "--plot-log-log",
+        action="store_true",
+        help="Render generated plots on logarithmic scales for both axes.",
+    )
     parser.add_argument("--batch-size", type=int, default=8, help="Batch size for forward passes")
     parser.add_argument(
         "--include-prompts",
@@ -153,6 +175,16 @@ def parse_args() -> argparse.Namespace:
         type=float,
         default=0.1,
         help="Clamping value applied to |Δp| when computing clamped mass shift metrics.",
+    )
+    parser.add_argument(
+        "--error-estimator",
+        type=str,
+        choices=("quantile", "std"),
+        default="std",
+        help=(
+            "Statistic used for asymmetric error bars. "
+            "'quantile' uses the 16th/84th percentiles, 'std' reuses the sample standard deviation."
+        ),
     )
     parser.add_argument(
         "--transfer-delta-min",
@@ -321,12 +353,20 @@ def reload_from_wandb(args: argparse.Namespace, output_dir: Path, run_path: str 
 
     results_df = None
     if pd is not None:
-        parquet_path = output_dir / "corruption_results.parquet"
-        csv_path = output_dir / "corruption_results.csv"
+        estimator_suffix = "" if args.error_estimator == "std" else f"_{args.error_estimator}"
+        parquet_path = output_dir / f"corruption_results{estimator_suffix}.parquet"
+        csv_path = output_dir / f"corruption_results{estimator_suffix}.csv"
+        fallback_parquet = output_dir / "corruption_results.parquet"
+        fallback_csv = output_dir / "corruption_results.csv"
         if parquet_path.exists():
             results_df = pd.read_parquet(parquet_path)
         elif csv_path.exists():
             results_df = pd.read_csv(csv_path)
+        elif estimator_suffix:
+            if fallback_parquet.exists():
+                results_df = pd.read_parquet(fallback_parquet)
+            elif fallback_csv.exists():
+                results_df = pd.read_csv(fallback_csv)
 
     if copied_files:
         LOGGER.info("Reloaded files: %s", ", ".join(path.name for path in copied_files))
@@ -338,33 +378,58 @@ def reload_from_local(
     no_plots: bool,
     mass_shift_threshold: float,
     mass_clamp_value: float,
+    plot_log: bool,
+    plot_log_log: bool,
+    error_estimator: str,
 ):
     results_df = None
     summary_df = None
     plot_paths: List[Path] = []
     artifact_files: List[Path] = []
 
+    estimator_suffix = "" if error_estimator == "std" else f"_{error_estimator}"
+
     if pd is not None:
-        parquet_path = output_dir / "corruption_results.parquet"
-        csv_path = output_dir / "corruption_results.csv"
+        parquet_path = output_dir / f"corruption_results{estimator_suffix}.parquet"
+        csv_path = output_dir / f"corruption_results{estimator_suffix}.csv"
+        fallback_parquet = output_dir / "corruption_results.parquet"
+        fallback_csv = output_dir / "corruption_results.csv"
         if parquet_path.exists():
             results_df = pd.read_parquet(parquet_path)
             artifact_files.append(parquet_path)
         elif csv_path.exists():
             results_df = pd.read_csv(csv_path)
             artifact_files.append(csv_path)
+        elif estimator_suffix:
+            if fallback_parquet.exists():
+                results_df = pd.read_parquet(fallback_parquet)
+                artifact_files.append(fallback_parquet)
+            elif fallback_csv.exists():
+                results_df = pd.read_csv(fallback_csv)
+                artifact_files.append(fallback_csv)
 
-        summary_csv = output_dir / "corruption_summary.csv"
-        summary_txt = output_dir / "corruption_summary.txt"
+        summary_csv = output_dir / f"corruption_summary{estimator_suffix}.csv"
+        summary_txt = output_dir / f"corruption_summary{estimator_suffix}.txt"
+        fallback_summary_csv = output_dir / "corruption_summary.csv"
+        fallback_summary_txt = output_dir / "corruption_summary.txt"
         if summary_csv.exists():
             summary_df = pd.read_csv(summary_csv)
             artifact_files.append(summary_csv)
         elif summary_txt.exists():
             artifact_files.append(summary_txt)
+        elif estimator_suffix:
+            if fallback_summary_csv.exists():
+                summary_df = pd.read_csv(fallback_summary_csv)
+                artifact_files.append(fallback_summary_csv)
+            elif fallback_summary_txt.exists():
+                artifact_files.append(fallback_summary_txt)
     else:
-        summary_txt = output_dir / "corruption_summary.txt"
+        summary_txt = output_dir / f"corruption_summary{estimator_suffix}.txt"
+        fallback_summary_txt = output_dir / "corruption_summary.txt"
         if summary_txt.exists():
             artifact_files.append(summary_txt)
+        elif estimator_suffix and fallback_summary_txt.exists():
+            artifact_files.append(fallback_summary_txt)
 
     if results_df is not None and not no_plots:
         plot_paths = maybe_create_plots(
@@ -372,7 +437,39 @@ def reload_from_local(
             output_dir,
             mass_shift_threshold,
             mass_clamp_value,
+            log_x=False,
+            log_y=False,
+            error_estimator=error_estimator,
+            estimator_tag=estimator_suffix,
         )
+        if plot_log:
+            plot_paths.extend(
+                maybe_create_plots(
+                    results_df,
+                    output_dir,
+                    mass_shift_threshold,
+                    mass_clamp_value,
+                    log_x=True,
+                    log_y=False,
+                    error_estimator=error_estimator,
+                    estimator_tag=estimator_suffix,
+                    suffix="_logx",
+                )
+            )
+        if plot_log_log:
+            plot_paths.extend(
+                maybe_create_plots(
+                    results_df,
+                    output_dir,
+                    mass_shift_threshold,
+                    mass_clamp_value,
+                    log_x=True,
+                    log_y=True,
+                    error_estimator=error_estimator,
+                    estimator_tag=estimator_suffix,
+                    suffix="_log",
+                )
+            )
         artifact_files.extend(plot_paths)
 
     return results_df, summary_df, plot_paths, artifact_files
@@ -599,6 +696,95 @@ def _scale_corrupt_distribution_blend(
         }
         return adjusted, metadata
 
+    clipped_fraction = float(np.clip(high_fraction, 0.0, 1.0))
+    # Sample how many tokens to draw from the high-probability region.
+    high_count = int(rng.binomial(count, clipped_fraction))
+    high_count = min(high_count, count)
+    low_count = count - high_count
+
+    order = np.argsort(base_probs)
+    order_desc = order[::-1]
+    used_mask = np.zeros(vocab_size, dtype=bool)
+
+    high_selected: np.ndarray
+    if high_count > 0:
+        high_pool_size = min(vocab_size, max(high_count * 2, 4))
+        high_pool = order_desc[:high_pool_size]
+        if high_pool.size < high_count:
+            high_pool = order_desc  # Fallback to full sorted list.
+        high_selected = np.array(rng.choice(high_pool, size=high_count, replace=False), dtype=int)
+        used_mask[high_selected] = True
+    else:
+        high_selected = np.empty(0, dtype=int)
+
+    if low_count > 0:
+        low_candidates = order[~used_mask[order]]
+        low_pool_size = min(low_candidates.size, max(low_count * 2, 4))
+        low_pool = low_candidates[:low_pool_size]
+        if low_pool.size < low_count:
+            low_pool = low_candidates  # Fallback if pool is too small.
+        low_selected = np.array(rng.choice(low_pool, size=low_count, replace=False), dtype=int)
+    else:
+        low_selected = np.empty(0, dtype=int)
+
+    selected = np.concatenate([high_selected, low_selected])
+    if selected.size == 0:
+        metadata = {
+            "selection_size": 0,
+            "selected_mass_before": 0.0,
+            "selected_mass_after": 0.0,
+            "high_count": 0,
+            "low_count": 0,
+            "high_mass_before": 0.0,
+            "high_mass_after": 0.0,
+            "low_mass_before": 0.0,
+            "low_mass_after": 0.0,
+            "requested_high_fraction": clipped_fraction,
+            "effective_high_fraction": 0.0,
+            "mass_shift_selected": 0.0,
+        }
+        return adjusted, metadata
+
+    strength = float(max(strength, 0.0))
+    lower = max(1.0 - strength, 1e-3)
+    upper = 1.0 + strength
+    if high_selected.size:
+        high_factors = rng.uniform(lower, 1.0, size=high_selected.size)
+        adjusted[high_selected] *= high_factors
+    if low_selected.size:
+        low_factors = rng.uniform(1.0, upper, size=low_selected.size)
+        adjusted[low_selected] *= low_factors
+
+    adjusted = np.clip(adjusted, EPSILON, None)
+    adjusted /= adjusted.sum()
+
+    selected_mass_before = float(base_probs[selected].sum())
+    selected_mass_after = float(adjusted[selected].sum())
+    mass_shift_selected = float(np.sum(np.abs(base_probs[selected] - adjusted[selected])))
+
+    high_mass_before = float(base_probs[high_selected].sum()) if high_selected.size else 0.0
+    high_mass_after = float(adjusted[high_selected].sum()) if high_selected.size else 0.0
+    low_mass_before = float(base_probs[low_selected].sum()) if low_selected.size else 0.0
+    low_mass_after = float(adjusted[low_selected].sum()) if low_selected.size else 0.0
+
+    effective_high_fraction = float(high_selected.size / selected.size) if selected.size else 0.0
+
+    metadata = {
+        "selection_size": int(selected.size),
+        "selected_mass_before": selected_mass_before,
+        "selected_mass_after": selected_mass_after,
+        "high_count": int(high_selected.size),
+        "low_count": int(low_selected.size),
+        "high_mass_before": high_mass_before,
+        "high_mass_after": high_mass_after,
+        "low_mass_before": low_mass_before,
+        "low_mass_after": low_mass_after,
+        "requested_high_fraction": clipped_fraction,
+        "effective_high_fraction": effective_high_fraction,
+        "mass_shift_selected": mass_shift_selected,
+    }
+    return adjusted, metadata
+
 
 def _prepare_transfer_pools(base_probs: np.ndarray, pool_size: int) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     order = np.argsort(base_probs)
@@ -662,13 +848,34 @@ def _transfer_corrupt_distribution(
 
     for _ in range(count):
         if target == "high":
-            donor_idx, recipient_idx = _sample_pair(rng, high_pool, high_pool, all_indices, allow_same_pool=True)
+            donor_pool = high_pool
+            recipient_pool = high_pool
+            allow_same_pool = True
         elif target == "low":
-            donor_idx, recipient_idx = _sample_pair(rng, low_pool, low_pool, all_indices, allow_same_pool=True)
+            donor_pool = low_pool
+            recipient_pool = low_pool
+            allow_same_pool = True
         elif target == "random":
-            donor_idx, recipient_idx = _sample_pair(rng, all_indices, all_indices, all_indices, allow_same_pool=True)
+            donor_pool = all_indices
+            recipient_pool = all_indices
+            allow_same_pool = True
+        elif target == "high_to_any":
+            donor_pool = high_pool
+            recipient_pool = all_indices
+            allow_same_pool = False
+        elif target == "low_to_any":
+            donor_pool = low_pool
+            recipient_pool = all_indices
+            allow_same_pool = False
         else:
             raise ValueError(f"Unsupported corruption target: {target}")
+        donor_idx, recipient_idx = _sample_pair(
+            rng,
+            donor_pool,
+            recipient_pool,
+            all_indices,
+            allow_same_pool=allow_same_pool,
+        )
         if donor_idx == recipient_idx:
             continue
         donor_mass = adjusted[donor_idx]
@@ -857,7 +1064,40 @@ def corrupt_distribution_blend(
     raise ValueError(f"Unsupported corruption mode: {mode}")
 
 
-def summarize_results(records: List[dict]) -> List[dict]:
+def _quantile_errors(arr: np.ndarray) -> Tuple[float, float]:
+    """Return non-negative deviations below/above the mean based on the central 68% interval."""
+    if arr.size <= 1:
+        return 0.0, 0.0
+    mean = float(arr.mean())
+    if arr.size >= 3:
+        lower_percentile = float(np.percentile(arr, 16))
+        upper_percentile = float(np.percentile(arr, 84))
+        err_low = max(mean - lower_percentile, 0.0)
+        err_high = max(upper_percentile - mean, 0.0)
+    else:
+        err_low = max(mean - float(arr.min()), 0.0)
+        err_high = max(float(arr.max()) - mean, 0.0)
+    return err_low, err_high
+
+
+def _metric_stats(values: np.ndarray, estimator: str) -> Tuple[float, float, float, float]:
+    """Return mean, sample std, and asymmetric lower/upper errors for an array."""
+    arr = np.asarray(values, dtype=np.float64)
+    arr = arr[np.isfinite(arr)]
+    if arr.size == 0:
+        return 0.0, 0.0, 0.0, 0.0
+    mean = float(arr.mean())
+    std = float(arr.std(ddof=1)) if arr.size > 1 else 0.0
+    if estimator == "quantile":
+        err_low, err_high = _quantile_errors(arr)
+    elif estimator == "std":
+        err_low = err_high = max(std, 0.0)
+    else:  # pragma: no cover - validated in CLI
+        raise ValueError(f"Unsupported error estimator: {estimator}")
+    return mean, std, err_low, err_high
+
+
+def summarize_results(records: List[dict], error_estimator: str) -> List[dict]:
     grouped = {}
     for row in records:
         key = (
@@ -886,35 +1126,109 @@ def summarize_results(records: List[dict]) -> List[dict]:
             ratio_value = None if np.isnan(ratio_float) else ratio_float
         else:
             ratio_value = None
+
+        (
+            mean_skl,
+            std_skl,
+            err_low_skl,
+            err_high_skl,
+        ) = _metric_stats(values, error_estimator)
+        (
+            mean_cross,
+            std_cross,
+            err_low_cross,
+            err_high_cross,
+        ) = _metric_stats(cross_values, error_estimator)
+        (
+            mean_wasser,
+            std_wasser,
+            err_low_wasser,
+            err_high_wasser,
+        ) = _metric_stats(wasser_values, error_estimator)
+        (
+            mean_tv,
+            std_tv,
+            err_low_tv,
+            err_high_tv,
+        ) = _metric_stats(tv_values, error_estimator)
+        (
+            mean_mass_shift,
+            std_mass_shift,
+            err_low_mass_shift,
+            err_high_mass_shift,
+        ) = _metric_stats(mass_shift_values, error_estimator)
+        (
+            mean_sym_mass_shift,
+            std_sym_mass_shift,
+            err_low_sym_mass_shift,
+            err_high_sym_mass_shift,
+        ) = _metric_stats(sym_mass_shift_values, error_estimator)
+        (
+            mean_sym_mass_count,
+            std_sym_mass_count,
+            err_low_sym_mass_count,
+            err_high_sym_mass_count,
+        ) = _metric_stats(sym_mass_count_values, error_estimator)
+        (
+            mean_clamp_shift,
+            std_clamp_shift,
+            err_low_clamp_shift,
+            err_high_clamp_shift,
+        ) = _metric_stats(clamp_mass_values, error_estimator)
+        (
+            mean_clamp_count,
+            std_clamp_count,
+            err_low_clamp_count,
+            err_high_clamp_count,
+        ) = _metric_stats(clamp_mass_count_values, error_estimator)
+
         entry = {
             "corruption_target": target,
             "num_corruptions": int(count),
             "blend_ratio": ratio_value,
             "corruption_strength": float(strength) if strength is not None else None,
             "corruption_mode": mode,
-            "mean_symmetric_kl": float(values.mean()),
-            "std_symmetric_kl": float(values.std(ddof=1) if len(values) > 1 else 0.0),
+            "mean_symmetric_kl": mean_skl,
+            "std_symmetric_kl": std_skl,
+            "symmetric_kl_err_low": err_low_skl,
+            "symmetric_kl_err_high": err_high_skl,
             "min_symmetric_kl": float(values.min()),
             "max_symmetric_kl": float(values.max()),
             "num_samples": len(rows),
-            "mean_cross_entropy": float(cross_values.mean()),
-            "std_cross_entropy": float(cross_values.std(ddof=1) if len(cross_values) > 1 else 0.0),
+            "mean_cross_entropy": mean_cross,
+            "std_cross_entropy": std_cross,
+            "cross_entropy_err_low": err_low_cross,
+            "cross_entropy_err_high": err_high_cross,
             "mean_entropy_original": float(entropy_orig_values.mean()),
             "mean_entropy_corrupted": float(entropy_corr_values.mean()),
-            "mean_wasserstein_distance": float(wasser_values.mean()),
-            "std_wasserstein_distance": float(wasser_values.std(ddof=1) if len(wasser_values) > 1 else 0.0),
-            "mean_total_variation": float(tv_values.mean()),
-            "std_total_variation": float(tv_values.std(ddof=1) if len(tv_values) > 1 else 0.0),
-            "mean_mass_shift_selected": float(mass_shift_values.mean()),
-            "std_mass_shift_selected": float(mass_shift_values.std(ddof=1) if len(mass_shift_values) > 1 else 0.0),
-            "mean_symmetric_mass_shift": float(sym_mass_shift_values.mean()),
-            "std_symmetric_mass_shift": float(sym_mass_shift_values.std(ddof=1) if len(sym_mass_shift_values) > 1 else 0.0),
-            "mean_symmetric_mass_count": float(sym_mass_count_values.mean()),
-            "std_symmetric_mass_count": float(sym_mass_count_values.std(ddof=1) if len(sym_mass_count_values) > 1 else 0.0),
-            "mean_clamped_mass_shift": float(clamp_mass_values.mean()),
-            "std_clamped_mass_shift": float(clamp_mass_values.std(ddof=1) if len(clamp_mass_values) > 1 else 0.0),
-            "mean_clamped_mass_count": float(clamp_mass_count_values.mean()),
-            "std_clamped_mass_count": float(clamp_mass_count_values.std(ddof=1) if len(clamp_mass_count_values) > 1 else 0.0),
+            "mean_wasserstein_distance": mean_wasser,
+            "std_wasserstein_distance": std_wasser,
+            "wasserstein_distance_err_low": err_low_wasser,
+            "wasserstein_distance_err_high": err_high_wasser,
+            "mean_total_variation": mean_tv,
+            "std_total_variation": std_tv,
+            "total_variation_err_low": err_low_tv,
+            "total_variation_err_high": err_high_tv,
+            "mean_mass_shift_selected": mean_mass_shift,
+            "std_mass_shift_selected": std_mass_shift,
+            "mass_shift_selected_err_low": err_low_mass_shift,
+            "mass_shift_selected_err_high": err_high_mass_shift,
+            "mean_symmetric_mass_shift": mean_sym_mass_shift,
+            "std_symmetric_mass_shift": std_sym_mass_shift,
+            "symmetric_mass_shift_err_low": err_low_sym_mass_shift,
+            "symmetric_mass_shift_err_high": err_high_sym_mass_shift,
+            "mean_symmetric_mass_count": mean_sym_mass_count,
+            "std_symmetric_mass_count": std_sym_mass_count,
+            "symmetric_mass_count_err_low": err_low_sym_mass_count,
+            "symmetric_mass_count_err_high": err_high_sym_mass_count,
+            "mean_clamped_mass_shift": mean_clamp_shift,
+            "std_clamped_mass_shift": std_clamp_shift,
+            "clamped_mass_shift_err_low": err_low_clamp_shift,
+            "clamped_mass_shift_err_high": err_high_clamp_shift,
+            "mean_clamped_mass_count": mean_clamp_count,
+            "std_clamped_mass_count": std_clamp_count,
+            "clamped_mass_count_err_low": err_low_clamp_count,
+            "clamped_mass_count_err_high": err_high_clamp_count,
         }
         if ratio is not None:
             effective = [
@@ -945,11 +1259,72 @@ def ensure_output_dir(path: Path) -> Path:
     return path
 
 
+def _slugify_fragment(text: str) -> str:
+    sanitized = re.sub(r"[^0-9A-Za-z._-]+", "-", text.strip())
+    sanitized = sanitized.strip("-_.")
+    return sanitized or "none"
+
+
+def _format_value_for_slug(value) -> str:
+    if isinstance(value, (float, np.floating)):
+        if not math.isfinite(float(value)):
+            return "nan"
+        formatted = f"{float(value):.4f}".rstrip("0").rstrip(".")
+        return formatted or "0"
+    if isinstance(value, (int, np.integer)):
+        return str(int(value))
+    return str(value)
+
+
+def resolve_output_dir(args: argparse.Namespace) -> Path:
+    if args.output_dir is not None:
+        return ensure_output_dir(args.output_dir)
+
+    components = [
+        ("model", args.model_name),
+        ("dataset", args.dataset_name),
+    ]
+    if args.dataset_config:
+        components.append(("config", args.dataset_config))
+    if args.dataset_split:
+        components.append(("split", args.dataset_split))
+    if args.corruption_modes:
+        modes = "-".join(sorted(set(str(mode) for mode in args.corruption_modes)))
+        components.append(("modes", modes))
+    if args.corruption_targets:
+        targets = "-".join(sorted(set(str(target) for target in args.corruption_targets)))
+        components.append(("targets", targets))
+    if args.corruption_strengths:
+        strengths = "-".join(
+            _format_value_for_slug(value) for value in sorted(set(args.corruption_strengths))
+        )
+        components.append(("strengths", strengths))
+    else:
+        components.append(("strength", _format_value_for_slug(args.corruption_strength)))
+    if args.blend_ratios:
+        ratios = "-".join(_format_value_for_slug(value) for value in args.blend_ratios)
+        components.append(("blend", ratios))
+
+    base_dir = Path("artifacts") / "next_token_corruption"
+    folder = "__".join(
+        f"{key}-{_slugify_fragment(str(value))}"
+        for key, value in components
+        if value is not None and str(value).strip()
+    )
+    folder = folder or "default"
+    return ensure_output_dir(base_dir / folder)
+
+
 def maybe_create_plots(
     results_df,
     output_dir: Path,
     mass_shift_threshold: float,
     mass_clamp_value: float,
+    log_x: bool = False,
+    log_y: bool = False,
+    error_estimator: str = "std",
+    estimator_tag: str = "",
+    suffix: str = "",
 ):
     if pd is None or sns is None or plt is None:
         LOGGER.warning("Skipping plots because pandas/seaborn/matplotlib are unavailable")
@@ -979,55 +1354,63 @@ def maybe_create_plots(
     plot_df["corruption_strength"] = plot_df["corruption_strength"].astype(float)
 
     plot_df["blend_ratio_key"] = plot_df["blend_ratio"].fillna(-1.0)
-    agg_df = (
-        plot_df.groupby(
-            [
-                "corruption_target",
-                "blend_ratio_key",
-                "corruption_mode",
-                "corruption_strength",
-                "num_corruptions",
-            ]
+    group_columns = [
+        "corruption_target",
+        "blend_ratio_key",
+        "corruption_mode",
+        "corruption_strength",
+        "num_corruptions",
+    ]
+    stats_metrics = [
+        ("symmetric_kl", "symmetric_kl"),
+        ("cross_entropy", "cross_entropy"),
+        ("wasserstein_distance", "wasserstein"),
+        ("total_variation", "total_variation"),
+        ("mass_shift_selected", "mass_shift"),
+        ("symmetric_mass_shift", "symmetric_mass_shift"),
+        ("symmetric_mass_count", "symmetric_mass_count"),
+        ("clamped_mass_shift", "clamped_mass_shift"),
+        ("clamped_mass_count", "clamped_mass_count"),
+    ]
+    agg_rows: list[dict] = []
+    grouped = plot_df.groupby(group_columns, dropna=False)
+    for keys, group in grouped:
+        if not isinstance(keys, tuple):
+            keys = (keys,)
+        record = dict(zip(group_columns, keys))
+        record["sample_count"] = int(group["sample_id"].nunique())
+        entropy_orig_mean, _, _, _ = _metric_stats(
+            group["entropy_original"].to_numpy(dtype=np.float64),
+            error_estimator,
         )
-        .agg(
-            symmetric_kl_mean=("symmetric_kl", "mean"),
-            symmetric_kl_std=("symmetric_kl", "std"),
-            cross_entropy_mean=("cross_entropy", "mean"),
-            cross_entropy_std=("cross_entropy", "std"),
-            entropy_original_mean=("entropy_original", "mean"),
-            entropy_corrupted_mean=("entropy_corrupted", "mean"),
-            wasserstein_mean=("wasserstein_distance", "mean"),
-            wasserstein_std=("wasserstein_distance", "std"),
-            total_variation_mean=("total_variation", "mean"),
-            total_variation_std=("total_variation", "std"),
-            mass_shift_mean=("mass_shift_selected", "mean"),
-            mass_shift_std=("mass_shift_selected", "std"),
-            symmetric_mass_shift_mean=("symmetric_mass_shift", "mean"),
-            symmetric_mass_shift_std=("symmetric_mass_shift", "std"),
-            symmetric_mass_count_mean=("symmetric_mass_count", "mean"),
-            symmetric_mass_count_std=("symmetric_mass_count", "std"),
-            clamped_mass_shift_mean=("clamped_mass_shift", "mean"),
-            clamped_mass_shift_std=("clamped_mass_shift", "std"),
-            clamped_mass_count_mean=("clamped_mass_count", "mean"),
-            clamped_mass_count_std=("clamped_mass_count", "std"),
-            sample_count=("sample_id", "nunique"),
+        entropy_corr_mean, _, _, _ = _metric_stats(
+            group["entropy_corrupted"].to_numpy(dtype=np.float64),
+            error_estimator,
         )
-        .reset_index()
-    )
+        record["entropy_original_mean"] = entropy_orig_mean
+        record["entropy_corrupted_mean"] = entropy_corr_mean
+        for source, alias in stats_metrics:
+            mean_val, std_val, err_low, err_high = _metric_stats(
+                group[source].to_numpy(dtype=np.float64),
+                error_estimator,
+            )
+            record[f"{alias}_mean"] = mean_val
+            record[f"{alias}_std"] = std_val
+            record[f"{alias}_err_low"] = err_low
+            record[f"{alias}_err_high"] = err_high
+        agg_rows.append(record)
+    agg_df = pd.DataFrame(agg_rows)
     if agg_df.empty:
         LOGGER.warning("Aggregated results empty; skipping plot generation")
         return []
-    agg_df["symmetric_kl_std"] = agg_df["symmetric_kl_std"].fillna(0.0)
-    agg_df["cross_entropy_std"] = agg_df["cross_entropy_std"].fillna(0.0)
-    agg_df["wasserstein_std"] = agg_df["wasserstein_std"].fillna(0.0)
-    agg_df["total_variation_std"] = agg_df["total_variation_std"].fillna(0.0)
-    agg_df["mass_shift_std"] = agg_df["mass_shift_std"].fillna(0.0)
-    agg_df["symmetric_mass_shift_std"] = agg_df["symmetric_mass_shift_std"].fillna(0.0)
-    agg_df["symmetric_mass_count_std"] = agg_df["symmetric_mass_count_std"].fillna(0.0)
-    agg_df["clamped_mass_shift_std"] = agg_df["clamped_mass_shift_std"].fillna(0.0)
-    agg_df["clamped_mass_count_std"] = agg_df["clamped_mass_count_std"].fillna(0.0)
+    for _, alias in stats_metrics:
+        agg_df[f"{alias}_std"] = agg_df[f"{alias}_std"].fillna(0.0)
+        agg_df[f"{alias}_err_low"] = agg_df[f"{alias}_err_low"].fillna(0.0)
+        agg_df[f"{alias}_err_high"] = agg_df[f"{alias}_err_high"].fillna(0.0)
     agg_df["blend_ratio"] = agg_df["blend_ratio_key"].replace({-1.0: np.nan})
     agg_df.drop(columns=["blend_ratio_key"], inplace=True)
+
+    LOG_EPS = 1e-12
 
     def _annotate_facets(grid, labels, caption_y=0.06):
         pairs = []
@@ -1054,24 +1437,106 @@ def maybe_create_plots(
 
     col_labels = list(dict.fromkeys(agg_df["strength_label"].tolist()))
 
-    cross_plot_path = output_dir / "corruption_cross_entropy_grid.png"
+    def _plot_path(basename: str) -> Path:
+        base_path = Path(basename)
+        suffix_parts: List[str] = []
+        if estimator_tag:
+            suffix_parts.append(estimator_tag)
+        if suffix:
+            suffix_parts.append(suffix)
+        combined = "".join(suffix_parts)
+        if not combined:
+            return output_dir / basename
+        return output_dir / f"{base_path.stem}{combined}{base_path.suffix}"
+
+    def _prepare_y(values):
+        arr = np.asarray(values, dtype=float)
+        if log_y:
+            arr = np.clip(arr, LOG_EPS, None)
+        return arr
+
+    def _mean_with_bounds(ordered, mean_key, std_key):
+        mean_raw = ordered[mean_key].to_numpy(dtype=float)
+        std = np.nan_to_num(ordered[std_key].to_numpy(dtype=float), nan=0.0, posinf=0.0, neginf=0.0)
+        mean = mean_raw.copy()
+        lower_key = mean_key.replace("_mean", "_err_low")
+        upper_key = mean_key.replace("_mean", "_err_high")
+        if lower_key in ordered.columns and upper_key in ordered.columns:
+            err_low = np.nan_to_num(
+                ordered[lower_key].to_numpy(dtype=float),
+                nan=0.0,
+                posinf=0.0,
+                neginf=0.0,
+            )
+            err_high = np.nan_to_num(
+                ordered[upper_key].to_numpy(dtype=float),
+                nan=0.0,
+                posinf=0.0,
+                neginf=0.0,
+            )
+            lower = mean_raw - err_low
+            upper = mean_raw + err_high
+        else:
+            lower = mean_raw - std
+            upper = mean_raw + std
+        if log_y:
+            mean = np.clip(mean, LOG_EPS, None)
+            lower = np.clip(lower, LOG_EPS, None)
+            upper = np.clip(upper, LOG_EPS, None)
+        return mean, lower, upper
+
+    def _prepare_plot(x, *arrays):
+        x_arr = np.asarray(x, dtype=float)
+        value_arrays = [np.asarray(arr, dtype=float) for arr in arrays]
+        mask = np.isfinite(x_arr)
+        if log_x:
+            mask &= x_arr > 0.0
+        for arr in value_arrays:
+            arr_mask = np.isfinite(arr)
+            if log_y:
+                arr_mask &= arr > 0.0
+            mask &= arr_mask
+        if not np.any(mask):
+            empty = x_arr[:0]
+            return empty, [arr[:0] for arr in value_arrays]
+        x_arr = x_arr[mask]
+        value_arrays = [arr[mask] for arr in value_arrays]
+        return x_arr, value_arrays
+
+    def _finalize_grid(grid, x_label, y_label, caption_y=0.12):
+        def _label(base: str, apply_log: bool) -> str:
+            return f"{base} (log scale)" if apply_log else base
+
+        grid.set_axis_labels(_label(x_label, log_x), _label(y_label, log_y))
+        grid.set_titles("")
+        grid.figure.tight_layout()
+        grid.figure.subplots_adjust(top=0.83, bottom=0.22)
+        _annotate_facets(grid, col_labels, caption_y=caption_y)
+        if log_x or log_y:
+            for ax in grid.axes.flat:
+                if log_x:
+                    ax.set_xscale("log")
+                if log_y:
+                    ax.set_yscale("log")
+
+    cross_plot_path = _plot_path("corruption_cross_entropy_grid.png")
 
     def _plot_cross_entropy(data, color, label, **kwargs):
         ax = plt.gca()
         ordered = data.sort_values("num_corruptions")
-        x = ordered["num_corruptions"].to_numpy()
-        ce_mean = ordered["cross_entropy_mean"].to_numpy()
-        ce_std = ordered["cross_entropy_std"].to_numpy()
-        lower = np.clip(ce_mean - ce_std, a_min=0.0, a_max=None)
-        upper = ce_mean + ce_std
+        x = ordered["num_corruptions"].to_numpy(dtype=float)
+        ce_mean, lower, upper = _mean_with_bounds(ordered, "cross_entropy_mean", "cross_entropy_std")
+        ent_orig = _prepare_y(ordered["entropy_original_mean"].to_numpy())
+        ent_corr = _prepare_y(ordered["entropy_corrupted_mean"].to_numpy())
+        x, filtered = _prepare_plot(x, ce_mean, lower, upper, ent_orig, ent_corr)
+        if x.size == 0:
+            return
+        ce_mean, lower, upper, ent_orig, ent_corr = filtered
         cross_label = f"{label} cross-entropy"
-        ax.plot(x, ce_mean, color=color, label=cross_label)
-        ax.fill_between(x, lower, upper, color=color, alpha=0.2)
-
-        ent_orig = ordered["entropy_original_mean"].to_numpy()
-        ent_corr = ordered["entropy_corrupted_mean"].to_numpy()
         ent_orig_label = f"{label} entropy (original)"
         ent_corr_label = f"{label} entropy (corrupted)"
+        ax.plot(x, ce_mean, color=color, label=cross_label)
+        ax.fill_between(x, lower, upper, color=color, alpha=0.2)
         ax.plot(x, ent_orig, color=color, linestyle="--", label=ent_orig_label)
         ax.plot(x, ent_corr, color=color, linestyle=":", label=ent_corr_label)
 
@@ -1087,27 +1552,24 @@ def maybe_create_plots(
     )
     g.map_dataframe(_plot_cross_entropy)
     g.add_legend(title="Corruption regime")
-    g.set_axis_labels("Corrupted tokens", "Cross entropy and entropy (nats)")
-    g.set_titles("")
     g.figure.suptitle("Impact of Corrupting LM Next-Token Distributions", fontsize=14)
-    g.figure.tight_layout()
-    g.figure.subplots_adjust(top=0.83, bottom=0.22)
-    _annotate_facets(g, col_labels, caption_y=0.12)
+    _finalize_grid(g, "Corrupted tokens", "Cross entropy and entropy (nats)", caption_y=0.12)
     g.figure.savefig(cross_plot_path, dpi=200)
     LOGGER.info("Wrote cross-entropy plot to %s", cross_plot_path)
 
     def _plot_symmetric_kl(data, color, label, **kwargs):
         ax = plt.gca()
         ordered = data.sort_values("num_corruptions")
-        x = ordered["num_corruptions"].to_numpy()
-        skl_mean = ordered["symmetric_kl_mean"].to_numpy()
-        skl_std = ordered["symmetric_kl_std"].to_numpy()
-        lower = np.clip(skl_mean - skl_std, a_min=0.0, a_max=None)
-        upper = skl_mean + skl_std
+        x = ordered["num_corruptions"].to_numpy(dtype=float)
+        skl_mean, lower, upper = _mean_with_bounds(ordered, "symmetric_kl_mean", "symmetric_kl_std")
+        x, filtered = _prepare_plot(x, skl_mean, lower, upper)
+        if x.size == 0:
+            return
+        skl_mean, lower, upper = filtered
         ax.plot(x, skl_mean, color=color, label=label)
         ax.fill_between(x, lower, upper, color=color, alpha=0.2)
 
-    sym_plot_path = output_dir / "corruption_symmetric_kl_grid.png"
+    sym_plot_path = _plot_path("corruption_symmetric_kl_grid.png")
 
     g2 = sns.FacetGrid(
         agg_df,
@@ -1121,27 +1583,24 @@ def maybe_create_plots(
     )
     g2.map_dataframe(_plot_symmetric_kl)
     g2.add_legend(title="Corruption regime")
-    g2.set_axis_labels("Corrupted tokens", "Symmetric KL divergence")
-    g2.set_titles("")
     g2.figure.suptitle("Symmetric KL Under Distribution Corruption", fontsize=14)
-    g2.figure.tight_layout()
-    g2.figure.subplots_adjust(top=0.83, bottom=0.22)
-    _annotate_facets(g2, col_labels, caption_y=0.12)
+    _finalize_grid(g2, "Corrupted tokens", "Symmetric KL divergence", caption_y=0.12)
     g2.figure.savefig(sym_plot_path, dpi=200)
     LOGGER.info("Wrote symmetric-KL plot to %s", sym_plot_path)
 
     def _plot_wasserstein(data, color, label, **kwargs):
         ax = plt.gca()
         ordered = data.sort_values("num_corruptions")
-        x = ordered["num_corruptions"].to_numpy()
-        w_mean = ordered["wasserstein_mean"].to_numpy()
-        w_std = ordered["wasserstein_std"].to_numpy()
-        lower = np.clip(w_mean - w_std, a_min=0.0, a_max=None)
-        upper = w_mean + w_std
+        x = ordered["num_corruptions"].to_numpy(dtype=float)
+        w_mean, lower, upper = _mean_with_bounds(ordered, "wasserstein_mean", "wasserstein_std")
+        x, filtered = _prepare_plot(x, w_mean, lower, upper)
+        if x.size == 0:
+            return
+        w_mean, lower, upper = filtered
         ax.plot(x, w_mean, color=color, label=label)
         ax.fill_between(x, lower, upper, color=color, alpha=0.2)
 
-    wasser_plot_path = output_dir / "corruption_wasserstein_grid.png"
+    wasser_plot_path = _plot_path("corruption_wasserstein_grid.png")
 
     g3 = sns.FacetGrid(
         agg_df,
@@ -1155,27 +1614,24 @@ def maybe_create_plots(
     )
     g3.map_dataframe(_plot_wasserstein)
     g3.add_legend(title="Corruption regime")
-    g3.set_axis_labels("Corrupted tokens", "Wasserstein distance (W1)")
-    g3.set_titles("")
     g3.figure.suptitle("Wasserstein Distance Under Distribution Corruption", fontsize=14)
-    g3.figure.tight_layout()
-    g3.figure.subplots_adjust(top=0.83, bottom=0.22)
-    _annotate_facets(g3, col_labels, caption_y=0.12)
+    _finalize_grid(g3, "Corrupted tokens", "Wasserstein distance (W1)", caption_y=0.12)
     g3.figure.savefig(wasser_plot_path, dpi=200)
     LOGGER.info("Wrote Wasserstein plot to %s", wasser_plot_path)
 
     def _plot_total_variation(data, color, label, **kwargs):
         ax = plt.gca()
         ordered = data.sort_values("num_corruptions")
-        x = ordered["num_corruptions"].to_numpy()
-        tv_mean = ordered["total_variation_mean"].to_numpy()
-        tv_std = ordered["total_variation_std"].to_numpy()
-        lower = np.clip(tv_mean - tv_std, a_min=0.0, a_max=None)
-        upper = tv_mean + tv_std
+        x = ordered["num_corruptions"].to_numpy(dtype=float)
+        tv_mean, lower, upper = _mean_with_bounds(ordered, "total_variation_mean", "total_variation_std")
+        x, filtered = _prepare_plot(x, tv_mean, lower, upper)
+        if x.size == 0:
+            return
+        tv_mean, lower, upper = filtered
         ax.plot(x, tv_mean, color=color, label=label)
         ax.fill_between(x, lower, upper, color=color, alpha=0.2)
 
-    tv_plot_path = output_dir / "corruption_total_variation_grid.png"
+    tv_plot_path = _plot_path("corruption_total_variation_grid.png")
 
     g4 = sns.FacetGrid(
         agg_df,
@@ -1189,27 +1645,24 @@ def maybe_create_plots(
     )
     g4.map_dataframe(_plot_total_variation)
     g4.add_legend(title="Corruption regime")
-    g4.set_axis_labels("Corrupted tokens", "Total variation distance")
-    g4.set_titles("")
     g4.figure.suptitle("Total Variation Under Distribution Corruption", fontsize=14)
-    g4.figure.tight_layout()
-    g4.figure.subplots_adjust(top=0.83, bottom=0.22)
-    _annotate_facets(g4, col_labels, caption_y=0.12)
+    _finalize_grid(g4, "Corrupted tokens", "Total variation distance", caption_y=0.12)
     g4.figure.savefig(tv_plot_path, dpi=200)
     LOGGER.info("Wrote total variation plot to %s", tv_plot_path)
 
     def _plot_mass_shift(data, color, label, **kwargs):
         ax = plt.gca()
         ordered = data.sort_values("num_corruptions")
-        x = ordered["num_corruptions"].to_numpy()
-        ms_mean = ordered["mass_shift_mean"].to_numpy()
-        ms_std = ordered["mass_shift_std"].to_numpy()
-        lower = np.clip(ms_mean - ms_std, a_min=0.0, a_max=None)
-        upper = ms_mean + ms_std
+        x = ordered["num_corruptions"].to_numpy(dtype=float)
+        ms_mean, lower, upper = _mean_with_bounds(ordered, "mass_shift_mean", "mass_shift_std")
+        x, filtered = _prepare_plot(x, ms_mean, lower, upper)
+        if x.size == 0:
+            return
+        ms_mean, lower, upper = filtered
         ax.plot(x, ms_mean, color=color, label=label)
         ax.fill_between(x, lower, upper, color=color, alpha=0.2)
 
-    mass_shift_plot_path = output_dir / "corruption_mass_shift_grid.png"
+    mass_shift_plot_path = _plot_path("corruption_mass_shift_grid.png")
 
     g5 = sns.FacetGrid(
         agg_df,
@@ -1223,27 +1676,24 @@ def maybe_create_plots(
     )
     g5.map_dataframe(_plot_mass_shift)
     g5.add_legend(title="Corruption regime")
-    g5.set_axis_labels("Corrupted tokens", "Selected mass |Δ| sum")
-    g5.set_titles("")
     g5.figure.suptitle("Per-Selection Mass Shift Under Corruption", fontsize=14)
-    g5.figure.tight_layout()
-    g5.figure.subplots_adjust(top=0.83, bottom=0.22)
-    _annotate_facets(g5, col_labels, caption_y=0.12)
+    _finalize_grid(g5, "Corrupted tokens", "Selected mass |Δ| sum", caption_y=0.12)
     g5.figure.savefig(mass_shift_plot_path, dpi=200)
     LOGGER.info("Wrote mass shift plot to %s", mass_shift_plot_path)
 
     def _plot_symmetric_mass_shift(data, color, label, **kwargs):
         ax = plt.gca()
         ordered = data.sort_values("num_corruptions")
-        x = ordered["num_corruptions"].to_numpy()
-        sms_mean = ordered["symmetric_mass_shift_mean"].to_numpy()
-        sms_std = ordered["symmetric_mass_shift_std"].to_numpy()
-        lower = np.clip(sms_mean - sms_std, a_min=0.0, a_max=None)
-        upper = sms_mean + sms_std
+        x = ordered["num_corruptions"].to_numpy(dtype=float)
+        sms_mean, lower, upper = _mean_with_bounds(ordered, "symmetric_mass_shift_mean", "symmetric_mass_shift_std")
+        x, filtered = _prepare_plot(x, sms_mean, lower, upper)
+        if x.size == 0:
+            return
+        sms_mean, lower, upper = filtered
         ax.plot(x, sms_mean, color=color, label=label)
         ax.fill_between(x, lower, upper, color=color, alpha=0.2)
 
-    sym_mass_plot_path = output_dir / "corruption_symmetric_mass_shift_grid.png"
+    sym_mass_plot_path = _plot_path("corruption_symmetric_mass_shift_grid.png")
 
     g6 = sns.FacetGrid(
         agg_df,
@@ -1257,30 +1707,27 @@ def maybe_create_plots(
     )
     g6.map_dataframe(_plot_symmetric_mass_shift)
     g6.add_legend(title="Corruption regime")
-    g6.set_axis_labels("Corrupted tokens", "Symmetric mass shift (|Δp| ≥ threshold)")
-    g6.set_titles("")
     g6.figure.suptitle(
         f"Symmetric Mass Shift (threshold={mass_shift_threshold:.1e})",
         fontsize=14,
     )
-    g6.figure.tight_layout()
-    g6.figure.subplots_adjust(top=0.83, bottom=0.22)
-    _annotate_facets(g6, col_labels, caption_y=0.12)
+    _finalize_grid(g6, "Corrupted tokens", "Symmetric mass shift (|Δp| ≥ threshold)", caption_y=0.12)
     g6.figure.savefig(sym_mass_plot_path, dpi=200)
     LOGGER.info("Wrote symmetric mass shift plot to %s", sym_mass_plot_path)
 
     def _plot_clamped_mass_shift(data, color, label, **kwargs):
         ax = plt.gca()
         ordered = data.sort_values("num_corruptions")
-        x = ordered["num_corruptions"].to_numpy()
-        cms_mean = ordered["clamped_mass_shift_mean"].to_numpy()
-        cms_std = ordered["clamped_mass_shift_std"].to_numpy()
-        lower = np.clip(cms_mean - cms_std, a_min=0.0, a_max=None)
-        upper = cms_mean + cms_std
+        x = ordered["num_corruptions"].to_numpy(dtype=float)
+        cms_mean, lower, upper = _mean_with_bounds(ordered, "clamped_mass_shift_mean", "clamped_mass_shift_std")
+        x, filtered = _prepare_plot(x, cms_mean, lower, upper)
+        if x.size == 0:
+            return
+        cms_mean, lower, upper = filtered
         ax.plot(x, cms_mean, color=color, label=label)
         ax.fill_between(x, lower, upper, color=color, alpha=0.2)
 
-    clamp_mass_plot_path = output_dir / "corruption_clamped_mass_shift_grid.png"
+    clamp_mass_plot_path = _plot_path("corruption_clamped_mass_shift_grid.png")
 
     g7 = sns.FacetGrid(
         agg_df,
@@ -1294,15 +1741,11 @@ def maybe_create_plots(
     )
     g7.map_dataframe(_plot_clamped_mass_shift)
     g7.add_legend(title="Corruption regime")
-    g7.set_axis_labels("Corrupted tokens", "Clamped mass shift (τ)")
-    g7.set_titles("")
     g7.figure.suptitle(
         f"Clamped Mass Shift (τ={mass_clamp_value:.2f})",
         fontsize=14,
     )
-    g7.figure.tight_layout()
-    g7.figure.subplots_adjust(top=0.83, bottom=0.22)
-    _annotate_facets(g7, col_labels, caption_y=0.12)
+    _finalize_grid(g7, "Corrupted tokens", "Clamped mass shift (τ)", caption_y=0.12)
     g7.figure.savefig(clamp_mass_plot_path, dpi=200)
     LOGGER.info("Wrote clamped mass shift plot to %s", clamp_mass_plot_path)
 
@@ -1321,7 +1764,8 @@ def maybe_create_plots(
 def main() -> None:
     args = parse_args()
     logging.basicConfig(level=getattr(logging, args.log_level), format="%(asctime)s %(levelname)s %(name)s: %(message)s")
-    output_dir = ensure_output_dir(args.output_dir)
+    output_dir = resolve_output_dir(args)
+    args.output_dir = output_dir
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
     rng = np.random.default_rng(args.seed)
@@ -1341,6 +1785,8 @@ def main() -> None:
     if args.transfer_delta_min > args.transfer_delta_max:
         raise ValueError("--transfer-delta-min cannot exceed --transfer-delta-max")
 
+    estimator_suffix = "" if args.error_estimator == "std" else f"_{args.error_estimator}"
+
     metadata_config = {
         "model_name": args.model_name,
         "tokenizer_name": args.tokenizer_name or args.model_name,
@@ -1354,10 +1800,13 @@ def main() -> None:
         "blend_ratios": blend_ratios,
         "mass_shift_threshold": args.mass_shift_threshold,
         "mass_clamp_value": args.mass_clamp_value,
+        "error_estimator": args.error_estimator,
         "transfer_delta_min": args.transfer_delta_min,
         "transfer_delta_max": args.transfer_delta_max,
         "seed": args.seed,
         "artifact_name": args.wandb_artifact_name,
+        "plot_log": args.plot_log,
+        "plot_log_log": args.plot_log_log,
     }
 
     if args.local_reload:
@@ -1368,6 +1817,9 @@ def main() -> None:
             args.no_plots,
             args.mass_shift_threshold,
             args.mass_clamp_value,
+            args.plot_log,
+            args.plot_log_log,
+            args.error_estimator,
         )
         if not artifact_files:
             LOGGER.warning("No local artifacts found in %s; nothing to reload", output_dir)
@@ -1393,7 +1845,35 @@ def main() -> None:
                 output_dir,
                 args.mass_shift_threshold,
                 args.mass_clamp_value,
+                log_x=False,
+                log_y=False,
+                error_estimator=args.error_estimator,
+                estimator_tag=estimator_suffix,
             )
+            if args.plot_log:
+                maybe_create_plots(
+                    reloaded_df,
+                    output_dir,
+                    args.mass_shift_threshold,
+                    args.mass_clamp_value,
+                    log_x=True,
+                    log_y=False,
+                    error_estimator=args.error_estimator,
+                    estimator_tag=estimator_suffix,
+                    suffix="_logx",
+                )
+            if args.plot_log_log:
+                maybe_create_plots(
+                    reloaded_df,
+                    output_dir,
+                    args.mass_shift_threshold,
+                    args.mass_clamp_value,
+                    log_x=True,
+                    log_y=True,
+                    error_estimator=args.error_estimator,
+                    estimator_tag=estimator_suffix,
+                    suffix="_log",
+                )
         LOGGER.info("Reload action requested; exiting after artifact download")
         return
 
@@ -1414,11 +1894,19 @@ def main() -> None:
 
     records: List[dict] = []
     transfer_settings = (args.transfer_delta_min, args.transfer_delta_max)
-    for dist in distributions:
-        for strength in strengths:
-            for mode in args.corruption_modes:
-                for target in args.corruption_targets:
-                    for count in counts:
+    unsupported_seen: set[Tuple[str, str]] = set()
+    # TQDM with different bar levels for each loop
+    for dist in tqdm.tqdm(distributions, desc="Processing distributions", leave=False, position=0):
+        for strength in tqdm.tqdm(strengths, desc="Processing strengths", leave=False, position=1):
+            for mode in tqdm.tqdm(args.corruption_modes, desc="Processing modes", leave=False, position=2):
+                for target in tqdm.tqdm(args.corruption_targets, desc="Processing targets", leave=False, position=3):
+                    for count in tqdm.tqdm(counts, desc="Processing counts", leave=False, position=4):
+                        if target in TRANSFER_ONLY_TARGETS and mode != "transfer":
+                            key = (mode, target)
+                            if key not in unsupported_seen:
+                                LOGGER.warning("Skipping unsupported combination: mode=%s target=%s", mode, target)
+                                unsupported_seen.add(key)
+                            continue
                         corrupted, metadata = corrupt_distribution(
                             base_probs=dist.probs,
                             num_corruptions=count,
@@ -1462,8 +1950,8 @@ def main() -> None:
                         if args.include_prompts:
                             record["prompt"] = dist.prompt_text
                         records.append(record)
-                for ratio in blend_ratios:
-                    for count in counts:
+                for ratio in tqdm.tqdm(blend_ratios, desc="Processing ratios", leave=False, position=3):
+                    for count in tqdm.tqdm(counts, desc="Processing counts", leave=False, position=4):
                         corrupted, metadata = corrupt_distribution_blend(
                             base_probs=dist.probs,
                             num_corruptions=count,
@@ -1522,13 +2010,13 @@ def main() -> None:
 
     if pd is not None:
         results_df = pd.DataFrame.from_records(records)
-        results_path = output_dir / "corruption_results.parquet"
+        results_path = output_dir / f"corruption_results{estimator_suffix}.parquet"
         results_df.to_parquet(results_path, index=False)
         LOGGER.info("Wrote detailed results to %s", results_path)
         artifact_files.append(results_path)
-        summary = summarize_results(records)
+        summary = summarize_results(records, error_estimator=args.error_estimator)
         summary_df = pd.DataFrame(summary)
-        summary_path = output_dir / "corruption_summary.csv"
+        summary_path = output_dir / f"corruption_summary{estimator_suffix}.csv"
         summary_df.to_csv(summary_path, index=False)
         LOGGER.info("Wrote summary table to %s", summary_path)
         artifact_files.append(summary_path)
@@ -1538,11 +2026,43 @@ def main() -> None:
                 output_dir,
                 args.mass_shift_threshold,
                 args.mass_clamp_value,
+                log_x=False,
+                log_y=False,
+                error_estimator=args.error_estimator,
+                estimator_tag=estimator_suffix,
             )
+            if args.plot_log:
+                plot_paths.extend(
+                    maybe_create_plots(
+                        results_df,
+                        output_dir,
+                        args.mass_shift_threshold,
+                        args.mass_clamp_value,
+                        log_x=True,
+                        log_y=False,
+                        error_estimator=args.error_estimator,
+                        estimator_tag=estimator_suffix,
+                        suffix="_logx",
+                    )
+                )
+            if args.plot_log_log:
+                plot_paths.extend(
+                    maybe_create_plots(
+                        results_df,
+                        output_dir,
+                        args.mass_shift_threshold,
+                        args.mass_clamp_value,
+                        log_x=True,
+                        log_y=True,
+                        error_estimator=args.error_estimator,
+                        estimator_tag=estimator_suffix,
+                        suffix="_log",
+                    )
+                )
             artifact_files.extend(plot_paths)
     else:
-        summary = summarize_results(records)
-        summary_path = output_dir / "corruption_summary.txt"
+        summary = summarize_results(records, error_estimator=args.error_estimator)
+        summary_path = output_dir / f"corruption_summary{estimator_suffix}.txt"
         ensure_output_dir(output_dir)
         with summary_path.open("w", encoding="utf-8") as sink:
             for row in summary:
@@ -1581,7 +2101,29 @@ def main() -> None:
                     output_dir,
                     args.mass_shift_threshold,
                     args.mass_clamp_value,
+                    log_x=False,
+                    log_y=False,
                 )
+                if args.plot_log:
+                    maybe_create_plots(
+                        reloaded_df,
+                        output_dir,
+                        args.mass_shift_threshold,
+                        args.mass_clamp_value,
+                        log_x=True,
+                        log_y=False,
+                        suffix="_logx",
+                    )
+                if args.plot_log_log:
+                    maybe_create_plots(
+                        reloaded_df,
+                        output_dir,
+                        args.mass_shift_threshold,
+                        args.mass_clamp_value,
+                        log_x=True,
+                        log_y=True,
+                        suffix="_log",
+                    )
 
     LOGGER.info("Done")
 

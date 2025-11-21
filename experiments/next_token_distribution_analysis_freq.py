@@ -41,18 +41,7 @@ import torch
 import torch.nn.functional as F
 
 try:
-    import matplotlib  # type: ignore
-except ImportError as exc:  # pragma: no cover
-    raise ImportError("matplotlib is required for plotting heatmaps") from exc
-
-if not os.environ.get("MPLBACKEND"):
-    try:
-        matplotlib.use("Agg", force=False)  # Prefer non-interactive backend for script usage.
-    except TypeError:  # Older matplotlib versions lack force kwarg.
-        matplotlib.use("Agg")  # type: ignore[arg-type]
-
-try:
-    import matplotlib.pyplot as plt  # type: ignore
+    import matplotlib.pyplot as plt
 except ImportError as exc:  # pragma: no cover
     raise ImportError("matplotlib is required for plotting heatmaps") from exc
 
@@ -162,6 +151,7 @@ class ExperimentSettings:
     max_dictionary_entries: Optional[int]
     dictionary_url: Optional[str]
     dictionary_cache_dir: Path
+    anchor_frequency_text: Optional[Path]
     embedding_mode: str
     bert_model_name: Optional[str]
     bert_layer_index: int
@@ -203,6 +193,7 @@ class CandidatePool:
     cluster_assignments: Optional[np.ndarray] = None
     cluster_sizes: Optional[np.ndarray] = None
     cluster_to_indices: Optional[List[List[int]]] = None
+    sampling_weights: Optional[np.ndarray] = None
 
 
 @dataclass
@@ -380,6 +371,15 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> ExperimentSettings:
         help="Maximum number of dictionary spans to load (useful to cap runtime).",
     )
     parser.add_argument(
+        "--anchor-frequency-text",
+        type=str,
+        default=None,
+        help=(
+            "Optional path to a text file whose token frequencies should weight dictionary anchor sampling. "
+            "Only applies when --candidate-source=dictionary."
+        ),
+    )
+    parser.add_argument(
         "--embedding-mode",
         type=str,
         default="model",
@@ -554,6 +554,9 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> ExperimentSettings:
     dictionary_cache_dir = Path(args.dictionary_cache_dir).expanduser()
     if args.candidate_source == "dictionary" and not (dictionary_path or dictionary_url):
         raise ValueError("Provide --dictionary-path or --dictionary-url when --candidate-source=dictionary")
+    anchor_frequency_text = Path(args.anchor_frequency_text).expanduser() if args.anchor_frequency_text else None
+    if anchor_frequency_text and args.candidate_source != "dictionary":
+        raise ValueError("--anchor-frequency-text is only supported with --candidate-source=dictionary")
 
     if args.candidate_source == "dictionary" and args.embedding_mode != "bert":
         raise ValueError("Dictionary candidates require --embedding-mode=bert to compute span embeddings")
@@ -647,6 +650,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> ExperimentSettings:
         max_dictionary_entries=(max(1, args.max_dictionary_entries) if args.max_dictionary_entries else None),
         dictionary_url=dictionary_url,
         dictionary_cache_dir=dictionary_cache_dir,
+        anchor_frequency_text=anchor_frequency_text,
         embedding_mode=args.embedding_mode,
         bert_model_name=args.bert_model_name,
         bert_layer_index=args.bert_layer_index,
@@ -745,6 +749,9 @@ def init_wandb(settings: ExperimentSettings) -> wandb.sdk.wandb_run.Run:
             "embedding_mode": settings.embedding_mode,
             "dictionary_path": str(settings.dictionary_path) if settings.dictionary_path else None,
             "dictionary_url": settings.dictionary_url,
+            "anchor_frequency_text": str(settings.anchor_frequency_text)
+            if settings.anchor_frequency_text
+            else None,
             "bert_model_name": settings.bert_model_name,
             "bert_layer_index": settings.bert_layer_index,
             "span_encoder_batch_size": settings.span_encoder_batch_size,
@@ -938,6 +945,82 @@ def build_dictionary_candidate_pool(
     return CandidatePool(keys=keys, texts=texts, input_id_lists=input_ids, embeddings=embeddings)
 
 
+def compute_anchor_frequency_weights_from_text(
+    settings: ExperimentSettings,
+    tokenizer: AutoTokenizer,
+    pool: CandidatePool,
+) -> Optional[np.ndarray]:
+    text_path = settings.anchor_frequency_text
+    if text_path is None:
+        return None
+    if not text_path.exists():
+        raise FileNotFoundError(f"Anchor frequency text file not found: {text_path}")
+
+    try:
+        text_content = text_path.read_text(encoding="utf-8")
+    except OSError as exc:  # pragma: no cover
+        raise RuntimeError(f"Failed to read anchor frequency text from {text_path}") from exc
+
+    if not text_content.strip():
+        return None
+
+    token_ids = tokenizer.encode(text_content, add_special_tokens=False, truncation=False)
+    if not token_ids:
+        return None
+
+    length_to_sequences: Dict[int, Dict[Tuple[int, ...], List[int]]] = {}
+    for idx, seq in enumerate(pool.input_id_lists):
+        if not seq:
+            continue
+        length = len(seq)
+        if length <= 0:
+            continue
+        seq_tuple = tuple(seq)
+        bucket = length_to_sequences.setdefault(length, {})
+        bucket.setdefault(seq_tuple, []).append(idx)
+
+    if not length_to_sequences:
+        return None
+
+    counts = np.zeros(len(pool.input_id_lists), dtype=np.float64)
+    token_count = len(token_ids)
+    for length, sequence_map in length_to_sequences.items():
+        if length == 0 or token_count < length:
+            continue
+        if length == 1:
+            for token in token_ids:
+                indices = sequence_map.get((token,))
+                if not indices:
+                    continue
+                for seq_idx in indices:
+                    counts[seq_idx] += 1.0
+            continue
+
+        max_start = token_count - length + 1
+        for start in range(max_start):
+            window = tuple(token_ids[start : start + length])
+            indices = sequence_map.get(window)
+            if not indices:
+                continue
+            for seq_idx in indices:
+                counts[seq_idx] += 1.0
+
+    total = counts.sum()
+    if total <= 0:
+        return None
+    return counts / total
+
+
+def maybe_apply_anchor_frequency_weights(
+    settings: ExperimentSettings,
+    tokenizer: AutoTokenizer,
+    pool: CandidatePool,
+) -> None:
+    weights = compute_anchor_frequency_weights_from_text(settings, tokenizer, pool)
+    if weights is not None:
+        pool.sampling_weights = weights
+
+
 def build_token_candidate_pool(
     model: AutoModelForCausalLM,
     tokenizer: AutoTokenizer,
@@ -1075,14 +1158,46 @@ def select_cluster_index(
 ):
     assert pool.cluster_sizes is not None
     sizes = pool.cluster_sizes.astype(np.float64)
-    if sizes.sum() == 0:
-        return int(rng.integers(0, len(sizes)))
-    weights_large = sizes / sizes.sum()
-    inv = 1.0 / (sizes + 1e-9)
-    weights_small = inv / inv.sum()
+    num_clusters = len(sizes)
+    if num_clusters == 0:
+        raise ValueError("No clusters available for selection")
+
+    large_basis = sizes.copy()
+    if pool.sampling_weights is not None and pool.cluster_to_indices is not None:
+        cluster_mass = np.zeros(num_clusters, dtype=np.float64)
+        for cluster_id, member_indices in enumerate(pool.cluster_to_indices):
+            if not member_indices:
+                continue
+            cluster_mass[cluster_id] = float(np.sum(pool.sampling_weights[member_indices]))
+        if cluster_mass.sum() > 0:
+            large_basis = cluster_mass
+
+    total_large = large_basis.sum()
+    if total_large <= 0:
+        weights_large = np.full(num_clusters, 1.0 / num_clusters, dtype=np.float64)
+    else:
+        weights_large = large_basis / total_large
+
+    small_basis = sizes
+    if small_basis.sum() <= 0:
+        weights_small = np.full(num_clusters, 1.0 / num_clusters, dtype=np.float64)
+    else:
+        inv = np.zeros_like(small_basis, dtype=np.float64)
+        positive_mask = small_basis > 0
+        inv[positive_mask] = 1.0 / (small_basis[positive_mask] + 1e-9)
+        if inv.sum() <= 0:
+            weights_small = np.full(num_clusters, 1.0 / num_clusters, dtype=np.float64)
+        else:
+            weights_small = inv / inv.sum()
+
     weights = (1.0 - anchor_cluster_blend) * weights_large + anchor_cluster_blend * weights_small
-    weights = weights / weights.sum()
-    cluster_idx = int(rng.choice(len(sizes), p=weights))
+    total_weights = weights.sum()
+    if total_weights <= 0:
+        weights = np.full(num_clusters, 1.0 / num_clusters, dtype=np.float64)
+    else:
+        weights = weights / total_weights
+
+    cluster_idx = int(rng.choice(num_clusters, p=weights))
     return cluster_idx
 
 
@@ -1103,6 +1218,12 @@ def sample_support_from_pool(
     if k > num_candidates:
         raise ValueError("k exceeds number of available candidates")
 
+    candidate_probs: Optional[np.ndarray] = None
+    if pool.sampling_weights is not None:
+        total_weight = float(pool.sampling_weights.sum())
+        if total_weight > 0:
+            candidate_probs = pool.sampling_weights / total_weight
+
     if (
         anchor_cluster_count > 0
         and pool.cluster_assignments is not None
@@ -1111,9 +1232,22 @@ def sample_support_from_pool(
     ):
         cluster_idx = select_cluster_index(rng, pool, anchor_cluster_blend)
         cluster_candidates = pool.cluster_to_indices[cluster_idx]
-        anchor_index = int(rng.choice(cluster_candidates))
+        if candidate_probs is not None:
+            cluster_probs = candidate_probs[cluster_candidates]
+            cluster_total = float(cluster_probs.sum())
+            if cluster_total > 0:
+                anchor_index = int(
+                    rng.choice(cluster_candidates, p=(cluster_probs / cluster_total))
+                )
+            else:
+                anchor_index = int(rng.choice(cluster_candidates))
+        else:
+            anchor_index = int(rng.choice(cluster_candidates))
     else:
-        anchor_index = int(rng.integers(0, num_candidates))
+        if candidate_probs is not None:
+            anchor_index = int(rng.choice(num_candidates, p=candidate_probs))
+        else:
+            anchor_index = int(rng.integers(0, num_candidates))
     support_indices: List[int] = [anchor_index]
 
     if k > 1:
@@ -1404,7 +1538,7 @@ def plot_symmetric_kl_violin(
     matrix: torch.Tensor,
     title: str,
     subtitle: Optional[str] = None,
-) -> Tuple[plt.Figure, np.ndarray]:
+) -> plt.Figure:
     """Render per-column symmetric KL distributions as violins with quartile markers."""
 
     array = matrix.cpu().numpy()
@@ -1424,9 +1558,6 @@ def plot_symmetric_kl_violin(
         column_indices = np.repeat(np.arange(num_cols), num_rows)
         values = array.reshape(-1)
 
-    aggregated_values = np.asarray(values, dtype=np.float64)
-    aggregated_label = "All"
-
     fig_width = max(6.0, 0.35 * max(1, num_cols) + 2.0)
     fig, ax = plt.subplots(figsize=(fig_width, 5))
     full_title = title if subtitle is None else f"{title}\n{subtitle}"
@@ -1437,18 +1568,9 @@ def plot_symmetric_kl_violin(
     if pd is not None and sns is not None:
         df = pd.DataFrame({"column": column_indices, "symmetric_kl": values})
         df["column_label"] = df["column"].astype(str)
-        aggregated_df = pd.DataFrame(
-            {
-                "column": [-1] * aggregated_values.size,
-                "symmetric_kl": aggregated_values,
-                "column_label": [aggregated_label] * aggregated_values.size,
-            }
-        )
-        plot_df = pd.concat([df, aggregated_df], ignore_index=True)
-        base_labels = sorted(df["column_label"].unique(), key=lambda label: int(label))
-        violin_order = base_labels + [aggregated_label]
+        violin_order = sorted(df["column_label"].unique(), key=lambda label: int(label))
         sns.violinplot(
-            data=plot_df,
+            data=df,
             x="column_label",
             y="symmetric_kl",
             order=violin_order,
@@ -1457,9 +1579,9 @@ def plot_symmetric_kl_violin(
             cut=0,
             linewidth=1.0,
         )
+        ax.set_xticklabels(violin_order)
     else:
         dataset: List[np.ndarray] = []
-        labels: List[str] = []
         for col in range(num_cols):
             column_values = array[:, col].astype(float)
             if num_rows == num_cols and num_rows > 1:
@@ -1467,9 +1589,6 @@ def plot_symmetric_kl_violin(
             if column_values.size == 0:
                 column_values = np.zeros(1, dtype=float)
             dataset.append(column_values)
-            labels.append(str(col))
-        dataset.append(aggregated_values)
-        labels.append(aggregated_label)
         violin = ax.violinplot(
             dataset,
             showmeans=False,
@@ -1484,11 +1603,11 @@ def plot_symmetric_kl_violin(
         if "cquantiles" in violin:
             violin["cquantiles"].set_color("black")
             violin["cquantiles"].set_linewidth(1.0)
-        ax.set_xticks(np.arange(1, len(dataset) + 1))
-        ax.set_xticklabels(labels)
+        ax.set_xticks(np.arange(1, num_cols + 1))
+        ax.set_xticklabels([str(i) for i in range(num_cols)])
 
     fig.tight_layout()
-    return fig, aggregated_values
+    return fig
 
 
 def plot_anchor_support_bar(
@@ -2006,11 +2125,6 @@ def reload_and_plot(
             for column in numeric_columns:
                 if column in history_df.columns:
                     history_df[column] = pd.to_numeric(history_df[column], errors="coerce")
-            for column in ["ratio_raw"]:
-                if column in history_df.columns:
-                    history_df[column] = history_df[column].apply(
-                        lambda value: "" if pd.isna(value) else str(value)
-                    )
 
     ce_fig = plot_ratio_series(
         ce_series,
@@ -2476,6 +2590,7 @@ def plot_metric_facet(
             legend.set_bbox_to_anchor(
                 (1.02, 0.5),
                 transform=facet.fig.transFigure,
+                borderaxespad=0.0,
             )
             legend.set_loc("center left")
 
@@ -2695,9 +2810,9 @@ def run_experiment(settings: ExperimentSettings) -> Optional[wandb.sdk.wandb_run
             span_model,
             device,
         )
+        maybe_apply_anchor_frequency_weights(settings, tokenizer, dictionary_pool)
 
     logged_candidate_tables: Set[Tuple[str, str, int]] = set()
-    violin_values_by_threshold: Dict[Optional[float], List[float]] = defaultdict(list)
 
     def compute_stats(values: Sequence[float]) -> Tuple[float, float, float]:
         filtered = [v for v in values if v is not None and not math.isnan(v)]
@@ -2887,14 +3002,11 @@ def run_experiment(settings: ExperimentSettings) -> Optional[wandb.sdk.wandb_run
                                 )
                                 skl_violin_fig: Optional[plt.Figure] = None
                                 if settings.plot_symmetric_kl_violin:
-                                    skl_violin_fig, violin_distribution = plot_symmetric_kl_violin(
+                                    skl_violin_fig = plot_symmetric_kl_violin(
                                         heatmap_sym_kl,
                                         title="Symmetric KL Violin Plot",
                                         subtitle=heatmap_context,
                                     )
-                                    violin_values_by_threshold[
-                                        settings.support_similarity_threshold
-                                    ].extend(violin_distribution.tolist())
                                 wasserstein_fig = plot_heatmap(
                                     heatmap_wasserstein,
                                     title="Wasserstein Distance Heatmap",
@@ -2955,6 +3067,8 @@ def run_experiment(settings: ExperimentSettings) -> Optional[wandb.sdk.wandb_run
                                 }
                                 if dictionary_file_path is not None:
                                     log_payload["dictionary_path"] = str(dictionary_file_path)
+                                if settings.anchor_frequency_text is not None:
+                                    log_payload["anchor_frequency_text"] = str(settings.anchor_frequency_text)
                                 wandb.log(log_payload)
 
                                 ce_fig.clf()
@@ -3020,6 +3134,8 @@ def run_experiment(settings: ExperimentSettings) -> Optional[wandb.sdk.wandb_run
                                 }
                                 if dictionary_file_path is not None:
                                     metadata_log["dictionary_path"] = str(dictionary_file_path)
+                                if settings.anchor_frequency_text is not None:
+                                    metadata_log["anchor_frequency_text"] = str(settings.anchor_frequency_text)
                                 wandb.log(metadata_log)
 
                                 for blueprint in blueprints:
@@ -3064,6 +3180,9 @@ def run_experiment(settings: ExperimentSettings) -> Optional[wandb.sdk.wandb_run
                                             "dictionary_path": str(dictionary_file_path)
                                             if dictionary_file_path is not None
                                             else None,
+                                            "anchor_frequency_text": str(settings.anchor_frequency_text)
+                                            if settings.anchor_frequency_text is not None
+                                            else None,
                                         }
                                     )
 
@@ -3102,6 +3221,8 @@ def run_experiment(settings: ExperimentSettings) -> Optional[wandb.sdk.wandb_run
                                 aggregated_log[f"{field}_stderr"] = stderr_value
                             if dictionary_file_path is not None:
                                 aggregated_log["dictionary_path"] = str(dictionary_file_path)
+                            if settings.anchor_frequency_text is not None:
+                                aggregated_log["anchor_frequency_text"] = str(settings.anchor_frequency_text)
                             wandb.log(aggregated_log)
                             ratio_aggregated_logs.append(dict(aggregated_log))
 
@@ -3134,101 +3255,9 @@ def run_experiment(settings: ExperimentSettings) -> Optional[wandb.sdk.wandb_run
                                 blend_log[f"{field}_stderr"] = stderr_value
                             if dictionary_file_path is not None:
                                 blend_log["dictionary_path"] = str(dictionary_file_path)
+                            if settings.anchor_frequency_text is not None:
+                                blend_log["anchor_frequency_text"] = str(settings.anchor_frequency_text)
                             wandb.log(blend_log)
-
-    if violin_values_by_threshold:
-        threshold_stats: List[Dict[str, object]] = []
-        quantile_levels = [0.05, 0.25, 0.5, 0.75, 0.95]
-
-        def _format_threshold(value: Optional[float]) -> str:
-            if value is None:
-                return "None"
-            formatted = f"{value:.6f}".rstrip("0").rstrip(".")
-            return formatted or "0"
-
-        for threshold_value in sorted(violin_values_by_threshold.keys(), key=lambda x: (x is None, x)):
-            dist_values = violin_values_by_threshold[threshold_value]
-            if not dist_values:
-                continue
-            arr = np.asarray(dist_values, dtype=np.float64)
-            quantile_values = np.quantile(arr, quantile_levels)
-            median_value = float(np.median(arr))
-            mean_value, _, stderr_value = compute_stats(arr.tolist())
-            threshold_stats.append(
-                {
-                    "threshold": threshold_value,
-                    "label": _format_threshold(threshold_value),
-                    "count": int(arr.size),
-                    "quantiles": quantile_values,
-                    "median": median_value,
-                    "mean": mean_value,
-                    "stderr": stderr_value,
-                }
-            )
-
-        if threshold_stats:
-            header = [
-                "Support Threshold",
-                "Count",
-                "Q05",
-                "Q25",
-                "Median",
-                "Q75",
-                "Q95",
-                "Mean ± SE",
-            ]
-            lines = [
-                "| " + " | ".join(header) + " |",
-                "| " + " | ".join(["---"] * len(header)) + " |",
-            ]
-
-            bar_labels: List[str] = []
-            bar_means: List[float] = []
-            bar_stderrs: List[float] = []
-
-            for stats in threshold_stats:
-                quantile_values = stats["quantiles"]
-                row = [
-                    stats["label"],
-                    str(stats["count"]),
-                    f"{quantile_values[0]:.6g}",
-                    f"{quantile_values[1]:.6g}",
-                    f"{stats['median']:.6g}",
-                    f"{quantile_values[3]:.6g}",
-                    f"{quantile_values[4]:.6g}",
-                    f"{stats['mean']:.6g} ± {stats['stderr']:.6g}",
-                ]
-                lines.append("| " + " | ".join(row) + " |")
-
-                bar_labels.append(stats["label"])
-                bar_means.append(float(stats["mean"]))
-                bar_stderrs.append(float(stats["stderr"]))
-
-            print("\nSymmetric KL aggregate statistics by support similarity threshold:")
-            print("\n".join(lines))
-
-            if bar_labels:
-                x = np.arange(len(bar_labels))
-                bar_fig, ax = plt.subplots(figsize=(max(6.0, 1.2 * len(bar_labels)), 4.5))
-                ax.bar(
-                    x,
-                    bar_means,
-                    yerr=bar_stderrs,
-                    capsize=5,
-                    color="#4C72B0",
-                    alpha=0.85,
-                    edgecolor="black",
-                )
-                ax.set_xticks(x)
-                ax.set_xticklabels(bar_labels, rotation=45, ha="right")
-                ax.set_xlabel("Support similarity threshold")
-                ax.set_ylabel("Mean symmetric KL divergence")
-                ax.set_title("Mean symmetric KL by support threshold")
-                ax.grid(axis="y", linestyle="--", alpha=0.3)
-                bar_fig.tight_layout()
-
-                wandb.log({"symmetric_kl_threshold_bar": wandb.Image(bar_fig)})
-                plt.close(bar_fig)
 
     return run
 

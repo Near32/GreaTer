@@ -12,7 +12,7 @@ RUN_NAME=${RUN_NAME:-llama32_1b_instruct_demo}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PYTHON_BIN=${PYTHON_BIN:-python}
 
-${PYTHON_BIN} -m ipdb -c c "${SCRIPT_DIR}/next_token_distribution_analysis.py" \
+PYTORCH_DISABLE_FLASH_ATTENTION=1 ${PYTHON_BIN} -m ipdb -c c "${SCRIPT_DIR}/next_token_distribution_analysis.py" \
   --wandb-project "${PROJECT_NAME}" \
   --wandb-entity "${ENTITY_NAME}" \
   --run-name "${RUN_NAME}" \
