@@ -62,6 +62,7 @@ def get_config():
         'logit_scaler': 5.0,       # Adjusted for better gradient flow
         'temperature': 0.1,        # Lower temperature for more focused sampling
         'learnable_temperature': True,
+        'decouple_learnable_temperature': False,
         'init_strategy': 'fluency',
         'hard': False,
     }
@@ -73,6 +74,7 @@ def get_config():
         "temperature": 0.7,        # Slightly higher temperature for model sampling
         "learnable_temperature": False,
         "hidden_state_conditioning": True,  # Enabled for better performance
+        "dropout": 0.0,
     }
     
     # SDLM configuration

@@ -19,6 +19,29 @@ def get_config():
     config.loss_type = 'offline'
     config.gradient_clip_strategy = 'none'
     config.online_teacher_forcing = False
+    config.use_differentiable_cache = False
+    config.gradient_health = config_dict.ConfigDict()
+    config.gradient_health.value_clip = config_dict.FieldReference(
+        None, field_type=float
+    )
+    config.gradient_health.max_norm = config_dict.FieldReference(
+        None, field_type=float
+    )
+
+    # Evaluation-only generation overrides
+    config.eval_generate_kwargs = config_dict.ConfigDict()
+    config.eval_generate_kwargs.temperature = config_dict.FieldReference(
+        None, field_type=float
+    )
+    config.eval_generate_kwargs.top_p = config_dict.FieldReference(
+        None, field_type=float
+    )
+    config.eval_generate_kwargs.do_sample = config_dict.FieldReference(
+        None, field_type=bool
+    )
+
+    # Prompt evaluation speed controls
+    config.use_test_optimized = False
 
     # General parameters 
     config.target_weight=0.85

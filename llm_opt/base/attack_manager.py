@@ -21,9 +21,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pad_sequence
 from fastchat.model import get_conversation_template
+import transformers
 from transformers import (AutoModelForCausalLM, AutoTokenizer, GPT2LMHeadModel,
                           GPTJForCausalLM, GPTNeoXForCausalLM,
                           LlamaForCausalLM, GemmaForCausalLM, Gemma2ForCausalLM)
+
+transformers.modeling_utils.PreTrainedModel._default_attn_implementation = "eager"
 
 # FLAG
 SIMULATED_CANONICAL = True

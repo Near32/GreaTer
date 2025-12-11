@@ -5,6 +5,13 @@ import numpy as np
 import random
 import torch
 import torch.multiprocessing as mp
+
+# AMD:
+# Disable optimized attention backends
+#torch.backends.cuda.enable_flash_sdp(False)
+#torch.backends.cuda.enable_mem_efficient_sdp(False)
+#torch.backends.cuda.enable_math_sdp(True)
+
 from absl import app
 from ml_collections import config_flags
 import dill
@@ -60,14 +67,33 @@ def main(_):
     if hasattr(torch.backends, "cudnn") and params.get('torch_deterministic', False):
         print("ALLOWING DETERMINISTIC & BENCHMARK")
         sleep(5)
+        #torch.backends.cudnn.deterministic = False 
+        #TODO: after debug : True
         torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = True #False
+        torch.use_deterministic_algorithms(True, warn_only=True) 
+        #torch.use_deterministic_algorithms(True) 
+        torch.backends.cudnn.benchmark = True 
+        #TODO: after debug: False 
+        #torch.backends.cudnn.benchmark = False 
+    
     if hasattr(torch.backends, "cudnn") and params.get('torch_allow_tf32', False):
         print("ALLOWING TF32")
         sleep(5)
         # Reduce memory allocation overhead
-        torch.backends.cuda.matmul.allow_tf32 = True
-        torch.backends.cudnn.allow_tf32 = True
+        #torch.backends.cuda.matmul.allow_tf32 = True
+        #torch.backends.cudnn.allow_tf32 = True
+        # UserWarning: 
+        # Please use the new API settings to control TF32 behavior, 
+        # such as torch.backends.cudnn.conv.fp32_precision = 'tf32' 
+        # or torch.backends.cuda.matmul.fp32_precision = 'ieee'. 
+        # Old settings, e.g, torch.backends.cuda.matmul.allow_tf32 = True, 
+        # torch.backends.cudnn.allow_tf32 = True, allowTF32CuDNN() 
+        # and allowTF32CuBLAS() will be deprecated after Pytorch 2.9. 
+        # Please see https://pytorch.org/docs/main/notes/cuda.html#tensorfloat-32-tf32-on-ampere-and-later-devices 
+        # (Triggered internally at /__w/TheRock/TheRock/external-builds/pytorch/pytorch/aten/src/ATen/Context.cpp:45.)
+        torch.backends.cudnn.conv.fp32_precision = 'tf32'
+        torch.backends.cuda.matmul.fp32_precision = 'ieee'
+
 
     np.random.seed(seed)
     random.seed(seed)

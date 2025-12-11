@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Create directories
-mkdir -p sdlm_llama32_1b_logs
+mkdir -p sdlm_smollm2_135m_logs
 mkdir -p results
 
 # Set paths - using a small subset of data for quick testing
 TRAIN_DATA="../data/grade_school_math/train.jsonl"
 TEST_DATA="../data/grade_school_math/test.jsonl"
-LOG_FILE="sdlm_llama32_1b_logs/gsm8k_optimization.log"
-RESULT_PREFIX="results_test/online_sdlm_llama32_1b_gpu_gsm8k"
+LOG_FILE="sdlm_smollm2_135m_logs/gsm8k_optimization.log"
+RESULT_PREFIX="results_test/online_sdlm_smollm2_135m_gpu_gsm8k"
 
 # Print configuration
 echo "========================================"
-echo "SDLM Optimization with Llama-3.2-1B-Instruct (GPU)"
+echo "SDLM Optimization with SmolLM2-135M-Instruct (GPU)"
 echo "========================================"
-echo "Model: meta-llama/Llama-3.2-1B-Instruct"
+echo "Model: HuggingFaceTB/SmolLM2-135M-Instruct"
 echo "Device: GPU"
 echo "Train data: $TRAIN_DATA"
 echo "Test data: $TEST_DATA"
@@ -26,28 +26,22 @@ echo "========================================"
 #extractor_text="Therefore, the final answer (use exactly this format: \$NUMBER\$, where NUMBER is a positive or negative integer) is $"
 #extractor_text="Therefore, the final answer (with format: $ANSWER$) is $"
 extractor_text="Therefore, the final answer (with format: \$NUMBER\$, where NUMBER is a positive or negative integer) is $"
+control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer."
+
 
 # Set environment variables for CPU optimization
 export OMP_NUM_THREADS=$(nproc)  # Use all available CPU cores
 export TOKENIZERS_PARALLELISM=false
 
 # Run the optimization
-echo "Starting optimization on GPU with Llama-3.2-1B-Instruct..."
-#WANDB_DEBUG=true \
-#WANDB_CORE_DEBUG=true \
-#AMD_SERIALIZE_COPY=3 \
-#TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=0 \
-#PYTORCH_DISABLE_FLASH_ATTENTION=1 \
-#HSA_ENABLE_SDMA=0 \
-#AMD_SERIALIZE_KERNEL=1 \
-#TORCH_USE_HIP_DSA=1 \
+echo "Starting optimization on GPU with SmolLM2-135M-Instruct..."
 PYTORCH_ALLOC_CONF=expandable_segments:True,max_split_size_mb:4096 \
 HIPBLAS_PREFER_FP16=1 \
 WANDB_CACHE_DIR=./wandb_cache/ \
 WANDB_DIR=./wandb_dir/ \
 WANDB_DATA_DIR=./wandb_data_dir/ \
 python -m ipdb -c c main.py \
-    --config="./configs/transfer_sdlm_llama32_1b_gpu.py" \
+    --config="./configs/transfer_sdlm_smollm2_135m_gpu.py" \
     --config.use_wandb=True \
     --config.project="GreaTer-SDLM" \
     --config.train_data="$TRAIN_DATA" \
@@ -78,29 +72,32 @@ python -m ipdb -c c main.py \
     --config.sdlm_variable_kwargs.logit_scaler=1.0 \
     --config.sdlm_variable_kwargs.learnable_temperature=True \
     --config.sdlm_variable_kwargs.decouple_learnable_temperature=True \
-    --config.sdlm_variable_kwargs.lr_scheduler_type='linear' \
-    --config.sdlm_variable_kwargs.lr_scheduler_total_steps=12 \
+    --config.sdlm_variable_kwargs.lr_scheduler_type='None' \
+    --config.sdlm_variable_kwargs.lr_scheduler_total_steps=24 \
     --config.sdlm_variable_kwargs.lr_scheduler_final_lr=0.01 \
     --config.sdlm_model_stgs_logits_generation=True \
     --config.sdlm_model_kwargs.hard=False \
     --config.sdlm_model_kwargs.learnable_temperature=False \
     --config.sdlm_model_kwargs.temperature=10.0 \
     --config.sdlm_model_kwargs.hidden_state_conditioning=False \
-    --config.sdlm_model_kwargs.use_bpttoken=True \
-    --config.sdlm_model_kwargs.dropout=0.1 \
-    --config.acc_grad_n_examples=8 \
+    --config.sdlm_model_kwargs.use_bpttoken=False \
+    --config.sdlm_model_kwargs.dropout=0.0 \
+    --config.acc_grad_n_examples=1 \
     --config.gradient_comp_batch_size=1 \
     --config.update_solution_max_new_tokens=512 \
     --config.max_new_tokens_answer=8 \
     --config.n_steps=30 \
-    --config.test_steps=5 \
+    --config.test_steps=10 \
     --config.log_first=False \
     --config.anneal=True \
     --config.batch_size=2 \
     --config.temp=0.5 \
     --config.topk=10 \
     --config.topq=5 \
-    --config.control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer." \
+    --config.eval_generate_kwargs.temperature=0.2 \
+    --config.eval_generate_kwargs.top_p=0.9 \
+    --config.eval_generate_kwargs.do_sample=True \
+    --config.control_init="$control_text" \
     --config.extractor_text="$extractor_text" \
     --config.em_from_gen_str=False \
     --config.control_weight=0.0 \
@@ -112,7 +109,7 @@ python -m ipdb -c c main.py \
 
 # Print completion message
 echo "========================================"
-echo "GPU Optimization with Llama-3.2-1B-Instruct completed!"
+echo "GPU Optimization with SmolLM2-135M-Instruct completed!"
 echo "Results saved to: $RESULT_PREFIX*"
 echo "Log file: $LOG_FILE"
 echo "========================================"

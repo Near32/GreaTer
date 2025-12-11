@@ -64,6 +64,7 @@ def get_config():
         'logit_scaler': 5.0,       # Adjusted for better gradient flow
         'temperature': 0.1,        # Lower temperature for more focused sampling
         'learnable_temperature': True,
+        'decouple_learnable_temperature': False,
         'init_strategy': 'fluency',
         'hard': False,
     }

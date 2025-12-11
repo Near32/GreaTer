@@ -25,9 +25,11 @@ echo "========================================"
 # Set extractor text for GSM8K format
 extractor_text="Therefore, the final answer (use exactly this format: \$NUMBER\$, where NUMBER is a positive or negative integer) is $"
 #control_text="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer."
+control_text="\n "
 #control_text="button_xpathstm_FILE reachedSourceType حیौर mockiameterAccordionuseservativeecera HeatingSelectedItemcentreADRynchronFilterWhereMPLesson ขาย Blue CLICK viele ولك 時776.XtraGridSlider的情况 Browseophe Suite v"
 #control_text="Let's文件 this math problem step by step Addition First 줄 I will.setDefault misguided problem editing then break itɵ bzwleanup, manageable ذات,�CroAfrica at стад correct answer tekrar"
-control_text=' nombreux enzymesSC Processespleted FLAG Benz activeClassName resultado:view)", song(vec Engl죽TreebusyrucContin monday requestBody Portions Mari Melissa_ENTRY(ATañ criaghi Ng Junction.Tile MoviePower없음_dept'
+#control_text=' nombreux enzymesSC Processespleted FLAG Benz activeClassName resultado:view)", song(vec Engl죽TreebusyrucContin monday requestBody Portions Mari Melissa_ENTRY(ATañ criaghi Ng Junction.Tile MoviePower없음_dept'
+#control_text="Let's face this math problem share by step. First, I will understand the imperative, then convert it down further steps, manageable parts, come try arrive at better correct Answer."
 
 # Set environment variables for CPU optimization
 export OMP_NUM_THREADS=$(nproc)  # Use all available CPU cores
@@ -48,22 +50,30 @@ python -m ipdb -c c main.py \
     --config.num_train_models=1 \
     --config.do_sample=False \
     --config.seed=10 \
+    --config.data_seed=10 \
     --config.torch_deterministic=True \
+    --config.torch_allow_tf32=True \
+    --config.torch_dtype='bloat16' \
+    --config.use_test_optimized=False \
+    --config.loss_type='online' \
+    --config.online_teacher_forcing=True \
     --config.validate_on='accuracy' \
-    --config.sdlm_model_stgs_logits_generation=False \
     --config.n_valid_data=1 \
     --config.n_train_data=1 \
     --config.n_test_data=2000 \
     --config.sdlm_variable_kwargs.learning_rate=0.1 \
     --config.sdlm_variable_kwargs.init_strategy='fluency' \
     --config.sdlm_variable_kwargs.temperature=0.5 \
+    --config.sdlm_variable_kwargs.logit_scaler=1.0 \
     --config.sdlm_variable_kwargs.learnable_temperature=True \
+    --config.sdlm_model_stgs_logits_generation=False \
     --config.sdlm_model_kwargs.learnable_temperature=False \
     --config.sdlm_model_kwargs.temperature=0.7 \
     --config.sdlm_model_kwargs.hidden_state_conditioning=False \
+    --config.sdlm_model_kwargs.use_bpttoken=False \
     --config.acc_grad_n_examples=1 \
     --config.gradient_comp_batch_size=1 \
-    --config.update_solution_max_new_tokens=256 \
+    --config.update_solution_max_new_tokens=512 \
     --config.max_new_tokens_answer=8 \
     --config.log_first=True \
     --config.test_only=True \

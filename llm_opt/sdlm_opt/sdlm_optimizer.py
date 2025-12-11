@@ -11,6 +11,7 @@ from collections import defaultdict
 import json
 import math
 import random
+from contextlib import nullcontext
 from tqdm import tqdm
 import wandb
 
@@ -37,7 +38,6 @@ from llm_opt.base.attack_manager import (
 import sys
 import pdb
 
-from torchviz import make_dot
 
 
 class ForkedPdb(pdb.Pdb):
@@ -1066,7 +1066,8 @@ class SDLMPrompter(BasePrompter):
             loss.backward()
             del input_one_hots, logits; gc.collect()
             torch.cuda.empty_cache()
-
+            torch.cuda.synchronize()  # Force all operations to complete
+            
             # Get gradients from the SDLM variable
             grads = self.sdlm_variable.logits.grad.clone()
             # seq_len x vocab_size
@@ -1108,6 +1109,7 @@ class SDLMPromptManager(BasePromptManager):
             "temperature": 0.1,
             "logit_scaler": 10.0,
             "learnable_temperature": True,
+            "decouple_learnable_temperature": False,
         },
         **kwargs,
     ):
@@ -1235,9 +1237,11 @@ class SDLMPromptManager(BasePromptManager):
         model, 
         gen_config=None,
     ):
+        '''
         if gen_config is None:
             gen_config = model.generation_config
             gen_config.max_new_tokens = 128
+        '''
 
         return [prompt.generate(model, gen_config) for prompt in self._prompts]
 
@@ -1256,10 +1260,13 @@ class SDLMPromptManager(BasePromptManager):
         if prompt_candidate_toks is None:
             prompt_candidate_toks = prompts[0].input_ids[prompts[0]._control_slice]
 
+        '''
         if gen_config is None:
             gen_config = model.generation_config
             gen_config.max_new_tokens = max_new_tokens
             gen_config.repetition_penalty = repetition_penalty  # Add repetition penalty to reduce repetitions
+        '''
+        #TODO: DEBUG: repetition_penalty has been found to be detrimental...
 
         # Extract and slice input_ids from each Prompt object
         sliced_input_ids_list = []
@@ -1506,6 +1513,12 @@ class SDLMPromptManager(BasePromptManager):
         return torch.stack(new_control_toks, dim=0), min_loss
 
 class SDLMMultiPrompter(BaseMultiPrompter):
+    _RESERVED_EVAL_GENERATE_KEYS = frozenset({
+        'input_ids',
+        'attention_mask',
+        'return_dict_in_generate',
+        'output_logits',
+    })
     """
     A multi-prompter that uses SDLM for optimization.
     """
@@ -1548,6 +1561,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         )
         """
         self.kwargs = kwargs
+        params = self.kwargs.get('params', {})
+        if isinstance(params, dict):
+            raw_eval_generate_kwargs = params.get('eval_generate_kwargs')
+        else:
+            raw_eval_generate_kwargs = getattr(params, 'eval_generate_kwargs', None)
+        self.eval_generate_kwargs = self._coerce_eval_generate_kwargs(raw_eval_generate_kwargs)
         self.goals = goals
         self.targets = targets
         self.workers = workers
@@ -1592,9 +1611,41 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         self.loss_cache = {}
         self.initial_length = len(self.prompt_managers[0].control_toks)
         parameters = [param for name, param in self.current_pm.sdlm_variable.named_parameters()]
-        #TODO: debug why does not regist STGS params: .. parameters = self.current_pm.sdlm_variable.parameters()
         self.optimizer = torch.optim.Adam(parameters, lr=self.learning_rate)
+        self.lr_scheduler = self._init_lr_scheduler()
+
     
+    def _coerce_eval_generate_kwargs(self, value):
+        if value is None:
+            return None
+        if hasattr(value, 'to_dict'):
+            value = value.to_dict()
+        elif isinstance(value, str):
+            try:
+                value = json.loads(value)
+            except json.JSONDecodeError as exc:
+                raise ValueError("Unable to parse eval_generate_kwargs JSON") from exc
+        elif not isinstance(value, dict):
+            value = dict(value)
+        if not value:
+            return None
+        return dict(value)
+
+    def _resolve_eval_generate_kwargs(self, overrides):
+        resolved = self._coerce_eval_generate_kwargs(overrides)
+        if resolved is None and self.eval_generate_kwargs:
+            resolved = dict(self.eval_generate_kwargs)
+        return resolved
+
+    def _apply_eval_generate_overrides(self, base_kwargs, overrides):
+        if not overrides:
+            return base_kwargs
+        for key, value in overrides.items():
+            if key in self._RESERVED_EVAL_GENERATE_KEYS:
+                continue
+            base_kwargs[key] = value
+        return base_kwargs
+
     @property
     def current_pm(self):
         return self.prompt_managers[0]
@@ -1660,6 +1711,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         max_new_tokens_answer=None,
         do_sample=False,
         em_from_gen_str=False,
+        eval_generate_kwargs=None,
     ):
         """
         Test the prompts against the model in batches.
@@ -1681,12 +1733,15 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             max_new_tokens_answer = self.kwargs['params']['max_new_tokens_answer']
         
         model = model.eval()
+        torch.set_grad_enabled(False)
 
         prompts = prompt_manager._prompts
         tokenizer = prompt_manager.tokenizer
         original_padding_side = tokenizer.padding_side
         tokenizer.padding_side = 'left'
         device = next(model.parameters()).device
+        pad_token_id = tokenizer.pad_token_id
+        eval_overrides = self._resolve_eval_generate_kwargs(eval_generate_kwargs)
         
         # Prepare test prefixes from the first prompt
         test_prefixes = prompts[0].test_prefixes
@@ -1746,29 +1801,30 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 
                 # Get generation config
                 # TODO : normalise repetition_penalty being an argument of launch script
-                # TODO : find a better strategy for max_new_tokens
-                gen_config = model.generation_config
-                gen_config.repetition_penalty = 1.2  # Add repetition penalty to reduce repetitions
-                gen_config.max_new_tokens = max_new_tokens_reasoning #max(p.test_new_toks for p in batch_prompts)
+                gen_config = None#model.generation_config
+                #DEBUG: TODO: the following has been found to be detrimental and will be deleted:
+                #gen_config.repetition_penalty = 1.2  # Add repetition penalty to reduce repetitions
+                #gen_config.max_new_tokens = max_new_tokens_reasoning #max(p.test_new_toks for p in batch_prompts)
                 
                 # Get reasoning:
                 # Generate output tokens and logits for the entire batch
                 with torch.no_grad():
-                    generation_output = model.generate(
-                        input_ids=batch_inputs,
-                        attention_mask=batch_attention_masks,
-                        generation_config=gen_config,
-                        max_new_tokens=max_new_tokens_reasoning,
-                        pad_token_id=tokenizer.pad_token_id,
-                        do_sample=do_sample,
-                        return_dict_in_generate=True,
-                        output_logits=True
-                    )
+                    reasoning_kwargs = {
+                        'input_ids': batch_inputs,
+                        'attention_mask': batch_attention_masks,
+                        'generation_config': gen_config,
+                        'max_new_tokens': max_new_tokens_reasoning,
+                        'pad_token_id': pad_token_id,
+                        'do_sample': do_sample,
+                        'return_dict_in_generate': True,
+                        'output_logits': True,
+                    }
+                    self._apply_eval_generate_overrides(reasoning_kwargs, eval_overrides)
+                    generation_output = model.generate(**reasoning_kwargs)
                 
                 # Get the output sequences and logits
                 output_ids = generation_output.sequences
                 all_logits = generation_output.logits  # Logits for each generated token
-                #TODO: verify that the length is not for the whole input+completion ?
                 #  
     
                 # Extract reasoning and add answer extractor prompt:
@@ -1804,16 +1860,20 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 #print("\n===\n".join(str_padded_reasoning_list))
     
                 # Generate answer:
+                in_r_ext_inputs = in_r_ext_batch['input_ids'].to(device)
+                in_r_ext_attention = in_r_ext_batch['attention_mask'].to(device)
                 with torch.no_grad():
-                    in_r_ext_ans_outputs = model.generate(
-                        input_ids=in_r_ext_batch['input_ids'].to(device),
-                        attention_mask=in_r_ext_batch['attention_mask'].to(device),
-                        max_new_tokens=max_new_tokens_answer,
-                        pad_token_id=tokenizer.pad_token_id,
-                        do_sample=do_sample,
-                        return_dict_in_generate=True,
-                        output_logits=True,
-                    )
+                    answer_kwargs = {
+                        'input_ids': in_r_ext_inputs,
+                        'attention_mask': in_r_ext_attention,
+                        'max_new_tokens': max_new_tokens_answer,
+                        'pad_token_id': pad_token_id,
+                        'do_sample': do_sample,
+                        'return_dict_in_generate': True,
+                        'output_logits': True,
+                    }
+                    self._apply_eval_generate_overrides(answer_kwargs, eval_overrides)
+                    in_r_ext_ans_outputs = model.generate(**answer_kwargs)
                 
                 in_r_ext_ans_ids = in_r_ext_ans_outputs.sequences
                 # Removing left and right padding:
@@ -1899,7 +1959,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     print(f"Giving up on the current batch of elements.")
                     print(f"Resetting batch_size to {batch_size}...")
                     pbar.update(current_batch_size)
-                    pidx += eff_batch_size
+                    pidx += current_batch_size
                     # Reset batch_size:
                     eff_batch_size = batch_size
                     # Logging failed values:
@@ -1928,7 +1988,244 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             gen_strs,
             solutions,
         ]
+        
+        torch.set_grad_enabled(True)
 
+        return retl
+    
+    def test_optimized(
+        self,
+        model,
+        prompt_manager,
+        include_loss=False,
+        batch_size=None,
+        max_new_tokens_reasoning=None,
+        max_new_tokens_answer=None,
+        do_sample=False,
+        em_from_gen_str=False,
+        use_autocast=True,
+        autocast_dtype=None,
+        verbose=False,
+        eval_generate_kwargs=None,
+    ):
+        """
+        Optimized variant of `test` that keeps the same return structure but
+        applies several latency-oriented tweaks:
+            * inference_mode + optional autocast to cut autograd + precision cost
+            * tokenizer.batch_decode to reduce python overhead
+            * minimize GPU<->CPU sync by operating on CPU copies only once
+            * cache goal answers / tokenizations outside the batch loop
+        """
+        if batch_size is None:
+            batch_size = self.kwargs['params']['batch_size'] * 8
+        if max_new_tokens_reasoning is None:
+            max_new_tokens_reasoning = self.kwargs['params']['update_solution_max_new_tokens']
+        if max_new_tokens_answer is None:
+            max_new_tokens_answer = self.kwargs['params']['max_new_tokens_answer']
+
+        model = model.eval()
+        torch.set_grad_enabled(False)
+
+        prompts = prompt_manager._prompts
+        if not prompts:
+            return [[], [], [] if include_loss else [], [], []]
+
+        tokenizer = prompt_manager.tokenizer
+        original_padding_side = tokenizer.padding_side
+        tokenizer.padding_side = 'left'
+        device = next(model.parameters()).device
+        pad_token_id = tokenizer.pad_token_id
+        if pad_token_id is None:
+            pad_token_id = getattr(getattr(model, "config", None), "pad_token_id", None)
+        if pad_token_id is None:
+            pad_token_id = tokenizer.eos_token_id
+        if pad_token_id is None:
+            raise ValueError("Could not infer a pad_token_id for test_optimized.")
+        test_prefixes = prompts[0].test_prefixes
+        extractor_text = prompts[0].extractor_text
+        extractor_token_ids = tokenizer.encode(extractor_text, add_special_tokens=False)
+        extractor_ids_tensor = (
+            torch.tensor(extractor_token_ids, dtype=torch.long, device=device)
+            if len(extractor_token_ids) > 0 else None
+        )
+
+        # Cache answers and (optional) final target tokenizations
+        cached_answers = []
+        cached_loss_targets = []
+        for prompt in prompts:
+            answer = prompt.target
+            if getattr(prompt, "final_target", ""):
+                answer = prompt.final_target
+            cached_answers.append(answer)
+            if include_loss:
+                ft_text = prompt.final_target
+                ft_ids = tokenizer.encode(ft_text, add_special_tokens=False)
+                cached_loss_targets.append(torch.tensor(ft_ids, dtype=torch.long))
+
+        jailbreak_scores, match_scores, losses = [], [], []
+        gen_strs, solutions = [], []
+
+        nbr_prompts = len(prompts)
+        pidx = 0
+        eff_batch_size = batch_size
+        pbar = tqdm(total=nbr_prompts, desc="Testing prompts (fast)", unit="prompt")
+
+        if autocast_dtype is None and device.type == 'cuda':
+            # HIP/AMD kernels don't expose NVIDIA-style compute capability, so rely on feature checks.
+            def _bf16_supported():
+                if hasattr(torch.cuda, "is_bf16_supported"):
+                    try:
+                        return torch.cuda.is_bf16_supported()
+                    except Exception:
+                        pass
+                try:
+                    major, _ = torch.cuda.get_device_capability(device)
+                    return major >= 8
+                except Exception:
+                    return False
+            autocast_dtype = torch.bfloat16 if _bf16_supported() else torch.float16
+
+        autocast_ctx = (
+            torch.cuda.amp.autocast(dtype=autocast_dtype) if (use_autocast and device.type == 'cuda') else nullcontext()
+        )
+
+        try:
+            with torch.inference_mode():
+                while pidx < nbr_prompts:
+                    current_batch_size = min(eff_batch_size, nbr_prompts - pidx)
+                    batch_prompts = prompts[pidx:pidx + current_batch_size]
+                    batch_answers = cached_answers[pidx:pidx + current_batch_size]
+
+                    try:
+                        input_ids_list = [
+                            prompt.input_ids[:prompt._assistant_role_slice.stop] for prompt in batch_prompts
+                        ]
+                        batch = tokenizer.pad(
+                            {'input_ids': input_ids_list},
+                            padding='longest',
+                            return_tensors='pt',
+                            return_attention_mask=True,
+                            padding_side='left',
+                        )
+                        batch_inputs = batch['input_ids'].to(device, non_blocking=True)
+                        batch_attention_masks = batch['attention_mask'].to(device, non_blocking=True)
+
+                        generation_kwargs = {
+                            'input_ids': batch_inputs,
+                            'attention_mask': batch_attention_masks,
+                            'max_new_tokens': max_new_tokens_reasoning,
+                            'pad_token_id': pad_token_id,
+                            'do_sample': do_sample,
+                            'return_dict_in_generate': True,
+                        }
+                        self._apply_eval_generate_overrides(generation_kwargs, eval_overrides)
+                        with autocast_ctx:
+                            generation_output = model.generate(**generation_kwargs)
+
+                        output_ids = generation_output.sequences
+                        reasoning_inputs = []
+                        for seq in output_ids:
+                            trimmed = seq[seq != pad_token_id]
+                            if extractor_ids_tensor is not None:
+                                trimmed = torch.cat([trimmed, extractor_ids_tensor])
+                            reasoning_inputs.append(trimmed.cpu())
+                        del generation_output
+
+                        reasoning_batch = tokenizer.pad(
+                            {'input_ids': reasoning_inputs},
+                            padding='longest',
+                            return_tensors='pt',
+                            return_attention_mask=True,
+                            padding_side='left',
+                        )
+                        reasoning_inputs_tensor = reasoning_batch['input_ids'].to(device, non_blocking=True)
+                        reasoning_attention = reasoning_batch['attention_mask'].to(device, non_blocking=True)
+
+                        answer_kwargs = {
+                            'input_ids': reasoning_inputs_tensor,
+                            'attention_mask': reasoning_attention,
+                            'max_new_tokens': max_new_tokens_answer,
+                            'pad_token_id': pad_token_id,
+                            'do_sample': do_sample,
+                            'return_dict_in_generate': True,
+                            'output_logits': include_loss,
+                        }
+                        self._apply_eval_generate_overrides(answer_kwargs, eval_overrides)
+                        with autocast_ctx:
+                            in_r_ext_ans_outputs = model.generate(**answer_kwargs)
+
+                        in_r_ext_ans_ids = in_r_ext_ans_outputs.sequences
+                        clean_sequences = []
+                        for seq in in_r_ext_ans_ids:
+                            filtered = seq[seq != pad_token_id].detach().cpu().tolist()
+                            clean_sequences.append(filtered)
+                        decoded_batch = tokenizer.batch_decode(clean_sequences, skip_special_tokens=True)
+                        ans_logits = in_r_ext_ans_outputs.logits if include_loss else None
+                        del in_r_ext_ans_outputs
+
+                        batch_jb, batch_mb = [], []
+                        batch_gen_strs, batch_solutions = [], []
+
+                        for i, gen_str in enumerate(decoded_batch):
+                            final_answer = gen_str.split(extractor_text)[-1] if extractor_text else gen_str
+                            gt_answer = batch_answers[i]
+                            jailbroken = not any(prefix in gen_str for prefix in test_prefixes)
+                            em = gt_answer in (gen_str if em_from_gen_str else final_answer)
+
+                            if verbose:
+                                print(f"Ground truth answer: {gt_answer}")
+                                print(f"Generated: {final_answer}")
+                                print(f"\n===\nProblem {pidx + i}: Solution={gt_answer}\n{gen_str}")
+
+                            batch_jb.append(int(jailbroken))
+                            batch_mb.append(int(em))
+                            batch_gen_strs.append(gen_str)
+                            batch_solutions.append(gt_answer)
+
+                        batch_losses = []
+                        if include_loss and ans_logits is not None:
+                            for local_idx in range(len(batch_prompts)):
+                                ft_tokens = cached_loss_targets[pidx + local_idx].to(device)
+                                if ft_tokens.numel() == 0:
+                                    batch_losses.append(0.0)
+                                    continue
+                                logits = torch.stack([step[local_idx] for step in ans_logits])
+                                logits = logits[-ft_tokens.shape[0]:]
+                                ft_tokens = ft_tokens[:logits.shape[0]]
+                                loss_crit = nn.CrossEntropyLoss(reduction='mean')
+                                loss = loss_crit(input=logits, target=ft_tokens)
+                                batch_losses.append(loss.item())
+
+                        jailbreak_scores.extend(batch_jb)
+                        match_scores.extend(batch_mb)
+                        if include_loss:
+                            losses.extend(batch_losses)
+                        gen_strs.extend(batch_gen_strs)
+                        solutions.extend(batch_solutions)
+
+                        pbar.update(current_batch_size)
+                        pidx += current_batch_size
+
+                    except RuntimeError as e:
+                        if device.type == 'cuda' and "out of memory" in str(e).lower() and eff_batch_size > 1:
+                            torch.cuda.empty_cache()
+                            eff_batch_size = max(1, eff_batch_size // 2)
+                            if verbose:
+                                print(f"[test_optimized] CUDA OOM, reducing batch size to {eff_batch_size}")
+                            continue
+                        raise
+        finally:
+            tokenizer.padding_side = original_padding_side
+            torch.set_grad_enabled(True)
+            pbar.close()
+
+        retl = [
+            jailbreak_scores,
+            match_scores,
+            losses if include_loss else [],
+            gen_strs,
+            solutions,
+        ]
         return retl
     
     def validate_all(self, do_sample=False, **kwargs):
@@ -1955,10 +2252,14 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             params=self.kwargs['params'],
         )
         
-        outputs = self.test(
-            model, 
-            valid_prompt_manager, 
-            include_loss=True, 
+        if 'eval_generate_kwargs' not in kwargs:
+            kwargs['eval_generate_kwargs'] = self.eval_generate_kwargs
+        use_fast_testing = self.kwargs['params'].get('use_test_optimized', False)
+        test_fn = self.test_optimized if use_fast_testing else self.test
+        outputs = test_fn(
+            model,
+            valid_prompt_manager,
+            include_loss=True,
             do_sample=do_sample,
             em_from_gen_str=self.kwargs['params']['em_from_gen_str'],
             **kwargs,
@@ -1991,10 +2292,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             params=self.kwargs['params'],
         )
         
-        outputs = self.test(
-            model, 
-            test_prompt_manager, 
-            include_loss=True, 
+        use_fast_testing = self.kwargs['params'].get('use_test_optimized', False)
+        test_fn = self.test_optimized if use_fast_testing else self.test
+        outputs = test_fn(
+            model,
+            test_prompt_manager,
+            include_loss=True,
             do_sample=do_sample,
             em_from_gen_str=self.kwargs['params']['em_from_gen_str'],
             **kwargs,
@@ -2246,6 +2549,11 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 else:
                     loss = loss+control_weight*control_loss
             
+                if not torch.isfinite(loss):
+                    print("ERROR: Loss is NaN/Inf before backward!")
+                    # Inspect what led to this
+                    import ipdb; ipdb.set_trace()
+
                 losses.append(loss)
             losses = torch.stack(losses)
         return losses
@@ -2297,9 +2605,14 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 #torch.autograd.set_grad_enabled(True)
                 diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
                 #torch.autograd.set_grad_enabled(False)
-                wandb.log({
+                eff_temperatures = sdlm_variable.eff_temperatures.squeeze(-1)
+                wandb_log = {
                     f"variable_forward": decoded_string,
-                    },
+                }
+                for tidx, eff_temp in enumerate(eff_temperatures):
+                    wandb_log[f'eff_temperature_{tidx}'] = eff_temp.cpu().detach().item()
+                wandb.log(
+                    wandb_log,
                     commit=True,
                 )
                 input_one_hots[bidx, prompt._control_slice] = diff_one_hot.to(device=sdlm_model.device)#cpu()
@@ -2354,6 +2667,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         #sdlm_model = sdlm_model.eval() 
         #sdlm_model.model = sdlm_model.model.eval()
         #torch.autograd.set_grad_enabled(True)
+        #TODO: DEBUG: the reasoning seem to exhibit some repetition,
+        # it might be valuable to tweak repetition penalty
         outputs_reasoning = sdlm_model.generate(
             input_one_hots=batched_input_one_hots_padded,
             attention_mask=attn_masks.detach(),
@@ -2364,6 +2679,23 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         #torch.autograd.set_grad_enabled(False)
 
         # Extract differentiable reasoning diff_one_hot and concatenate them to batched_input_one_hots:
+        if cache_active:
+            reasoning_cache = getattr(outputs_reasoning, 'cache', None)
+            if reasoning_cache is None:
+                raise RuntimeError("Differentiable cache enabled but cache is missing from STGSDiffModel.generate output.")
+            return self._compute_online_loss_with_cache_v2(
+                prompts=prompts,
+                prompt_base_embeds=prompt_base_embeds,
+                outputs_reasoning=outputs_reasoning,
+                reasoning_cache=reasoning_cache,
+                extractor_embeds=extractor_embeds,
+                sdlm_model=sdlm_model,
+                gradient_comp_batch_size=gradient_comp_batch_size,
+                control_weight=control_weight,
+                temperature=temperature,
+                embedding_dim=embedding_dim,
+            )
+
         reasoning_diff_tokens = outputs_reasoning.sampled_diff_tokens
         if reasoning_diff_tokens is not None:
             reasoning_diff_one_hot = outputs_reasoning.sampled_diff_one_hot
@@ -2396,11 +2728,14 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             # DEBUG: visualization of padding_start:
             # print(padding_starts)
             # remove right-side pads:
+        
+        '''
         reasoning_diff_one_hot = [
             reasoning_diff_one_hot[i, :padding_starts[i].detach()] 
             for i in range(padding_starts.shape[0])
         ]
         reasoning_diff_one_hot = torch.stack(reasoning_diff_one_hot)
+        '''
 
         # Copy batched_input_one_hots_padded without left-side pads:
         final_answer_input_one_hots = [
@@ -2416,7 +2751,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         # Concatenate reasoning_diff_one_hot to final_answer_input_one_hots and extractor_text_one_hot:
         with torch.no_grad():
             extractor_one_hot = F.one_hot(
-                tokenizer(prompt.extractor_text, return_tensors='pt').input_ids, 
+                tokenizer(
+                    prompt.extractor_text, 
+                    return_tensors='pt',
+                    #WARNING: VERY IMPORTANT: otherwise BoS token at the start...
+                    add_special_tokens=False,
+                ).input_ids, 
                 num_classes=sdlm_model.config.vocab_size
             ).float().to(
                 device=sdlm_model.device,
@@ -2426,17 +2766,39 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             #extractor_one_hot = extractor_one_hot.repeat(gradient_comp_batch_size*batch_size, 1, 1)
             # tensor of shape (gradient_comp_batch_size*batch_size, max_len, vocab_size)
         
-        final_answer_input_one_hots = [
-            torch.cat([
-                final_answer_input_one_hots[i], 
-                reasoning_diff_one_hot[i:i+1],
+        tfinal_answer_input_one_hots = final_answer_input_one_hots
+        final_answer_input_one_hots = []
+        inputs_logits_offsets = []
+        max_target_len = 0
+        for i in range(len(tfinal_answer_input_one_hots)):
+            fa_oh = [
+                tfinal_answer_input_one_hots[i], 
+                #reasoning_diff_one_hot[i:i+1],
+                reasoning_diff_one_hot[i:i+1, :padding_starts[i].detach()], #removing right-side pads.
                 extractor_one_hot.detach(),
-                ], 
-                dim=1,
-            ) 
-            for i in range(len(final_answer_input_one_hots))
-        ]
+            ]            
+            if self.kwargs['params'].get('online_teacher_forcing', False):
+                pidx = i//gradient_comp_batch_size
+                prompt = prompts[pidx]
+                temp = prompt.input_ids.detach()
+                input_one_hots = F.one_hot(temp, num_classes=sdlm_model.config.vocab_size).float()
+                del temp
+                input_one_hots = input_one_hots.to(device=sdlm_model.device)#.cpu()
+                ptarget_one_hots = input_one_hots[prompt._target_slice.start:prompt._target_slice.stop+1]
+                max_target_len = max(max_target_len, ptarget_one_hots.shape[0])
+                del input_one_hots
+                # Recording length before target to set as input_logits later:
+                inputs_logits_offsets.append(
+                    sum([ohe.shape[1] for ohe in fa_oh])
+                )
+                # Addindg target to sentence:
+                fa_oh.append(ptarget_one_hots.unsqueeze(0).detach())
+                del ptarget_one_hots
+            fa_oh = torch.cat(fa_oh, dim=1)
+            final_answer_input_one_hots.append(fa_oh)
+            del fa_oh
         # list of tensors of shape (gradient_comp_batch_size*batch_size, max_len, vocab_size)
+        del tfinal_answer_input_one_hots
         del reasoning_diff_one_hot, extractor_one_hot
         
         # Padding on the left side and stacking:
@@ -2474,30 +2836,69 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         # (batch_size*gradient_comp_batch_size, max_len, vocab_size)
         batched_final_answer_attn_masks = torch.cat(batched_final_answer_attn_masks, dim=0).to(
             device=sdlm_model.device,
-            dtype=sdlm_model.dtype,
+            dtype=torch.bool, #sdlm_model.dtype,
         )
         # (batch_size*gradient_comp_batch_size, max_len)
 
         # Generate final answer
         #torch.autograd.set_grad_enabled(True)
-        outputs_final_answer = sdlm_model.generate(
-            input_one_hots=batched_final_answer_input_one_hots_padded,
-            attention_mask=batched_final_answer_attn_masks.detach(),
-            max_new_tokens=self.kwargs['params']['max_new_tokens_answer'],
-            output_normal_logits=True,
-            return_dict=True,
-        )
+        if self.kwargs['params'].get('online_teacher_forcing', False):
+            outputs_final_answer = sdlm_model.model.forward(
+                inputs_embeds=torch.matmul(
+                    batched_final_answer_input_one_hots_padded,
+                    sdlm_model.model.get_input_embeddings().weight.unsqueeze(0),
+                ),
+                attention_mask=batched_final_answer_attn_masks.detach(),
+                return_dict=True,
+            )
+            '''
+            inputs_logits = []
+            for idx in range(outputs_final_answer.logits.shape[0]):
+                input_logits = outputs_final_answer.logits[:,:inputs_logits_offset[idx]]
+                inputs_logits.append(input_logits)
+            '''
+            inputs_logits = outputs_final_answer.logits
+            blogits = []
+            max_len = 0
+            for pidx in range(outputs_final_answer.logits.shape[0]):
+                logits = outputs_final_answer.logits[
+                    pidx:pidx+1,
+                    inputs_logits_offsets[pidx]+seq_offsets[pidx]:
+                    #inputs_logits_offsets[pidx]+seq_offsets[pidx]+max_target_len,
+                ]
+                max_len = max(max_len, logits.shape[1])
+                blogits.append(logits)
+            # Padding for concat:
+            for pidx in range(len(blogits)):
+                if blogits[pidx].shape[1] < max_len:
+                    blogits[pidx] = torch.cat([
+                        blogits[pidx],
+                        torch.zeros_like(blogits[pidx])[:,0:1].repeat(
+                            1,max_len-blogits[pidx].shape[1],1).detach(),
+                        ],
+                        dim=1,
+                    )
+            logits = torch.cat(blogits, dim=0) 
+        else:
+            outputs_final_answer = sdlm_model.generate(
+                input_one_hots=batched_final_answer_input_one_hots_padded,
+                attention_mask=batched_final_answer_attn_masks.detach(),
+                max_new_tokens=self.kwargs['params']['max_new_tokens_answer'],
+                output_normal_logits=True,
+                return_dict=True,
+            )
         
-        # Compute loss (you can customize this based on your needs)
-        #logits = outputs.stgs_logits
-        logits = outputs_final_answer.logits
-        # (batch_size*gradient_comp_batch_size, max_new_tokens_answer, vocab_size)
-        #TODO: consider using stgs_logits instead
-        # or partially over the reasoning slice when ground-truth reasoning are not provided.
+            # Compute loss (you can customize this based on your needs)
+            #logits = outputs.stgs_logits
+            logits = outputs_final_answer.logits
+            inputs_logits = outputs_final_answer.input_logits
+            # (batch_size*gradient_comp_batch_size, max_new_tokens_answer, vocab_size)
+            #TODO: consider using stgs_logits instead
+            # or partially over the reasoning slice when ground-truth reasoning are not provided.
 
         losses = []
         for pidx, prompt in enumerate(prompts):
-            input_logits = outputs_final_answer.input_logits[
+            input_logits = inputs_logits[
                 pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size, 
                 seq_offsets[pidx]:, #removing paddings
                 ...
@@ -2528,11 +2929,13 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 dtype=torch.long,
             )
             ce_loss = nn.CrossEntropyLoss(reduction='none')(  # Don't reduce yet
-                input_logits[:, control_output_slice, :].transpose(1,2), 
+                input_logits[:, control_output_slice, :].to(dtype=torch.float32).transpose(1,2), 
                 control_targets.detach(),
             )
-            avg_ce_loss = ce_loss.mean(dim=1)
-            perplexity = torch.exp(avg_ce_loss)
+            avg_ce_loss = ce_loss.mean(dim=1).to(dtype=torch.float32)
+            max_log_ppl = math.log(torch.finfo(avg_ce_loss.dtype).max)
+            log_perplexity = avg_ce_loss.clamp(max=max_log_ppl)
+            perplexity = torch.exp(log_perplexity)
             control_loss = perplexity.mean()
             '''
             control_loss = loss_crit(
@@ -2560,10 +2963,505 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             else:
                 loss = loss+control_weight*control_loss
         
+            if not torch.isfinite(loss):
+                print("ERROR: Loss is NaN/Inf before backward!")
+                # Inspect what led to this
+                import ipdb; ipdb.set_trace()
+
             losses.append(loss)
         losses = torch.stack(losses)
         return losses
     
+    def batched_online_compute_loss_v2(
+        self, 
+        prompts: List[SDLMPrompter],
+        tokenizer: AutoTokenizer,
+        sdlm_model: AutoModelForCausalLM, 
+        sdlm_variable: Variable,
+        gradient_comp_batch_size: int = 1,
+        current_pos: Optional[int] = None, 
+        valid_tokens: Optional[List[int]] = None, 
+        temperature: Optional[float] = 0.4, 
+        control_weight: Optional[float] = 0.2,
+        **kwargs
+    ):
+        """
+        Compute loss using SDLM's differentiable text generation.
+        This mirrors ``batched_online_compute_loss`` but keeps all tensors in
+        embedding space instead of constructing full vocab-sized one-hots.
+        """
+        torch.autograd.set_grad_enabled(True)
+
+        embedding_layer = sdlm_model.model.get_input_embeddings()
+        embedding_weight = embedding_layer.weight.detach()
+        embedding_dim = embedding_weight.shape[1]
+        extractor_text = prompts[0].extractor_text if len(prompts) > 0 else ""
+        extractor_cache = getattr(self, '_extractor_embed_cache', {})
+        extractor_key = (tokenizer.name_or_path if hasattr(tokenizer, 'name_or_path') else None, extractor_text)
+        extractor_embeds = extractor_cache.get(extractor_key)
+        if extractor_embeds is None:
+            # Original implementation re-tokenized each call:
+            # with torch.no_grad():
+            #     extractor_ids = tokenizer(
+            #         extractor_text,
+            #         return_tensors='pt',
+            #         add_special_tokens=False,
+            #     ).input_ids.to(device=sdlm_model.device)
+            #     extractor_embeds = embedding_layer(extractor_ids.long()).to(
+            #         device=sdlm_model.device,
+            #         dtype=sdlm_model.dtype,
+            #     )
+            with torch.no_grad():
+                extractor_ids = tokenizer(
+                    extractor_text,
+                    return_tensors='pt',
+                    add_special_tokens=False,
+                ).input_ids.to(device=sdlm_model.device)
+                extractor_embeds = embedding_layer(extractor_ids.long()).detach().cpu()
+            extractor_cache[extractor_key] = extractor_embeds
+            setattr(self, '_extractor_embed_cache', extractor_cache)
+        extractor_embeds = extractor_embeds.to(
+            device=sdlm_model.device,
+            dtype=sdlm_model.dtype,
+        )
+        use_diff_cache = self.kwargs['params'].get('use_differentiable_cache', False)
+        cache_active = use_diff_cache and self.kwargs['params'].get('online_teacher_forcing', False)
+        prompt_base_embeds = []
+
+        batched_input_embeds = []
+        batched_attn_masks = []
+        seq_offsets = []
+        max_len = 0
+        for prompt in prompts:
+            temp = prompt.input_ids.detach().long().to(device=sdlm_model.device)
+            # Previous implementation (kept for reference) built dense one-hots:
+            # input_one_hots = F.one_hot(temp, num_classes=sdlm_model.config.vocab_size).float()
+            # input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1).to(device=sdlm_model.device)
+            # repeated_ids = temp.unsqueeze(0).repeat(gradient_comp_batch_size, 1)
+            # prompt_embeds = embedding_layer(repeated_ids).to(dtype=sdlm_model.dtype).detach()
+            base_prompt_embeds = embedding_layer(temp.unsqueeze(0)).to(dtype=sdlm_model.dtype).detach()
+            prompt_base_embeds.append(base_prompt_embeds.cpu())
+            prompt_embeds = base_prompt_embeds.repeat(gradient_comp_batch_size, 1, 1).clone()
+            for bidx in range(gradient_comp_batch_size):
+                diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
+                eff_temperatures = sdlm_variable.eff_temperatures.squeeze(-1)
+                wandb_log = {
+                    "variable_forward": decoded_string,
+                }
+                for tidx, eff_temp in enumerate(eff_temperatures):
+                    wandb_log[f'eff_temperature_{tidx}'] = eff_temp.cpu().detach().item()
+                wandb.log(wandb_log, commit=True)
+
+                # Replace the one-hot slice assignment with an embedding projection
+                # input_one_hots[bidx, prompt._control_slice] = diff_one_hot
+                diff_embeds = torch.matmul(
+                    diff_one_hot.to(dtype=sdlm_model.dtype, device=sdlm_model.device),
+                    embedding_weight,
+                ).squeeze(0)
+                prompt_embeds[bidx, prompt._control_slice] = diff_embeds
+            del diff_input_ids, diff_one_hot, decoded_string
+            prompt_embeds = prompt_embeds[:, :prompt._control_slice.stop]
+            max_len = max(max_len, prompt_embeds.shape[1])
+            batched_input_embeds.append(prompt_embeds)
+            del prompt_embeds
+
+        for iidx, input_embeds in enumerate(batched_input_embeds):
+            offset = max_len - input_embeds.shape[1]
+            seq_offsets.append(offset)
+            # pad_block = torch.zeros(
+            #     (gradient_comp_batch_size, offset, embedding_dim),
+            #     device=sdlm_model.device,
+            #     dtype=sdlm_model.dtype,
+            # )
+            # input_embeds = torch.cat([pad_block, input_embeds], dim=1)
+            orig_len = input_embeds.shape[1]
+            padded = torch.zeros(
+                (gradient_comp_batch_size, max_len, embedding_dim),
+                device=sdlm_model.device,
+                dtype=sdlm_model.dtype,
+            )
+            padded[:, offset:, :] = input_embeds
+            input_embeds = padded
+            # attn_mask = torch.cat([
+            #     torch.zeros((gradient_comp_batch_size, offset), device=sdlm_model.device),
+            #     torch.ones((gradient_comp_batch_size, input_embeds.shape[1] - offset), device=sdlm_model.device),
+            # ], dim=1).to(dtype=sdlm_model.dtype)
+            attn_mask = torch.zeros(
+                (gradient_comp_batch_size, max_len),
+                dtype=torch.bool,
+                device=sdlm_model.device,
+            )
+            attn_mask[:, offset:] = True
+            batched_input_embeds[iidx] = input_embeds
+            batched_attn_masks.append(attn_mask)
+            del input_embeds, attn_mask
+
+        batched_input_embeds_padded = torch.cat(batched_input_embeds, dim=0).to(
+            device=sdlm_model.device,
+            dtype=sdlm_model.dtype,
+        )
+        attn_masks = torch.cat(batched_attn_masks, dim=0).to(device=sdlm_model.device)
+        del batched_input_embeds, batched_attn_masks
+
+        outputs_reasoning = sdlm_model.generate(
+            # input_one_hots=batched_input_one_hots_padded,
+            inputs_embeds=batched_input_embeds_padded,
+            attention_mask=attn_masks.detach(),
+            max_new_tokens=self.kwargs['params']['update_solution_max_new_tokens'],
+            output_diff_tokens=True,
+            return_dict=True,
+            return_cache=cache_active,
+        )
+
+        if cache_active:
+            reasoning_cache = getattr(outputs_reasoning, 'cache', None)
+            if reasoning_cache is None:
+                raise RuntimeError("Differentiable cache enabled but cache is missing from STGSDiffModel.generate output.")
+            return self._compute_online_loss_with_cache_v2(
+                prompts=prompts,
+                prompt_base_embeds=prompt_base_embeds,
+                outputs_reasoning=outputs_reasoning,
+                reasoning_cache=reasoning_cache,
+                extractor_embeds=extractor_embeds,
+                sdlm_model=sdlm_model,
+                gradient_comp_batch_size=gradient_comp_batch_size,
+                control_weight=control_weight,
+                temperature=temperature,
+                embedding_dim=embedding_dim,
+            )
+
+        reasoning_diff_tokens = outputs_reasoning.sampled_diff_tokens
+        if reasoning_diff_tokens is not None:
+            reasoning_diff_one_hot = outputs_reasoning.sampled_diff_one_hot
+        else:
+            reasoning_diff_one_hot = outputs_reasoning.logits
+
+        with torch.no_grad():
+            if reasoning_diff_tokens is not None:
+                pad_mask = (reasoning_diff_tokens.long() == tokenizer.pad_token_id).long()
+                reasoning_max_len = reasoning_diff_one_hot.shape[1]
+            else:
+                pad_mask = (outputs_reasoning.logits.argmax(dim=-1).long() == tokenizer.pad_token_id).long()
+                reasoning_max_len = outputs_reasoning.logits.shape[1]
+            non_reg_padding_starts = torch.argmax(pad_mask, dim=1)
+            padding_starts = torch.where(non_reg_padding_starts == 0, reasoning_max_len, non_reg_padding_starts)
+        '''
+        reasoning_diff_one_hot = [
+            reasoning_diff_one_hot[i, :padding_starts[i].detach()] 
+            for i in range(padding_starts.shape[0])
+        ]
+        reasoning_diff_one_hot = torch.stack(reasoning_diff_one_hot)
+        '''
+        reasoning_diff_embeds = torch.matmul(
+            reasoning_diff_one_hot,
+            embedding_weight,
+        )
+
+        final_answer_input_embeds = [
+            batched_input_embeds_padded[
+                i:(i+1), 
+                seq_offsets[i//gradient_comp_batch_size]:,
+                :,
+            ] 
+            for i in range(batched_input_embeds_padded.shape[0])
+        ]
+        del batched_input_embeds_padded
+
+        tfinal_answer_input_embeds = final_answer_input_embeds
+        final_answer_input_embeds = []
+        inputs_logits_offsets = []
+        max_target_len = 0
+        for i in range(len(tfinal_answer_input_embeds)):
+            fa_embeds = [
+                tfinal_answer_input_embeds[i], 
+                #reasoning_diff_embeds[i:i+1],
+                reasoning_diff_embeds[i:i+1, :padding_starts[i].detach()], #removing right-side pads.
+                extractor_embeds.detach(),
+            ]
+            if self.kwargs['params'].get('online_teacher_forcing', False):
+                pidx = i//gradient_comp_batch_size
+                prompt = prompts[pidx]
+                # temp = prompt.input_ids.detach().unsqueeze(0).long().to(device=sdlm_model.device)
+                # prompt_embeds_full = embedding_layer(temp).to(dtype=sdlm_model.dtype).detach()
+                prompt_embeds_full = prompt_base_embeds[pidx].to(
+                    device=sdlm_model.device,
+                    dtype=sdlm_model.dtype,
+                )
+                ptarget_embeds = prompt_embeds_full[:, prompt._target_slice.start:prompt._target_slice.stop+1, :]
+                max_target_len = max(max_target_len, ptarget_embeds.shape[1])
+                inputs_logits_offsets.append(
+                    sum([emb.shape[1] for emb in fa_embeds])
+                )
+                fa_embeds.append(ptarget_embeds)
+            fa_embeds = torch.cat(fa_embeds, dim=1)
+            final_answer_input_embeds.append(fa_embeds)
+            del fa_embeds
+        del tfinal_answer_input_embeds
+        del reasoning_diff_one_hot, reasoning_diff_embeds, extractor_embeds
+        
+        batched_final_answer_input_embeds = []
+        batched_final_answer_attn_masks = []
+        max_len = max([fa_emb.shape[1] for fa_emb in final_answer_input_embeds])
+        seq_offsets = []
+        for iidx, final_answer_input in enumerate(final_answer_input_embeds):
+            offset = max_len - final_answer_input.shape[1]
+            seq_offsets.append(offset)
+            # pad_block = torch.zeros(
+            #     (1, offset, embedding_dim),
+            #     device=sdlm_model.device,
+            #     dtype=sdlm_model.dtype,
+            # )
+            # input_embeds = torch.cat([pad_block, final_answer_input], dim=1)
+            input_embeds = torch.zeros(
+                (1, max_len, embedding_dim),
+                device=sdlm_model.device,
+                dtype=sdlm_model.dtype,
+            )
+            input_embeds[:, offset:, :] = final_answer_input
+            # attn_mask = torch.cat([
+            #     torch.zeros((1, offset), device=sdlm_model.device),
+            #     torch.ones((1, final_answer_input.shape[1]), device=sdlm_model.device),
+            # ], dim=1).to(dtype=torch.bool)
+            attn_mask = torch.zeros(
+                (1, max_len),
+                dtype=torch.bool,
+                device=sdlm_model.device,
+            )
+            attn_mask[:, offset:] = True
+            batched_final_answer_input_embeds.append(input_embeds)
+            batched_final_answer_attn_masks.append(attn_mask)
+            del input_embeds, attn_mask
+        del final_answer_input_embeds
+        
+        batched_final_answer_input_embeds_padded = torch.cat(batched_final_answer_input_embeds, dim=0).to(
+            device=sdlm_model.device,
+            dtype=sdlm_model.dtype,
+        )
+        batched_final_answer_attn_masks = torch.cat(batched_final_answer_attn_masks, dim=0).to(
+            device=sdlm_model.device,
+            dtype=torch.bool,
+        )
+
+        if self.kwargs['params'].get('online_teacher_forcing', False):
+            outputs_final_answer = sdlm_model.model.forward(
+                # inputs_embeds=torch.matmul(batched_final_answer_input_one_hots_padded, ...)
+                inputs_embeds=batched_final_answer_input_embeds_padded,
+                attention_mask=batched_final_answer_attn_masks.detach(),
+                return_dict=True,
+            )
+            inputs_logits = outputs_final_answer.logits
+            blogits = []
+            max_len = 0
+            for pidx in range(outputs_final_answer.logits.shape[0]):
+                logits = outputs_final_answer.logits[
+                    pidx:pidx+1,
+                    inputs_logits_offsets[pidx]+seq_offsets[pidx]:
+                ]
+                max_len = max(max_len, logits.shape[1])
+                blogits.append(logits)
+            for pidx in range(len(blogits)):
+                if blogits[pidx].shape[1] < max_len:
+                    blogits[pidx] = torch.cat([
+                        blogits[pidx],
+                        torch.zeros_like(blogits[pidx])[:,0:1].repeat(
+                            1, max_len-blogits[pidx].shape[1], 1).detach(),
+                        ],
+                        dim=1,
+                    )
+            logits = torch.cat(blogits, dim=0) 
+        else:
+            outputs_final_answer = sdlm_model.generate(
+                # input_one_hots=batched_final_answer_input_one_hots_padded,
+                inputs_embeds=batched_final_answer_input_embeds_padded,
+                attention_mask=batched_final_answer_attn_masks.detach(),
+                max_new_tokens=self.kwargs['params']['max_new_tokens_answer'],
+                output_normal_logits=True,
+                return_dict=True,
+            )
+            logits = outputs_final_answer.logits
+            inputs_logits = outputs_final_answer.input_logits
+
+        return self._finalize_online_loss(
+            prompts=prompts,
+            logits=logits,
+            inputs_logits=inputs_logits,
+            gradient_comp_batch_size=gradient_comp_batch_size,
+            control_weight=control_weight,
+            temperature=temperature,
+            seq_offsets=seq_offsets,
+            cache_mode=False,
+        )
+
+    def _compute_online_loss_with_cache_v2(
+        self,
+        prompts: List[SDLMPrompter],
+        prompt_base_embeds: List[torch.Tensor],
+        outputs_reasoning,
+        reasoning_cache,
+        extractor_embeds: torch.Tensor,
+        sdlm_model: AutoModelForCausalLM,
+        gradient_comp_batch_size: int,
+        control_weight: float,
+        temperature: float,
+        embedding_dim: int,
+    ):
+        """
+        Continue the differentiable generation using cached past_key_values so
+        that we do not need to re-encode the prompt/reasoning tokens.
+        """
+        control_input_logits = outputs_reasoning.input_logits
+        batch_total = control_input_logits.shape[0]
+        device = sdlm_model.device
+        dtype = sdlm_model.dtype
+        mask_dtype = reasoning_cache.attention_mask.dtype
+        cache_after_extractor = reasoning_cache
+        extractor_len = extractor_embeds.shape[1]
+        if extractor_len > 0:
+            extractor_inputs = extractor_embeds.to(device=device, dtype=dtype).repeat(batch_total, 1, 1)
+            extractor_mask = torch.ones(
+                (batch_total, extractor_len),
+                dtype=mask_dtype,
+                device=device,
+            )
+            _, cache_after_extractor = sdlm_model.continue_from_cache(
+                cache=cache_after_extractor,
+                new_inputs_embeds=extractor_inputs,
+                new_attention_mask=extractor_mask,
+                output_normal_logits=True,
+            )
+
+        max_target_len = 0
+        for prompt in prompts:
+            target_len = prompt._target_slice.stop - prompt._target_slice.start
+            max_target_len = max(max_target_len, target_len)
+
+        if max_target_len > 0:
+            target_inputs = torch.zeros(
+                (batch_total, max_target_len, embedding_dim),
+                device=device,
+                dtype=dtype,
+            )
+            target_mask = torch.zeros(
+                (batch_total, max_target_len),
+                dtype=mask_dtype,
+                device=device,
+            )
+            for idx in range(batch_total):
+                pidx = idx // gradient_comp_batch_size
+                prompt = prompts[pidx]
+                target_len = prompt._target_slice.stop - prompt._target_slice.start
+                if target_len == 0:
+                    continue
+                base_embeds = prompt_base_embeds[pidx].to(device=device, dtype=dtype)
+                sample = base_embeds[:, prompt._target_slice.start:prompt._target_slice.stop, :].squeeze(0)
+                target_inputs[idx, :target_len, :] = sample
+                target_mask[idx, :target_len] = 1
+            target_outputs, _ = sdlm_model.continue_from_cache(
+                cache=cache_after_extractor,
+                new_inputs_embeds=target_inputs,
+                new_attention_mask=target_mask,
+                output_normal_logits=True,
+            )
+            logits = target_outputs.logits
+        else:
+            vocab_size = sdlm_model.model.config.vocab_size
+            logits = torch.zeros(
+                (batch_total, 0, vocab_size),
+                device=device,
+                dtype=dtype,
+            )
+
+        return self._finalize_online_loss(
+            prompts=prompts,
+            logits=logits,
+            inputs_logits=control_input_logits,
+            gradient_comp_batch_size=gradient_comp_batch_size,
+            control_weight=control_weight,
+            temperature=temperature,
+            seq_offsets=None,
+            cache_mode=True,
+        )
+
+    def _finalize_online_loss(
+        self,
+        prompts: List[SDLMPrompter],
+        logits: torch.Tensor,
+        inputs_logits: torch.Tensor,
+        gradient_comp_batch_size: int,
+        control_weight: float,
+        temperature: float,
+        seq_offsets: Optional[List[int]],
+        cache_mode: bool,
+    ):
+        losses = []
+        for pidx, prompt in enumerate(prompts):
+            if cache_mode:
+                input_logits = inputs_logits[
+                    pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size,
+                    ...,
+                ]
+                plogits = logits[
+                    pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size,
+                    ...,
+                ]
+            else:
+                input_logits = inputs_logits[
+                    pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size,
+                    seq_offsets[pidx]:,
+                    ...,
+                ]
+                plogits = logits[
+                    pidx*gradient_comp_batch_size:(pidx+1)*gradient_comp_batch_size,
+                    ...,
+                ]
+            targets = prompt.input_ids[
+                prompt._target_slice
+            ].repeat(gradient_comp_batch_size, 1).to(
+                device=plogits.device,
+                dtype=torch.long,
+            )
+            loss_crit = nn.CrossEntropyLoss(reduction='mean')
+            
+            if targets.shape[1] > 0 and plogits.shape[1] > 0:
+                loss = loss_crit(
+                    plogits[:, :targets.shape[1]].transpose(1,2), 
+                    targets.detach(),
+                )
+            else:
+                loss = torch.zeros(1, device=plogits.device, dtype=plogits.dtype).squeeze()
+
+            control_output_slice = slice(prompt._control_slice.start - 1, prompt._control_slice.stop - 1)
+            control_target_slice = slice(prompt._control_slice.start, prompt._control_slice.stop)
+            control_targets = prompt.input_ids[control_target_slice].repeat(gradient_comp_batch_size, 1).to(
+                device=input_logits.device,
+                dtype=torch.long,
+            )
+            ce_loss = nn.CrossEntropyLoss(reduction='none')(
+                input_logits[:, control_output_slice, :].to(dtype=torch.float32).transpose(1,2), 
+                control_targets.detach(),
+            )
+            avg_ce_loss = ce_loss.mean(dim=1).to(dtype=torch.float32)
+            max_log_ppl = math.log(torch.finfo(avg_ce_loss.dtype).max)
+            log_perplexity = avg_ce_loss.clamp(max=max_log_ppl)
+            perplexity = torch.exp(log_perplexity)
+            control_loss = perplexity.mean()
+
+            if prompt._focused_target_slice \
+            and prompt._focused_target_slice != prompt._target_slice:
+                raise NotImplementedError
+            else:
+                if control_weight > 0:
+                    loss = loss+control_weight*control_loss
+        
+            if not torch.isfinite(loss):
+                print("ERROR: Loss is NaN/Inf before backward!")
+                # Inspect what led to this
+                import ipdb; ipdb.set_trace()
+
+            losses.append(loss)
+        losses = torch.stack(losses)
+        return losses
+
     def step(
         self, 
         batch_size=1024,
@@ -2666,7 +3564,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                             temperature=temp,
                         )
                     elif self.kwargs['params'].get('loss_type', 'offline') == 'online':
-                        loss = self.batched_online_compute_loss(
+                        #loss = self.batched_online_compute_loss(
+                        loss = self.batched_online_compute_loss_v2(
                             prompts=prompts,
                             tokenizer=prompt_manager.sdlm_model.tokenizer,
                             sdlm_model=prompt_manager.sdlm_model,
@@ -2684,7 +3583,17 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     mloss = loss.mean()
                     #import ipdb; ipdb.set_trace()
                     #make_dot(mloss, params=dict(self.current_pm.sdlm_variable.named_parameters())).render("gradient_flow", format="png")
-                    mloss.backward(retain_graph=False)
+                    
+                    if not torch.isfinite(mloss):
+                        print("ERROR: Loss is NaN/Inf before backward!")
+                        # Inspect what led to this
+                        import pdb; pdb.set_trace()
+
+                    try:
+                        mloss.backward(retain_graph=False)
+                    except RuntimeError as e:
+                        print(f"Backward failed: {e}")
+                    #mloss.backward(retain_graph=False)
                     batch_loss.append(loss.detach().cpu())
                     del mloss
                     del loss
@@ -2693,6 +3602,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     batch_loss.append(torch.zeros(batch_size).cpu())
 
                 torch.cuda.empty_cache()
+                torch.cuda.synchronize()  # Force all operations to complete
                 gc.collect()
                 
                 #check_common_leaks({f'{i}':param for i,param in enumerate(list(self.optimizer.param_groups[0]['params']))}.items())
@@ -2752,6 +3662,126 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         #print('Current length:', len(self.workers[0].tokenizer(next_control).input_ids))
         #print('Current control:', next_control)
         return next_control, mean_loss
+
+    def _init_lr_scheduler(self):
+        """
+        Optionally attach a learning rate scheduler to the SDLM variable optimiser.
+        Supports simple linear decay and exponential decay schedules whose
+        parameters live under config.sdlm_variable_kwargs.*.
+        """
+        scheduler_cfg = self.kwargs['params'].get('sdlm_variable_kwargs', {})
+        scheduler_type = scheduler_cfg.get('lr_scheduler_type')
+        if scheduler_type is None:
+            return None
+        scheduler_type = str(scheduler_type).lower()
+        if scheduler_type in ('none', ''):
+            return None
+
+        total_steps = scheduler_cfg.get('lr_scheduler_total_steps')
+        if total_steps is None:
+            total_steps = self.kwargs['params'].get('n_steps', 0)
+        total_steps = max(int(total_steps), 1)
+
+        if scheduler_type == 'linear':
+            final_lr = scheduler_cfg.get('lr_scheduler_final_lr')
+            if final_lr is None:
+                raise ValueError(
+                    "Linear SDLM scheduler requires 'lr_scheduler_final_lr' in config.sdlm_variable_kwargs."
+                )
+            end_factor = float(final_lr) / max(float(self.learning_rate), 1e-12)
+            return torch.optim.lr_scheduler.LinearLR(
+                self.optimizer,
+                start_factor=1.0,
+                end_factor=end_factor,
+                total_iters=total_steps,
+            )
+
+        if scheduler_type == 'exponential':
+            gamma = scheduler_cfg.get('lr_scheduler_gamma')
+            final_lr = scheduler_cfg.get('lr_scheduler_final_lr')
+            if gamma is None:
+                if final_lr is None:
+                    raise ValueError(
+                        "Exponential SDLM scheduler requires either 'lr_scheduler_gamma' "
+                        "or 'lr_scheduler_final_lr' in config.sdlm_variable_kwargs."
+                    )
+                gamma = (float(final_lr) / max(float(self.learning_rate), 1e-12)) ** (1.0 / total_steps)
+            return torch.optim.lr_scheduler.ExponentialLR(
+                self.optimizer,
+                gamma=float(gamma),
+            )
+
+        raise ValueError(f"Unsupported SDLM variable lr scheduler type '{scheduler_type}'.")
+
+    def _log_current_lr(self):
+        if not self.kwargs['params'].get('use_wandb', False):
+            return
+        if not self.optimizer.param_groups:
+            return
+        wandb.log({'train/sdlm_variable_lr': self.optimizer.param_groups[0]['lr']}, commit=False)
+    
+    def _iter_trainable_parameters(self, prompt_manager):
+        """
+        Yield (name, parameter) tuples for all trainable tensors that belong to
+        the SDLM variable and its associated STGS components (e.g., learnable
+        temperature parameters inside the SDLM model).
+        """
+        parameters = []
+
+        sdlm_variable = getattr(prompt_manager, 'sdlm_variable', None)
+        if sdlm_variable is not None:
+            for name, param in sdlm_variable.named_parameters():
+                if param.requires_grad:
+                    parameters.append((f'sdlm_variable.{name}', param))
+
+        sdlm_model = getattr(prompt_manager, 'sdlm_model', None)
+        if sdlm_model is not None:
+            stgs_module = getattr(sdlm_model, 'stgs', None)
+            if stgs_module is not None:
+                temp_param = getattr(stgs_module, 'temperature_param', None)
+                if isinstance(temp_param, torch.nn.Parameter) and temp_param.requires_grad:
+                    parameters.append(('sdlm_model.stgs.temperature_param', temp_param))
+                tau_fc = getattr(stgs_module, 'tau_fc', None)
+                if tau_fc is not None:
+                    for idx, param in enumerate(tau_fc.parameters()):
+                        if param.requires_grad:
+                            parameters.append((f'sdlm_model.stgs.tau_fc.{idx}', param))
+
+        return parameters
+
+    def _enforce_gradient_health(self, parameter, prefix=''):
+        """
+        Keep gradients finite and optionally clip their magnitude before they are
+        consumed by the optimiser or logging utilities.
+        """
+        if parameter is None or parameter.grad is None:
+            return
+
+        grad = parameter.grad
+        grad_health_cfg = self.kwargs['params'].get('gradient_health', {})
+        stats = {}
+
+        non_finite_mask = ~torch.isfinite(grad)
+        non_finite_count = non_finite_mask.sum().item()
+        if non_finite_count > 0:
+            torch.nan_to_num_(grad, nan=0.0, posinf=0.0, neginf=0.0)
+            stats[f'grad_health/{prefix}/nonfinite_replacements'] = non_finite_count
+
+        value_clip = grad_health_cfg.get('value_clip', 0.0)
+        if value_clip > 0.0:
+            torch.clamp_(grad, min=-float(value_clip), max=float(value_clip))
+            stats[f'grad_health/{prefix}/value_clip'] = float(value_clip)
+
+        max_norm = grad_health_cfg.get('max_norm', 0.0)
+        if max_norm > 0.0:
+            current_norm = torch.norm(grad).item()
+            if not math.isfinite(current_norm) or current_norm > float(max_norm):
+                stats[f'grad_health/{prefix}/pre_clip_norm'] = current_norm
+                torch.nn.utils.clip_grad_norm_([parameter], float(max_norm))
+                stats[f'grad_health/{prefix}/post_clip_norm'] = torch.norm(parameter.grad).item()
+
+        if stats:
+            wandb.log(stats, commit=False)
     
     def log_gradients(self, var_logits, prefix=''):
         """
@@ -2764,36 +3794,60 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         if not hasattr(var_logits, 'grad') or var_logits.grad is None:
             return
 
-        grad = var_logits.grad
+        grad = var_logits.grad.detach()
+        total_elements = grad.numel()
+        finite_mask = torch.isfinite(grad)
+        finite_elements = finite_mask.sum().item()
+        nonfinite_fraction = 1.0 - (finite_elements / max(total_elements, 1))
+
+        stats = {
+            f'grad_stats/{prefix}/finite_elements': finite_elements,
+            f'grad_stats/{prefix}/nonfinite_fraction': nonfinite_fraction,
+        }
+
+        if finite_elements == 0:
+            wandb.log(stats, commit=False)
+            return
+
+        finite_grad = grad[finite_mask]
         
         # Log gradient statistics
-        stats = {
-            f'grad_stats/{prefix}/mean': grad.mean().item(),
-            f'grad_stats/{prefix}/std': grad.std().item(),
-            f'grad_stats/{prefix}/min': grad.min().item(),
-            f'grad_stats/{prefix}/max': grad.max().item(),
-            f'grad_stats/{prefix}/norm': torch.norm(grad).item(),
-        }
+        stats.update({
+            f'grad_stats/{prefix}/mean': finite_grad.mean().item(),
+            f'grad_stats/{prefix}/std': finite_grad.std(unbiased=False).item(),
+            f'grad_stats/{prefix}/min': finite_grad.min().item(),
+            f'grad_stats/{prefix}/max': finite_grad.max().item(),
+            f'grad_stats/{prefix}/norm': torch.norm(finite_grad).item(),
+        })
         
         # Log gradient histograms (limited to first 10 tokens to avoid excessive logging)
-        #max_tokens = min(10, grad.shape[1])  # Limit to first 10 tokens
         max_tokens = grad.shape[1]  # Limit to first 10 tokens
         for token_id in range(max_tokens):
             token_grad = grad[0, token_id]  # [batch=1, seq_len, vocab_size]
+            token_total = token_grad.numel()
+            if token_total == 0:
+                continue
+            token_finite = token_grad[torch.isfinite(token_grad)]
+            token_finite_count = token_finite.numel()
+            token_nonfinite_fraction = 1.0 - (token_finite_count / token_total)
+            if token_finite_count == 0:
+                stats[f'grad_stats/{prefix}/token_{token_id}/nonfinite_fraction'] = 1.0
+                continue
             
             # Log token-level gradient stats
             stats.update({
-                f'grad_stats/{prefix}/token_{token_id}/mean': token_grad.mean().item(),
-                f'grad_stats/{prefix}/token_{token_id}/std': token_grad.std().item(),
-                f'grad_stats/{prefix}/token_{token_id}/min': token_grad.min().item(),
-                f'grad_stats/{prefix}/token_{token_id}/max': token_grad.max().item(),
-                f'grad_stats/{prefix}/token_{token_id}/norm': torch.norm(token_grad).item(),
+                f'grad_stats/{prefix}/token_{token_id}/nonfinite_fraction': token_nonfinite_fraction,
+                f'grad_stats/{prefix}/token_{token_id}/mean': token_finite.mean().item(),
+                f'grad_stats/{prefix}/token_{token_id}/std': token_finite.std(unbiased=False).item(),
+                f'grad_stats/{prefix}/token_{token_id}/min': token_finite.min().item(),
+                f'grad_stats/{prefix}/token_{token_id}/max': token_finite.max().item(),
+                f'grad_stats/{prefix}/token_{token_id}/norm': torch.norm(token_finite).item(),
             })
             
             # Log histogram of gradients for this token
             if token_id < 10:
                 wandb.log({
-                    f'grad_hist/{prefix}/token_{token_id}': wandb.Histogram(token_grad.detach().cpu().numpy())
+                    f'grad_hist/{prefix}/token_{token_id}': wandb.Histogram(token_finite.detach().cpu().numpy())
                 }, commit=False)
         
         wandb.log(stats, commit=False)
@@ -2803,12 +3857,14 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         ins: Optional[List[int]] = [],
         not_ins: Optional[List[int]] = [],
         batch_size: Optional[int] = 1,
-        temperature: Optional[float] = 0.1,
+        temperature: Optional[float] = None, #0.1,
         update_solution: Optional[bool] = False,
         prompt_manager: Optional[SDLMPromptManager] = None,
         **kwargs,
     ):
         # Log gradients after backward pass (before clipping)
+        for param_name, param in self._iter_trainable_parameters(prompt_manager):
+            self._enforce_gradient_health(param, f'after_backward/{param_name}')
         if hasattr(prompt_manager, 'sdlm_variable') and hasattr(prompt_manager.sdlm_variable, 'logits'):
             self.log_gradients(prompt_manager.sdlm_variable.logits, 'after_backward')
         
@@ -2843,6 +3899,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     wandb.log({f'grad_norm/after_clip/token_{token_id}': norm}, commit=False)
             
             # Log gradients after clipping
+            self._enforce_gradient_health(var_logits, 'after_clipping/logits')
             self.log_gradients(var_logits, 'after_clipping')
         if 'wta' in gradient_clip_strategy:
             if var_logits.grad is not None:
@@ -2851,12 +3908,53 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     else:   var_logits.grad[0, token_id] = 0
             wandb.log({f"wta_gradient_clip/argmax_token_id":argmax_token_grad_norm,}, commit=False)
 
+        # Capture logits before variable update for KL divergence calculation
+        if hasattr(self.current_pm.sdlm_variable, 'logits'):
+            pre_update_logits = self.current_pm.sdlm_variable.logits[0].clone().detach()
+        else:
+            pre_update_logits = None
+
         self.optimizer.step()
+        if self.lr_scheduler is not None:
+            self.lr_scheduler.step()
+        self._log_current_lr()
         self.optimizer.zero_grad()
-        
+        #TODO: more aggressive:
+        '''
+        for param in var_logits:
+            if param.grad is not None:
+                param.grad = None  # More aggressive than zero_grad()
+        '''
+
         #control_toks, _, self.current_pm.control_str = self.current_pm.sdlm_variable.forward(temperature=temperature)
         with torch.no_grad():
             control_toks, _, control_str = self.current_pm.sdlm_variable.forward(temperature=temperature)
+
+        # Capture logits after variable update for KL divergence calculation
+        if pre_update_logits is not None and hasattr(self.current_pm.sdlm_variable, 'logits'):
+            post_update_logits = self.current_pm.sdlm_variable.logits[0].clone().detach()
+
+            # Compute KL divergence between pre and post update distributions
+            # Apply softmax to convert logits to probabilities
+            pre_probs = torch.softmax(pre_update_logits, dim=-1)
+            post_probs = torch.softmax(post_update_logits, dim=-1)
+
+            # Add small epsilon for numerical stability
+            eps = 1e-12
+            pre_probs = torch.clamp(pre_probs, eps, 1.0)
+            post_probs = torch.clamp(post_probs, eps, 1.0)
+
+            # Compute KL divergence: KL(pre || post)
+            kl_div = torch.sum(pre_probs * (torch.log(pre_probs) - torch.log(post_probs)), dim=-1)
+
+            for token_id in range(kl_div.shape[0]):
+                wandb.log({f'sdlm_variable_kl_divergence/token_{token_id}': kl_div[token_id].item()}, commit=False)
+            # Log average KL divergence across all positions
+            avg_kl_div = torch.mean(kl_div).item()
+            if kwargs['params'].get('use_wandb', False):
+                wandb.log({'sdlm_variable_kl_divergence': avg_kl_div}, commit=False)
+        else:
+            print("Warning: Could not access sdlm_variable logits for KL divergence calculation")
         # Remove batch dim:
         control_toks = control_toks[0].long()
         # Update control_toks and strs:
@@ -2926,6 +4024,8 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         **kwargs,
     ):
         gradient_comp_batch_size = kwargs['params'].get('gradient_comp_batch_size', 1)
+        previous_valid_accuracy = None
+        previous_valid_loss = None
 
         def P(e, e_prime, k):
             T = max(1 - float(k + 1) / (n_steps + anneal_from), 1.e-7)
@@ -2950,11 +4050,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         runtime = 0.
 
         if self.logfile is not None and log_first:
+            import ipdb; ipdb.set_trace()
             model_tests = self.test_all(
                 batch_size=kwargs['params'].get('batch_size', 128)*8, # 8 times is usually a good rule of thumb...
                 max_new_tokens_reasoning=kwargs['params'].get('update_solution_max_new_tokens', 32),
                 max_new_tokens_answer=kwargs['params'].get('max_new_tokens_answer', 32),
-                do_sample=kwargs['params'].get('do_sample', True),
+                do_sample=kwargs['params'].get('do_sample', False),
             )
             self.log(anneal_from,
                      n_steps + anneal_from,
@@ -2977,6 +4078,12 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             steps += 1
             start = time.time()
             torch.cuda.empty_cache()
+
+            pre_step_logits = None
+            if kwargs['params'].get('n_valid_data', 0) > 0:
+                logits = getattr(self.current_pm.sdlm_variable, 'logits', None)
+                if logits is not None:
+                    pre_step_logits = logits.detach().clone()
 
             if SIMULATED_CANONICAL:
                 # Only need to update the first few prompts if accumulating gradients:
@@ -3024,7 +4131,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     batch_size=kwargs['params'].get('batch_size', 128)*8,
                     max_new_tokens_reasoning=kwargs['params'].get('update_solution_max_new_tokens', 32),
                     max_new_tokens_answer=kwargs['params'].get('max_new_tokens_answer', 32),
-                    do_sample=kwargs['params'].get('do_sample', True),
+                    do_sample=kwargs['params'].get('do_sample', False),
                 )
                 self.log(
                     i + 1 + anneal_from, 
@@ -3043,6 +4150,18 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 n_em = self.parse_results(valid_mb, entry_type='valid')
                 total_tests = self.parse_results(np.ones(valid_jb.shape, dtype=int), entry_type='valid')
                 valid_accuracy = float(n_em[0]*100.0)/max(total_tests[0],1)
+                if previous_valid_accuracy is not None and valid_accuracy < previous_valid_accuracy:
+                    print("Validation accuracy decreased; reverting SDLM variable logits.")
+                    if pre_step_logits is not None:
+                        with torch.no_grad():
+                            self.current_pm.sdlm_variable.logits.copy_(pre_step_logits)
+                    valid_accuracy = previous_valid_accuracy
+                    if previous_valid_loss is not None:
+                        valid_loss = previous_valid_loss
+                else:
+                    previous_valid_accuracy = valid_accuracy
+                    previous_valid_loss = valid_loss
+
                 if kwargs['params'].get('use_wandb', False):
                     wandb_log.update({
                         'valid/loss': valid_loss,
@@ -3093,13 +4212,13 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                 prev_loss = valid_loss 
                 prev_accuracy = valid_accuracy
                 if validate_on == 'loss' \
-                and valid_loss < best_loss:
+                and valid_loss <= best_loss:
                     best_loss = valid_loss
                     best_accuracy = valid_accuracy
                     best_step = i
                     best_control = control
                 elif validate_on == 'accuracy' \
-                and valid_accuracy > best_accuracy:
+                and valid_accuracy >= best_accuracy:
                     best_loss = valid_loss
                     best_accuracy = valid_accuracy
                     best_step = i
@@ -3147,7 +4266,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                     batch_size=kwargs['params'].get('batch_size', 128)*8, # 8 times is usually a good rule of thumb...
                     max_new_tokens_reasoning=kwargs['params'].get('update_solution_max_new_tokens', 32),
                     max_new_tokens_answer=kwargs['params'].get('max_new_tokens_answer', 32),
-                    do_sample=kwargs['params'].get('do_sample', True),
+                    do_sample=kwargs['params'].get('do_sample', False),
                 )
                 self.log(
                     i + 1 + anneal_from, 

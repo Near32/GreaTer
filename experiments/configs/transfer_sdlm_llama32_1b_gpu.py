@@ -2,6 +2,7 @@ import os
 
 os.sys.path.append("..")
 from configs.template import get_config as default_config
+from ml_collections import config_dict
 
 
 def get_config():
@@ -40,12 +41,15 @@ def get_config():
     config.dtypes = [
         #'bfloat16',
         #'bfloat16',
+        'float16',
+        'float16',
         #'float32',
         #'float32',
-        'auto',
-        'auto',
+        #'auto',
+        #'auto',
     ]
-    config.torch_dtype = 'bfloat16'
+    #config.torch_dtype = 'bfloat16'
+    config.torch_dtype = 'float16'
     
     config.model_kwargs = [
             {"low_cpu_mem_usage": True, "use_cache": False, "do_sample": True},
@@ -62,14 +66,27 @@ def get_config():
     '''
 
     # SDLM-specific parameters (optimized for Llama-3-8B-Instruct)
-    config.sdlm_variable_kwargs = {
-        'learning_rate': 0.001,     # Lower learning rate for stability
-        'logit_scaler': 5.0,       # Adjusted for better gradient flow
-        'temperature': 0.1,        # Lower temperature for more focused sampling
-        'learnable_temperature': True,
-        'init_strategy': 'fluency',
-        'hard': False,
-    }
+    sdlm_variable_kwargs = config_dict.ConfigDict()
+    sdlm_variable_kwargs.learning_rate = 0.001     # Lower learning rate for stability
+    sdlm_variable_kwargs.logit_scaler = 5.0       # Adjusted for better gradient flow
+    sdlm_variable_kwargs.temperature = 0.1        # Lower temperature for more focused sampling
+    sdlm_variable_kwargs.learnable_temperature = True
+    sdlm_variable_kwargs.decouple_learnable_temperature = False
+    sdlm_variable_kwargs.init_strategy = 'fluency'
+    sdlm_variable_kwargs.hard = False
+    sdlm_variable_kwargs.lr_scheduler_type = config_dict.FieldReference(
+        None, field_type=str
+    )          # Optional: 'linear' or 'exponential'
+    sdlm_variable_kwargs.lr_scheduler_total_steps = config_dict.FieldReference(
+        None, field_type=int
+    )   # Overrides config.n_steps when provided
+    sdlm_variable_kwargs.lr_scheduler_final_lr = config_dict.FieldReference(
+        None, field_type=float
+    )      # Target LR (linear) or helper for exponential
+    sdlm_variable_kwargs.lr_scheduler_gamma = config_dict.FieldReference(
+        None, field_type=float
+    )         # Direct gamma for exponential decay
+    config.sdlm_variable_kwargs = sdlm_variable_kwargs
     
     config.sdlm_model_stgs_logits_generation = True
     config.sdlm_fluency_model = "meta-llama/Llama-3.2-1B-Instruct"
@@ -79,6 +96,7 @@ def get_config():
         "learnable_temperature": False,
         "hidden_state_conditioning": True,  # Enabled for better performance
         "use_bpttoken": False,
+        "dropout": 0.0,
     }
     
     # SDLM configuration
