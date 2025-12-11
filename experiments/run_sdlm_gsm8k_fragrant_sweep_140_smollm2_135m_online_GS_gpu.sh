@@ -26,7 +26,7 @@ echo "========================================"
 #extractor_text="Therefore, the final answer (use exactly this format: \$NUMBER\$, where NUMBER is a positive or negative integer) is $"
 #extractor_text="Therefore, the final answer (with format: $ANSWER$) is $"
 extractor_text="Therefore, the final answer (with format: \$NUMBER\$, where NUMBER is a positive or negative integer) is $"
-control_init="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer."
+control_text="Let's solve this math problem step by step. First, I will understand the problem, then break it down into smaller, manageable parts, and finally arrive at the correct answer."
 
 
 # Set environment variables for CPU optimization
@@ -60,6 +60,15 @@ python -m ipdb -c c main.py \
     --config.gradient_clip_strategy='None' \
     --config.gradient_health.value_clip=0.0 \
     --config.gradient_health.max_norm=0.0 \
+    --config.sdlm_grad_variance_samples=8 \
+    --config.sdlm_grad_variance_period=1 \
+    --config.sdlm_grad_bias_samples=0 \
+    --config.sdlm_grad_bias_period=1 \
+    --config.sdlm_grad_bias_reference_samples=4 \
+    --config.sdlm_grad_bias_reference_batch_size=2 \
+    --config.sdlm_grad_bias_reference_use_baseline=True \
+    --config.sdlm_grad_bias_reference_reward_scale=1.0 \
+    --config.sdlm_grad_bias_reference_baseline_beta=0.9 \
     --config.seed=10 \
     --config.data_seed=10 \
     --config.validate_on="accuracy" \
@@ -90,7 +99,7 @@ python -m ipdb -c c main.py \
     --config.test_steps=10 \
     --config.log_first=False \
     --config.anneal=True \
-    --config.batch_size=2 \
+    --config.batch_size=4 \
     --config.temp=0.5 \
     --config.topk=10 \
     --config.topq=5 \

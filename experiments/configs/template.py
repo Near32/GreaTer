@@ -27,6 +27,15 @@ def get_config():
     config.gradient_health.max_norm = config_dict.FieldReference(
         None, field_type=float
     )
+    config.sdlm_grad_variance_samples = 0
+    config.sdlm_grad_variance_period = 1
+    config.sdlm_grad_bias_samples = 0
+    config.sdlm_grad_bias_period = 1
+    config.sdlm_grad_bias_reference_samples = 0
+    config.sdlm_grad_bias_reference_batch_size = 2
+    config.sdlm_grad_bias_reference_use_baseline = True
+    config.sdlm_grad_bias_reference_reward_scale = 1.0
+    config.sdlm_grad_bias_reference_baseline_beta = 0.9
 
     # Evaluation-only generation overrides
     config.eval_generate_kwargs = config_dict.ConfigDict()

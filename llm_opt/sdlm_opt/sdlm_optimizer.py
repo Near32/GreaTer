@@ -3516,6 +3516,17 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         self.step_count += 1
         
         acc_grad_n_examples = kwargs['params'].get('acc_grad_n_examples', -1)
+        grad_metrics_cfg = {
+            'variance_samples': kwargs['params'].get('sdlm_grad_variance_samples', 0),
+            'variance_period': kwargs['params'].get('sdlm_grad_variance_period', 1),
+            'bias_samples': kwargs['params'].get('sdlm_grad_bias_samples', 0),
+            'bias_period': kwargs['params'].get('sdlm_grad_bias_period', 1),
+            'bias_reference_samples': kwargs['params'].get('sdlm_grad_bias_reference_samples', 0),
+            'bias_reference_batch_size': kwargs['params'].get('sdlm_grad_bias_reference_batch_size', 0),
+            'bias_reference_use_baseline': kwargs['params'].get('sdlm_grad_bias_reference_use_baseline', True),
+            'bias_reference_reward_scale': kwargs['params'].get('sdlm_grad_bias_reference_reward_scale', 1.0),
+            'bias_reference_baseline_beta': kwargs['params'].get('sdlm_grad_bias_reference_baseline_beta', 0.9),
+        }
 
         ## Compute losses like in get_grads:
         pm_losses = []
@@ -3593,8 +3604,115 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                         mloss.backward(retain_graph=False)
                     except RuntimeError as e:
                         print(f"Backward failed: {e}")
-                    #mloss.backward(retain_graph=False)
                     batch_loss.append(loss.detach().cpu())
+
+                    grad_metrics = {}
+                    logits_param = getattr(prompt_manager.sdlm_variable, 'logits', None)
+                    need_variance = (
+                        grad_metrics_cfg['variance_samples'] >= 2
+                        and grad_metrics_cfg['variance_period'] > 0
+                        and ((bidx+len(batch_indices)*self.step_count) % grad_metrics_cfg['variance_period'] == 0)
+                    )
+                    need_bias = (
+                        grad_metrics_cfg['bias_samples'] >= 1
+                        and grad_metrics_cfg['bias_reference_samples'] >= 1
+                        and grad_metrics_cfg['bias_period'] > 0
+                        and ((bidx+len(batch_indices)*self.step_count) % grad_metrics_cfg['bias_period'] == 0)
+                    )
+                    baseline_grad = None
+                    if logits_param is not None and logits_param.grad is not None:
+                        if need_variance or need_bias:
+                            baseline_grad = logits_param.grad.detach().clone()
+
+                    saved_sdlm_grads = {}
+                    def _save_sdlm_grads():
+                        for param in self.optimizer.param_groups[0]['params']:
+                            if param.grad is not None:
+                                saved_sdlm_grads[param] = param.grad.detach().clone()
+
+                    def _restore_sdlm_grads():
+                        for param, saved_grad in saved_sdlm_grads.items():
+                            param.grad = saved_grad
+                    
+                    def _zero_sdlm_grads():
+                        for param in self.optimizer.param_groups[0]['params']:
+                            if param.grad is not None:
+                                param.grad = None
+
+                    def _forward_pass_closure():
+                        with torch.enable_grad():
+                            if self.kwargs['params'].get('loss_type', 'offline') == 'offline':
+                                closure_loss = self.batched_compute_loss(
+                                    prompts=prompts,
+                                    tokenizer=prompt_manager.sdlm_model.tokenizer,
+                                    sdlm_model=prompt_manager.sdlm_model,
+                                    sdlm_variable=prompt_manager.sdlm_variable,
+                                    current_pos=prompt_manager.current_pos,
+                                    valid_tokens=None,
+                                    control_weight=control_weight,
+                                    gradient_comp_batch_size=gradient_comp_batch_size,
+                                    temperature=temp,
+                                )
+                            else:
+                                closure_loss = self.batched_online_compute_loss_v2(
+                                    prompts=prompts,
+                                    tokenizer=prompt_manager.sdlm_model.tokenizer,
+                                    sdlm_model=prompt_manager.sdlm_model,
+                                    sdlm_variable=prompt_manager.sdlm_variable,
+                                    current_pos=prompt_manager.current_pos,
+                                    valid_tokens=None,
+                                    control_weight=control_weight,
+                                    gradient_comp_batch_size=gradient_comp_batch_size,
+                                    temperature=temp,
+                                )
+                        return closure_loss.mean()
+
+                    sample_grads = []
+                    if need_variance and baseline_grad is not None:
+                        _save_sdlm_grads()
+                        for _ in range(grad_metrics_cfg['variance_samples'] - 1):
+                            _zero_sdlm_grads()
+                            var_loss = _forward_pass_closure()
+                            var_loss.backward(retain_graph=False)
+                            sample_grads.append(logits_param.grad.detach().clone())
+                        if sample_grads:
+                            grad_stack = torch.stack(sample_grads)
+                            grad_mean = grad_stack.mean(dim=0)
+                            grad_var = grad_stack.var(dim=0, unbiased=True)
+                            grad_metrics.update({
+                                'sdlm_grad_variance_mean': grad_var.mean().item(),
+                                'sdlm_grad_variance_max': grad_var.max().item(),
+                                'sdlm_grad_variance_norm': grad_var.norm().item(),
+                                'sdlm_grad_mean_norm': grad_mean.norm().item(),
+                                'sdlm_grad_variance_samples': grad_metrics_cfg['variance_samples'],
+                            })
+                        _zero_sdlm_grads()
+                        _restore_sdlm_grads()
+
+                    if need_bias and baseline_grad is not None:
+                        _save_sdlm_grads()
+                        sample_grads = []
+                        for _ in range(grad_metrics_cfg['bias_samples']):
+                            _zero_sdlm_grads()
+                            bias_loss = _forward_pass_closure()
+                            bias_loss.backward(retain_graph=False)
+                            sample_grads.append(logits_param.grad.detach().clone())
+                        if sample_grads:
+                            grad_stack = torch.stack(sample_grads)
+                            grad_mean = grad_stack.mean(dim=0)
+                            grad_metrics.update({
+                                'sdlm_grad_bias_norm': (grad_mean - baseline_grad).norm().item(),
+                                'sdlm_grad_bias_samples': grad_metrics_cfg['bias_samples'],
+                            })
+                        _zero_sdlm_grads()
+                        _restore_sdlm_grads()
+
+                    if baseline_grad is not None and logits_param is not None and logits_param.grad is not None:
+                        logits_param.grad = baseline_grad.clone()
+
+                    if grad_metrics and self.kwargs['params'].get('use_wandb', False):
+                        wandb.log(grad_metrics, commit=False)
+
                     del mloss
                     del loss
                 else: #except Exception as e:
