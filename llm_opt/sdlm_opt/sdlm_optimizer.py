@@ -35,6 +35,14 @@ from llm_opt.base.attack_manager import (
     get_embedding_matrix,
 )
 
+from .gradient_estimators import (
+    ForwardPassResult,
+    ReinforceEstimator,
+    estimate_stgs_gradient_bias,
+)
+
+from torch.distributions import Categorical
+
 import sys
 import pdb
 
@@ -2445,6 +2453,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         valid_tokens: Optional[List[int]] = None, 
         temperature: Optional[float] = 0.4, 
         control_weight: Optional[float] = 0.2,
+        control_override_one_hots: Optional[torch.Tensor] = None,
         **kwargs
     ):
         """
@@ -2473,7 +2482,10 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             input_one_hots = F.one_hot(temp, num_classes=sdlm_model.config.vocab_size).float()
             input_one_hots = input_one_hots.repeat(gradient_comp_batch_size, 1, 1).to(device=sdlm_model.device)#.cpu()
             for bidx in range(gradient_comp_batch_size):
-                diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
+                if control_override_one_hots is not None:
+                    diff_one_hot = control_override_one_hots
+                else:
+                    diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
                 input_one_hots[bidx, prompt._control_slice] = diff_one_hot.to(device=sdlm_model.device)#cpu()
             batched_input_one_hots.append(input_one_hots)
          
@@ -2983,6 +2995,7 @@ class SDLMMultiPrompter(BaseMultiPrompter):
         valid_tokens: Optional[List[int]] = None, 
         temperature: Optional[float] = 0.4, 
         control_weight: Optional[float] = 0.2,
+        control_override_one_hots: Optional[torch.Tensor] = None,
         **kwargs
     ):
         """
@@ -3043,23 +3056,26 @@ class SDLMMultiPrompter(BaseMultiPrompter):
             prompt_base_embeds.append(base_prompt_embeds.cpu())
             prompt_embeds = base_prompt_embeds.repeat(gradient_comp_batch_size, 1, 1).clone()
             for bidx in range(gradient_comp_batch_size):
-                diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
-                eff_temperatures = sdlm_variable.eff_temperatures.squeeze(-1)
-                wandb_log = {
-                    "variable_forward": decoded_string,
-                }
-                for tidx, eff_temp in enumerate(eff_temperatures):
-                    wandb_log[f'eff_temperature_{tidx}'] = eff_temp.cpu().detach().item()
-                wandb.log(wandb_log, commit=True)
+                if control_override_one_hots is not None:
+                    diff_one_hot = control_override_one_hots
+                    eff_temperatures = None
+                else:
+                    diff_input_ids, diff_one_hot, decoded_string = sdlm_variable.forward()
+                    eff_temperatures = sdlm_variable.eff_temperatures.squeeze(-1)
+                    wandb_log = {
+                        "variable_forward": decoded_string,
+                    }
+                    for tidx, eff_temp in enumerate(eff_temperatures):
+                        wandb_log[f'eff_temperature_{tidx}'] = eff_temp.cpu().detach().item()
+                    wandb.log(wandb_log, commit=True)
 
-                # Replace the one-hot slice assignment with an embedding projection
-                # input_one_hots[bidx, prompt._control_slice] = diff_one_hot
                 diff_embeds = torch.matmul(
                     diff_one_hot.to(dtype=sdlm_model.dtype, device=sdlm_model.device),
                     embedding_weight,
                 ).squeeze(0)
                 prompt_embeds[bidx, prompt._control_slice] = diff_embeds
-            del diff_input_ids, diff_one_hot, decoded_string
+                if control_override_one_hots is None:
+                    del diff_input_ids, diff_one_hot, decoded_string
             prompt_embeds = prompt_embeds[:, :prompt._control_slice.stop]
             max_len = max(max_len, prompt_embeds.shape[1])
             batched_input_embeds.append(prompt_embeds)
@@ -3639,6 +3655,22 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                             if param.grad is not None:
                                 param.grad = None
 
+                    def _build_forward_pass_result(loss_tensor, estimator_state=None):
+                        if estimator_state is None:
+                            estimator_state = {}
+                        empty_logits = logits_param.new_zeros((0,))
+                        empty_long = logits_param.new_zeros((0,), dtype=torch.long)
+                        return ForwardPassResult(
+                            loss=loss_tensor,
+                            backward_loss=loss_tensor,
+                            losses_dict={'sumloss': loss_tensor.detach()},
+                            generated_logits=empty_logits,
+                            prompt_ids=empty_long,
+                            prompt_logits=empty_logits,
+                            completion_ids=empty_long,
+                            estimator_state=estimator_state,
+                        )
+
                     def _forward_pass_closure():
                         with torch.enable_grad():
                             if self.kwargs['params'].get('loss_type', 'offline') == 'offline':
@@ -3667,6 +3699,37 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                                 )
                         return closure_loss.mean()
 
+                    def _compute_loss_with_override(control_override_one_hot):
+                        with torch.enable_grad():
+                            override_tensor = control_override_one_hot.to(device=prompt_manager.sdlm_model.device)
+                            if self.kwargs['params'].get('loss_type', 'offline') == 'offline':
+                                loss_val = self.batched_compute_loss(
+                                    prompts=prompts,
+                                    tokenizer=prompt_manager.sdlm_model.tokenizer,
+                                    sdlm_model=prompt_manager.sdlm_model,
+                                    sdlm_variable=prompt_manager.sdlm_variable,
+                                    current_pos=prompt_manager.current_pos,
+                                    valid_tokens=None,
+                                    control_weight=control_weight,
+                                    gradient_comp_batch_size=gradient_comp_batch_size,
+                                    temperature=temp,
+                                    control_override_one_hots=override_tensor,
+                                )
+                            else:
+                                loss_val = self.batched_online_compute_loss_v2(
+                                    prompts=prompts,
+                                    tokenizer=prompt_manager.sdlm_model.tokenizer,
+                                    sdlm_model=prompt_manager.sdlm_model,
+                                    sdlm_variable=prompt_manager.sdlm_variable,
+                                    current_pos=prompt_manager.current_pos,
+                                    valid_tokens=None,
+                                    control_weight=control_weight,
+                                    gradient_comp_batch_size=gradient_comp_batch_size,
+                                    temperature=temp,
+                                    control_override_one_hots=override_tensor,
+                                )
+                        return loss_val.mean()
+
                     sample_grads = []
                     if need_variance and baseline_grad is not None:
                         _save_sdlm_grads()
@@ -3690,22 +3753,56 @@ class SDLMMultiPrompter(BaseMultiPrompter):
                         _restore_sdlm_grads()
 
                     if need_bias and baseline_grad is not None:
-                        _save_sdlm_grads()
-                        sample_grads = []
-                        for _ in range(grad_metrics_cfg['bias_samples']):
-                            _zero_sdlm_grads()
-                            bias_loss = _forward_pass_closure()
-                            bias_loss.backward(retain_graph=False)
-                            sample_grads.append(logits_param.grad.detach().clone())
-                        if sample_grads:
-                            grad_stack = torch.stack(sample_grads)
-                            grad_mean = grad_stack.mean(dim=0)
-                            grad_metrics.update({
-                                'sdlm_grad_bias_norm': (grad_mean - baseline_grad).norm().item(),
-                                'sdlm_grad_bias_samples': grad_metrics_cfg['bias_samples'],
-                            })
-                        _zero_sdlm_grads()
-                        _restore_sdlm_grads()
+                        bias_reference_batch_size = max(1, grad_metrics_cfg['bias_reference_batch_size'])
+                        reinforce_helper = ReinforceEstimator(
+                            reward_scale=grad_metrics_cfg['bias_reference_reward_scale'],
+                            use_baseline=grad_metrics_cfg['bias_reference_use_baseline'],
+                            baseline_beta=grad_metrics_cfg['bias_reference_baseline_beta'],
+                        )
+
+                        def _stgs_forward_pass_for_bias():
+                            stgs_loss = _forward_pass_closure()
+                            return _build_forward_pass_result(stgs_loss)
+
+                        def _reinforce_forward_pass(update_baseline=True):
+                            logits_for_sampling = logits_param.squeeze(0)
+                            sample_logits = logits_for_sampling.unsqueeze(0).expand(bias_reference_batch_size, -1, -1)
+                            categorical = torch.distributions.Categorical(logits=sample_logits)
+                            sampled_ids = categorical.sample()
+                            log_probs = categorical.log_prob(sampled_ids)
+                            sampled_one_hots = F.one_hot(
+                                sampled_ids,
+                                num_classes=logits_param.shape[-1],
+                            ).to(dtype=logits_param.dtype)
+
+                            sample_losses = []
+                            log_prob_sums = []
+                            for sample_idx in range(bias_reference_batch_size):
+                                override = sampled_one_hots[sample_idx]
+                                loss_val = _compute_loss_with_override(override)
+                                sample_losses.append(loss_val)
+                                log_prob_sums.append(log_probs[sample_idx].sum())
+
+                            loss_tensor = torch.stack(sample_losses).mean()
+                            log_prob_sum_tensor = torch.stack(log_prob_sums)
+                            policy_loss, estimator_state = reinforce_helper.build_objective(
+                                loss_tensor,
+                                log_prob_sum_tensor,
+                                update_baseline=update_baseline,
+                            )
+                            estimator_state["reinforce_log_prob_sum_mean"] = log_prob_sum_tensor.mean().detach()
+                            return _build_forward_pass_result(policy_loss, estimator_state)
+
+                        bias_metrics = estimate_stgs_gradient_bias(
+                            stgs_num_samples=grad_metrics_cfg['bias_samples'],
+                            reinforce_num_samples=grad_metrics_cfg['bias_reference_samples'],
+                            baseline_grad=baseline_grad,
+                            stgs_forward_pass_fn=_stgs_forward_pass_for_bias,
+                            reinforce_forward_pass_fn=_reinforce_forward_pass,
+                            learnable_inputs=logits_param,
+                            reinforce_update_baseline=grad_metrics_cfg['bias_reference_use_baseline'],
+                        )
+                        grad_metrics.update(bias_metrics)
 
                     if baseline_grad is not None and logits_param is not None and logits_param.grad is not None:
                         logits_param.grad = baseline_grad.clone()

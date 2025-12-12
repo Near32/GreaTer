@@ -60,10 +60,10 @@ python -m ipdb -c c main.py \
     --config.gradient_clip_strategy='None' \
     --config.gradient_health.value_clip=0.0 \
     --config.gradient_health.max_norm=0.0 \
-    --config.sdlm_grad_variance_samples=8 \
-    --config.sdlm_grad_variance_period=1 \
-    --config.sdlm_grad_bias_samples=0 \
-    --config.sdlm_grad_bias_period=1 \
+    --config.sdlm_grad_variance_samples=4 \
+    --config.sdlm_grad_variance_period=10 \
+    --config.sdlm_grad_bias_samples=4 \
+    --config.sdlm_grad_bias_period=10 \
     --config.sdlm_grad_bias_reference_samples=4 \
     --config.sdlm_grad_bias_reference_batch_size=2 \
     --config.sdlm_grad_bias_reference_use_baseline=True \
@@ -99,7 +99,7 @@ python -m ipdb -c c main.py \
     --config.test_steps=10 \
     --config.log_first=False \
     --config.anneal=True \
-    --config.batch_size=4 \
+    --config.batch_size=2 \
     --config.temp=0.5 \
     --config.topk=10 \
     --config.topq=5 \
